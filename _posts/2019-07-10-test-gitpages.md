@@ -8,3 +8,7 @@ keywords: test, gitpages
 
 hello world!
 git pages!
+
+test images
+
+![](/images/posts/1.png)
