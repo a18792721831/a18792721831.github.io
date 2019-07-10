@@ -11,4 +11,4 @@ git pages!
 
 test images
 
-![](/images/posts/1.png)
+![](/images/posts/1.jpeg)
