@@ -92,7 +92,7 @@ comments_provider: gitalk
 # !!!Important!!! Please modify infos below to yours
 gitalk:
     owner:  a18792721831
-    repo: a18792721831
+    repo: a18792721831.github.io
     clientID: e57f00bf7b8a0f7063b3
     clientSecret: 50d3af138362dff2224e7e2dc02a587479eb0df4
 # 在使用其它评论组件时可点击显示 Disqus
