@@ -1,3 +1,11 @@
+---
+layout: post
+title: java使用jdbc连接MySQL数据库
+categories: [java, jdbc]
+description: java使用jdbc连接MySQL数据库
+keywords: java, jdbc, mysql, 数据库, jar
+---
+
 <div class="htmledit_views" id="content_views">
                                             
 <p><span></span></p>
