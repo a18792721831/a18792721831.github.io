@@ -6,6 +6,8 @@ description: ActiveMQ集成Spring
 keywords: ActiveMQ, Spring, ActiveMQ集成到Spring, 如何简化访问ActiveMQ
 ---
 
+ ActiveMQ集成Spring
+
 # 1.java访问ActiveMQ的过程
 生产
 1.创建连接工厂
