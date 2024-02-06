@@ -287,17 +287,18 @@ multiple breasts, (mutated hands and fingers:1.5 ), (long body :1.3), (mutation,
 调整下高清，给与更多的引导：  
 ![img_52.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_52.png)
 
+![img_3.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_53.png)
 
-![img_53.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_53.png)
 
 使用了细化器，导致风格变了，还是关闭细化器吧  
-![img_54.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_54.png)
 
+![img_2.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_54.png)
 看看另一个模型：
+![img_1.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_55.png)
 
-![img_55.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_55.png)
 这个还不错  
-![img_56.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_56.png)
+![img.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_56.png)
+
 
 
 # 4. 总结
