@@ -91,7 +91,6 @@ python3 launch.py --autolaunch --listen --xformers --force-enable-xformers --pre
 可以使用`batch count`一次生成多张图片，下面的`batch size`表示执行几次，两者相乘，就是最终生成的图片数量，需要注意，生成的图片越多，那么耗费的时间越长。  
 ![img_14.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_14.png)
 
-
 当然你也可以使用中文的提示词。  
 比如加个`性感`，然后生成：  
 ![img_15.png](/images/posts/2024-02-06-AnimateDiffusion文字生成图片--入门/img_15.png)
