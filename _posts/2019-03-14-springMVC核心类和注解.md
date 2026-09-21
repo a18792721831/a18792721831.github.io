@@ -2,7 +2,7 @@
 layout: post
 title: "springMVC核心类和注解"
 date: 2019-03-14 20:26:55 +0800
-categories: [springmvc注解, @Controller注解@RequestMapping注解, springMVC请求方式注解, springmvc配置自动扫描注解, springMVC请求的方法可返回的类型]
+categories: ["springmvc注解", "@Controller注解@RequestMapping注解", "springMVC请求方式注解", "springmvc配置自动扫描注解", "springMVC请求的方法可返回的类型"]
 description: "本文详细介绍了SpringMVC框架的核心组件，包括DispatcherServlet的作用及配置，Controller和RequestMapping注解的使用，以及请求处理流程和返回类型。通过实例展示了如何搭建SpringMVC项目。"
 keywords: springmvc注解, @Controller注解@RequestMapping注解, springMVC请求方式注解, springmvc配置自动扫描注解, springMVC请求的方法可返回的类型
 ---

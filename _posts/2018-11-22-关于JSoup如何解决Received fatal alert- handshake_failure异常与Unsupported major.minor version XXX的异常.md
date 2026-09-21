@@ -2,9 +2,9 @@
 layout: post
 title: "关于JSoup如何解决Received fatal alert: handshake_failure异常与Unsupported major.minor version XXX的异常"
 date: 2018-11-22 17:20:43 +0800
-categories: [JSoup异常, Received fatal alert: handshake_fai, Unsupported major.minor version 52., jdk版本, 切换库文件]
+categories: ["JSoup异常", "Received fatal alert: handshake_fai", "Unsupported major.minor version 52.", "jdk版本", "切换库文件"]
 description: "本文详细解析了HTTPS握手异常（Received fatal alert: handshake_failure）与Unsupported major.minor version错误的原因，主要由JDK版本过低或编译与运行JDK版本不一致引起。提供了升级JDK版本及调整Eclipse项目配置的解决方案。"
-keywords: JSoup异常, Received fatal alert: handshake_fai, Unsupported major.minor version 52., jdk版本, 切换库文件
+keywords: ["JSoup异常", "Received fatal alert: handshake_fai", "Unsupported major.minor version 52.", "jdk版本", "切换库文件"]
 ---
 
 > **文章信息**
