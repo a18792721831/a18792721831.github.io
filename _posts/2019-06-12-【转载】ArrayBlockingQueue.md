@@ -2,7 +2,7 @@
 layout: post
 title: "【转载】ArrayBlockingQueue"
 date: 2019-06-12 18:41:57 +0800
-categories: [2019]
+categories: ["2019"]
 description: "因ArrayBlockingQueue使用不当，导致线上系统故障及数百万经济损失。文章深入解析ArrayBlockingQueue工作原理，揭示不当使用导致的问题，并提出正确实践。"
 keywords: 2019
 ---

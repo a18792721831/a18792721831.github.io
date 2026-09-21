@@ -2,7 +2,7 @@
 layout: post
 title: "redis 安全security"
 date: 2020-07-23 15:52:49 +0800
-categories: [2020]
+categories: ["2020"]
 description: "本文详细介绍了Redis的安全措施，包括常规安全模式、网络安全配置、轻量级认证及命令禁用策略，帮助用户理解如何保护Redis免受未授权访问。"
 keywords: 2020
 ---

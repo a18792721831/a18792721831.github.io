@@ -2,7 +2,7 @@
 layout: post
 title: "sparksql将国家统计局csv文件解析并存储在hive表"
 date: 2022-02-26 01:49:13 +0800
-categories: [2022]
+categories: ["2022"]
 description: "该博客介绍了如何使用SparkSQL从国家统计局下载CSV数据，进行数据标准化，包括去除说明行和转置数据，然后将处理后的数据存储到Hive表中。开发环境集成在IntelliJ IDEA中，支持远程HDFS和Hive的连接。项目通过读取CSV文件，去除非数据行，转置数据，最后将DataFrame写入Hive表，实现了数据的完整处理流程。"
 keywords: 2022
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "Command line is too long."
 date: 2020-03-26 20:07:00 +0800
-categories: [2020]
+categories: ["2020"]
 description: "本文详细介绍了在使用IDEA运行项目时遇到的错误：命令行过长。通过修改.idea文件夹下的workspace.xml文件，增加一行代码，即可解决该问题，确保项目的正常运行。"
 keywords: 2020
 ---
