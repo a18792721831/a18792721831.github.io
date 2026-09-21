@@ -6,7 +6,7 @@ categories: [springmvc文件上传下载, springmvc中文文件的上传下载, 
 description: "本文围绕SpringMVC文件上传下载展开。文件上传需表单满足特定条件，SpringMVC通过MultipartResolver支持，解析为MultipartFile对象。文件下载分客户端请求和服务端返回两步。中文文件名下载要考虑浏览器编码兼容。还给出创建项目、配置文件、编写代码及测试的示例。"
 keywords: springmvc文件上传下载, springmvc中文文件的上传下载, springmvc一次性上传多个文件, springmvc如何用原生文件解析器实现文件上传下载, springmvc原生文件解析器如何使用
 ---
-
+{% raw %}
 > **文章信息**
 > - 原文链接：https://jiayq.blog.csdn.net/article/details/88699436
 > - 发布时间：2019-03-20 20:53:44
@@ -454,3 +454,4 @@ first.jsp
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4872bb66412f4da49ab381f6ed9a6fae.png)  
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e6de4920241eb2dfa44f779fb59c4299.png)  
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ffd3b908b50518bfea73ca88db994365.png)
+{% endraw %}
