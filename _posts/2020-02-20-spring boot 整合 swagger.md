@@ -22,22 +22,22 @@ keywords: spboot集成swagger, jpa+swagger2, post+get, swagger2注解, spring bo
 
 #### spring boot 整合 swagger
 
-  * [1\. swagger 简介](<#1_swagger__3>)
-  * [2\. 创建](<#2__6>)
-  * [3\. 配置](<#3__12>)
-  * [4\. 配置数据源](<#4__14>)
-  * [5\. 枚举](<#5__19>)
-  * [6\. 枚举映射](<#6__22>)
-  * [7\. 实体](<#7__24>)
-  * [8\. dao](<#8_dao_26>)
-  * [9\. service](<#9_service_28>)
-  * [10\. controller](<#10_controller_30>)
-  * [11\. 配置日志级别](<#11__32>)
-  * [12\. dao 测试](<#12_dao__47>)
-  * [13\. service测试](<#13_service_49>)
-  * [14\. controller测试](<#14_controller_51>)
-  * [15\. swagger2注解](<#15_swagger2_53>)
-  * [16\. 启动](<#16__71>)
+  * 1\. swagger 简介
+  * 2\. 创建
+  * 3\. 配置
+  * 4\. 配置数据源
+  * 5\. 枚举
+  * 6\. 枚举映射
+  * 7\. 实体
+  * 8\. dao
+  * 9\. service
+  * 10\. controller
+  * 11\. 配置日志级别
+  * 12\. dao 测试
+  * 13\. service测试
+  * 14\. controller测试
+  * 15\. swagger2注解
+  * 16\. 启动
 
   
 git地址   

@@ -22,49 +22,49 @@ keywords: cloud admin, admin server, admin client, admin hystrix, admin user/psw
 
 #### spring boot集成 Admin
 
-  * [1\. spring boot admin](<#1_spring_boot_admin_3>)
-  *     * [1.1 spring boot admin server](<#11_spring_boot_admin_server_4>)
-    *       * [1.1.1 创建](<#111__5>)
-      * [1.1.2 配置](<#112__7>)
-      * [1.1.3 日志模板](<#113__10>)
-      * [1.1.4 注解](<#114__12>)
-      * [1.1.5 启动](<#115__14>)
-    * [1.2 spring boot admin client](<#12_spring_boot_admin_client_44>)
-    *       * [1.2.1 创建](<#121__45>)
-      * [1.2.2 配置](<#122__47>)
-      * [1.2.3 日志模板](<#123__49>)
-      * [1.2.4 注解](<#124__51>)
-      * [1.2.5 启动](<#125__53>)
-  * [2\. spring boot admin 集成 turbine(admin 2.x不支持,未实现)](<#2_spring_boot_admin__turbineadmin_2x_56>)
-  *     * [2.1 spring boot admin client hystrix](<#21_spring_boot_admin_client_hystrix_57>)
-    *       * [2.1.1 创建](<#211__58>)
-      * [2.1.2 配置](<#212__60>)
-      * [2.1.3 日志模板](<#213__62>)
-      * [2.1.4 注解](<#214__64>)
-      * [2.1.5 controller](<#215_controller_66>)
-      * [2.1.6 hystrix 配置](<#216_hystrix__68>)
-      * [2.1.7 启动验证](<#217__71>)
-    * [2.2 spring boot admin client service](<#22_spring_boot_admin_client_service_74>)
-    *       * [2.2.1 创建](<#221__75>)
-      * [2.2.2 配置](<#222__77>)
-      * [2.2.3 日志模板](<#223__79>)
-      * [2.2.4 注解](<#224__81>)
-      * [2.2.5 controller](<#225_controller_83>)
-      * [2.2.6 启动验证](<#226__85>)
-    * [2.3 spring boot admin client turbine](<#23_spring_boot_admin_client_turbine_89>)
-    *       * [2.3.1 创建](<#231__90>)
-      * [2.3.2 配置](<#232__92>)
-      * [2.3.3 日志模板](<#233__95>)
-      * [2.3.4 注解](<#234__96>)
-      * [2.3.5 启动验证](<#235__98>)
-    * [2.4 spring boot admin server turbine](<#24_spring_boot_admin_server_turbine_102>)
-  * [3\. spring boot admin 集成 security](<#3_spring_boot_admin__security_105>)
-  *     * [3.1 创建](<#31__106>)
-    * [3.2 配置](<#32__108>)
-    * [3.3 配置类](<#33__166>)
-    * [3.4 日志模板](<#34__205>)
-    * [3.5 注解](<#35__206>)
-    * [3.6 启动验证](<#36__207>)
+  * 1\. spring boot admin
+  *     * 1.1 spring boot admin server
+    *       * 1.1.1 创建
+      * 1.1.2 配置
+      * 1.1.3 日志模板
+      * 1.1.4 注解
+      * 1.1.5 启动
+    * 1.2 spring boot admin client
+    *       * 1.2.1 创建
+      * 1.2.2 配置
+      * 1.2.3 日志模板
+      * 1.2.4 注解
+      * 1.2.5 启动
+  * 2\. spring boot admin 集成 turbine(admin 2.x不支持,未实现)
+  *     * 2.1 spring boot admin client hystrix
+    *       * 2.1.1 创建
+      * 2.1.2 配置
+      * 2.1.3 日志模板
+      * 2.1.4 注解
+      * 2.1.5 controller
+      * 2.1.6 hystrix 配置
+      * 2.1.7 启动验证
+    * 2.2 spring boot admin client service
+    *       * 2.2.1 创建
+      * 2.2.2 配置
+      * 2.2.3 日志模板
+      * 2.2.4 注解
+      * 2.2.5 controller
+      * 2.2.6 启动验证
+    * 2.3 spring boot admin client turbine
+    *       * 2.3.1 创建
+      * 2.3.2 配置
+      * 2.3.3 日志模板
+      * 2.3.4 注解
+      * 2.3.5 启动验证
+    * 2.4 spring boot admin server turbine
+  * 3\. spring boot admin 集成 security
+  *     * 3.1 创建
+    * 3.2 配置
+    * 3.3 配置类
+    * 3.4 日志模板
+    * 3.5 注解
+    * 3.6 启动验证
 
   
 git地址   

@@ -22,13 +22,13 @@ keywords: jdk实现的springAOP, springAOP原生实现原理, springAOP如何直
 
 #### Spring实现的AOP--JDK代理
 
-  * [1.jdk代理实现AOP的原理](<#1jdkAOP_1>)
-  * [2.例子](<#2_11>)
-  *     * [2.1创建一个spring项目](<#21spring_12>)
-    * [2.2创建Java文件](<#22Java_14>)
-    * [2.3xml文件](<#23xml_129>)
-    * [2.4运行结果](<#24_143>)
-  * [3.总结](<#3_153>)
+  * 1.jdk代理实现AOP的原理
+  * 2.例子
+  *     * 2.1创建一个spring项目
+    * 2.2创建Java文件
+    * 2.3xml文件
+    * 2.4运行结果
+  * 3.总结
 
 ## 1.jdk代理实现AOP的原理
 

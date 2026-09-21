@@ -22,53 +22,53 @@ keywords: hystrix, hystrix dashbd, hystrix-RestTP, hystix-feign, turbine
 
 #### spring boot集成Hystrix
 
-  * [1\. 什么是Hystrix](<#1_Hystrix_3>)
-  * [2\. Hystrix解决了什么问题](<#2_Hystrix_5>)
-  * [3\. Hystrix设计原则](<#3_Hystrix_10>)
-  * [4\. Hystrix工作机制](<#4_Hystrix_17>)
-  * [5\. RestTemplate和Ribbon使用Hystrix](<#5_RestTemplateRibbonHystrix_19>)
-  *     * [5.1 创建项目](<#51__20>)
-    * [5.2 配置](<#52__22>)
-    * [5.3 添加注解](<#53__27>)
-    * [5.4 创建Ribbon配置](<#54_Ribbon_29>)
-    * [5.5 创建Ribbon Service](<#55_Ribbon_Service_31>)
-    * [5.6 创建controller](<#56_controller_34>)
-    * [5.7 验证](<#57__36>)
-  * [6\. 在Feign上使用熔断器](<#6_Feign_52>)
-  *     * [6.1 创建项目](<#61__53>)
-    * [6.2 配置](<#62__55>)
-    * [6.3 添加注解](<#63__57>)
-    * [6.4 feign配置](<#64_feign_59>)
-    * [6.5 feign调用](<#65_feign_61>)
-    * [6.6 feign的hystrix处理](<#66_feignhystrix_63>)
-    * [6.7 service](<#67_service_65>)
-    * [6.8 controller](<#68_controller_67>)
-    * [6.9 验证](<#69__75>)
-  * [7\. RestTemplate和Feign对比](<#7_RestTemplateFeign_84>)
-  * [8\. Hystrix Dashboard & RestTemplate](<#8_Hystrix_Dashboard__RestTemplate_91>)
-  *     * [8.1 创建](<#81__92>)
-    * [8.2 配置](<#82__94>)
-    * [8.3 配置hystrix dashboard](<#83_hystrix_dashboard_96>)
-    * [8.4 配置ribbon](<#84_ribbon_105>)
-    * [8.5 service](<#85_service_107>)
-    * [8.6 controller](<#86_controller_109>)
-    * [8.7 注解](<#87__111>)
-    * [8.8 启动](<#88__113>)
-  * [9\. Hystrix Dashboard & Feign](<#9_Hystrix_Dashboard__Feign_126>)
-  *     * [9.1 创建](<#91__127>)
-    * [9.2 配置](<#92__129>)
-    * [9.3 配置hystrix dashboard](<#93_hystrix_dashboard_131>)
-    * [9.4 配置feign](<#94_feign_133>)
-    * [9.5 dao.feign](<#95_daofeign_135>)
-    * [9.6 hystrix.feign](<#96_hystrixfeign_137>)
-    * [9.7 service](<#97_service_139>)
-    * [9.8 controller](<#98_controller_141>)
-    * [9.9 注解](<#99__143>)
-    * [9.10 启动](<#910__145>)
-  * [10\. Turbine聚合监控](<#10_Turbine_154>)
-  *     * [10.1 创建](<#101__155>)
-    * [10.2 配置](<#102__157>)
-    * [10.3 启动](<#103__160>)
+  * 1\. 什么是Hystrix
+  * 2\. Hystrix解决了什么问题
+  * 3\. Hystrix设计原则
+  * 4\. Hystrix工作机制
+  * 5\. RestTemplate和Ribbon使用Hystrix
+  *     * 5.1 创建项目
+    * 5.2 配置
+    * 5.3 添加注解
+    * 5.4 创建Ribbon配置
+    * 5.5 创建Ribbon Service
+    * 5.6 创建controller
+    * 5.7 验证
+  * 6\. 在Feign上使用熔断器
+  *     * 6.1 创建项目
+    * 6.2 配置
+    * 6.3 添加注解
+    * 6.4 feign配置
+    * 6.5 feign调用
+    * 6.6 feign的hystrix处理
+    * 6.7 service
+    * 6.8 controller
+    * 6.9 验证
+  * 7\. RestTemplate和Feign对比
+  * 8\. Hystrix Dashboard & RestTemplate
+  *     * 8.1 创建
+    * 8.2 配置
+    * 8.3 配置hystrix dashboard
+    * 8.4 配置ribbon
+    * 8.5 service
+    * 8.6 controller
+    * 8.7 注解
+    * 8.8 启动
+  * 9\. Hystrix Dashboard & Feign
+  *     * 9.1 创建
+    * 9.2 配置
+    * 9.3 配置hystrix dashboard
+    * 9.4 配置feign
+    * 9.5 dao.feign
+    * 9.6 hystrix.feign
+    * 9.7 service
+    * 9.8 controller
+    * 9.9 注解
+    * 9.10 启动
+  * 10\. Turbine聚合监控
+  *     * 10.1 创建
+    * 10.2 配置
+    * 10.3 启动
 
   
 git地址   

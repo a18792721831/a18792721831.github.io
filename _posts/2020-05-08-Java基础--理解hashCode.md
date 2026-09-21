@@ -22,11 +22,11 @@ keywords: java核心, hashCode, 哈希, 对象比较, Java的哈希
 
 #### Java基础--理解hashCode
 
-  * [1.hashCode](<#1hashCode_1>)
-  * [2.equals](<#2equals_18>)
-  * [3\. equals & hashCode](<#3_equals__hashCode_33>)
-  * [4.例子](<#4_45>)
-  * [5\. 总结](<#5__150>)
+  * 1.hashCode
+  * 2.equals
+  * 3\. equals & hashCode
+  * 4.例子
+  * 5\. 总结
 
 ## 1.hashCode
 

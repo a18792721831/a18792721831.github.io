@@ -22,9 +22,9 @@ keywords: springAOP, AOP术语, AOP流行的框架, 三种编程思想, 什么�
 
 #### Spring AOP介绍
 
-  * [1.什么是AOP](<#1AOP_1>)
-  * [2.AOP框架](<#2AOP_13>)
-  * [3.AOP术语](<#3AOP_19>)
+  * 1.什么是AOP
+  * 2.AOP框架
+  * 3.AOP术语
 
 ## 1.什么是AOP
 

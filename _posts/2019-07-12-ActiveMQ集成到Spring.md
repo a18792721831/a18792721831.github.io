@@ -22,17 +22,17 @@ keywords: spring集成ActiveMQ, 如何简化ActiveMQ的访问流程, ActiveMQ集
 
 #### ActiveMQ集成到Spring
 
-  * [1.ActiveMQ访问流程](<#1ActiveMQ_1>)
-  * [2.ActiveMQ集成到spring](<#2ActiveMQspring_16>)
-  *     * [2.1创建一个gradle项目](<#21gradle_17>)
-    * [2.2 增加依赖](<#22__19>)
-    * [2.3创建spring依赖](<#23spring_27>)
-    * [2.4 创建消费者消息监听](<#24__99>)
-    * [2.5 生产者服务](<#25__191>)
-    * [2.6 启动ActiveMQ服务器](<#26_ActiveMQ_229>)
-    * [2.7创建启动main方法](<#27main_231>)
-    * [2.8启动](<#28_259>)
-  * [3.总结](<#3_262>)
+  * 1.ActiveMQ访问流程
+  * 2.ActiveMQ集成到spring
+  *     * 2.1创建一个gradle项目
+    * 2.2 增加依赖
+    * 2.3创建spring依赖
+    * 2.4 创建消费者消息监听
+    * 2.5 生产者服务
+    * 2.6 启动ActiveMQ服务器
+    * 2.7创建启动main方法
+    * 2.8启动
+  * 3.总结
 
 ## 1.ActiveMQ访问流程
 

@@ -32,14 +32,14 @@ MySQL Undo Log: https://blog.csdn.net/a18792721831/article/details/149880355
 
 #### MySQL Redo Log
 
-  * [Redo Log 介绍](<#Redo_Log__13>)
-  * [Redo Log 的落盘](<#Redo_Log__24>)
-  * [Redo Log 的数量及大小修改](<#Redo_Log__96>)
-  * [CheckPoint](<#CheckPoint_192>)
-  * [LSN](<#LSN_198>)
-  * [Mysql 8.0 的 Redo Log 归档](<#Mysql_80__Redo_Log__329>)
-  * [Mysql 8.0 中的 Redo Log 禁用](<#Mysql_80__Redo_Log__435>)
-  * [官网文档](<#_467>)
+  * Redo Log 介绍
+  * Redo Log 的落盘
+  * Redo Log 的数量及大小修改
+  * CheckPoint
+  * LSN
+  * Mysql 8.0 的 Redo Log 归档
+  * Mysql 8.0 中的 Redo Log 禁用
+  * 官网文档
 
   
 InnoDB使用 Redo Log 来保证数据的一致性和可持久化。 

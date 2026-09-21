@@ -22,12 +22,12 @@ keywords: kubernetes, pod, yaml, k8s实例, k8s入门
 
 #### k8s-kubernetes入门-tomcat环境
 
-  * [1.命名空间](<#1_1>)
-  * [2.选择tomcat镜像](<#2tomcat_6>)
-  * [3.存储关系确定](<#3_14>)
-  * [4.安装nfs服务](<#4nfs_60>)
-  * [5.yaml](<#5yaml_93>)
-  * [5.启动](<#5_159>)
+  * 1.命名空间
+  * 2.选择tomcat镜像
+  * 3.存储关系确定
+  * 4.安装nfs服务
+  * 5.yaml
+  * 5.启动
 
 ## 1.命名空间
     

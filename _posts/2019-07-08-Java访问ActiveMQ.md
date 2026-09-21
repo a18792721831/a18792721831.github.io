@@ -22,13 +22,13 @@ keywords: activeMQ, activeMQHello, java 如何连接activeMQ, activeMQ生产者�
 
 #### Java访问ActiveMQ
 
-  * [1.创建gradle项目](<#1gradle_3>)
-  * [2.增加依赖](<#2_5>)
-  * [3.创建类](<#3_7>)
-  * [4.启动服务器](<#4_144>)
-  * [5.生产](<#5_146>)
-  * [6.消费](<#6_152>)
-  * [7.git仓库地址](<#7git_157>)
+  * 1.创建gradle项目
+  * 2.增加依赖
+  * 3.创建类
+  * 4.启动服务器
+  * 5.生产
+  * 6.消费
+  * 7.git仓库地址
 
   
 ActiveMQ   

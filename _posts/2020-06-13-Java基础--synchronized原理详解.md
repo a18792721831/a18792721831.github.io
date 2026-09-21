@@ -22,32 +22,32 @@ keywords: HappenBefore原则, 锁存在的意义, synchronized原理, synchrionz
 
 #### Java基础--synchronized原理详解
 
-  * [1\. 多线程特性](<#1__1>)
-  *     * [1.1 原子性(Atomicity)](<#11_Atomicity_2>)
-    * [1.2 可见性(Visibility)](<#12_Visibility_4>)
-    * [1.3 有序性(Ordering)](<#13_Ordering_6>)
-    * [1.4 Happen-Before原则](<#14_HappenBefore_34>)
-  * [2\. 锁定义](<#2__44>)
-  *     * [2.1 为什么需要锁](<#21__45>)
-    * [2.2 锁存在的意义](<#22__154>)
-  * [3\. synchronized](<#3_synchronized_159>)
-  *     * [3.1 synchronized的使用场景](<#31_synchronized_160>)
-    * [3.2 synchronized原理](<#32_synchronized_168>)
-    *       * [3.2.1 Java对象在JVM中的结构](<#321_JavaJVM_172>)
-      * [3.2.2 monitor指令](<#322_monitor_182>)
-      * [3.2.3 monitor指令过程](<#323_monitor_192>)
-  * [4\. synchronized 对类对象和实例对象的区别](<#4_synchronized__198>)
-  *     * [4.1 static修饰和没有static修饰的区别](<#41_staticstatic_199>)
-    * [4.2 synchronized 不同使用场景](<#42_synchronized__288>)
-    * [4.3 不使用synchronized 同步](<#43_synchronized__291>)
-    * [4.4 synchronized 同步代码块--类对象](<#44_synchronized__357>)
-    * [4.5 synchronized 同步代码块--实例对象](<#45_synchronized__367>)
-    * [4.6 synchronized 同步代码块--任意实例对象](<#46_synchronized__373>)
-    * [4.7 synchronized 同步方法--类方法](<#47_synchronized__385>)
-    * [4.8 synchronized 同步方法--实例方法](<#48_synchronized__397>)
-  * [5\. synchronized 的缺陷](<#5_synchronized__407>)
-  * [6\. synchronized的锁处理](<#6_synchronized_418>)
-  * [7\. synchronized 处理过程](<#7_synchronized__438>)
+  * 1\. 多线程特性
+  *     * 1.1 原子性(Atomicity)
+    * 1.2 可见性(Visibility)
+    * 1.3 有序性(Ordering)
+    * 1.4 Happen-Before原则
+  * 2\. 锁定义
+  *     * 2.1 为什么需要锁
+    * 2.2 锁存在的意义
+  * 3\. synchronized
+  *     * 3.1 synchronized的使用场景
+    * 3.2 synchronized原理
+    *       * 3.2.1 Java对象在JVM中的结构
+      * 3.2.2 monitor指令
+      * 3.2.3 monitor指令过程
+  * 4\. synchronized 对类对象和实例对象的区别
+  *     * 4.1 static修饰和没有static修饰的区别
+    * 4.2 synchronized 不同使用场景
+    * 4.3 不使用synchronized 同步
+    * 4.4 synchronized 同步代码块--类对象
+    * 4.5 synchronized 同步代码块--实例对象
+    * 4.6 synchronized 同步代码块--任意实例对象
+    * 4.7 synchronized 同步方法--类方法
+    * 4.8 synchronized 同步方法--实例方法
+  * 5\. synchronized 的缺陷
+  * 6\. synchronized的锁处理
+  * 7\. synchronized 处理过程
 
 ## 1\. 多线程特性
 

@@ -22,93 +22,93 @@ keywords: 应用上下文源码解析, 解析常用的容器上下文, 上下文
 
 #### ApplicationContext源码解析
 
-  * [接口继承关系--向上](<#_1>)
-  *     * [ApplicationContext](<#ApplicationContext_15>)
-    * [资源](<#_25>)
-    *       * [Resource](<#Resource_40>)
-      * [InputStreamSource](<#InputStreamSource_59>)
-    * [环境变量](<#_65>)
-    *       * [Environment](<#Environment_71>)
-      * [PropertyResolver](<#PropertyResolver_82>)
-    * [事件](<#_94>)
-    * [消息国际化](<#_107>)
-  * [接口继承关系--向下](<#_115>)
-  *     * [WebApplicationContext](<#WebApplicationContext_121>)
-    *       * [ServletConext](<#ServletConext_138>)
-      *         * [RequestDispatcher](<#RequestDispatcher_170>)
-        * [Servlet](<#Servlet_184>)
-        * [Registration](<#Registration_194>)
-        * [ServletRegistration](<#ServletRegistration_208>)
-        * [Filter](<#Filter_218>)
-        *           * [FilterChain](<#FilterChain_225>)
-        * [FilterRegistration](<#FilterRegistration_239>)
-        * [EventListener](<#EventListener_245>)
-      * [ServletRequest](<#ServletRequest_251>)
-      *         * [AsyncContext](<#AsyncContext_271>)
-        * [AsyncListener](<#AsyncListener_291>)
-        * [DispatcherType](<#DispatcherType_301>)
-      * [ServletResponse](<#ServletResponse_307>)
-    * [WebServerApplicationContext](<#WebServerApplicationContext_331>)
-    *       * [WebServer](<#WebServer_340>)
-    * [ConfigurableApplicationContext](<#ConfigurableApplicationContext_350>)
-    *       * [Lifecycle](<#Lifecycle_358>)
-      * [Closeable](<#Closeable_368>)
-      * [ConfigurableEnvironment](<#ConfigurableEnvironment_376>)
-      * [ProtocolResolver](<#ProtocolResolver_390>)
-    * [ReactiveWebApplicationContext](<#ReactiveWebApplicationContext_398>)
-    * [ConfigurableWebApplicationContext](<#ConfigurableWebApplicationContext_404>)
-    *       * [ServletConfig](<#ServletConfig_416>)
-    * [ConfigurableWebServerApplicationContext](<#ConfigurableWebServerApplicationContext_428>)
-    * [ApplicationContextAssertProvider](<#ApplicationContextAssertProvider_436>)
-    *       * [AssertProvider](<#AssertProvider_453>)
-    * [ConfigurableReactiveWebApplicationContext](<#ConfigurableReactiveWebApplicationContext_459>)
-    * [AssertableWebApplicationContext](<#AssertableWebApplicationContext_467>)
-    * [AssertableApplicationContext](<#AssertableApplicationContext_475>)
-    * [AssertableReactiveWebApplicationContext](<#AssertableReactiveWebApplicationContext_483>)
-  * [实现](<#_491>)
-  *     * [AbstractApplicationContext](<#AbstractApplicationContext_497>)
-    *       * [ApplicationEventMulticaster](<#ApplicationEventMulticaster_626>)
-      * [DefaultResourceLoader](<#DefaultResourceLoader_632>)
-      * [ResourceLoader](<#ResourceLoader_642>)
-    * [GenericApplicationContext](<#GenericApplicationContext_650>)
-    * [AbstractRefreshableApplicationContext](<#AbstractRefreshableApplicationContext_672>)
-    * [AbstractRefreshableConfigApplicationContext](<#AbstractRefreshableConfigApplicationContext_703>)
-    * [StaticApplicationContext](<#StaticApplicationContext_733>)
-    *       * [StaticWebApplicationContext](<#StaticWebApplicationContext_752>)
-    * [GenericGroovyApplicationContext](<#GenericGroovyApplicationContext_778>)
-    * [GenericXmlApplicationContext](<#GenericXmlApplicationContext_810>)
-    * [AnnotationConfigApplicationContext](<#AnnotationConfigApplicationContext_834>)
-    *       * [AnnotationConfigRegiustry](<#AnnotationConfigRegiustry_856>)
-      * [AnnotatedBeanDefinitionReader](<#AnnotatedBeanDefinitionReader_864>)
-      * [ClassPathBeanDefinitionScanner](<#ClassPathBeanDefinitionScanner_894>)
-      * [AnnotationConfigReactiveWebApplicationContext](<#AnnotationConfigReactiveWebApplicationContext_957>)
-    * [GenericWebAppliicationContext](<#GenericWebAppliicationContext_969>)
-    *       * [AnnotationConfigServletWebApplicationContext](<#AnnotationConfigServletWebApplicationContext_1004>)
-      * [ServletWebServerApplicationContext](<#ServletWebServerApplicationContext_1028>)
-      *         * [WebServerGracefulShutdownLifecycle](<#WebServerGracefulShutdownLifecycle_1100>)
-        *           * [SmartLifecycle](<#SmartLifecycle_1110>)
-          * [Lifecycle](<#Lifecycle_1120>)
-          * [Phased](<#Phased_1128>)
-        * [WebServerStartStopLifecycle](<#WebServerStartStopLifecycle_1136>)
-        * [AnnotationConfigServletWebServerApplicationContext](<#AnnotationConfigServletWebServerApplicationContext_1148>)
-        * [XmlServletWebServerApplicationContext](<#XmlServletWebServerApplicationContext_1176>)
-    * [GenericReactiveWebApplicationContext](<#GenericReactiveWebApplicationContext_1198>)
-    *       * [ReactiveWebServerApplicationContext](<#ReactiveWebServerApplicationContext_1216>)
-      *         * [WebServerManager](<#WebServerManager_1260>)
-        * [HttpHandler](<#HttpHandler_1288>)
-        * [ServletHttpRequest](<#ServletHttpRequest_1296>)
-        * [HttpRequest](<#HttpRequest_1315>)
-        * [HttpMessage](<#HttpMessage_1325>)
-        * [HttpMethod](<#HttpMethod_1333>)
-        * [AnnotationConfigReactiveWebServerApplicationContext](<#AnnotationConfigReactiveWebServerApplicationContext_1341>)
-    * [AbstractRefreshableWebApplicationContext](<#AbstractRefreshableWebApplicationContext_1363>)
-    *       * [GroovyWebApplicationContext](<#GroovyWebApplicationContext_1385>)
-      * [XmlWebApplicationContext](<#XmlWebApplicationContext_1411>)
-      * [AnnotationConfigWebApplicationContext](<#AnnotationConfigWebApplicationContext_1431>)
-    * [AbstractXmlApplicationContext](<#AbstractXmlApplicationContext_1459>)
-    *       * [ClassPathXmlApplicationContext](<#ClassPathXmlApplicationContext_1479>)
-      * [FileSystemXmlApplicationContext](<#FileSystemXmlApplicationContext_1503>)
-  * [常用的注解](<#_1521>)
+  * 接口继承关系--向上
+  *     * ApplicationContext
+    * 资源
+    *       * Resource
+      * InputStreamSource
+    * 环境变量
+    *       * Environment
+      * PropertyResolver
+    * 事件
+    * 消息国际化
+  * 接口继承关系--向下
+  *     * WebApplicationContext
+    *       * ServletConext
+      *         * RequestDispatcher
+        * Servlet
+        * Registration
+        * ServletRegistration
+        * Filter
+        *           * FilterChain
+        * FilterRegistration
+        * EventListener
+      * ServletRequest
+      *         * AsyncContext
+        * AsyncListener
+        * DispatcherType
+      * ServletResponse
+    * WebServerApplicationContext
+    *       * WebServer
+    * ConfigurableApplicationContext
+    *       * Lifecycle
+      * Closeable
+      * ConfigurableEnvironment
+      * ProtocolResolver
+    * ReactiveWebApplicationContext
+    * ConfigurableWebApplicationContext
+    *       * ServletConfig
+    * ConfigurableWebServerApplicationContext
+    * ApplicationContextAssertProvider
+    *       * AssertProvider
+    * ConfigurableReactiveWebApplicationContext
+    * AssertableWebApplicationContext
+    * AssertableApplicationContext
+    * AssertableReactiveWebApplicationContext
+  * 实现
+  *     * AbstractApplicationContext
+    *       * ApplicationEventMulticaster
+      * DefaultResourceLoader
+      * ResourceLoader
+    * GenericApplicationContext
+    * AbstractRefreshableApplicationContext
+    * AbstractRefreshableConfigApplicationContext
+    * StaticApplicationContext
+    *       * StaticWebApplicationContext
+    * GenericGroovyApplicationContext
+    * GenericXmlApplicationContext
+    * AnnotationConfigApplicationContext
+    *       * AnnotationConfigRegiustry
+      * AnnotatedBeanDefinitionReader
+      * ClassPathBeanDefinitionScanner
+      * AnnotationConfigReactiveWebApplicationContext
+    * GenericWebAppliicationContext
+    *       * AnnotationConfigServletWebApplicationContext
+      * ServletWebServerApplicationContext
+      *         * WebServerGracefulShutdownLifecycle
+        *           * SmartLifecycle
+          * Lifecycle
+          * Phased
+        * WebServerStartStopLifecycle
+        * AnnotationConfigServletWebServerApplicationContext
+        * XmlServletWebServerApplicationContext
+    * GenericReactiveWebApplicationContext
+    *       * ReactiveWebServerApplicationContext
+      *         * WebServerManager
+        * HttpHandler
+        * ServletHttpRequest
+        * HttpRequest
+        * HttpMessage
+        * HttpMethod
+        * AnnotationConfigReactiveWebServerApplicationContext
+    * AbstractRefreshableWebApplicationContext
+    *       * GroovyWebApplicationContext
+      * XmlWebApplicationContext
+      * AnnotationConfigWebApplicationContext
+    * AbstractXmlApplicationContext
+    *       * ClassPathXmlApplicationContext
+      * FileSystemXmlApplicationContext
+  * 常用的注解
 
 ## 接口继承关系–向上
 

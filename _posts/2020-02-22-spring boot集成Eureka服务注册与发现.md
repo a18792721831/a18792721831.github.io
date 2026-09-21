@@ -22,20 +22,20 @@ keywords: boot集成eureka, eureka server, eureka client, eureka机制, eureka�
 
 #### springboot集成Eureka服务注册与发现
 
-  * [1\. Eureka简介](<#1_Eureka_3>)
-  *     * [1.1 什么是Eureka](<#11_Eureka_4>)
-    * [1.2 Eureka的基本架构](<#12_Eureka_6>)
-  * [2\. Eureka Server](<#2_Eureka_Server_18>)
-  *     * [2.1 创建Eureka Server](<#21_Eureka_Server_19>)
-    * [2.2 配置gradle](<#22_gradle_22>)
-    * [2.3 配置Eureka](<#23_Eureka_44>)
-    * [2.4 启动eureka server](<#24_eureka_server_88>)
-  * [3\. Eureka Client](<#3_Eureka_Client_93>)
-  *     * [3.1 创建 Eureka Client](<#31__Eureka_Client_94>)
-    * [3.2 配置Eureka](<#32_Eureka_99>)
-    * [3.3 启动eureka client](<#33_eureka_client_137>)
-    * [3.4 eureka client 服务发布者](<#34_eureka_client__143>)
-  * [4\. eureka的一点思考](<#4_eureka_157>)
+  * 1\. Eureka简介
+  *     * 1.1 什么是Eureka
+    * 1.2 Eureka的基本架构
+  * 2\. Eureka Server
+  *     * 2.1 创建Eureka Server
+    * 2.2 配置gradle
+    * 2.3 配置Eureka
+    * 2.4 启动eureka server
+  * 3\. Eureka Client
+  *     * 3.1 创建 Eureka Client
+    * 3.2 配置Eureka
+    * 3.3 启动eureka client
+    * 3.4 eureka client 服务发布者
+  * 4\. eureka的一点思考
 
   
 git 地址   

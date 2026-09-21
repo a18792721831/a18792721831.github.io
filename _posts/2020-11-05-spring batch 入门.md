@@ -22,23 +22,23 @@ keywords: Batch介绍, Batch更新历程, Batch特点, Batch实例, Batch原理
 
 #### spring batch 入门
 
-  * [spring batch 介绍](<#spring_batch__28>)
-  *     * [批处理](<#_30>)
-    * [spring batch](<#spring_batch_44>)
-  * [spring batch 原理](<#spring_batch__54>)
-  *     * [spring batch 架构](<#spring_batch__56>)
-    * [spring batch 优势](<#spring_batch__66>)
-  * [spring batch 发展历程](<#spring_batch__124>)
-  *     * [spring batch 2.X 特性](<#spring_batch_2X__126>)
-    * [spring batch 2.2 新特性](<#spring_batch_22__176>)
-    * [spring batch 3.0 新特性](<#spring_batch_30__183>)
-    * [spring batch 4.1 新特性](<#spring_batch_41__193>)
-    * [spring batch 4.2 新特性](<#spring_batch_42__204>)
-    * [spring batch 3.0 新特性](<#spring_batch_30__213>)
-  * [spring batch hello world](<#spring_batch_hello_world_223>)
-  *     * [创建项目](<#_231>)
-    * [创建job](<#job_247>)
-    * [启动](<#_283>)
+  * spring batch 介绍
+  *     * 批处理
+    * spring batch
+  * spring batch 原理
+  *     * spring batch 架构
+    * spring batch 优势
+  * spring batch 发展历程
+  *     * spring batch 2.X 特性
+    * spring batch 2.2 新特性
+    * spring batch 3.0 新特性
+    * spring batch 4.1 新特性
+    * spring batch 4.2 新特性
+    * spring batch 3.0 新特性
+  * spring batch hello world
+  *     * 创建项目
+    * 创建job
+    * 启动
 
   
 github地址： 

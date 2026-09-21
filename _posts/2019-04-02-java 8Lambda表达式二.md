@@ -22,18 +22,18 @@ keywords: java8新特性源码解读, Java8新增Stream的常用方法使用, St
 
 #### java 8Lambda表达式二
 
-  * [1.Filter](<#1Filter_2>)
-  * [2.collect](<#2collect_96>)
-  * [3.Java8之前的替换](<#3Java8_114>)
-  * [4.java8的替换Map](<#4java8Map_133>)
-  * [5.stream的Filter](<#5streamFilter_173>)
-  * [6.stream的flatMap](<#6streamflatMap_200>)
-  * [7.stream的max](<#7streammax_215>)
-  * [8.stream的min](<#8streammin_240>)
-  * [9.使用reduce实现stream的max和min方法](<#9reducestreammaxmin_257>)
-  * [10.Java8新增方法调用操作符：：](<#10Java8_284>)
-  * [11.Java8新增方法调用操作符静态方法调用](<#11Java8_296>)
-  * [12.Java8高阶函数的调用](<#12Java8_306>)
+  * 1.Filter
+  * 2.collect
+  * 3.Java8之前的替换
+  * 4.java8的替换Map
+  * 5.stream的Filter
+  * 6.stream的flatMap
+  * 7.stream的max
+  * 8.stream的min
+  * 9.使用reduce实现stream的max和min方法
+  * 10.Java8新增方法调用操作符：：
+  * 11.Java8新增方法调用操作符静态方法调用
+  * 12.Java8高阶函数的调用
 
 ## 1.Filter
 

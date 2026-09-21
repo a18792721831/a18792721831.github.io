@@ -22,20 +22,20 @@ keywords: springmvc注解, @Controller注解@RequestMapping注解, springMVC请�
 
 #### springMVC核心类和注解
 
-  * [1.DispatcherServlet](<#1DispatcherServlet_1>)
-  * [2.Controller注解](<#2Controller_69>)
-  * [3.RequestMapping注解](<#3RequestMapping_98>)
-  * [4.组合注解](<#4_120>)
-  * [5.请求方法参数类型](<#5_126>)
-  * [6.返回结果类型](<#6_127>)
-  * [7.例子](<#7_136>)
-  *     * [7.1新建一个Javaweb项目](<#71Javaweb_137>)
-    * [7.2导入jar包](<#72jar_139>)
-    * [7.3写web.xml](<#73webxml_141>)
-    * [7.4写页面](<#74_168>)
-    * [7.5写配置](<#75_185>)
-    * [7.6写Controller](<#76Controller_209>)
-    * [7.7运行，使用postMan测试](<#77postMan_240>)
+  * 1.DispatcherServlet
+  * 2.Controller注解
+  * 3.RequestMapping注解
+  * 4.组合注解
+  * 5.请求方法参数类型
+  * 6.返回结果类型
+  * 7.例子
+  *     * 7.1新建一个Javaweb项目
+    * 7.2导入jar包
+    * 7.3写web.xml
+    * 7.4写页面
+    * 7.5写配置
+    * 7.6写Controller
+    * 7.7运行，使用postMan测试
 
 ## 1.DispatcherServlet
 

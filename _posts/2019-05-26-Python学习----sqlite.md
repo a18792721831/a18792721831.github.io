@@ -22,9 +22,9 @@ keywords: python, sqlite, 无需安装的数据库, 最简单的数据库, 本�
 
 #### Python学习----sqlite
 
-  * [1.SQLite](<#1SQLite_1>)
-  * [2.python集成sqlite](<#2pythonsqlite_9>)
-  * [3.总结](<#3_106>)
+  * 1.SQLite
+  * 2.python集成sqlite
+  * 3.总结
 
 ## 1.SQLite
 

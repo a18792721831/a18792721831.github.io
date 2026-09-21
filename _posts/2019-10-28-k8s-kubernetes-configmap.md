@@ -22,17 +22,17 @@ keywords: k8s, kubernetes, configMap, 统一配置, pod内如何使用configMap
 
 #### k8s-kubernetes-configmap
 
-  * [1.configmap](<#1configmap_1>)
-  * [2.configmap创建](<#2configmap_3>)
-  *     * [2.1 key-value字符串创建](<#21_keyvalue_4>)
-    * [2.2 env文件创建](<#22_env_17>)
-    * [2.3 从目录创建](<#23__19>)
-    * [2.4 yaml/json创建](<#24_yamljson_21>)
-  * [3.使用](<#3_24>)
-  *     * [3.1 pod内env](<#31_podenv_25>)
-    * [3.2 command](<#32_command_106>)
-    * [3.3 volume挂载](<#33_volume_172>)
-  * [4.总结](<#4_264>)
+  * 1.configmap
+  * 2.configmap创建
+  *     * 2.1 key-value字符串创建
+    * 2.2 env文件创建
+    * 2.3 从目录创建
+    * 2.4 yaml/json创建
+  * 3.使用
+  *     * 3.1 pod内env
+    * 3.2 command
+    * 3.3 volume挂载
+  * 4.总结
 
 ## 1.configmap
 

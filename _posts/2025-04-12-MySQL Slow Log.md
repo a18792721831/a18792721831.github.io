@@ -21,9 +21,9 @@ keywords: mysql, 数据库, Slow Log, 慢日志, 慢日志解析
 
 #### MySQL Slow Log
 
-  * [Slow Log 的开启](<#Slow_Log__19>)
-  * [Slow Log 解析](<#Slow_Log__81>)
-  * [MySQL 8.0 慢查询额外信息的输出](<#MySQL_80__98>)
+  * Slow Log 的开启
+  * Slow Log 解析
+  * MySQL 8.0 慢查询额外信息的输出
 
   
 MySQL Slow Log 

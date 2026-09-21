@@ -22,16 +22,16 @@ keywords: spring bean, bean生命周期, bean从创建到销毁, bean完整的�
 
 #### Spring源码--Bean生命周期
 
-  * [BeanNameAware](<#BeanNameAware_9>)
-  * [BeanFactoryAware](<#BeanFactoryAware_49>)
-  * [ApplicationContextAware](<#ApplicationContextAware_67>)
-  * [postProcessBeforeInitialization](<#postProcessBeforeInitialization_79>)
-  * [@PostConstruct](<#PostConstruct_87>)
-  * [afterPropertiesSet](<#afterPropertiesSet_93>)
-  * [postProcessAfterInitialization](<#postProcessAfterInitialization_106>)
-  * [@PreDestory](<#PreDestory_113>)
-  * [DisposableBean](<#DisposableBean_119>)
-  * [实例](<#_125>)
+  * BeanNameAware
+  * BeanFactoryAware
+  * ApplicationContextAware
+  * postProcessBeforeInitialization
+  * @PostConstruct
+  * afterPropertiesSet
+  * postProcessAfterInitialization
+  * @PreDestory
+  * DisposableBean
+  * 实例
 
   
 先来一张bean的生命周期图 

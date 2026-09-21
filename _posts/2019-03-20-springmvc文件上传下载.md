@@ -22,18 +22,18 @@ keywords: springmvc文件上传下载, springmvc中文文件的上传下载, spr
 
 #### springmvc文件上传下载
 
-  * [1.文件上传](<#1_1>)
-  * [2.文件下载](<#2_49>)
-  * [3.中文文件名的文件下载](<#3_53>)
-  * [4.例子](<#4_58>)
-  *     * [4.1创建一个springmvc项目](<#41springmvc_59>)
-    * [4.2导入jar包](<#42jar_61>)
-    * [4.3配置web.xml](<#43webxml_63>)
-    * [4.4配置springmvc-config.xml](<#44springmvcconfigxml_90>)
-    * [4.5编写controller](<#45controller_128>)
-    * [4.6编写枚举](<#46_252>)
-    * [4.7编写jsp](<#47jsp_275>)
-    * [4.8发布测试](<#48_363>)
+  * 1.文件上传
+  * 2.文件下载
+  * 3.中文文件名的文件下载
+  * 4.例子
+  *     * 4.1创建一个springmvc项目
+    * 4.2导入jar包
+    * 4.3配置web.xml
+    * 4.4配置springmvc-config.xml
+    * 4.5编写controller
+    * 4.6编写枚举
+    * 4.7编写jsp
+    * 4.8发布测试
 
 ## 1.文件上传
 

@@ -22,32 +22,32 @@ keywords: batch step配置, batch step高级特性, batch step创建与定义, b
 
 #### spring batch step详解
 
-  * [Step 配置](<#Step__28>)
-  *     * [step 抽象与继承](<#step__44>)
-    * [step 执行拦截器](<#step__237>)
-    *       * [step 拦截器定义](<#step__239>)
-      * [step执行拦截器](<#step_247>)
-      * [step组合拦截器](<#step_305>)
-      * [step拦截器注解](<#step_362>)
-  * [Tasklet 配置](<#Tasklet__421>)
-  *     * [重启Step](<#Step_435>)
-    * [事务](<#_455>)
-    * [事务回滚](<#_516>)
-    * [多线程Step](<#Step_524>)
-    * [自定义Tasklet](<#Tasklet_530>)
-  * [Chunk配置](<#Chunk_592>)
-  *     * [提交间隔](<#_606>)
-    * [异常跳过](<#_679>)
-    * [Step重试](<#Step_797>)
-    * [Chunk完成策略](<#Chunk_926>)
-    * [读、处理事务](<#_982>)
-  * [拦截器](<#_1104>)
-  *     * [ChunkListener](<#ChunkListener_1129>)
-    * [ItemReadListener](<#ItemReadListener_1168>)
-    * [ItemProcessListener](<#ItemProcessListener_1203>)
-    * [ItemWriteListener](<#ItemWriteListener_1238>)
-    * [SkipListener](<#SkipListener_1273>)
-    * [RetryListener](<#RetryListener_1312>)
+  * Step 配置
+  *     * step 抽象与继承
+    * step 执行拦截器
+    *       * step 拦截器定义
+      * step执行拦截器
+      * step组合拦截器
+      * step拦截器注解
+  * Tasklet 配置
+  *     * 重启Step
+    * 事务
+    * 事务回滚
+    * 多线程Step
+    * 自定义Tasklet
+  * Chunk配置
+  *     * 提交间隔
+    * 异常跳过
+    * Step重试
+    * Chunk完成策略
+    * 读、处理事务
+  * 拦截器
+  *     * ChunkListener
+    * ItemReadListener
+    * ItemProcessListener
+    * ItemWriteListener
+    * SkipListener
+    * RetryListener
 
   
 github地址： 

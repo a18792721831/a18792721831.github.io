@@ -22,18 +22,18 @@ keywords: Spring源码解析, BeanFactory源码解析, SAX解析XML文件, profi
 
 #### Spring源码--BeanFactory
 
-  * [BeanFactory](<#BeanFactory_3>)
-  * [容器的基本使用](<#_68>)
-  * [XmlBeanFactory源码](<#XmlBeanFactory_110>)
-  * [XmlBeanDefinitionReader](<#XmlBeanDefinitionReader_140>)
-  * [XmlBeanFactory](<#XmlBeanFactory_156>)
-  *     * [配置文件的封装](<#_164>)
-    * [加载Bean](<#Bean_196>)
-    * [XML的验证模式](<#XML_225>)
-    *       * [DTD](<#DTD_233>)
-      * [XSD](<#XSD_245>)
-    * [获取Document](<#Document_253>)
-    * [BeanDefinitions](<#BeanDefinitions_265>)
+  * BeanFactory
+  * 容器的基本使用
+  * XmlBeanFactory源码
+  * XmlBeanDefinitionReader
+  * XmlBeanFactory
+  *     * 配置文件的封装
+    * 加载Bean
+    * XML的验证模式
+    *       * DTD
+      * XSD
+    * 获取Document
+    * BeanDefinitions
 
   
 github地址：   

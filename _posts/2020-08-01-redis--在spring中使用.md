@@ -22,15 +22,15 @@ keywords: Spring集成Redis, Spring中使用Redis, Spring对Redis的封装, Spri
 
 #### 在spring中使用redis
 
-  * [redis依赖](<#redis_1>)
-  * [spring-data-redis](<#springdataredis_13>)
-  * [RedisConfig](<#RedisConfig_27>)
-  * [RedisTemplate](<#RedisTemplate_105>)
-  * [Redis序列化](<#Redis_140>)
-  * [字符串序列化器](<#_165>)
-  * [Spring 对Redis数据类型操作的封装](<#Spring_Redis_183>)
-  * [Spring 对Redis批量操作的封装](<#Spring_Redis_197>)
-  * [SessionCallback和RedisCallback](<#SessionCallbackRedisCallback_215>)
+  * redis依赖
+  * spring-data-redis
+  * RedisConfig
+  * RedisTemplate
+  * Redis序列化
+  * 字符串序列化器
+  * Spring 对Redis数据类型操作的封装
+  * Spring 对Redis批量操作的封装
+  * SessionCallback和RedisCallback
 
 ## redis依赖
 

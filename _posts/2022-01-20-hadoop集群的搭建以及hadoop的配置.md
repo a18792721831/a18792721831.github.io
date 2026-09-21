@@ -22,22 +22,22 @@ keywords: hadoop, hdfs, big data
 
 #### hadoop集群的搭建以及hadoop的配置
 
-  * [环境说明与目的](<#_1>)
-  * [配置说明](<#_23>)
-  *     * [准备](<#_27>)
-    * [hadoop-env.sh](<#hadoopenvsh_55>)
-    * [core-site.xml](<#coresitexml_76>)
-    * [hdfs-site.xml](<#hdfssitexml_106>)
-    * [yarn-site.xml](<#yarnsitexml_157>)
-    * [mapred-site.xml](<#mapredsitexml_245>)
-    * [log4j.properties](<#log4jproperties_277>)
-  * [ssh 免密](<#ssh__289>)
-  * [启动](<#_307>)
-  * [验证](<#_369>)
-  *     * [界面](<#_373>)
-    * [任务历史](<#_383>)
-    * [任务提交](<#_397>)
-  * [总结](<#_439>)
+  * 环境说明与目的
+  * 配置说明
+  *     * 准备
+    * hadoop-env.sh
+    * core-site.xml
+    * hdfs-site.xml
+    * yarn-site.xml
+    * mapred-site.xml
+    * log4j.properties
+  * ssh 免密
+  * 启动
+  * 验证
+  *     * 界面
+    * 任务历史
+    * 任务提交
+  * 总结
 
 ## 环境说明与目的
 

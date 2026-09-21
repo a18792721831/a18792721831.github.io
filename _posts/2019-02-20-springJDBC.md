@@ -22,17 +22,17 @@ keywords: springJDBC, dataSource如何配置, jdbcTemplate如何使用, springJD
 
 #### SpringJDBC
 
-  * [1.spring JDBC介绍](<#1spring_JDBC_1>)
-  * [2.springJDBC的配置](<#2springJDBC_8>)
-  * [3.例子](<#3_14>)
-  *     * [3.1准备](<#31_15>)
-    * [3.2创建一个springJDBC项目](<#32springJDBC_18>)
-    * [3.3Java文件](<#33Java_20>)
-    * [3.4xml文件](<#34xml_382>)
-    * [3.5运行结果（数据库服务需要运行）](<#35_456>)
-    * [3.6 数据验证](<#36__465>)
-  * [4.方法解读](<#4_469>)
-  * [5.其他方法](<#5_649>)
+  * 1.spring JDBC介绍
+  * 2.springJDBC的配置
+  * 3.例子
+  *     * 3.1准备
+    * 3.2创建一个springJDBC项目
+    * 3.3Java文件
+    * 3.4xml文件
+    * 3.5运行结果（数据库服务需要运行）
+    * 3.6 数据验证
+  * 4.方法解读
+  * 5.其他方法
 
 ## 1.spring JDBC介绍
 

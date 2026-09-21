@@ -22,22 +22,22 @@ keywords: boot整合Ribbon, RestTemplate, eureka服务消费, LoadBanlcClt, Ribb
 
 #### spring boot 负载均衡Ribbon
 
-  * [1\. RestTemplate简介](<#1__RestTemplate_3>)
-  * [2\. Ribbon简介](<#2_Ribbon_10>)
-  * [3\. 实例--使用RestTemplate和Ribbon消费服务](<#3_RestTemplateRibbon_25>)
-  *     * [3.1 启动eureka server](<#31_eureka_server_26>)
-    * [3.2 多实例启动eureka client](<#32_eureka_client_30>)
-    * [3.3 验证eureka](<#33_eureka_34>)
-    * [3.4 创建 Ribbon模块](<#34__Ribbon_37>)
-    * [3.5 配置](<#35__42>)
-    * [3.6 创建Ribbon Config类](<#36_Ribbon_Config_44>)
-    * [3.7 创建service](<#37_service_47>)
-    * [3.8 service test](<#38_service_test_49>)
-    * [3.9 创建controller](<#39_controller_54>)
-    * [3.10 controller test](<#310_controller_test_56>)
-    * [3.11 启动](<#311__60>)
-  * [4\. LoadBalancerClent](<#4_LoadBalancerClent_67>)
-  * [5\. 本地serverList](<#5_serverList_108>)
+  * 1\. RestTemplate简介
+  * 2\. Ribbon简介
+  * 3\. 实例--使用RestTemplate和Ribbon消费服务
+  *     * 3.1 启动eureka server
+    * 3.2 多实例启动eureka client
+    * 3.3 验证eureka
+    * 3.4 创建 Ribbon模块
+    * 3.5 配置
+    * 3.6 创建Ribbon Config类
+    * 3.7 创建service
+    * 3.8 service test
+    * 3.9 创建controller
+    * 3.10 controller test
+    * 3.11 启动
+  * 4\. LoadBalancerClent
+  * 5\. 本地serverList
 
   
 git地址   

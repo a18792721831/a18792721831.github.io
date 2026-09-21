@@ -22,9 +22,9 @@ keywords: 如何在windos中安装RabbitMQ, RabbitMQ和erlang, RabbitMQ的几种
 
 #### 如何在windows中安装RabbitMQ
 
-  * [1.下载文件](<#1_1>)
-  * [2.验证](<#2_17>)
-  * [3.开启可视化管理](<#3_33>)
+  * 1.下载文件
+  * 2.验证
+  * 3.开启可视化管理
 
 ## 1.下载文件
 

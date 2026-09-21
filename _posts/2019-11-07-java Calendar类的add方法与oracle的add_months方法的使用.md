@@ -22,9 +22,9 @@ keywords: java Calendar, java时间计算, oracle ADD_MONTHS, oracle时间计算
 
 #### java Calendar类的add方法与oracle的add_months方法的使用
 
-  * [1.java Calendar类](<#1java_Calendar_29>)
-  * [2.oracle ADD_MONTHS](<#2oracle_ADD_MONTHS_53>)
-  * [3.为什么不同](<#3_67>)
+  * 1.java Calendar类
+  * 2.oracle ADD_MONTHS
+  * 3.为什么不同
 
   
 最近程序中出现了一个非常怪异的问题：   

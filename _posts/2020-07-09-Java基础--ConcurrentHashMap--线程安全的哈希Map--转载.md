@@ -22,18 +22,18 @@ keywords: ConcurrentHMap, 线程安全的HashMap, 多线程同步Map, 高性能�
 
 #### Java基础--ConcurrentHashMap--线程安全的哈希Map
 
-  * [HashMap存在的问题：](<#HashMap_5>)
-  *     * [HashMap线程不安全](<#HashMap_6>)
-    * [Hashtable线程安全但效率低下](<#Hashtable_19>)
-  * [解决](<#_21>)
-  *     * [分段锁](<#_22>)
-  * [构造：](<#_26>)
-  * [table初始化：](<#table_52>)
-  * [put操作](<#put_97>)
-  * [table扩容](<#table_184>)
-  * [get操作](<#get_219>)
-  * [和HashTable的区别：](<#HashTable_244>)
-  * [总结：](<#_247>)
+  * HashMap存在的问题：
+  *     * HashMap线程不安全
+    * Hashtable线程安全但效率低下
+  * 解决
+  *     * 分段锁
+  * 构造：
+  * table初始化：
+  * put操作
+  * table扩容
+  * get操作
+  * 和HashTable的区别：
+  * 总结：
 
 [Java基础–HashMap源码](<https://blog.csdn.net/a18792721831/article/details/106265498>)  
 [Java基础–HashTable源码](<https://blog.csdn.net/a18792721831/article/details/106060603>)

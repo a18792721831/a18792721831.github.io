@@ -22,21 +22,21 @@ keywords: RabbitMQ集成spring, spring中如何使用RabbitMQ, spring整合Rabbi
 
 #### RabbitMq整合spring
 
-  * [1.中间桥接包](<#1_2>)
-  * [2.创建监听](<#2_5>)
-  * [3.RabbitTemplate](<#3RabbitTemplate_7>)
-  * [4.RabbitAdmin](<#4RabbitAdmin_9>)
-  * [5.发布](<#5_11>)
-  * [6.消费](<#6_14>)
-  * [7.实例](<#7_17>)
-  *     * [7.1创建gradle项目](<#71gradle_18>)
-    * [7.2增加依赖](<#72_20>)
-    * [7.3创建代码目录](<#73_22>)
-    * [7.4创建监听类](<#74_24>)
-    * [7.5配置beans.xml](<#75beansxml_53>)
-    * [7.6创建发布](<#76_86>)
-    * [7.7启动](<#77_111>)
-    * [7.8注意事项](<#78_113>)
+  * 1.中间桥接包
+  * 2.创建监听
+  * 3.RabbitTemplate
+  * 4.RabbitAdmin
+  * 5.发布
+  * 6.消费
+  * 7.实例
+  *     * 7.1创建gradle项目
+    * 7.2增加依赖
+    * 7.3创建代码目录
+    * 7.4创建监听类
+    * 7.5配置beans.xml
+    * 7.6创建发布
+    * 7.7启动
+    * 7.8注意事项
 
   
 spring与RabbitMQ集成 

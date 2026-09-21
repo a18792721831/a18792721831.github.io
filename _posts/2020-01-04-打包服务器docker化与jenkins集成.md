@@ -22,43 +22,43 @@ keywords: docker, centos, dockerfile, 自定义dockerimage, docker+jenkins
 
 #### 打包服务器docker化
 
-  * [1.基础镜像](<#1_1>)
-  *     * [1.1安装系统](<#11_2>)
-    * [1.2打包系统](<#12_14>)
-    * [1.3导入镜像](<#13_44>)
-  * [2.下载软件](<#2_51>)
-  *     * [2.1准备](<#21_52>)
-    * [2.2 设置yum源](<#22_yum_71>)
-    * [2.3 libxml2](<#23_libxml2_89>)
-    * [2.4 libxslt-devel](<#24_libxsltdevel_92>)
-    * [2.5 net-snmp](<#25_netsnmp_97>)
-    * [2.6 net-snmp-utils](<#26_netsnmputils_102>)
-    * [2.7 net-snmp-devel](<#27_netsnmpdevel_107>)
-    * [2.8 dos2unix](<#28_dos2unix_112>)
-    * [2.9 zlib-devel](<#29_zlibdevel_117>)
-    * [2.10 libxml2](<#210_libxml2_122>)
-    * [2.11 gcc](<#211_gcc_127>)
-    * [2.12 gcc-c++](<#212_gccc_132>)
-    * [2.13 automake](<#213_automake_137>)
-    * [2.14 make](<#214_make_142>)
-    * [2.15 libtool](<#215_libtool_145>)
-    * [2.16 byacc](<#216_byacc_150>)
-    * [2.17 bison](<#217_bison_155>)
-    * [2.18 flex](<#218_flex_159>)
-    * [2.19 zlib](<#219_zlib_164>)
-  * [3.安装软件](<#3_171>)
-  * [4.安装oracle](<#4oracle_202>)
-  * [5\. env](<#5_env_220>)
-  * [6\. gsoap 2.7.7](<#6_gsoap_277_275>)
-  * [7\. java](<#7_java_298>)
-  * [8\. jenkins](<#8_jenkins_314>)
-  * [9\. dockerfile合并](<#9_dockerfile_346>)
-  *     * [9.1 6->5](<#91_65_350>)
-    * [9.2 5->4](<#92_54_378>)
-    * [9.3 4->3](<#93_43_421>)
-    * [9.4 3->2](<#94_32_494>)
-    * [9.5 2->1](<#95_21_576>)
-  * [10\. 总结](<#10__661>)
+  * 1.基础镜像
+  *     * 1.1安装系统
+    * 1.2打包系统
+    * 1.3导入镜像
+  * 2.下载软件
+  *     * 2.1准备
+    * 2.2 设置yum源
+    * 2.3 libxml2
+    * 2.4 libxslt-devel
+    * 2.5 net-snmp
+    * 2.6 net-snmp-utils
+    * 2.7 net-snmp-devel
+    * 2.8 dos2unix
+    * 2.9 zlib-devel
+    * 2.10 libxml2
+    * 2.11 gcc
+    * 2.12 gcc-c++
+    * 2.13 automake
+    * 2.14 make
+    * 2.15 libtool
+    * 2.16 byacc
+    * 2.17 bison
+    * 2.18 flex
+    * 2.19 zlib
+  * 3.安装软件
+  * 4.安装oracle
+  * 5\. env
+  * 6\. gsoap 2.7.7
+  * 7\. java
+  * 8\. jenkins
+  * 9\. dockerfile合并
+  *     * 9.1 6->5
+    * 9.2 5->4
+    * 9.3 4->3
+    * 9.4 3->2
+    * 9.5 2->1
+  * 10\. 总结
 
 ## 1.基础镜像
 

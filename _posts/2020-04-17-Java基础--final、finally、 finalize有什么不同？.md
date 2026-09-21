@@ -22,13 +22,13 @@ keywords: java 三F, finalize, finnally, final, 可变不可变
 
 #### final、finally、 finalize有什么不同？
 
-  * [1\. 语法和使用实践角度的不同](<#1__1>)
-  * [2.final](<#2final_8>)
-  * [3.finally](<#3finally_20>)
-  * [4.finalize](<#4finalize_22>)
-  * [5\. final 不是 immutable](<#5_final__immutable_26>)
-  * [6\. finalize 真的那么不堪?](<#6_finalize__35>)
-  * [7.有什么机制可以替换 finalize 吗？](<#7_finalize__40>)
+  * 1\. 语法和使用实践角度的不同
+  * 2.final
+  * 3.finally
+  * 4.finalize
+  * 5\. final 不是 immutable
+  * 6\. finalize 真的那么不堪?
+  * 7.有什么机制可以替换 finalize 吗？
 
 ## 1\. 语法和使用实践角度的不同
 

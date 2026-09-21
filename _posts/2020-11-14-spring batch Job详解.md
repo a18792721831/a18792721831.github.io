@@ -22,34 +22,34 @@ keywords: batch job配置, batch job高级特性, batch job运行与停止, batc
 
 #### spring batch Job详解
 
-  * [Job调度原理](<#Job_28>)
-  * [Job的基本配置](<#Job_34>)
-  * [Job重启](<#Job_44>)
-  *     * [不可重启Job](<#Job_48>)
-    * [可重启Job](<#Job_86>)
-  * [Job拦截器](<#Job_138>)
-  *     * [Job单个拦截器](<#Job_142>)
-    * [Job组合拦截器](<#Job_257>)
-  * [Job Parameters校验](<#Job_Parameters_354>)
-  *     * [自定义的Job Parameters校验](<#Job_Parameters_362>)
-    * [默认的Job Parameters校验](<#Job_Parameters_427>)
-    * [组合的Job Parameters校验](<#Job_Parameters_484>)
-  * [Job抽象与继承](<#Job_547>)
-  *     * [抽象Job](<#Job_549>)
-    * [继承Job](<#Job_677>)
-  * [作用域绑定](<#_736>)
-  *     * [作用域](<#_738>)
-    * [参数绑定--LateBinding](<#LateBinding_746>)
-    * [举例](<#_756>)
-  * [Job运行](<#Job_847>)
-  *     * [调度作业](<#_855>)
-    * [同步异步](<#_876>)
-    * [定时任务执行](<#_972>)
-    * [Web接口启动任务](<#Web_1039>)
-  * [Job 终止](<#Job__1045>)
-  *     * [代码中终止](<#_1053>)
-    * [JMX终止](<#JMX_1154>)
-    * [业务终止](<#_1265>)
+  * Job调度原理
+  * Job的基本配置
+  * Job重启
+  *     * 不可重启Job
+    * 可重启Job
+  * Job拦截器
+  *     * Job单个拦截器
+    * Job组合拦截器
+  * Job Parameters校验
+  *     * 自定义的Job Parameters校验
+    * 默认的Job Parameters校验
+    * 组合的Job Parameters校验
+  * Job抽象与继承
+  *     * 抽象Job
+    * 继承Job
+  * 作用域绑定
+  *     * 作用域
+    * 参数绑定--LateBinding
+    * 举例
+  * Job运行
+  *     * 调度作业
+    * 同步异步
+    * 定时任务执行
+    * Web接口启动任务
+  * Job 终止
+  *     * 代码中终止
+    * JMX终止
+    * 业务终止
 
   
 github地址： 

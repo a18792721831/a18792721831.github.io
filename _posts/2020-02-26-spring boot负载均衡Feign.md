@@ -22,18 +22,18 @@ keywords: Feign入门, boot整合Feign, 如何定位Feign, Feign与Ribbon的关�
 
 #### springboot负载均衡Feign
 
-  * [1\. 创建 Feign](<#1__Feign_3>)
-  * [2\. 配置gradle](<#2_gradle_7>)
-  * [3\. Feign配置](<#3_Feign_23>)
-  * [4\. 开启Feign](<#4_Feign_55>)
-  * [5\. 创建Feign配置](<#5_Feign_60>)
-  * [6\. 创建FeignDao](<#6_FeignDao_62>)
-  * [7\. 创建FeignService](<#7_FeignService_72>)
-  * [8\. 创建FeignController](<#8_FeignController_74>)
-  * [9\. 启动&验证](<#9__76>)
-  * [10\. Feign与Ribbon的关系](<#10_FeignRibbon_90>)
-  * [11\. FeignClient](<#11_FeignClient_105>)
-  * [12\. FeignClient配置](<#12_FeignClient_122>)
+  * 1\. 创建 Feign
+  * 2\. 配置gradle
+  * 3\. Feign配置
+  * 4\. 开启Feign
+  * 5\. 创建Feign配置
+  * 6\. 创建FeignDao
+  * 7\. 创建FeignService
+  * 8\. 创建FeignController
+  * 9\. 启动&验证
+  * 10\. Feign与Ribbon的关系
+  * 11\. FeignClient
+  * 12\. FeignClient配置
 
   
 git地址   

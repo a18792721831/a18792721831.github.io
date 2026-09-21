@@ -22,15 +22,15 @@ keywords: ArrayList深度解析, ArrayList源码分析, List为什么用迭代�
 
 #### 为什么ArrayList,Vector等都不支持循环中remove
 
-  * [1 Vector 直接删除](<#1_Vector__6>)
-  * [2 Vector 遍历元素](<#2_Vector__13>)
-  *     * [2.1 for循环遍历](<#21_for_17>)
-    * [2.2 迭代器循环](<#22__58>)
-    * [2.3 任意方向遍历](<#23__88>)
-    * [2.4 Vector的foreach](<#24_Vectorforeach_122>)
-  * [3\. Vector迭代器删除](<#3_Vector_131>)
-  * [4\. Vector不使用迭代器删除元素](<#4_Vector_152>)
-  * [5\. Vector流删除元素](<#5_Vector_177>)
+  * 1 Vector 直接删除
+  * 2 Vector 遍历元素
+  *     * 2.1 for循环遍历
+    * 2.2 迭代器循环
+    * 2.3 任意方向遍历
+    * 2.4 Vector的foreach
+  * 3\. Vector迭代器删除
+  * 4\. Vector不使用迭代器删除元素
+  * 5\. Vector流删除元素
 
   
 JDK中有很多的数据结构，可以让我们操作数据。   

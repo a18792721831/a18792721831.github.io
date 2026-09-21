@@ -22,14 +22,14 @@ keywords: hive, spark, thriftserver, beeline, hiverserver2
 
 #### Hive的hiveserver2和beeline的使用以及spark thritfserver的启动
 
-  * [Hive 的hiveserver2介绍](<#Hive_hiveserver2_1>)
-  * [hiveserver2 的配置](<#hiveserver2__5>)
-  * [beeline连接hiveserver2](<#beelinehiveserver2_116>)
-  * [配置hiveserver2的界面](<#hiveserver2_142>)
-  * [spark thriftserver的配置](<#spark_thriftserver_198>)
-  * [beeline 连接spark thriftserver](<#beeline_spark_thriftserver_250>)
-  * [thriftserver和spark-sql对比](<#thriftserversparksql_258>)
-  * [spark sql 程序连接thriftserver](<#spark_sql_thriftserver_316>)
+  * Hive 的hiveserver2介绍
+  * hiveserver2 的配置
+  * beeline连接hiveserver2
+  * 配置hiveserver2的界面
+  * spark thriftserver的配置
+  * beeline 连接spark thriftserver
+  * thriftserver和spark-sql对比
+  * spark sql 程序连接thriftserver
 
 ## Hive 的hiveserver2介绍
 

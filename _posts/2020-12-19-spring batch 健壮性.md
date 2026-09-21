@@ -22,24 +22,24 @@ keywords: batch跳过异常记录, batch对异常记录重试, batch重试业务
 
 #### spring batch 健壮性
 
-  * [跳过skip](<#skip_51>)
-  *     * [reader](<#reader_65>)
-    * [processor](<#processor_178>)
-    * [writer](<#writer_240>)
-    * [SkipPolicy](<#SkipPolicy_273>)
-    * [SkipPolicy实现](<#SkipPolicy_282>)
-  * [重试Retry](<#Retry_298>)
-  *     * [reader](<#reader_314>)
-    * [processor](<#processor_332>)
-    * [Writer](<#Writer_371>)
-    * [重试策略RetryPolicy](<#RetryPolicy_425>)
-    * [重试模板](<#_438>)
-    *       * [重试Tasklet](<#Tasklet_484>)
-      * [补偿Tasklet](<#Tasklet_502>)
-  * [重启Restart](<#Restart_526>)
-  *     * [重启Job](<#Job_534>)
-    * [重启已完成的任务](<#_560>)
-    * [重启次数限制](<#_597>)
+  * 跳过skip
+  *     * reader
+    * processor
+    * writer
+    * SkipPolicy
+    * SkipPolicy实现
+  * 重试Retry
+  *     * reader
+    * processor
+    * Writer
+    * 重试策略RetryPolicy
+    * 重试模板
+    *       * 重试Tasklet
+      * 补偿Tasklet
+  * 重启Restart
+  *     * 重启Job
+    * 重启已完成的任务
+    * 重启次数限制
 
   
 github地址： 

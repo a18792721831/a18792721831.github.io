@@ -22,24 +22,24 @@ keywords: kubernetes架构, 如何在k8s上进行一次部署, k8s部署需要�
 
 #### k8s--kubernetes架构
 
-  * [1.k8s集群组成](<#1k8s_1>)
-  * [2.k8s服务介绍](<#2k8s_20>)
-  *     * [2.1kubeadm](<#21kubeadm_21>)
-    * [2.2kubectl](<#22kubectl_24>)
-    * [2.3kube-apiserver](<#23kubeapiserver_27>)
-    * [2.4kube-scheduler](<#24kubescheduler_30>)
-    * [2.5kube-controller-manager](<#25kubecontrollermanager_32>)
-    * [2.6etcd](<#26etcd_38>)
-    * [2.7pod网络](<#27pod_40>)
-    * [2.8kubelet](<#28kubelet_43>)
-    * [2.9kube-proxy](<#29kubeproxy_45>)
-  * [3.k8s的架构图](<#3k8s_53>)
-  * [4.一个小例子](<#4_59>)
-  *     * [4.1命名空间](<#41_61>)
-    *       * [4.1.1命名空间查询](<#411_62>)
-      * [4.1.2增加命名空间](<#412_68>)
-      * [4.1.3删除命名空间](<#413_97>)
-    * [4.2部署](<#42_104>)
+  * 1.k8s集群组成
+  * 2.k8s服务介绍
+  *     * 2.1kubeadm
+    * 2.2kubectl
+    * 2.3kube-apiserver
+    * 2.4kube-scheduler
+    * 2.5kube-controller-manager
+    * 2.6etcd
+    * 2.7pod网络
+    * 2.8kubelet
+    * 2.9kube-proxy
+  * 3.k8s的架构图
+  * 4.一个小例子
+  *     * 4.1命名空间
+    *       * 4.1.1命名空间查询
+      * 4.1.2增加命名空间
+      * 4.1.3删除命名空间
+    * 4.2部署
 
 ## 1.k8s集群组成
     

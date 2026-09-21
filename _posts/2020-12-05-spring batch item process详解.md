@@ -22,26 +22,26 @@ keywords: batch process, ItemProcessor, batch处理操作, batch转换数据, ba
 
 #### spring batch item process详解
 
-  * [ItemProcessor](<#ItemProcessor_29>)
-  *     * [ItemProcessor](<#ItemProcessor_33>)
-    * [系统处理组件](<#_82>)
-  * [数据转换](<#_93>)
-  *     * [部分数据转换](<#_97>)
-    * [数据类型转换](<#_149>)
-  * [数据过滤](<#_194>)
-  *     * [数据Filter](<#Filter_198>)
-    * [数据过滤统计](<#_259>)
-  * [数据校验](<#_336>)
-  *     * [Validator](<#Validator_340>)
-    * [ValidatingItemProcessor](<#ValidatingItemProcessor_356>)
-  * [组合处理器](<#_460>)
-  * [服务复用](<#_542>)
-  * [拦截器](<#_616>)
-  *     * [接口](<#_620>)
-    * [异常](<#_638>)
-    * [执行顺序](<#_654>)
-    * [Annotation](<#Annotation_664>)
-    * [Merge](<#Merge_678>)
+  * ItemProcessor
+  *     * ItemProcessor
+    * 系统处理组件
+  * 数据转换
+  *     * 部分数据转换
+    * 数据类型转换
+  * 数据过滤
+  *     * 数据Filter
+    * 数据过滤统计
+  * 数据校验
+  *     * Validator
+    * ValidatingItemProcessor
+  * 组合处理器
+  * 服务复用
+  * 拦截器
+  *     * 接口
+    * 异常
+    * 执行顺序
+    * Annotation
+    * Merge
 
   
 github地址： 

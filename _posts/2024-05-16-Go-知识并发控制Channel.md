@@ -22,9 +22,9 @@ keywords: golang, go, go 并发管理, chan, channel
 
 #### Go-知识并发控制Channel
 
-  * [1\. 无缓冲 chan 实现 并发控制](<#1__chan___10>)
-  * [2\. 有缓冲 chan 实现 并发控制](<#2__chan___50>)
-  * [3\. 总结](<#3__88>)
+  * 1\. 无缓冲 chan 实现 并发控制
+  * 2\. 有缓冲 chan 实现 并发控制
+  * 3\. 总结
 
 薅羊毛：Baidu Comate，200积分换20元京东E卡  
 给你分享一个AI编码助手——百度Comate！扫码参与抽红包活动，520宠粉！送京东卡！https://comate.baidu.com/zh/shopping?inviteCode=y21fpcef  

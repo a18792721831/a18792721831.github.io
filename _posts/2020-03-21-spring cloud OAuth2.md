@@ -22,19 +22,19 @@ keywords: OAuth5.2.x学习, Spring Security, OAuth2.x与5.2.x, OAuth5.2.x那些�
 
 #### spring cloud OAuth2
 
-  * [1\. 为什么需要oauth](<#1_oauth_3>)
-  * [2\. oauth的原理](<#2_oauth_23>)
-  * [3\. oauth的组成](<#3_oauth_33>)
-  *     * [3.1 OAuth2 Provider](<#31_OAuth2_Provider_35>)
-    *       * [3.1.1 授权服务Authorization Server](<#311_Authorization_Server_41>)
-      *         * [3.1.1.1 ClientDetailServiceConfigurer](<#3111_ClientDetailServiceConfigurer_51>)
-        * [3.1.1.2 AuthorizationServerEndpointsConfigurer](<#3112_AuthorizationServerEndpointsConfigurer_59>)
-        * [3.1.1.3 AuthorizationServerSecurityConfigurer](<#3113_AuthorizationServerSecurityConfigurer_71>)
-      * [3.1.2 资源服务Resource Server](<#312_Resource_Server_73>)
-    * [3.2 OAuth2 Client](<#32_OAuth2_Client_77>)
-    *       * [3.2.1 Protected Resource Configuration](<#321_Protected_Resource_Configuration_81>)
-      * [3.2.2 Client Configuration](<#322_Client_Configuration_90>)
-  * [4\. 实例](<#4__94>)
+  * 1\. 为什么需要oauth
+  * 2\. oauth的原理
+  * 3\. oauth的组成
+  *     * 3.1 OAuth2 Provider
+    *       * 3.1.1 授权服务Authorization Server
+      *         * 3.1.1.1 ClientDetailServiceConfigurer
+        * 3.1.1.2 AuthorizationServerEndpointsConfigurer
+        * 3.1.1.3 AuthorizationServerSecurityConfigurer
+      * 3.1.2 资源服务Resource Server
+    * 3.2 OAuth2 Client
+    *       * 3.2.1 Protected Resource Configuration
+      * 3.2.2 Client Configuration
+  * 4\. 实例
 
   
 git地址   

@@ -22,8 +22,8 @@ keywords: ["JSoup异常", "Received fatal alert: handshake_fai", "Unsupported ma
 
 #### https握手异常与jdk版本异常
 
-  * [1.Received fatal alert: handshake_failure](<#1Received_fatal_alert_handshake_failure_1>)
-  * [2.Unsupported major.minor version XXX](<#2Unsupported_majorminor_version_XXX_44>)
+  * 1.Received fatal alert: handshake_failure
+  * 2.Unsupported major.minor version XXX
 
 ## 1.Received fatal alert: handshake_failure
 

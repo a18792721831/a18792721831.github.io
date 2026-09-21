@@ -22,33 +22,33 @@ keywords: 微服务集成config, config与eureka, 微服务config集群化, 微�
 
 #### spring boot 集成config
 
-  * [1\. config server(本地)](<#1_config_server_3>)
-  *     * [1.1 创建](<#11__4>)
-    * [1.2 配置(config server本身的)](<#12_config_server_6>)
-    * [1.3 配置(本地对于config client的)](<#13_config_client_10>)
-    * [1.4 注解](<#14__16>)
-  * [2\. config client](<#2_config_client_18>)
-  *     * [2.1 创建](<#21__19>)
-    * [2.2 配置](<#22__21>)
-    * [2.3 验证快速失败](<#23__29>)
-    * [2.4 读取验证](<#24__33>)
-    * [2.5 普通信息读取](<#25__48>)
-  * [3\. config server从git读取](<#3_config_servergit_59>)
-  *     * [3.1 创建远程配置文件](<#31__60>)
-    * [3.2 修改config server 配置](<#32_config_server__65>)
-  * [4\. config server 集群化](<#4_config_server__76>)
-  *     * [4.1 eureka server](<#41_eureka_server_79>)
-    * [4.2 config server & eureka](<#42_config_server__eureka_82>)
-    *       * [4.2.1 创建springbootconfigeurekaserver](<#421_springbootconfigeurekaserver_83>)
-      * [4.2.2 配置](<#422__85>)
-      * [4.2.3 多实例启动](<#423__88>)
-      * [4.2.4 验证](<#424__92>)
-    * [4.3 config client& eureka](<#43_config_client_eureka_104>)
-    *       * [4.3.1 创建springbootconfigeurekaclient](<#431_springbootconfigeurekaclient_105>)
-      * [4.3.2 配置](<#432__107>)
-      * [4.3.3 启动验证端口](<#433__110>)
-      * [4.3.4 验证负载均衡](<#434__113>)
-      * [4.3.5 验证message](<#435_message_121>)
+  * 1\. config server(本地)
+  *     * 1.1 创建
+    * 1.2 配置(config server本身的)
+    * 1.3 配置(本地对于config client的)
+    * 1.4 注解
+  * 2\. config client
+  *     * 2.1 创建
+    * 2.2 配置
+    * 2.3 验证快速失败
+    * 2.4 读取验证
+    * 2.5 普通信息读取
+  * 3\. config server从git读取
+  *     * 3.1 创建远程配置文件
+    * 3.2 修改config server 配置
+  * 4\. config server 集群化
+  *     * 4.1 eureka server
+    * 4.2 config server & eureka
+    *       * 4.2.1 创建springbootconfigeurekaserver
+      * 4.2.2 配置
+      * 4.2.3 多实例启动
+      * 4.2.4 验证
+    * 4.3 config client& eureka
+    *       * 4.3.1 创建springbootconfigeurekaclient
+      * 4.3.2 配置
+      * 4.3.3 启动验证端口
+      * 4.3.4 验证负载均衡
+      * 4.3.5 验证message
 
   
 git地址   

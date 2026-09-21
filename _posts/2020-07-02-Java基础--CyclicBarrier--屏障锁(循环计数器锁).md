@@ -22,31 +22,31 @@ keywords: CyclicBarrier源码, CyclicBarrier使用, CyclicBarrier原理, 栅格�
 
 #### Java基础--CyclicBarrier--屏障同步锁
 
-  * [1\. CyclicBarrier](<#1__CyclicBarrier_1>)
-  *     * [1.1 CyclicBarrier 的UML图](<#11_CyclicBarrier_UML_11>)
-  * [2\. CyclicBarrier 构造](<#2_CyclicBarrier__13>)
-  *     * [2.1 CyclicBarrier(int)](<#21_CyclicBarrierint_16>)
-    * [2.2 CyclicBarrier(int,Runnable)](<#22_CyclicBarrierintRunnable_20>)
-  * [3\. CyclicBarrier 的属性](<#3_CyclicBarrier__23>)
-  *     * [3.1 lock](<#31_lock_24>)
-    * [3.2 trip](<#32_trip_28>)
-    * [3.3 parties](<#33_parties_32>)
-    * [3.4 count](<#34_count_36>)
-    * [3.5 barrierCommand](<#35_barrierCommand_40>)
-    * [3.6 generation](<#36_generation_45>)
-  * [4\. Generation](<#4_Generation_49>)
-  * [5\. CyclicBarrier 的操作](<#5_CyclicBarrier__53>)
-  *     * [5.1 await](<#51_await_54>)
-    * [5.2 await(long, TimeUnit)](<#52_awaitlong_TimeUnit_58>)
-    * [5.3 getNumberWaiting](<#53_getNumberWaiting_62>)
-    * [5.4 getParties](<#54_getParties_67>)
-    * [5.5 isBroken](<#55_isBroken_70>)
-    * [5.6 reset](<#56_reset_75>)
-    * [5.7 nextGeneration](<#57_nextGeneration_80>)
-    * [5.8 breakBarrier](<#58_breakBarrier_83>)
-    * [5.9 dowait(boolean, long)](<#59_dowaitboolean_long_87>)
-  * [6\. 示例程序](<#6__205>)
-  * [7\. 总结](<#7__288>)
+  * 1\. CyclicBarrier
+  *     * 1.1 CyclicBarrier 的UML图
+  * 2\. CyclicBarrier 构造
+  *     * 2.1 CyclicBarrier(int)
+    * 2.2 CyclicBarrier(int,Runnable)
+  * 3\. CyclicBarrier 的属性
+  *     * 3.1 lock
+    * 3.2 trip
+    * 3.3 parties
+    * 3.4 count
+    * 3.5 barrierCommand
+    * 3.6 generation
+  * 4\. Generation
+  * 5\. CyclicBarrier 的操作
+  *     * 5.1 await
+    * 5.2 await(long, TimeUnit)
+    * 5.3 getNumberWaiting
+    * 5.4 getParties
+    * 5.5 isBroken
+    * 5.6 reset
+    * 5.7 nextGeneration
+    * 5.8 breakBarrier
+    * 5.9 dowait(boolean, long)
+  * 6\. 示例程序
+  * 7\. 总结
 
 ## 1\. CyclicBarrier
 

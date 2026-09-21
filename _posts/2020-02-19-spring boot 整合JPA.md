@@ -22,20 +22,20 @@ keywords: spring boot jpa, springboot整合jpa, jpa常用, jpa测试类, DSC
 
 #### spring boot 整合JPA
 
-  * [1\. 创建gradle项目](<#1_gradle_4>)
-  * [2\. 配置数据源](<#2__7>)
-  * [3\. 实体类](<#3__15>)
-  * [4\. DAO](<#4_DAO_21>)
-  * [5\. service接口](<#5_service_25>)
-  * [6\. 逻辑删除](<#6__29>)
-  * [7\. serviceimpl](<#7_serviceimpl_37>)
-  * [8\. 实现扩展jpa查询](<#8_jpa_39>)
-  * [9\. controller](<#9_controller_44>)
-  * [10\. 测试类](<#10__46>)
-  *     * [10.1 dao](<#101_dao_47>)
-    * [10.2 service](<#102_service_53>)
-    * [10.3 controller](<#103_controller_60>)
-    * [10.4 真实验证](<#104__67>)
+  * 1\. 创建gradle项目
+  * 2\. 配置数据源
+  * 3\. 实体类
+  * 4\. DAO
+  * 5\. service接口
+  * 6\. 逻辑删除
+  * 7\. serviceimpl
+  * 8\. 实现扩展jpa查询
+  * 9\. controller
+  * 10\. 测试类
+  *     * 10.1 dao
+    * 10.2 service
+    * 10.3 controller
+    * 10.4 真实验证
 
   
 git地址   

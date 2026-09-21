@@ -22,32 +22,32 @@ keywords: k8s入门, kubenates入门, kubeadm, docker, kubenetes安装使用
 
 #### k8s-kubenetes安装
 
-  * [1.准备工作](<#1_1>)
-  * [2.k8s介绍](<#2k8s_29>)
-  * [3.k8s安装](<#3k8s_44>)
-  *     * [3.1初始化hosts](<#31hosts_45>)
-    * [3.2更新yum](<#32yum_69>)
-    * [3.3添加kubeadm的yum源](<#33kubeadmyum_79>)
-    * [3.4下载kubeadm](<#34kubeadm_90>)
-    * [3.5关闭linux的swap](<#35linuxswap_103>)
-    * [3.6关闭防火墙](<#36_112>)
-    * [3.8设置开机启动kubelet](<#38kubelet_119>)
-    * [3.9添加docker的yum源](<#39dockeryum_129>)
-    * [3.10安装docker](<#310docker_139>)
-    * [3.11设置开机启动docker](<#311docker_152>)
-    * [3.12配置docker参数](<#312docker_159>)
-    * [3.13设置iptables的规则](<#313iptables_174>)
-    * [3.14使用kubeadm初始化环境](<#314kubeadm_183>)
-    * [3.15k8s访问设置](<#315k8s_203>)
-  * [4.k8s常用命令](<#4k8s_242>)
-  *     * [4.1查看集群组成](<#41_243>)
-    * [4.2查看集群状态](<#42_248>)
-    * [4.3安装网络服务(master)](<#43master_272>)
-    * [4.4查看k8s所有命名空间](<#44k8s_281>)
-    * [4.5查看命名空间中pod](<#45pod_286>)
-    * [4.6查看k8s的deployment](<#46k8sdeployment_292>)
-    * [4.7重新生成token](<#47token_297>)
-  * [5.kubeadm安装过程中发生异常](<#5kubeadm_315>)
+  * 1.准备工作
+  * 2.k8s介绍
+  * 3.k8s安装
+  *     * 3.1初始化hosts
+    * 3.2更新yum
+    * 3.3添加kubeadm的yum源
+    * 3.4下载kubeadm
+    * 3.5关闭linux的swap
+    * 3.6关闭防火墙
+    * 3.8设置开机启动kubelet
+    * 3.9添加docker的yum源
+    * 3.10安装docker
+    * 3.11设置开机启动docker
+    * 3.12配置docker参数
+    * 3.13设置iptables的规则
+    * 3.14使用kubeadm初始化环境
+    * 3.15k8s访问设置
+  * 4.k8s常用命令
+  *     * 4.1查看集群组成
+    * 4.2查看集群状态
+    * 4.3安装网络服务(master)
+    * 4.4查看k8s所有命名空间
+    * 4.5查看命名空间中pod
+    * 4.6查看k8s的deployment
+    * 4.7重新生成token
+  * 5.kubeadm安装过程中发生异常
 
 ## 1.准备工作
 

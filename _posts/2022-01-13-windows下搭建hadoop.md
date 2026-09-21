@@ -22,13 +22,13 @@ keywords: hadoop, windows, hdfs
 
 #### windows下搭建hadoop
 
-  * [下载](<#_1>)
-  * [环境变量](<#_19>)
-  * [windows 脚本替换](<#windows__33>)
-  * [配置](<#_47>)
-  * [windows权限](<#windows_120>)
-  * [启动](<#_132>)
-  * [单词统计实例](<#_158>)
+  * 下载
+  * 环境变量
+  * windows 脚本替换
+  * 配置
+  * windows权限
+  * 启动
+  * 单词统计实例
 
 ## 下载
 

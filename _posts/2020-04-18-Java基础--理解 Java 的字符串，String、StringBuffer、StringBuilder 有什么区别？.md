@@ -22,11 +22,11 @@ keywords: Java字符串, StringBuilder, StringBuffer, String.intern, 字符串�
 
 #### 理解 Java 的字符串，String、StringBuffer、StringBuilder 有什么区别？
 
-  * [1.定义](<#1_1>)
-  * [2\. 字符串设计和实现考量](<#2__9>)
-  * [3.字符串缓存](<#3_79>)
-  * [4.String 自身的演化](<#4String__102>)
-  * [5.思考](<#5_115>)
+  * 1.定义
+  * 2\. 字符串设计和实现考量
+  * 3.字符串缓存
+  * 4.String 自身的演化
+  * 5.思考
 
 ## 1.定义
 

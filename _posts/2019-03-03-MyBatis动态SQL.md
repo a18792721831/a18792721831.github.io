@@ -22,24 +22,24 @@ keywords: MyBatis动态SQL, MyBatis如何降低工作量, MyBatis的动态SQL的
 
 #### MyBatis动态SQL
 
-  * [1.动态SQL的必要性](<#1SQL_1>)
-  * [2.动态SQL的标签](<#2SQL_19>)
-  *     * [2.1共用的配置：](<#21_27>)
-    * [2.2if](<#22if_43>)
-    * [2.3choose](<#23choose_74>)
-    * [2.4where](<#24where_108>)
-    * [2.5trim](<#25trim_140>)
-    * [2.6set](<#26set_172>)
-    * [2.7foreach](<#27foreach_227>)
-    * [2.8bind](<#28bind_251>)
-  * [3.例子](<#3_287>)
-  *     * [3.1创建一个MyBatis的工程：](<#31MyBatis_288>)
-    * [3.2Java文件](<#32Java_291>)
-    * [3.3mybatis.xml](<#33mybatisxml_632>)
-    * [3.4properties](<#34properties_670>)
-    * [3.5mapper](<#35mapper_690>)
-  * [4.运行结果](<#4_699>)
-  * [5总结](<#5_1083>)
+  * 1.动态SQL的必要性
+  * 2.动态SQL的标签
+  *     * 2.1共用的配置：
+    * 2.2if
+    * 2.3choose
+    * 2.4where
+    * 2.5trim
+    * 2.6set
+    * 2.7foreach
+    * 2.8bind
+  * 3.例子
+  *     * 3.1创建一个MyBatis的工程：
+    * 3.2Java文件
+    * 3.3mybatis.xml
+    * 3.4properties
+    * 3.5mapper
+  * 4.运行结果
+  * 5总结
 
 ## 1.动态SQL的必要性
 

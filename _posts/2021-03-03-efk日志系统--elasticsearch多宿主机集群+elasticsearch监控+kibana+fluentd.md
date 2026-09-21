@@ -22,46 +22,46 @@ keywords: elasticsearch集群, fluentd, kibana, efk日志系统集成, 从0开�
 
 #### efk日志系统--elasticsearch多宿主机集群+elasticsearch监控+kibana+fluentd
 
-  * [1\. elasticsearch](<#1_elasticsearch_13>)
-  *     * [1.1 单宿主机集群](<#11__62>)
-    * [1.2 elasticsearch 配置](<#12_elasticsearch__203>)
-    *       * [1.2.1 基础信息配置](<#121__205>)
-      * [1.2.2 高级配置--network](<#122_network_232>)
-      *         * [network.host](<#networkhost_236>)
-        * [discovery.zen.ping.unicast.hosts](<#discoveryzenpingunicasthosts_255>)
-        * [http.port](<#httpport_263>)
-        * [transport.port](<#transportport_271>)
-        * [network.bind_host](<#networkbind_host_277>)
-        * [network.publish_host](<#networkpublish_host_285>)
-      * [1.2.3 高级配置--discovery](<#123_discovery_291>)
-      *         * [discovery.zen.ping.unicast.hosts](<#discoveryzenpingunicasthosts_293>)
-        * [discovery.zen.ping,unicast,resolve_timeout](<#discoveryzenpingunicastresolve_timeout_303>)
-        * [discovery.zen.ping_timeout](<#discoveryzenping_timeout_311>)
-        * [discovery,zen,join_timeout](<#discoveryzenjoin_timeout_321>)
-        * [discovery.zen.master_election.ignore_no_master_pings](<#discoveryzenmaster_electionignore_no_master_pings_333>)
-        * [discovery.zen.minimum_master_nodes](<#discoveryzenminimum_master_nodes_343>)
-      * [1.2.4 高级配置--transport](<#124_transport_349>)
-      *         * [transport.port](<#transportport_353>)
-        * [transport.publish_port](<#transportpublish_port_359>)
-        * [transport.bind_host](<#transportbind_host_365>)
-        * [transport.publish_host](<#transportpublish_host_371>)
-        * [transport.host](<#transporthost_377>)
-        * [transport.connect_timeout](<#transportconnect_timeout_383>)
-        * [transport.compress](<#transportcompress_389>)
-      * [1.2.5 高级配置--http](<#125_http_397>)
-    * [1.3 elasticsearch节点分类](<#13_elasticsearch_427>)
-    *       * [1.3.1 单节点--discovery.type](<#131_discoverytype_429>)
-      * [1.3.2 主节点--node.master](<#132_nodemaster_437>)
-      * [1.3.3 数据节点--node.data](<#133_nodedata_443>)
-      * [1.3.4 解析节点--node.ingest](<#134_nodeingest_455>)
-      * [1.3.5 连接节点--tribe](<#135_tribe_463>)
-      * [1.3.6 机器学习节点--node.ml](<#136_nodeml_479>)
-    * [1.4 多宿主机集群](<#14__488>)
-    * [1.5 宿主机启动的坑](<#15__562>)
-  * [2\. elasticsearch-head](<#2_elasticsearchhead_577>)
-  * [3\. kibana](<#3_kibana_644>)
-  * [4\. fluentd](<#4_fluentd_729>)
-  * [5\. 微服务集成fluentd](<#5_fluentd_908>)
+  * 1\. elasticsearch
+  *     * 1.1 单宿主机集群
+    * 1.2 elasticsearch 配置
+    *       * 1.2.1 基础信息配置
+      * 1.2.2 高级配置--network
+      *         * network.host
+        * discovery.zen.ping.unicast.hosts
+        * http.port
+        * transport.port
+        * network.bind_host
+        * network.publish_host
+      * 1.2.3 高级配置--discovery
+      *         * discovery.zen.ping.unicast.hosts
+        * discovery.zen.ping,unicast,resolve_timeout
+        * discovery.zen.ping_timeout
+        * discovery,zen,join_timeout
+        * discovery.zen.master_election.ignore_no_master_pings
+        * discovery.zen.minimum_master_nodes
+      * 1.2.4 高级配置--transport
+      *         * transport.port
+        * transport.publish_port
+        * transport.bind_host
+        * transport.publish_host
+        * transport.host
+        * transport.connect_timeout
+        * transport.compress
+      * 1.2.5 高级配置--http
+    * 1.3 elasticsearch节点分类
+    *       * 1.3.1 单节点--discovery.type
+      * 1.3.2 主节点--node.master
+      * 1.3.3 数据节点--node.data
+      * 1.3.4 解析节点--node.ingest
+      * 1.3.5 连接节点--tribe
+      * 1.3.6 机器学习节点--node.ml
+    * 1.4 多宿主机集群
+    * 1.5 宿主机启动的坑
+  * 2\. elasticsearch-head
+  * 3\. kibana
+  * 4\. fluentd
+  * 5\. 微服务集成fluentd
 
   
 项目地址： 

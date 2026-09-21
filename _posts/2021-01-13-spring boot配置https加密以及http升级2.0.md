@@ -22,8 +22,8 @@ keywords: 微服务安全加密, https加密配置, https双向认证加密, 微
 
 #### spring boot配置https加密以及http升级2.0
 
-  * [https加密](<#https_1>)
-  * [http升级2.0](<#http20_21>)
+  * https加密
+  * http升级2.0
 
 ## https加密
 

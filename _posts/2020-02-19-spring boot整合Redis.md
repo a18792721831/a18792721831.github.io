@@ -22,14 +22,14 @@ keywords: boot集成redis, Redis docker, redis常用, redis boot配置, redis da
 
 #### spring boot整合Redis
 
-  * [1\. Redis简介](<#1_Redis_3>)
-  * [2\. docker 启动](<#2_docker__6>)
-  * [3\. 创建项目](<#3__13>)
-  * [4\. 创建配置](<#4__15>)
-  * [5\. 创建Dao](<#5_Dao_17>)
-  * [6\. 创建Test](<#6_Test_19>)
-  * [7\. 测试](<#7__21>)
-  * [8\. 验证](<#8__23>)
+  * 1\. Redis简介
+  * 2\. docker 启动
+  * 3\. 创建项目
+  * 4\. 创建配置
+  * 5\. 创建Dao
+  * 6\. 创建Test
+  * 7\. 测试
+  * 8\. 验证
 
   
 git地址   

@@ -22,35 +22,35 @@ keywords: FastDFS单机版搭建, FastDFS集群搭建+DHT, FastDFS如何配置, 
 
 #### FastDFS文件服务器+单机+集群+DHT
 
-  * [1\. 需求分析](<#1__3>)
-  * [2\. 现状](<#2__11>)
-  *     * [2.1 tomcat静态资源](<#21_tomcat_15>)
-    * [2.2 ftp服务器](<#22_ftp_35>)
-    * [2.3 数据库](<#23__56>)
-    * [2.4 MogileFS](<#24_MogileFS_76>)
-    * [2.5 FastDfs](<#25_FastDfs_120>)
-    * [2.6 Zimg](<#26_Zimg_138>)
-    * [2.7 OSS](<#27_OSS_174>)
-  * [3\. FastDFS和MogileFS对比](<#3_FastDFSMogileFS_180>)
-  * [4\. 具体实施措施](<#4__221>)
-  *     * [4.1 docker镜像](<#41_docker_223>)
-    * [4.2 docker-compose文件](<#42_dockercompose_245>)
-    *       * [4.2.1 tracker](<#421_tracker_253>)
-      * [4.2.2 storage](<#422_storage_362>)
-    * [4.3 配置](<#43__442>)
-    *       * [4.3.1 tracker-fdht](<#431_trackerfdht_444>)
-      * [4.3.2 tracker-fdfs](<#432_trackerfdfs_504>)
-      * [4.3.3 storage](<#433_storage_571>)
-  * [5\. 扩展](<#5__601>)
-  *     * [5.1 水平扩展](<#51__611>)
-    * [5.2 垂直扩展](<#52__621>)
-    * [5.3 查看FastDFS系统信息](<#53_FastDFS_629>)
-    * [5.4 验证FastDFS系统](<#54_FastDFS_648>)
-  * [6\. java程序连接FastDFS](<#6_javaFastDFS_685>)
-  *     * [6.1 上传](<#61__713>)
-    * [6.2 下载](<#62__781>)
-    * [6.3 删除](<#63__812>)
-  * [7\. 总结](<#7__843>)
+  * 1\. 需求分析
+  * 2\. 现状
+  *     * 2.1 tomcat静态资源
+    * 2.2 ftp服务器
+    * 2.3 数据库
+    * 2.4 MogileFS
+    * 2.5 FastDfs
+    * 2.6 Zimg
+    * 2.7 OSS
+  * 3\. FastDFS和MogileFS对比
+  * 4\. 具体实施措施
+  *     * 4.1 docker镜像
+    * 4.2 docker-compose文件
+    *       * 4.2.1 tracker
+      * 4.2.2 storage
+    * 4.3 配置
+    *       * 4.3.1 tracker-fdht
+      * 4.3.2 tracker-fdfs
+      * 4.3.3 storage
+  * 5\. 扩展
+  *     * 5.1 水平扩展
+    * 5.2 垂直扩展
+    * 5.3 查看FastDFS系统信息
+    * 5.4 验证FastDFS系统
+  * 6\. java程序连接FastDFS
+  *     * 6.1 上传
+    * 6.2 下载
+    * 6.3 删除
+  * 7\. 总结
 
   
 github地址:https://github.com/a18792721831/fastdfs-docker-compose.git 

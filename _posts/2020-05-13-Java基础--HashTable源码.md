@@ -22,38 +22,38 @@ keywords: HashTable, hashTable源码, HashTable原理, HashTable面试知识, �
 
 #### Java基础--HashTable源码
 
-  * [1.Map接口](<#1Map_7>)
-  * [2.Dictionary](<#2Dictionary_33>)
-  * [3.HashTable](<#3HashTable_36>)
-  *     * [3.1 全局属性](<#31__39>)
-    * [3.2 辅助类](<#32__54>)
-    *       * [3.2.1 Entry](<#321_Entry_56>)
-      * [3.2.2 Enumerator](<#322_Enumerator_71>)
-      * [3.2.3 KeySet](<#323_KeySet_91>)
-      * [3.2.4 ValueCollection](<#324_ValueCollection_96>)
-      * [3.2.5 EntrySet](<#325_EntrySet_101>)
-      * [3.2.6 关系](<#326__105>)
-    * [3.3 HashTable方法](<#33_HashTable_107>)
-    *       * [3.3.1 HashTable构造](<#331_HashTable_108>)
-      * [3.3.2 HashTable的普通方法](<#332_HashTable_127>)
-      * [3.3.3 HashTable的迭代方法](<#333_HashTable_130>)
-      * [3.3.4 contains方法](<#334_contains_133>)
-      * [3.3.5 containsKey方法](<#335_containsKey_138>)
-      * [3.3.6 get方法](<#336_get_141>)
-      * [3.3.7 put方法](<#337_put_144>)
-      * [3.3.8 addEntry](<#338_addEntry_148>)
-      * [3.3.9 rehash](<#339_rehash_155>)
-      * [3.3.10 clear](<#3310_clear_162>)
-      * [3.3.11 clone](<#3311_clone_165>)
-      * [3.3.12 迭代访问](<#3312__168>)
-      * [3.3.13 hashCode](<#3313_hashCode_173>)
-      * [3.3.14 getOrDefault](<#3314_getOrDefault_178>)
-      * [3.3.15 forEach](<#3315_forEach_181>)
-      * [3.3.16 remove](<#3316_remove_186>)
-      * [3.3.17 replace](<#3317_replace_189>)
-      * [3.3.18 writeObject](<#3318_writeObject_192>)
-      * [3.3.19 readObject](<#3319_readObject_195>)
-  * [4\. 总结](<#4__197>)
+  * 1.Map接口
+  * 2.Dictionary
+  * 3.HashTable
+  *     * 3.1 全局属性
+    * 3.2 辅助类
+    *       * 3.2.1 Entry
+      * 3.2.2 Enumerator
+      * 3.2.3 KeySet
+      * 3.2.4 ValueCollection
+      * 3.2.5 EntrySet
+      * 3.2.6 关系
+    * 3.3 HashTable方法
+    *       * 3.3.1 HashTable构造
+      * 3.3.2 HashTable的普通方法
+      * 3.3.3 HashTable的迭代方法
+      * 3.3.4 contains方法
+      * 3.3.5 containsKey方法
+      * 3.3.6 get方法
+      * 3.3.7 put方法
+      * 3.3.8 addEntry
+      * 3.3.9 rehash
+      * 3.3.10 clear
+      * 3.3.11 clone
+      * 3.3.12 迭代访问
+      * 3.3.13 hashCode
+      * 3.3.14 getOrDefault
+      * 3.3.15 forEach
+      * 3.3.16 remove
+      * 3.3.17 replace
+      * 3.3.18 writeObject
+      * 3.3.19 readObject
+  * 4\. 总结
 
   
 HashTable的类图   

@@ -22,21 +22,21 @@ keywords: spark, sql, big data, thriftserver, spark连接thrift
 
 #### spark sql 创建rdd以及DataFrame和DataSet互转
 
-  * [使用SparkSession读取本地文件创建rdd](<#SparkSessionrdd_3>)
-  * [DateSet的介绍](<#DateSet_91>)
-  * [DataFrame的介绍](<#DataFrame_123>)
-  * [Rdd转DateFrame](<#RddDateFrame_139>)
-  *     * [读取本地文件得到DataFrame](<#DataFrame_141>)
-    * [DF风格查询](<#DF_199>)
-    * [sql风格查询](<#sql_244>)
-    * [查看sql的执行计划](<#sql_293>)
-    * [RDD通过指定结构转为DataFrame](<#RDDDataFrame_322>)
-    * [RDD通过反射构造结构转为DataFrame](<#RDDDataFrame_388>)
-  * [Rdd 转DataSet](<#Rdd_DataSet_453>)
-  * [从DataFrame或DataSet中获取RDD](<#DataFrameDataSetRDD_476>)
-  * [DataFrame和DateSet的互转](<#DataFrameDateSet_491>)
-  * [spark sql 连接 thriftserver](<#spark_sql__thriftserver_506>)
-  * [总结](<#_592>)
+  * 使用SparkSession读取本地文件创建rdd
+  * DateSet的介绍
+  * DataFrame的介绍
+  * Rdd转DateFrame
+  *     * 读取本地文件得到DataFrame
+    * DF风格查询
+    * sql风格查询
+    * 查看sql的执行计划
+    * RDD通过指定结构转为DataFrame
+    * RDD通过反射构造结构转为DataFrame
+  * Rdd 转DataSet
+  * 从DataFrame或DataSet中获取RDD
+  * DataFrame和DateSet的互转
+  * spark sql 连接 thriftserver
+  * 总结
 
   
 仓库地址：https://gitee.com/jyq_18792721831/sparkmaven.git 

@@ -22,28 +22,28 @@ keywords: batch writer, ItemWriter, batch写操作, batch根据数据路由写, 
 
 #### spring batch item writer详解
 
-  * [ItemWrite](<#ItemWrite_29>)
-  *     * [ItemWriter](<#ItemWriter_37>)
-    * [ItemStream](<#ItemStream_47>)
-    * [系统写组件](<#_61>)
-  * [写数据库](<#_90>)
-  *     * [JdbcBatchItemWriter](<#JdbcBatchItemWriter_94>)
-    * [JpaItemWriter](<#JpaItemWriter_199>)
-    * [MyBatisItemWriter](<#MyBatisItemWriter_295>)
-  * [组合写](<#_398>)
-  * [Item路由Writer](<#ItemWriter_507>)
-  * [服务复用](<#_628>)
-  *     * [ItemWriterAdapter](<#ItemWriterAdapter_632>)
-    * [PropertyExtractingDelegatingItemWriter](<#PropertyExtractingDelegatingItemWriter_701>)
-  * [自定义ItemWriter](<#ItemWriter_764>)
-  *     * [不可重启ItemWriter](<#ItemWriter_768>)
-    * [可重启ItemWriter](<#ItemWriter_834>)
-  * [拦截器](<#_902>)
-  *     * [接口](<#_906>)
-    * [Annotation](<#Annotation_970>)
-    * [执行顺序](<#_990>)
-    * [拦截器异常](<#_998>)
-    * [Merge](<#Merge_1018>)
+  * ItemWrite
+  *     * ItemWriter
+    * ItemStream
+    * 系统写组件
+  * 写数据库
+  *     * JdbcBatchItemWriter
+    * JpaItemWriter
+    * MyBatisItemWriter
+  * 组合写
+  * Item路由Writer
+  * 服务复用
+  *     * ItemWriterAdapter
+    * PropertyExtractingDelegatingItemWriter
+  * 自定义ItemWriter
+  *     * 不可重启ItemWriter
+    * 可重启ItemWriter
+  * 拦截器
+  *     * 接口
+    * Annotation
+    * 执行顺序
+    * 拦截器异常
+    * Merge
 
   
 github地址： 

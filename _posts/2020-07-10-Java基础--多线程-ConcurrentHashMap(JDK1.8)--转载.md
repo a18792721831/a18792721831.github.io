@@ -22,20 +22,20 @@ keywords: ConcurrtHashMap, 线程安全Map解析, ConcurrtHhMap源码, jdk7，8�
 
 #### Java基础--多线程-ConcurrentHashMap
 
-  * [前言](<#_1>)
-  * [ConcurrentHashMap（JDK1.7）](<#ConcurrentHashMapJDK17_3>)
-  * [put](<#put_9>)
-  * [get](<#get_16>)
-  * [size](<#size_18>)
-  * [ConcurrentHashMap（JDK1.8）](<#ConcurrentHashMapJDK18_45>)
-  * [类图](<#_87>)
-  * [get](<#get_152>)
-  * [put](<#put_175>)
-  * [initTable初始化](<#initTable_249>)
-  * [transfer](<#transfer_275>)
-  * [treeifyBin](<#treeifyBin_428>)
-  * [addCount](<#addCount_457>)
-  * [size](<#size_498>)
+  * 前言
+  * ConcurrentHashMap（JDK1.7）
+  * put
+  * get
+  * size
+  * ConcurrentHashMap（JDK1.8）
+  * 类图
+  * get
+  * put
+  * initTable初始化
+  * transfer
+  * treeifyBin
+  * addCount
+  * size
 
 ## 前言
 

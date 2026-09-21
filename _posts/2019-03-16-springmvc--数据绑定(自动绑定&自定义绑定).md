@@ -22,51 +22,51 @@ keywords: springmvc-数据绑定, springmvc数据传输, springmvc数据格式�
 
 #### springmvc--数据绑定自动绑定&自定义绑定
 
-  * [1.什么是数据绑定](<#1_1>)
-  * [2.实例准备](<#2_8>)
-  *     * [2.1创建项目](<#21_9>)
-    * [2.2导入jar包](<#22jar_11>)
-    * [2.3springmvc配置](<#23springmvc_13>)
-    * [2.4创建springmvc-config.xml](<#24springmvcconfigxml_40>)
-    * [2.5创建controller](<#25controller_67>)
-  * [3.绑定默认数据类型](<#3_71>)
-  *     * [3.1 在controller中新增方法](<#31_controller_79>)
-    * [3.2创建jsp文件](<#32jsp_88>)
-    * [3.3启动项目访问](<#33_104>)
-  * [4.绑定简单类型](<#4_107>)
-  *     * [4.1在controller中增加方法](<#41controller_109>)
-    * [4.2测试](<#42_117>)
-  * [5.参数别名](<#5_121>)
-  *     * [5.1在controller中增加方法](<#51controller_129>)
-    * [5.2测试](<#52_139>)
-  * [6.绑定POJO类型](<#6POJO_142>)
-  *     * [6.1增加实体类](<#61_144>)
-    * [6.2在controller中增加方法](<#62controller_207>)
-    * [6.3增加jsp](<#63jsp_223>)
-    * [6.4测试](<#64_247>)
-    * [注意](<#_254>)
-  * [7.嵌套POJO类型](<#7POJO_278>)
-  *     * [7.1创建实体](<#71_280>)
-    * [7.2在controller中增加方法](<#72controller_343>)
-    * [7.3增加jsp](<#73jsp_358>)
-    * [7.4测试](<#74_386>)
-  * [8.自定义数据绑定-Converter](<#8Converter_389>)
-  *     * [8.1Converter](<#81Converter_390>)
-    * [8.2增加自定义的Converter类](<#82Converter_395>)
-    * [8.3springmvc-config.xml配置](<#83springmvcconfigxml_423>)
-    * [8.4创建jsp](<#84jsp_461>)
-    * [8.5在controller中增加方法](<#85controller_480>)
-    * [8.6测试](<#86_493>)
-  * [9.自定义数据绑定-Formatter](<#9Formatter_505>)
-  *     * [9.1增加自定义的Formatter类](<#91Formatter_508>)
-    * [9.2springmvc-config.xml配置](<#92springmvcconfigxml_542>)
-    * [9.3创建jsp](<#93jsp_590>)
-    * [9.5在controller中增加方法](<#95controller_610>)
-    * [9.6测试](<#96_623>)
-  * [10数组绑定](<#10_627>)
-  *     * [10.1在controller中增加方法](<#101controller_628>)
-    * [10.2创建jsp](<#102jsp_645>)
-    * [10.3测试](<#103_676>)
+  * 1.什么是数据绑定
+  * 2.实例准备
+  *     * 2.1创建项目
+    * 2.2导入jar包
+    * 2.3springmvc配置
+    * 2.4创建springmvc-config.xml
+    * 2.5创建controller
+  * 3.绑定默认数据类型
+  *     * 3.1 在controller中新增方法
+    * 3.2创建jsp文件
+    * 3.3启动项目访问
+  * 4.绑定简单类型
+  *     * 4.1在controller中增加方法
+    * 4.2测试
+  * 5.参数别名
+  *     * 5.1在controller中增加方法
+    * 5.2测试
+  * 6.绑定POJO类型
+  *     * 6.1增加实体类
+    * 6.2在controller中增加方法
+    * 6.3增加jsp
+    * 6.4测试
+    * 注意
+  * 7.嵌套POJO类型
+  *     * 7.1创建实体
+    * 7.2在controller中增加方法
+    * 7.3增加jsp
+    * 7.4测试
+  * 8.自定义数据绑定-Converter
+  *     * 8.1Converter
+    * 8.2增加自定义的Converter类
+    * 8.3springmvc-config.xml配置
+    * 8.4创建jsp
+    * 8.5在controller中增加方法
+    * 8.6测试
+  * 9.自定义数据绑定-Formatter
+  *     * 9.1增加自定义的Formatter类
+    * 9.2springmvc-config.xml配置
+    * 9.3创建jsp
+    * 9.5在controller中增加方法
+    * 9.6测试
+  * 10数组绑定
+  *     * 10.1在controller中增加方法
+    * 10.2创建jsp
+    * 10.3测试
 
 ## 1.什么是数据绑定
 

@@ -22,47 +22,47 @@ keywords: 信号量锁, Semaphore源码, Semaphore如何使用, Semaphore原理,
 
 #### Java基础--Semaphore--计数信号量锁
 
-  * [1\. Semaphore 简介](<#1_Semaphore__1>)
-  *     * [1.1 Semaphore 的 UML 结构](<#11_Semaphore__UML__4>)
-    * [1.2 Semaphore的属性和方法](<#12_Semaphore_8>)
-  * [2\. Semaphore 的构造](<#2_Semaphore__10>)
-  *     * [2.1 Samephore(int)](<#21_Samephoreint_12>)
-    * [2.2 Samephore(int,boolean)](<#22_Samephoreintboolean_16>)
-  * [3\. Semaphore 的方法](<#3_Semaphore__20>)
-  *     * [3.1 acquire](<#31_acquire_22>)
-    * [3.2 acquire(int)](<#32_acquireint_27>)
-    * [3.3 acquireUninterruptibly](<#33_acquireUninterruptibly_32>)
-    * [3.4 acquireUninterruptibly(int)](<#34_acquireUninterruptiblyint_38>)
-    * [3.5 availablePermits](<#35_availablePermits_44>)
-    * [3.6 drainPermits](<#36_drainPermits_50>)
-    * [3.7 getQueuedThreads](<#37_getQueuedThreads_56>)
-    * [3.8 getQueueLength](<#38_getQueueLength_60>)
-    * [3.9 hasQueuedThreads](<#39_hasQueuedThreads_63>)
-    * [3.10 isFair](<#310_isFair_69>)
-    * [3.11 reducePermits](<#311_reducePermits_73>)
-    * [3.12 release](<#312_release_78>)
-    * [3.13 release(int)](<#313_releaseint_85>)
-    * [3.14 tryAcquire](<#314_tryAcquire_91>)
-    * [3.15 tryAcquire(int)](<#315_tryAcquireint_97>)
-    * [3.16 tryAcquire(int,long,TimeUnit)](<#316_tryAcquireintlongTimeUnit_103>)
-    * [3.17 tryAcquire(long,TimeUnit)](<#317_tryAcquirelongTimeUnit_109>)
-  * [4\. Semaphore 的Sync](<#4_Semaphore_Sync_112>)
-  *     * [4.1 Sync的构造](<#41_Sync_113>)
-    * [4.2 nonfairTryAcquireShared](<#42_nonfairTryAcquireShared_116>)
-    * [4.3 reducePermits](<#43_reducePermits_133>)
-    * [4.4 tryReleaseShared](<#44_tryReleaseShared_153>)
-  * [5\. Semaphore 的FairSync](<#5_Semaphore_FairSync_174>)
-  *     * [5.1 FairSync 构造](<#51_FairSync__175>)
-    * [5.2 tryAcquireShared](<#52_tryAcquireShared_178>)
-  * [6\. Semaphore 的NonfairSync](<#6_Semaphore_NonfairSync_203>)
-  *     * [6.1 NonfairSync的构造](<#61_NonfairSync_204>)
-    * [6.2 tryAcquireShared](<#62_tryAcquireShared_207>)
-  * [7\. AQS实现的方法](<#7_AQS_210>)
-  *     * [7.1 getQueuedThreads](<#71_getQueuedThreads_211>)
-    * [7.2 getQueueLength](<#72_getQueueLength_228>)
-    * [7.3 tryAcquireShharedNanos](<#73_tryAcquireShharedNanos_244>)
-  * [8\. Semaphore 示例](<#8_Semaphore__263>)
-  * [9\. 总结](<#9__312>)
+  * 1\. Semaphore 简介
+  *     * 1.1 Semaphore 的 UML 结构
+    * 1.2 Semaphore的属性和方法
+  * 2\. Semaphore 的构造
+  *     * 2.1 Samephore(int)
+    * 2.2 Samephore(int,boolean)
+  * 3\. Semaphore 的方法
+  *     * 3.1 acquire
+    * 3.2 acquire(int)
+    * 3.3 acquireUninterruptibly
+    * 3.4 acquireUninterruptibly(int)
+    * 3.5 availablePermits
+    * 3.6 drainPermits
+    * 3.7 getQueuedThreads
+    * 3.8 getQueueLength
+    * 3.9 hasQueuedThreads
+    * 3.10 isFair
+    * 3.11 reducePermits
+    * 3.12 release
+    * 3.13 release(int)
+    * 3.14 tryAcquire
+    * 3.15 tryAcquire(int)
+    * 3.16 tryAcquire(int,long,TimeUnit)
+    * 3.17 tryAcquire(long,TimeUnit)
+  * 4\. Semaphore 的Sync
+  *     * 4.1 Sync的构造
+    * 4.2 nonfairTryAcquireShared
+    * 4.3 reducePermits
+    * 4.4 tryReleaseShared
+  * 5\. Semaphore 的FairSync
+  *     * 5.1 FairSync 构造
+    * 5.2 tryAcquireShared
+  * 6\. Semaphore 的NonfairSync
+  *     * 6.1 NonfairSync的构造
+    * 6.2 tryAcquireShared
+  * 7\. AQS实现的方法
+  *     * 7.1 getQueuedThreads
+    * 7.2 getQueueLength
+    * 7.3 tryAcquireShharedNanos
+  * 8\. Semaphore 示例
+  * 9\. 总结
 
 ## 1\. Semaphore 简介
 

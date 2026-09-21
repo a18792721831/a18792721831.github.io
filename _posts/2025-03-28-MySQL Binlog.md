@@ -24,19 +24,19 @@ MySQL Binlog
 
 #### MySQL Binlog
 
-  * [介绍](<#_12>)
-  * [查看 Binlog 位点](<#_Binlog__18>)
-  * [开启和关闭 Binlog](<#_Binlog_50>)
-  * [Binlog 的作用](<#Binlog__120>)
-  * [Binlog 记录的格式](<#Binlog__126>)
-  * [Binlog 的解析](<#Binlog__162>)
-  * [Binlog 加密](<#Binlog__231>)
-  * [Binlog 的清理](<#Binlog__333>)
-  *     * [根据Binlog文件名删除](<#Binlog_337>)
-    * [根据时间删除](<#_355>)
-  * [Binlog 保留参数](<#Binlog__367>)
-  * [Binlog 的落盘](<#Binlog__395>)
-  * [Binlog 相关参数](<#Binlog__409>)
+  * 介绍
+  * 查看 Binlog 位点
+  * 开启和关闭 Binlog
+  * Binlog 的作用
+  * Binlog 记录的格式
+  * Binlog 的解析
+  * Binlog 加密
+  * Binlog 的清理
+  *     * 根据Binlog文件名删除
+    * 根据时间删除
+  * Binlog 保留参数
+  * Binlog 的落盘
+  * Binlog 相关参数
 
 MySQL主从复制：https://blog.csdn.net/a18792721831/article/details/146117935  
 MySQL Binlog：https://blog.csdn.net/a18792721831/article/details/146606305  

@@ -22,17 +22,17 @@ keywords: k8s存储, kubernetes, volume类型, nfs, pv
 
 #### k8s-kubernetes存储卷
 
-  * [1.Volume类型](<#1Volume_5>)
-  * [2.emptyDir](<#2emptyDir_30>)
-  * [3.hostPath](<#3hostPath_48>)
-  * [4.NFS](<#4NFS_67>)
-  * [5.gcePersistentDisk](<#5gcePersistentDisk_77>)
-  * [6.awsElasticBlockStore](<#6awsElasticBlockStore_87>)
-  * [7.gitRepo](<#7gitRepo_97>)
-  * [8.使用subPath](<#8subPath_106>)
-  * [9.FlexVolume](<#9FlexVolume_132>)
-  * [10.Projected Volume](<#10Projected_Volume_145>)
-  * [11.本地存储限额](<#11_184>)
+  * 1.Volume类型
+  * 2.emptyDir
+  * 3.hostPath
+  * 4.NFS
+  * 5.gcePersistentDisk
+  * 6.awsElasticBlockStore
+  * 7.gitRepo
+  * 8.使用subPath
+  * 9.FlexVolume
+  * 10.Projected Volume
+  * 11.本地存储限额
 
   
 我们知道默认情况下容器的数据都是非持久化的，在容器消亡以后数据也跟着丢失，所以Docker提供了Volume机制以便将数据持久化存储。   

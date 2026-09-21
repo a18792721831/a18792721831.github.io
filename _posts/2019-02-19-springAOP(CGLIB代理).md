@@ -22,14 +22,14 @@ keywords: springAOP, CGLIB实现SpringAOP, CGLIB代理原理, CGLIB代理的优�
 
 #### Spring AOP----CGLIB代理
 
-  * [1.为什么要有CGLIB代理](<#1CGLIB_1>)
-  * [2.CGLIB代理的原理](<#2CGLIB_4>)
-  * [3.例子](<#3_8>)
-  *     * [3.1创建一个spring的项目](<#31spring_9>)
-    * [3.2创建Java类](<#32Java_11>)
-    * [3.3xml文件](<#33xml_99>)
-    * [3.4运行结果](<#34_111>)
-  * [4.总结](<#4_119>)
+  * 1.为什么要有CGLIB代理
+  * 2.CGLIB代理的原理
+  * 3.例子
+  *     * 3.1创建一个spring的项目
+    * 3.2创建Java类
+    * 3.3xml文件
+    * 3.4运行结果
+  * 4.总结
 
 ## 1.为什么要有CGLIB代理
 

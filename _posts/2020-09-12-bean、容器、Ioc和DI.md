@@ -22,95 +22,95 @@ keywords: springBean, spring容器, springDI, springIoc, spring源码
 
 #### bean、容器、Ioc和DI
 
-  * [bean、容器、Ioc和DI](<#beanIocDI_5>)
-  * [bean](<#bean_15>)
-  *     * [bean简介](<#bean_19>)
-    * [bean 创建](<#bean__23>)
-    *       * [FactoryBean](<#FactoryBean_31>)
-      * [BeanDefinition](<#BeanDefinition_50>)
-      * [BeanMetadataElement](<#BeanMetadataElement_86>)
-      * [AttributeAccessor](<#AttributeAccessor_94>)
-  * [容器](<#_109>)
-  *     * [Java中的容器](<#Java_113>)
-    * [Spring中的容器](<#Spring_123>)
-    * [接口](<#_129>)
-    *       * [BeanFactory](<#BeanFactory_174>)
-      * [HierarchicalBeanFactory](<#HierarchicalBeanFactory_183>)
-      * [ListableBeanFactory](<#ListableBeanFactory_192>)
-      * [SingletonBeanRegistry](<#SingletonBeanRegistry_219>)
-      * [ConfigurableBeanFactory](<#ConfigurableBeanFactory_253>)
-      * [AutowireCapableBeanFactory](<#AutowireCapableBeanFactory_278>)
-      * [ConfigurableListableBeanFactory](<#ConfigurableListableBeanFactory_326>)
-      * [AliasRegistry](<#AliasRegistry_354>)
-      * [BeanDefinitionRegistry](<#BeanDefinitionRegistry_371>)
-    * [实现](<#_398>)
-    *       * [SimpleAliasRegistory](<#SimpleAliasRegistory_406>)
-      * [DefaultSingletonBeanRegistory](<#DefaultSingletonBeanRegistory_461>)
-      *         * [注册--SingletonBeanRegistry](<#SingletonBeanRegistry_489>)
-        * [获取--SingletonBeanRegistry](<#SingletonBeanRegistry_507>)
-        * [是否包含--SingletonBeanRegistry](<#SingletonBeanRegistry_519>)
-        * [获取全部的beanName--SingletonBeanRegistry](<#beanNameSingletonBeanRegistry_525>)
-        * [获取单例容器中已经注册的bean的数量--SingletonBeanRegistry](<#beanSingletonBeanRegistry_533>)
-        * [获取单例互斥对象--SingletonBeanRegistry](<#SingletonBeanRegistry_537>)
-        * [使用给定的beanFactory创建beanInstance](<#beanFactorybeanInstance_543>)
-        * [移除](<#_563>)
-        * [设置正在创建的bean](<#bean_571>)
-        * [注册有依赖的bean](<#bean_582>)
-        * [判断两个bean之间是否存在依赖](<#bean_590>)
-        * [获取依赖的beanName](<#beanName_611>)
-        * [单例容器销毁](<#_620>)
-        * [DefaultSingletonBeanRegistory多线程处理](<#DefaultSingletonBeanRegistory_648>)
-      * [FactoryBeanRegistorySupport](<#FactoryBeanRegistorySupport_654>)
-      *         * [关系](<#_656>)
-        * [获取beanInstance的类型](<#beanInstance_664>)
-        * [获取正在创建的beanInstance的映射](<#beanInstance_674>)
-        * [处理指定的FactoryBean](<#FactoryBean_680>)
-        * [doGetObjectFromFactoryBean](<#doGetObjectFromFactoryBean_702>)
-        * [beforeSingletonCreation](<#beforeSingletonCreation_709>)
-        * [postProcessObjectFromFactoryBean](<#postProcessObjectFromFactoryBean_715>)
-        * [afterSingletonCreation](<#afterSingletonCreation_721>)
-        * [留给子类实现的扩展](<#_730>)
-      * [AbstractBeanFactory](<#AbstractBeanFactory_734>)
-      *         * [关系](<#_736>)
-        * [多层容器](<#_761>)
-        * [类加载](<#_784>)
-        * [依赖处理](<#_799>)
-        * [属性配置](<#_819>)
-        * [类型转换](<#_837>)
-        * [属性解析](<#_857>)
-        * [bean处理器](<#bean_871>)
-        * [作用域](<#_901>)
-        * [类信息](<#_912>)
-        * [留给子类扩展](<#_954>)
-      * [AbstractAutowireCapableBeanFactory](<#AbstractAutowireCapableBeanFactory_975>)
-      *         * [关系](<#_977>)
-        * [创建Bean实例](<#Bean_987>)
-        * [bean前置处理](<#bean_1090>)
-        * [bean处理器factory后置处理器](<#beanfactory_1096>)
-        * [bean后置处理器](<#bean_1108>)
-        * [自动装配](<#_1113>)
-        * [配置bean](<#bean_1141>)
-        * [销毁bean](<#bean_1148>)
-        * [bean创建时依赖忽略](<#bean_1171>)
-        * [子类扩展](<#_1181>)
-      * [DefaultListableBeanFactory](<#DefaultListableBeanFactory_1196>)
-      *         * [关系](<#_1204>)
-        * [抽象方法实现](<#_1217>)
-        * [依赖处理](<#_1258>)
-        * [bean信息处理](<#bean_1290>)
-        * [序列化和反序列化](<#_1301>)
-        * [查漏补缺](<#_1310>)
-        * [使用](<#_1321>)
-      * [XmlBeanFactory](<#XmlBeanFactory_1420>)
-      *         * [关系](<#_1432>)
-        * [XmlBeanFactory的操作](<#XmlBeanFactory_1441>)
-        * [XmlBeanDefinitionReader#loadBeanDefinitions](<#XmlBeanDefinitionReaderloadBeanDefinitions_1457>)
-        * [registryBeanDefinition](<#registryBeanDefinition_1491>)
-  * [总结](<#_1530>)
-  *     * [bean](<#bean_1532>)
-    * [容器](<#_1540>)
-    * [Ioc](<#Ioc_1550>)
-    * [DI](<#DI_1558>)
+  * bean、容器、Ioc和DI
+  * bean
+  *     * bean简介
+    * bean 创建
+    *       * FactoryBean
+      * BeanDefinition
+      * BeanMetadataElement
+      * AttributeAccessor
+  * 容器
+  *     * Java中的容器
+    * Spring中的容器
+    * 接口
+    *       * BeanFactory
+      * HierarchicalBeanFactory
+      * ListableBeanFactory
+      * SingletonBeanRegistry
+      * ConfigurableBeanFactory
+      * AutowireCapableBeanFactory
+      * ConfigurableListableBeanFactory
+      * AliasRegistry
+      * BeanDefinitionRegistry
+    * 实现
+    *       * SimpleAliasRegistory
+      * DefaultSingletonBeanRegistory
+      *         * 注册--SingletonBeanRegistry
+        * 获取--SingletonBeanRegistry
+        * 是否包含--SingletonBeanRegistry
+        * 获取全部的beanName--SingletonBeanRegistry
+        * 获取单例容器中已经注册的bean的数量--SingletonBeanRegistry
+        * 获取单例互斥对象--SingletonBeanRegistry
+        * 使用给定的beanFactory创建beanInstance
+        * 移除
+        * 设置正在创建的bean
+        * 注册有依赖的bean
+        * 判断两个bean之间是否存在依赖
+        * 获取依赖的beanName
+        * 单例容器销毁
+        * DefaultSingletonBeanRegistory多线程处理
+      * FactoryBeanRegistorySupport
+      *         * 关系
+        * 获取beanInstance的类型
+        * 获取正在创建的beanInstance的映射
+        * 处理指定的FactoryBean
+        * doGetObjectFromFactoryBean
+        * beforeSingletonCreation
+        * postProcessObjectFromFactoryBean
+        * afterSingletonCreation
+        * 留给子类实现的扩展
+      * AbstractBeanFactory
+      *         * 关系
+        * 多层容器
+        * 类加载
+        * 依赖处理
+        * 属性配置
+        * 类型转换
+        * 属性解析
+        * bean处理器
+        * 作用域
+        * 类信息
+        * 留给子类扩展
+      * AbstractAutowireCapableBeanFactory
+      *         * 关系
+        * 创建Bean实例
+        * bean前置处理
+        * bean处理器factory后置处理器
+        * bean后置处理器
+        * 自动装配
+        * 配置bean
+        * 销毁bean
+        * bean创建时依赖忽略
+        * 子类扩展
+      * DefaultListableBeanFactory
+      *         * 关系
+        * 抽象方法实现
+        * 依赖处理
+        * bean信息处理
+        * 序列化和反序列化
+        * 查漏补缺
+        * 使用
+      * XmlBeanFactory
+      *         * 关系
+        * XmlBeanFactory的操作
+        * XmlBeanDefinitionReader#loadBeanDefinitions
+        * registryBeanDefinition
+  * 总结
+  *     * bean
+    * 容器
+    * Ioc
+    * DI
 
   
 github地址: 

@@ -22,45 +22,45 @@ keywords: zipkin 原理, zipkin docker, zipkin rabbitmq, zipkin elsearch, zipkin
 
 #### spring boot 集成sleuth
 
-  * [1\. 理论](<#1__4>)
-  *     * [1.1 sleuth是什么](<#11_sleuth_5>)
-    * [1.2 sleuth有哪些](<#12_sleuth_8>)
-    * [1.3 链路追踪的一些基本概念](<#13__10>)
-    * [1.4 zipkin的组成](<#14_zipkin_18>)
-  * [2\. zipkin 实例](<#2_zipkin__25>)
-  *     * [2.1 zipkin server](<#21_zipkin_server_26>)
-    * [2.2 zipkin client](<#22_zipkin_client_45>)
-    *       * [2.2.1 创建](<#221__47>)
-      * [2.2.2 配置](<#222__49>)
-      * [2.2.3 注解](<#223__57>)
-      * [2.2.4 对外接口 controller](<#224__controller_59>)
-      * [2.2.5 启动](<#225__61>)
-    * [2.3 gateway service](<#23_gateway_service_83>)
-    *       * [2.3.1 创建](<#231__85>)
-      * [2.3.2 配置](<#232__87>)
-      * [2.3.3 注解](<#233__90>)
-      * [2.3.4 启动](<#234__92>)
-    * [2.4 自定义链路数据](<#24__110>)
-  * [3\. zipkin 集成 rabbitmq](<#3_zipkin__rabbitmq_138>)
-  *     * [3.1 rabbitmq的搭建](<#31_rabbitmq_140>)
-    * [3.2 zipkin server rabbitmq](<#32_zipkin_server_rabbitmq_146>)
-    * [3.3 zipkin client rabbitmq](<#33_zipkin_client_rabbitmq_177>)
-    *       * [3.3.1 创建](<#331__178>)
-      * [3.3.2 配置](<#332__180>)
-      * [3.3.3 注解](<#333__183>)
-      * [3.3.4 启动](<#334__185>)
-  * [4\. zipkin 集成oracle](<#4_zipkin_oracle_192>)
-  * [5\. zipkin集成 elasticsearch](<#5_zipkin_elasticsearch_197>)
-  *     * [5.1 安装 elasticsearch](<#51__elasticsearch_198>)
-    * [5.2 安装 kibana](<#52__kibana_213>)
-    * [5.3 zipkin 使用 elasticsearch](<#53_zipkin__elasticsearch_225>)
-    * [5.5 zipkin client 使用 elasticsearch](<#55_zipkin_client__elasticsearch_234>)
-    *       * [5.5.1 创建](<#551__235>)
-      * [5.5.2 配置](<#552__247>)
-      * [5.5.3 注解](<#553__249>)
-      * [5.5.4 启动](<#554__251>)
-      * [5.5.5 验证](<#555__253>)
-    * [5.6 kibana 连接 elasticsearch](<#56_kibana__elasticsearch_256>)
+  * 1\. 理论
+  *     * 1.1 sleuth是什么
+    * 1.2 sleuth有哪些
+    * 1.3 链路追踪的一些基本概念
+    * 1.4 zipkin的组成
+  * 2\. zipkin 实例
+  *     * 2.1 zipkin server
+    * 2.2 zipkin client
+    *       * 2.2.1 创建
+      * 2.2.2 配置
+      * 2.2.3 注解
+      * 2.2.4 对外接口 controller
+      * 2.2.5 启动
+    * 2.3 gateway service
+    *       * 2.3.1 创建
+      * 2.3.2 配置
+      * 2.3.3 注解
+      * 2.3.4 启动
+    * 2.4 自定义链路数据
+  * 3\. zipkin 集成 rabbitmq
+  *     * 3.1 rabbitmq的搭建
+    * 3.2 zipkin server rabbitmq
+    * 3.3 zipkin client rabbitmq
+    *       * 3.3.1 创建
+      * 3.3.2 配置
+      * 3.3.3 注解
+      * 3.3.4 启动
+  * 4\. zipkin 集成oracle
+  * 5\. zipkin集成 elasticsearch
+  *     * 5.1 安装 elasticsearch
+    * 5.2 安装 kibana
+    * 5.3 zipkin 使用 elasticsearch
+    * 5.5 zipkin client 使用 elasticsearch
+    *       * 5.5.1 创建
+      * 5.5.2 配置
+      * 5.5.3 注解
+      * 5.5.4 启动
+      * 5.5.5 验证
+    * 5.6 kibana 连接 elasticsearch
 
   
 git地址   

@@ -24,9 +24,9 @@ MySQL General Log
 
 #### MySQL General Log
 
-  * [General Log 的开启](<#General_Log__15>)
-  * [General Log 的用法](<#General_Log__31>)
-  * [log_output 参数](<#log_output__48>)
+  * General Log 的开启
+  * General Log 的用法
+  * log_output 参数
 
 MySQL主从复制：https://blog.csdn.net/a18792721831/article/details/146117935  
 MySQL Binlog：https://blog.csdn.net/a18792721831/article/details/146606305  

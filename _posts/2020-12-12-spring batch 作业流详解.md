@@ -22,21 +22,21 @@ keywords: 批处理Flow, 条件分支Step, step流程控制, 并行执行step, �
 
 #### spring batch 作业流详解
 
-  * [顺序Flow](<#Flow_29>)
-  * [条件Flow](<#Flow_115>)
-  *     * [条件Flwo配置](<#Flwo_121>)
-    * [ExitStatus & BatchStatus](<#ExitStatus__BatchStatus_348>)
-    * [decision](<#decision_381>)
-  * [并行Flow](<#Flow_532>)
-  * [Step Job Flow关系](<#Step_Job_Flow_646>)
-  *     * [Flow](<#Flow_652>)
-    * [FlowStep](<#FlowStep_676>)
-    * [JobStep](<#JobStep_682>)
-  * [数据共享](<#_686>)
-  * [终止Job](<#Job_782>)
-  *     * [end](<#end_800>)
-    * [stop](<#stop_906>)
-    * [fail](<#fail_1045>)
+  * 顺序Flow
+  * 条件Flow
+  *     * 条件Flwo配置
+    * ExitStatus & BatchStatus
+    * decision
+  * 并行Flow
+  * Step Job Flow关系
+  *     * Flow
+    * FlowStep
+    * JobStep
+  * 数据共享
+  * 终止Job
+  *     * end
+    * stop
+    * fail
 
   
 github地址： 

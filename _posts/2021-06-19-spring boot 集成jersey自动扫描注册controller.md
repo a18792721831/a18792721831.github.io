@@ -22,10 +22,10 @@ keywords: boot集成jersey, jersey配置, jersey自动扫描, 优雅的注册到
 
 #### spring boot 集成jersey自动扫描注册controller
 
-  * [1\. 项目准备](<#1__1>)
-  * [2\. 项目配置](<#2__22>)
-  * [3\. jersey使用注意](<#3_jersey_43>)
-  * [4\. jersey 扫描注册](<#4_jersey__136>)
+  * 1\. 项目准备
+  * 2\. 项目配置
+  * 3\. jersey使用注意
+  * 4\. jersey 扫描注册
 
 ## 1\. 项目准备
 

@@ -22,16 +22,16 @@ keywords: java8, 并发, 响应式编程, 非阻塞IO, 高性能
 
 #### java8使用Lambda表达式编写并发
 
-  * [1.提倡使用非阻塞性IO](<#1IO_1>)
-  * [2.回调](<#2_7>)
-  * [3.Lambda化](<#3Lambda_93>)
-  * [4.末日金字塔](<#4_160>)
-  * [5.Future](<#5Future_168>)
-  * [6.CompletableFuture](<#6CompletableFuture_189>)
-  * [7.supplyAsync](<#7supplyAsync_196>)
-  * [8.CompletableFuture一些常用方法](<#8CompletableFuture_256>)
-  * [9.响应式编程](<#9_262>)
-  * [10.总结](<#10_271>)
+  * 1.提倡使用非阻塞性IO
+  * 2.回调
+  * 3.Lambda化
+  * 4.末日金字塔
+  * 5.Future
+  * 6.CompletableFuture
+  * 7.supplyAsync
+  * 8.CompletableFuture一些常用方法
+  * 9.响应式编程
+  * 10.总结
 
 ## 1.提倡使用非阻塞性IO
 

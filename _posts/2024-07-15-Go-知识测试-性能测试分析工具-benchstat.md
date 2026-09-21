@@ -22,14 +22,14 @@ keywords: golang, go, go 测试, benchmark, go 性能测试分析, benchstat
 
 #### Go-知识测试-性能测试分析工具-benchstat
 
-  * [benchmark 结果](<#benchmark__4>)
-  * [benchstat](<#benchstat_18>)
-  *     * [确认 `benchstat` 已安装](<#_benchstat__27>)
-    * [确认 `GOPATH` 和 `GOBIN`](<#_GOPATH__GOBIN_35>)
-    * [将 `$GOPATH/bin` 添加到 `PATH`](<#_GOPATHbin__PATH_47>)
-    * [验证安装](<#_75>)
-    * [检查安装路径](<#_85>)
-  * [使用](<#_94>)
+  * benchmark 结果
+  * benchstat
+  *     * 确认 `benchstat` 已安装
+    * 确认 `GOPATH` 和 `GOBIN`
+    * 将 `$GOPATH/bin` 添加到 `PATH`
+    * 验证安装
+    * 检查安装路径
+  * 使用
 
 > 传送门：[Go-知识测试-性能测试](<https://blog.csdn.net/a18792721831/article/details/140094738>)
 

@@ -22,25 +22,25 @@ keywords: rabbitmq与bus集成, 微服务实现实时刷新配置, 微服务集�
 
 #### spring boot config 集成rabbitmq实现总线bus实时刷新配置
 
-  * [1\. rabbitmq安装](<#1_rabbitmq_3>)
-  *     * [1.1 选择docker 镜像](<#11_docker__4>)
-    * [1.2 k8s 命名空间创建](<#12_k8s__13>)
-    * [1.3 k8s 服务创建](<#13_k8s__26>)
-    * [1.4 k8s daemonset 的 deployment](<#14_k8s_daemonset__deployment_65>)
-    * [1.5 验证](<#15__123>)
-  * [2\. spring boot config bus server 集成](<#2_spring_boot_config_bus_server__127>)
-  *     * [2.1 创建项目](<#21__128>)
-    * [2.2 配置](<#22__130>)
-    * [2.3 注解](<#23__194>)
-    * [2.4 远程配置](<#24__196>)
-    * [2.5 启动](<#25__199>)
-    * [2.6 验证实时刷新](<#26__202>)
-  * [2\. spring boot config bus client 集成](<#2_spring_boot_config_bus_client__219>)
-  *     * [2.1 创建项目](<#21__220>)
-    * [2.2 配置](<#22__222>)
-    * [2.4 启动](<#24__227>)
-    * [2.5 修改远程配置](<#25__229>)
-    * [2.6 post 刷新触发](<#26_post__231>)
+  * 1\. rabbitmq安装
+  *     * 1.1 选择docker 镜像
+    * 1.2 k8s 命名空间创建
+    * 1.3 k8s 服务创建
+    * 1.4 k8s daemonset 的 deployment
+    * 1.5 验证
+  * 2\. spring boot config bus server 集成
+  *     * 2.1 创建项目
+    * 2.2 配置
+    * 2.3 注解
+    * 2.4 远程配置
+    * 2.5 启动
+    * 2.6 验证实时刷新
+  * 2\. spring boot config bus client 集成
+  *     * 2.1 创建项目
+    * 2.2 配置
+    * 2.4 启动
+    * 2.5 修改远程配置
+    * 2.6 post 刷新触发
 
   
 git地址：   

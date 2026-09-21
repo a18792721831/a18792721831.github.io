@@ -22,37 +22,37 @@ keywords: HashMap源码, HashMap详解, HashMap的组成, HashMap的存储原理
 
 #### Java基础--HashMap源码
 
-  * [1 HashMap实现的接口](<#1_HashMap_13>)
-  * [2 HashMap继承的类](<#2_HashMap_30>)
-  * [3 HashMap 数据获取](<#3_HashMap__44>)
-  *     * [3.1 Iterable](<#31_Iterable_66>)
-    *       * [3.1.1 Iterator](<#311_Iterator_76>)
-      * [3.1.2 Consumer](<#312_Consumer_115>)
-      * [3.1.3 Spliterator](<#313_Spliterator_182>)
-    * [3.2 Collection](<#32_Collection_190>)
-    * [3.3 AbstractCollection](<#33_AbstractCollection_195>)
-    * [3.4 Set](<#34_Set_200>)
-    * [3.5 AbstractSet](<#35_AbstractSet_211>)
-    * [3.6 KeySet -> HashMap](<#36_KeySet__HashMap_215>)
-    * [3.7 ValueSet > HashMap](<#37_ValueSet__HashMap_221>)
-    * [3.8 EntrySet -> HashMap](<#38_EntrySet__HashMap_224>)
-  * [4 HashMap 的迭代器](<#4_HashMap__227>)
-  *     * [4.1 HashIterator](<#41_HashIterator_231>)
-    * [4.2 Iterator](<#42_Iterator_248>)
-  * [5\. Node](<#5_Node_253>)
-  *     * [5.1 Node(链表)](<#51_Node_258>)
-    * [5.2 TreeNode](<#52_TreeNode_266>)
-  * [6\. Spliterator](<#6_Spliterator_274>)
-  *     * [6.1 Spliterator调用链](<#61_Spliterator_279>)
-    * [6.2 Spliterator属性](<#62_Spliterator_286>)
-    * [6.3 Spliterator 操作](<#63_Spliterator__294>)
-    * [6.4 KeySpliterator,ValueSpliterator,EntrySpliterator](<#64_KeySpliteratorValueSpliteratorEntrySpliterator_298>)
-  * [7\. HashMap 其他的常用的操作](<#7_HashMap__305>)
-  *     * [7.1 初始化](<#71__306>)
-    * [7.2 put](<#72_put_319>)
-    * [7.3 链表化](<#73__345>)
-    * [7.4 hashCode](<#74_hashCode_350>)
-  * [8\. 总结](<#8__353>)
+  * 1 HashMap实现的接口
+  * 2 HashMap继承的类
+  * 3 HashMap 数据获取
+  *     * 3.1 Iterable
+    *       * 3.1.1 Iterator
+      * 3.1.2 Consumer
+      * 3.1.3 Spliterator
+    * 3.2 Collection
+    * 3.3 AbstractCollection
+    * 3.4 Set
+    * 3.5 AbstractSet
+    * 3.6 KeySet -> HashMap
+    * 3.7 ValueSet > HashMap
+    * 3.8 EntrySet -> HashMap
+  * 4 HashMap 的迭代器
+  *     * 4.1 HashIterator
+    * 4.2 Iterator
+  * 5\. Node
+  *     * 5.1 Node(链表)
+    * 5.2 TreeNode
+  * 6\. Spliterator
+  *     * 6.1 Spliterator调用链
+    * 6.2 Spliterator属性
+    * 6.3 Spliterator 操作
+    * 6.4 KeySpliterator,ValueSpliterator,EntrySpliterator
+  * 7\. HashMap 其他的常用的操作
+  *     * 7.1 初始化
+    * 7.2 put
+    * 7.3 链表化
+    * 7.4 hashCode
+  * 8\. 总结
 
 说明，以下java环境都是基于jdk8u111进行。  
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/282e9ea4bcc69b8b8dc6e5b4da8da711.png)  

@@ -22,18 +22,18 @@ keywords: batch连接数据库, batch跳过job, batch无法执行job, batch执�
 
 #### spring batch连接数据库
 
-  * [创建项目](<#_28>)
-  * [创建配置](<#_40>)
-  * [创建job](<#job_66>)
-  *     * [创建job配置类](<#job_68>)
-    * [创建ItemReader](<#ItemReader_72>)
-    * [创建ItemProcess](<#ItemProcess_78>)
-    * [创建ItemWriter](<#ItemWriter_82>)
-    * [组装Step](<#Step_86>)
-    * [配置Job](<#Job_90>)
-  * [配置数据库](<#_94>)
-  *     * [覆盖接口jobRepository](<#jobRepository_110>)
-  * [注意](<#_114>)
+  * 创建项目
+  * 创建配置
+  * 创建job
+  *     * 创建job配置类
+    * 创建ItemReader
+    * 创建ItemProcess
+    * 创建ItemWriter
+    * 组装Step
+    * 配置Job
+  * 配置数据库
+  *     * 覆盖接口jobRepository
+  * 注意
 
   
 github地址： 

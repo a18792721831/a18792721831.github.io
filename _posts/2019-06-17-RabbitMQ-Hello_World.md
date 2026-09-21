@@ -22,17 +22,17 @@ keywords: Hello World RabbitMQ, RabbitMQ, 入门RabbitMQ, RabbitMQ的三种交�
 
 #### RabbitMQ-Hello_World
 
-  * [1.RabbitMQ的特点](<#1RabbitMQ_1>)
-  * [2.RabbitMQ的基本概念](<#2RabbitMQ_11>)
-  * [3.重点核心](<#3_24>)
-  * [4.实例-hello world](<#4hello_world_35>)
-  *     * [4.1创建一个model](<#41model_36>)
-    * [4.2jar包下载](<#42jar_40>)
-    * [4.3生产者](<#43_47>)
-    * [4.4消费者](<#44_93>)
-    * [4.5生产一个消息](<#45_134>)
-    * [4.6消费一个消息](<#46_137>)
-    * [4.7消费者一直消费](<#47_140>)
+  * 1.RabbitMQ的特点
+  * 2.RabbitMQ的基本概念
+  * 3.重点核心
+  * 4.实例-hello world
+  *     * 4.1创建一个model
+    * 4.2jar包下载
+    * 4.3生产者
+    * 4.4消费者
+    * 4.5生产一个消息
+    * 4.6消费一个消息
+    * 4.7消费者一直消费
 
 ## 1.RabbitMQ的特点
 

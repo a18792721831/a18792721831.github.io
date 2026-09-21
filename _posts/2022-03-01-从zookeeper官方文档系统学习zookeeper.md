@@ -22,58 +22,58 @@ keywords: zookeeper, zookeeper搭建, zk选举Leader, zk的ZAB协议, zk命令�
 
 #### 从zookeeper官方文档系统学习zookeeper
 
-  * [1\. zookeeper](<#1_zookeeper_1>)
-  * [2\. zookeeper 文档](<#2_zookeeper__15>)
-  * [3\. zookeeper 单机版](<#3_zookeeper__29>)
-  *     * [3.1 配置](<#31__30>)
-    * [3.2 启动](<#32__68>)
-    * [3.3 验证](<#33__78>)
-  * [4\. zookeeper 集群版](<#4_zookeeper__149>)
-  *     * [4.1 配置](<#41__153>)
-    * [4.2 启动](<#42__203>)
-    * [4.3 验证](<#43__223>)
-  * [5\. zookeeper 配置](<#5_zookeeper__254>)
-  *     * [5.1 最小配置](<#51__265>)
-    * [5.2 其他配置](<#52__275>)
-  * [6\. zookeeper Leader 选举](<#6_zookeeper_Leader__286>)
-  *     * [6.1 启动时的Leader选举](<#61_Leader_410>)
-    * [6.2 运行中的leader选举](<#62_leader_542>)
-    * [6.3 zookeeper 节点状态](<#63_zookeeper__552>)
-  * [7\. zookeeper 客户端命令](<#7_zookeeper__586>)
-  *     * [7.0 文档](<#70__588>)
-    * [7.1 zookeeper 客户端连接](<#71_zookeeper__594>)
-    * [7.2 create](<#72_create_604>)
-    * [7.3 ls](<#73_ls_629>)
-    * [7.4 get](<#74_get_641>)
-    * [7.5 set](<#75_set_652>)
-    * [7.6 delete](<#76_delete_665>)
-  * [8\. zookeeper 权限ACL](<#8_zookeeper_ACL_687>)
-  *     * [8.1 ACL文档](<#81_ACL_689>)
-    * [8.2 ACL命令](<#82_ACL_695>)
-    * [8.3 ACL组成](<#83_ACL_705>)
-    *       * [8.3.1 permissions](<#831_permissions_713>)
-      * [8.3.2 schema](<#832_schema_721>)
-  * [9\. zookeeper 监视器](<#9_zookeeper__783>)
-  *     * [9.1 zookeeper 监视器 文档](<#91_zookeeper___785>)
-    * [9.2 zookeeper 客户端命令使用监视器](<#92_zookeeper__789>)
-    * [9.3 zookeeper 监视器特点](<#93_zookeeper__800>)
-    * [9.4 zookeeper 监视器事件类型](<#94_zookeeper__808>)
-    * [9.5 zookeeper 客户端命令使用监视器](<#95_zookeeper__815>)
-    * [9.6 zookeeper 程序使用监视器](<#96_zookeeper__825>)
-  * [10\. zookeeper 数据结构](<#10_zookeeper__879>)
-  *     * [10.1 zookeeper 存储数据](<#101_zookeeper__881>)
-    * [10.2 zookeeper节点](<#102_zookeeper_895>)
-  * [11\. zookeeper session](<#11_zookeeper_session_913>)
-  * [12\. zookeeper 数据同步](<#12_zookeeper__943>)
-  *     * [12.1 ZAB协议](<#121_ZAB_949>)
-    * [12.2 ZAB协议原理](<#122_ZAB_980>)
-    * [12.3 ZAB VS 流言](<#123_ZAB_VS__1040>)
-  * [13\. zookeeper 监控](<#13_zookeeper__1052>)
-  * [14\. zookeeper 集成 java](<#14_zookeeper__java_1119>)
-  *     * [14.1 zookeeper原生API](<#141_zookeeperAPI_1127>)
-    * [14.2 zookeeper的Curator的API](<#142_zookeeperCuratorAPI_1201>)
-  * [15\. zookeeper 分布式锁](<#15_zookeeper__1277>)
-  * [16\. 总结](<#16__1297>)
+  * 1\. zookeeper
+  * 2\. zookeeper 文档
+  * 3\. zookeeper 单机版
+  *     * 3.1 配置
+    * 3.2 启动
+    * 3.3 验证
+  * 4\. zookeeper 集群版
+  *     * 4.1 配置
+    * 4.2 启动
+    * 4.3 验证
+  * 5\. zookeeper 配置
+  *     * 5.1 最小配置
+    * 5.2 其他配置
+  * 6\. zookeeper Leader 选举
+  *     * 6.1 启动时的Leader选举
+    * 6.2 运行中的leader选举
+    * 6.3 zookeeper 节点状态
+  * 7\. zookeeper 客户端命令
+  *     * 7.0 文档
+    * 7.1 zookeeper 客户端连接
+    * 7.2 create
+    * 7.3 ls
+    * 7.4 get
+    * 7.5 set
+    * 7.6 delete
+  * 8\. zookeeper 权限ACL
+  *     * 8.1 ACL文档
+    * 8.2 ACL命令
+    * 8.3 ACL组成
+    *       * 8.3.1 permissions
+      * 8.3.2 schema
+  * 9\. zookeeper 监视器
+  *     * 9.1 zookeeper 监视器 文档
+    * 9.2 zookeeper 客户端命令使用监视器
+    * 9.3 zookeeper 监视器特点
+    * 9.4 zookeeper 监视器事件类型
+    * 9.5 zookeeper 客户端命令使用监视器
+    * 9.6 zookeeper 程序使用监视器
+  * 10\. zookeeper 数据结构
+  *     * 10.1 zookeeper 存储数据
+    * 10.2 zookeeper节点
+  * 11\. zookeeper session
+  * 12\. zookeeper 数据同步
+  *     * 12.1 ZAB协议
+    * 12.2 ZAB协议原理
+    * 12.3 ZAB VS 流言
+  * 13\. zookeeper 监控
+  * 14\. zookeeper 集成 java
+  *     * 14.1 zookeeper原生API
+    * 14.2 zookeeper的Curator的API
+  * 15\. zookeeper 分布式锁
+  * 16\. 总结
 
 ## 1\. zookeeper
 

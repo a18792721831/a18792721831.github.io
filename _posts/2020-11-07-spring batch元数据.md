@@ -22,25 +22,25 @@ keywords: batch元数据, batch数据存储, batch的核心数据, batch的原�
 
 #### spring batch元数据
 
-  * [准备](<#_29>)
-  * [Job](<#Job_67>)
-  *     * [Job Instance](<#Job_Instance_87>)
-    * [Job Parameters](<#Job_Parameters_123>)
-    * [Job Execution](<#Job_Execution_209>)
-  * [Step](<#Step_249>)
-  *     * [Step Execution](<#Step_Execution_259>)
-  * [Execution Context](<#Execution_Context_277>)
-  *     * [Job Execution Context](<#Job_Execution_Context_281>)
-    * [Step Execution Context](<#Step_Execution_Context_289>)
-    * [关系](<#_297>)
-  * [Job Repository](<#Job_Repository_301>)
-  *     * [Job Repository的属性](<#Job_Repository_307>)
-    * [Job Repository类型](<#Job_Repository_311>)
-    * [元数据表](<#_323>)
-  * [Job Launcher](<#Job_Launcher_337>)
-  * [ItemReader](<#ItemReader_341>)
-  * [ItemProcessor](<#ItemProcessor_347>)
-  * [ItemWriter](<#ItemWriter_355>)
+  * 准备
+  * Job
+  *     * Job Instance
+    * Job Parameters
+    * Job Execution
+  * Step
+  *     * Step Execution
+  * Execution Context
+  *     * Job Execution Context
+    * Step Execution Context
+    * 关系
+  * Job Repository
+  *     * Job Repository的属性
+    * Job Repository类型
+    * 元数据表
+  * Job Launcher
+  * ItemReader
+  * ItemProcessor
+  * ItemWriter
 
   
 github地址： 

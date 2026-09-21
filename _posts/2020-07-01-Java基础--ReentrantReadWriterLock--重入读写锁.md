@@ -22,45 +22,45 @@ keywords: 可重入读写锁, 可重入读写锁源码解读, 带你阅读可重
 
 #### Java基础--ReentrantReadWriterLock--重入读写锁
 
-  * [1\. ReentrantReadWriterLock的整体结构](<#1_ReentrantReadWriterLock_1>)
-  *     * [1.1 ReentrantReadWriterLock的UML图](<#11_ReentrantReadWriterLockUML_2>)
-    * [1.2 ReentrantReadWriterLock的属性、方法](<#12_ReentrantReadWriterLock_4>)
-  * [2\. ReentrantReadWriterLock 实现ReadWriterLock接口](<#2_ReentrantReadWriterLock_ReadWriterLock_6>)
-  *     * [2.1 readLock](<#21_readLock_11>)
-    *       * [2.1.1 tryLock](<#211_tryLock_14>)
-      * [2.1.2 tryLock(long,TimeUnit)](<#212_tryLocklongTimeUnit_18>)
-      * [2.1.3 lock](<#213_lock_41>)
-      * [2.1.4 lockInterruptibly](<#214_lockInterruptibly_44>)
-      * [2.1.5 unlock](<#215_unlock_51>)
-      * [2.1.6 newCondition](<#216_newCondition_71>)
-    * [2.2 writerLock](<#22_writerLock_74>)
-    *       * [2.2.1 tryLock](<#221_tryLock_77>)
-      * [2.2.2 tryLock(long,TimeUnit)](<#222_tryLocklongTimeUnit_80>)
-      * [2.2.3 lock](<#223_lock_89>)
-      * [2.2.4 lockInterruptibly](<#224_lockInterruptibly_98>)
-      * [2.2.5 unlock](<#225_unlock_104>)
-      * [2.2.6 newCondition](<#226_newCondition_113>)
-  * [3\. ReentrantReadWriterLock 内部类Sync继承了AQS](<#3_ReentrantReadWriterLock_SyncAQS_120>)
-  *     * [3.1 tryReadLock](<#31_tryReadLock_125>)
-    * [3.2 tryAcquireShared](<#32_tryAcquireShared_186>)
-    * [3.3 fullTryAcquireShared](<#33_fullTryAcquireShared_234>)
-    * [3.4 tryReleaseShared](<#34_tryReleaseShared_328>)
-    * [3.5 tryWriteLock](<#35_tryWriteLock_383>)
-    * [3.6 tryAcquire](<#36_tryAcquire_417>)
-    * [3.7 tryRelease](<#37_tryRelease_458>)
-  * [4\. 继承于Sync的FairSync](<#4_SyncFairSync_485>)
-  * [5\. 继承于Sync的NonfairSync](<#5_SyncNonfairSync_493>)
-  * [6\. ReadLock](<#6_ReadLock_498>)
-  * [7\. WriteLock](<#7_WriteLock_502>)
-  * [8\. HoldCounter](<#8_HoldCounter_505>)
-  * [9\. ThreadLocalHoldCounter](<#9_ThreadLocalHoldCounter_512>)
-  * [10\. ReentrantReadWriteLock的构造](<#10_ReentrantReadWriteLock_516>)
-  *     * [10.1 ReentrantReadWriteLock的无参构造](<#101_ReentrantReadWriteLock_519>)
-    * [10.2 ReentrantReadWriteLock的有参数构造](<#102_ReentrantReadWriteLock_522>)
-  * [11\. 锁升级与降级](<#11__527>)
-  *     * [11.1 锁降级](<#111__541>)
-    * [11.2 锁升级](<#112__549>)
-  * [12\. 总结](<#12__562>)
+  * 1\. ReentrantReadWriterLock的整体结构
+  *     * 1.1 ReentrantReadWriterLock的UML图
+    * 1.2 ReentrantReadWriterLock的属性、方法
+  * 2\. ReentrantReadWriterLock 实现ReadWriterLock接口
+  *     * 2.1 readLock
+    *       * 2.1.1 tryLock
+      * 2.1.2 tryLock(long,TimeUnit)
+      * 2.1.3 lock
+      * 2.1.4 lockInterruptibly
+      * 2.1.5 unlock
+      * 2.1.6 newCondition
+    * 2.2 writerLock
+    *       * 2.2.1 tryLock
+      * 2.2.2 tryLock(long,TimeUnit)
+      * 2.2.3 lock
+      * 2.2.4 lockInterruptibly
+      * 2.2.5 unlock
+      * 2.2.6 newCondition
+  * 3\. ReentrantReadWriterLock 内部类Sync继承了AQS
+  *     * 3.1 tryReadLock
+    * 3.2 tryAcquireShared
+    * 3.3 fullTryAcquireShared
+    * 3.4 tryReleaseShared
+    * 3.5 tryWriteLock
+    * 3.6 tryAcquire
+    * 3.7 tryRelease
+  * 4\. 继承于Sync的FairSync
+  * 5\. 继承于Sync的NonfairSync
+  * 6\. ReadLock
+  * 7\. WriteLock
+  * 8\. HoldCounter
+  * 9\. ThreadLocalHoldCounter
+  * 10\. ReentrantReadWriteLock的构造
+  *     * 10.1 ReentrantReadWriteLock的无参构造
+    * 10.2 ReentrantReadWriteLock的有参数构造
+  * 11\. 锁升级与降级
+  *     * 11.1 锁降级
+    * 11.2 锁升级
+  * 12\. 总结
 
 ## 1\. ReentrantReadWriterLock的整体结构
 

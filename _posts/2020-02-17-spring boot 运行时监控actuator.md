@@ -22,9 +22,9 @@ keywords: spring boot 监控, actuator, boot actuator, springboot监控使用, s
 
 #### spring boot 运行时监控actuator
 
-  * [1\. 如何引入actuator](<#1_actuator_3>)
-  * [2\. 加载详细信息](<#2__18>)
-  * [3\. actuator api介绍](<#3_actuator_api_24>)
+  * 1\. 如何引入actuator
+  * 2\. 加载详细信息
+  * 3\. actuator api介绍
 
   
 git地址   

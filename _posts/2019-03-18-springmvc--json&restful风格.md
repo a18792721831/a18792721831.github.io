@@ -22,24 +22,24 @@ keywords: restful风格应用jsp+ajax实现, springmvc中json数据的处理, sp
 
 #### springmvc--json&restful风格
 
-  * [1.json的格式](<#1json_1>)
-  * [2.json数据转换](<#2json_17>)
-  * [3.静态资源配置的三种方式：](<#3_25>)
-  *     * [3.1mvc:resource标签](<#31mvcresource_26>)
-    * [3.2 mvc:default-servlet-handler标签](<#32_mvcdefaultservlethandler_35>)
-    * [3.3 使用容器的静态资源配置(Tomcat为例)](<#33_Tomcat_46>)
-    * [3.4优缺点分析](<#34_57>)
-  * [4.restful风格](<#4restful_62>)
-  * [5.例子](<#5_78>)
-  *     * [5.1创建springmvc项目](<#51springmvc_79>)
-    * [5.2导入jar包](<#52jar_81>)
-    * [5.3配置web.xml](<#53webxml_83>)
-    * [5.4配置springmvc](<#54springmvc_115>)
-    * [5.5导入jquery.js](<#55jqueryjs_165>)
-    * [5.6创建jsp](<#56jsp_168>)
-    * [5.7创建domain](<#57domain_352>)
-    * [5.8创建controller](<#58controller_415>)
-  * [6.测试结果](<#6_506>)
+  * 1.json的格式
+  * 2.json数据转换
+  * 3.静态资源配置的三种方式：
+  *     * 3.1mvc:resource标签
+    * 3.2 mvc:default-servlet-handler标签
+    * 3.3 使用容器的静态资源配置(Tomcat为例)
+    * 3.4优缺点分析
+  * 4.restful风格
+  * 5.例子
+  *     * 5.1创建springmvc项目
+    * 5.2导入jar包
+    * 5.3配置web.xml
+    * 5.4配置springmvc
+    * 5.5导入jquery.js
+    * 5.6创建jsp
+    * 5.7创建domain
+    * 5.8创建controller
+  * 6.测试结果
 
 ## 1.json的格式
 

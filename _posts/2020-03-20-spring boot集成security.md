@@ -22,32 +22,32 @@ keywords: security, security入门, security方法保护, security集成jpa, sec
 
 #### spring boot集成security
 
-  * [1\. security介绍](<#1_security_3>)
-  * [2 为什么选择 Spring Security](<#2__Spring_Security_5>)
-  * [3\. Security如何使用](<#3_Security_20>)
-  *     * [3.1 创建](<#31__21>)
-    * [3.2 配置](<#32__23>)
-    * [3.3 security 配置](<#33_security__25>)
-    *       * [3.3.1 configureGlobal方法](<#331_configureGlobal_82>)
-      * [3.3.2 启动登陆](<#332__106>)
-      * [3.3.3 自定义配置 configure](<#333__configure_113>)
-      * [3.3.4 controller](<#334_controller_125>)
-      * [3.3.5 界面](<#335__168>)
-    * [3.4 启动](<#34__298>)
-  * [4\. security 方法保护](<#4_security__316>)
-  *     * [4.1 创建实体](<#41__317>)
-    * [4.2 创建服务](<#42__364>)
-    * [4.3 创建controller](<#43_controller_366>)
-    * [4.4 访问验证](<#44__368>)
-  * [5\. 从数据库中读取用户认证信息](<#5__383>)
-  *     * [5.1 创建](<#51__384>)
-    * [5.2 配置](<#52__388>)
-    * [5.3 创建实体](<#53__390>)
-    * [5.4 dao](<#54_dao_484>)
-    * [5.5 service](<#55_service_486>)
-    * [5.6 config](<#56_config_488>)
-    * [5.7 启动验证](<#57__490>)
-  * [6\. 总结](<#6__549>)
+  * 1\. security介绍
+  * 2 为什么选择 Spring Security
+  * 3\. Security如何使用
+  *     * 3.1 创建
+    * 3.2 配置
+    * 3.3 security 配置
+    *       * 3.3.1 configureGlobal方法
+      * 3.3.2 启动登陆
+      * 3.3.3 自定义配置 configure
+      * 3.3.4 controller
+      * 3.3.5 界面
+    * 3.4 启动
+  * 4\. security 方法保护
+  *     * 4.1 创建实体
+    * 4.2 创建服务
+    * 4.3 创建controller
+    * 4.4 访问验证
+  * 5\. 从数据库中读取用户认证信息
+  *     * 5.1 创建
+    * 5.2 配置
+    * 5.3 创建实体
+    * 5.4 dao
+    * 5.5 service
+    * 5.6 config
+    * 5.7 启动验证
+  * 6\. 总结
 
   
 git地址   

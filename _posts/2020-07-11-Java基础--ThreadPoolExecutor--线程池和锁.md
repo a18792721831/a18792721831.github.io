@@ -22,40 +22,40 @@ keywords: 线程池, 线程池使用, Executors使用, 线程池源码解析, �
 
 #### Java基础--ThreadPoolExecutor--线程池和锁
 
-  * [1\. Executors](<#1_Executors_2>)
-  *     * [1.1 Executors构造](<#11_Executors_3>)
-    * [1.2 newFixedThreadPool(int nThreads)](<#12_newFixedThreadPoolint_nThreads_6>)
-    * [1.3 newCachedThreadPool](<#13_newCachedThreadPool_21>)
-    * [1.4 newSingleThreadExecutor](<#14_newSingleThreadExecutor_26>)
-    * [1.5 newScheduledThreadPool](<#15_newScheduledThreadPool_30>)
-    * [1.6 newSingleThreadScheduledExecutor](<#16_newSingleThreadScheduledExecutor_34>)
-    * [1.7 newWorkStealingPool](<#17_newWorkStealingPool_38>)
-    * [1.8 总结](<#18__42>)
-  * [2\. ThreadPoolExecutor](<#2_ThreadPoolExecutor_44>)
-  * [3 Executor](<#3_Executor_47>)
-  * [4 ExecutorService](<#4_ExecutorService_51>)
-  * [5 RejectedExecutionHandler](<#5_RejectedExecutionHandler_54>)
-  * [6 ThreadPoolExecutor](<#6_ThreadPoolExecutor_58>)
-  * [7 Worker](<#7_Worker_66>)
-  *     *       * [tryAcquire](<#tryAcquire_71>)
-      * [tryRelease](<#tryRelease_75>)
-      * [run](<#run_79>)
-      *         * [构造](<#_85>)
-        * [runWorker](<#runWorker_90>)
-        * [getTask](<#getTask_156>)
-        * [decrementWorkerCount](<#decrementWorkerCount_234>)
-        * [processWorkerExit](<#processWorkerExit_238>)
-        * [tryTerminate](<#tryTerminate_274>)
-        * [interruptIdleWorkers](<#interruptIdleWorkers_321>)
-  * [8\. execute](<#8_execute_347>)
-  *     *       * [addWorker](<#addWorker_384>)
-      * [addWorkerFailed](<#addWorkerFailed_466>)
-  * [9\. submit(AbstractExecutorService)](<#9_submitAbstractExecutorService_484>)
-  * [10\. AbortPolicy](<#10_AbortPolicy_489>)
-  * [11\. CallerRunsPolicy](<#11_CallerRunsPolicy_492>)
-  * [12\. DiscardOldestPolicy](<#12_DiscardOldestPolicy_495>)
-  * [13\. DiscardPolicy](<#13_DiscardPolicy_499>)
-  * [14\. 总结](<#14__502>)
+  * 1\. Executors
+  *     * 1.1 Executors构造
+    * 1.2 newFixedThreadPool(int nThreads)
+    * 1.3 newCachedThreadPool
+    * 1.4 newSingleThreadExecutor
+    * 1.5 newScheduledThreadPool
+    * 1.6 newSingleThreadScheduledExecutor
+    * 1.7 newWorkStealingPool
+    * 1.8 总结
+  * 2\. ThreadPoolExecutor
+  * 3 Executor
+  * 4 ExecutorService
+  * 5 RejectedExecutionHandler
+  * 6 ThreadPoolExecutor
+  * 7 Worker
+  *     *       * tryAcquire
+      * tryRelease
+      * run
+      *         * 构造
+        * runWorker
+        * getTask
+        * decrementWorkerCount
+        * processWorkerExit
+        * tryTerminate
+        * interruptIdleWorkers
+  * 8\. execute
+  *     *       * addWorker
+      * addWorkerFailed
+  * 9\. submit(AbstractExecutorService)
+  * 10\. AbortPolicy
+  * 11\. CallerRunsPolicy
+  * 12\. DiscardOldestPolicy
+  * 13\. DiscardPolicy
+  * 14\. 总结
 
   
 使用多线程的时候，经常会使用Executors创建线程池，然后使用线程池。从而达到复用线程，减少线程切换，从而增加性能。 

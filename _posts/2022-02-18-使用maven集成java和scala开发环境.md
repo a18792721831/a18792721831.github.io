@@ -22,19 +22,19 @@ keywords: scala, java, maven, maven插件使用, scala开发环境搭建
 
 #### 使用maven集成java和scala开发环境
 
-  * [创建项目](<#_3>)
-  * [增加scala依赖](<#scala_15>)
-  * [创建目录](<#_76>)
-  * [安装scala插件](<#scala_94>)
-  * [scala的hello world](<#scalahello_world_106>)
-  * [maven 插件](<#maven__178>)
-  *     * [配置仓库](<#_188>)
-    * [maven-compile-plugin](<#mavencompileplugin_212>)
-    * [maven-scala-plugin](<#mavenscalaplugin_273>)
-    * [maven-jar-plugin](<#mavenjarplugin_366>)
-    * [maven-dependency-plugin](<#mavendependencyplugin_443>)
-    * [maven-assembly-plugin](<#mavenassemblyplugin_506>)
-  * [spark 开发环境](<#spark__604>)
+  * 创建项目
+  * 增加scala依赖
+  * 创建目录
+  * 安装scala插件
+  * scala的hello world
+  * maven 插件
+  *     * 配置仓库
+    * maven-compile-plugin
+    * maven-scala-plugin
+    * maven-jar-plugin
+    * maven-dependency-plugin
+    * maven-assembly-plugin
+  * spark 开发环境
 
   
 git地址：https://gitee.com/jyq_18792721831/sparkmaven.git 

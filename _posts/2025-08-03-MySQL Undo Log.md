@@ -32,14 +32,14 @@ MySQL Undo Log: https://blog.csdn.net/a18792721831/article/details/149880355
 
 #### MySQL Undo Log
 
-  * [介绍](<#_11>)
-  * [Undo Log 的 Purge](<#Undo_Log__Purge_19>)
-  * [两种 Undo Log](<#_Undo_Log_25>)
-  * [Undo Log 的格式](<#Undo_Log__39>)
-  * [回滚](<#_48>)
-  * [配置](<#_58>)
-  * [Binlog 和 Redo Log 的区别](<#Binlog__Redo_Log__112>)
-  * [Undo Log 和 Redo Log 的区别](<#Undo_Log__Redo_Log__118>)
+  * 介绍
+  * Undo Log 的 Purge
+  * 两种 Undo Log
+  * Undo Log 的格式
+  * 回滚
+  * 配置
+  * Binlog 和 Redo Log 的区别
+  * Undo Log 和 Redo Log 的区别
 
 ## 介绍
 

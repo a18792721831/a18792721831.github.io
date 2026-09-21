@@ -22,12 +22,12 @@ keywords: kubernetes, k8s的deployment, 滚动升级, 标签控制pod位置, 每
 
 #### k8s-kubernetes-deployment
 
-  * [1.deployment的yaml格式](<#1deploymentyaml_1>)
-  * [2.deployment介绍](<#2deployment_106>)
-  * [3.deployment和ReplicaSet](<#3deploymentReplicaSet_114>)
-  * [4.运行deployment](<#4deployment_122>)
-  * [5.每个节点最多运行一个pod的deployment](<#5poddeployment_242>)
-  * [6.通过标签控制pod的位置](<#6pod_273>)
+  * 1.deployment的yaml格式
+  * 2.deployment介绍
+  * 3.deployment和ReplicaSet
+  * 4.运行deployment
+  * 5.每个节点最多运行一个pod的deployment
+  * 6.通过标签控制pod的位置
 
 ## 1.deployment的yaml格式
     

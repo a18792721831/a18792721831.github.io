@@ -22,28 +22,28 @@ keywords: batch reader, ItemReader, batch读取数据库, batch多数据源读�
 
 #### spring batch ItemReader详解
 
-  * [ItemReader](<#ItemReader_29>)
-  *     * [ItemReader](<#ItemReader_41>)
-    * [ItemStream](<#ItemStream_47>)
-    * [系统读组件](<#_59>)
-  * [读数据库](<#_83>)
-  *     * [JdbcCursirItemReader](<#JdbcCursirItemReader_87>)
-    * [JdbcPagingItemReader](<#JdbcPagingItemReader_186>)
-    * [JpaPagingItemReader](<#JpaPagingItemReader_304>)
-    * [JpaCursorItemReader](<#JpaCursorItemReader_413>)
-    * [MyBatisCursorItemReader](<#MyBatisCursorItemReader_483>)
-    * [MyBatisPagingItemReader](<#MyBatisPagingItemReader_605>)
-    * [ItemReader类图](<#ItemReader_692>)
-  * [服务复用](<#_697>)
-  * [自定义ItemReader](<#ItemReader_830>)
-  *     * [不可重启ItemReader](<#ItemReader_834>)
-    * [可重启ItemReader](<#ItemReader_907>)
-  * [拦截器](<#_996>)
-  *     * [接口](<#_1000>)
-    * [异常](<#_1073>)
-    * [执行顺序](<#_1093>)
-    * [Annotation](<#Annotation_1132>)
-    * [属性Merge](<#Merge_1179>)
+  * ItemReader
+  *     * ItemReader
+    * ItemStream
+    * 系统读组件
+  * 读数据库
+  *     * JdbcCursirItemReader
+    * JdbcPagingItemReader
+    * JpaPagingItemReader
+    * JpaCursorItemReader
+    * MyBatisCursorItemReader
+    * MyBatisPagingItemReader
+    * ItemReader类图
+  * 服务复用
+  * 自定义ItemReader
+  *     * 不可重启ItemReader
+    * 可重启ItemReader
+  * 拦截器
+  *     * 接口
+    * 异常
+    * 执行顺序
+    * Annotation
+    * 属性Merge
 
   
 github地址： 

@@ -22,17 +22,17 @@ keywords: spring+springmvc+mybatis, ssm集成, ssm集成需要哪些操作, ssm�
 
 #### SSM集成:spring+mybatis+springmvc集成
 
-  * [1.准备的jar包](<#1jar_1>)
-  * [2.配置web.xml文件](<#2webxml_6>)
-  * [3.配置log4j.properties](<#3log4jproperties_49>)
-  * [4.配置ojdbc.properties](<#4ojdbcproperties_62>)
-  * [5.配置spring相关](<#5spring_76>)
-  * [6.配置mybatis.xml](<#6mybatisxml_203>)
-  * [7.配置springmvc.xml](<#7springmvcxml_224>)
-  * [8.导入js类库](<#8js_261>)
-  * [9.编写Java文件](<#9Java_263>)
-  * [10.发布测试(暂时只测试springmvc)](<#10springmvc_268>)
-  * [11.总结](<#11_275>)
+  * 1.准备的jar包
+  * 2.配置web.xml文件
+  * 3.配置log4j.properties
+  * 4.配置ojdbc.properties
+  * 5.配置spring相关
+  * 6.配置mybatis.xml
+  * 7.配置springmvc.xml
+  * 8.导入js类库
+  * 9.编写Java文件
+  * 10.发布测试(暂时只测试springmvc)
+  * 11.总结
 
 ## 1.准备的jar包
 

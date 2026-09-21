@@ -22,36 +22,36 @@ keywords: ReentrantLock源码, ReentrantLock结构, ReentrantLock解析, 理解R
 
 #### Java基础--ReentrantLock--重入锁
 
-  * [1\. ReentrantLock的整体结构](<#1_ReentrantLock_1>)
-  *     * [1.1 ReentrantLock的UML图](<#11_ReentrantLockUML_2>)
-    * [1.2 ReentrantLock的属性、方法](<#12_ReentrantLock_12>)
-  * [2\. ReentrantLock 实现Lock接口](<#2_ReentrantLock_Lock_14>)
-  *     * [2.1 tryLock](<#21_tryLock_17>)
-    * [2.2 tryLock(long,TimeUnit)](<#22_tryLocklongTimeUnit_21>)
-    * [2.3 lock](<#23_lock_97>)
-    * [2.4 lockInterruptibly](<#24_lockInterruptibly_100>)
-    * [2.5 unlock](<#25_unlock_106>)
-    * [2.6 newCondition](<#26_newCondition_113>)
-    * [2.7 其他方法](<#27__116>)
-  * [3\. ReentrantLock 内部Sync实现了AQS](<#3_ReentrantLock_SyncAQS_118>)
-  *     * [3.1 lock](<#31_lock_121>)
-    * [3.2 nonfairTryAcquire--不公平的尝试获取锁](<#32_nonfairTryAcquire_125>)
-    * [3.3 tryRelease](<#33_tryRelease_162>)
-    * [3.4 isHeldExclusively](<#34_isHeldExclusively_190>)
-    * [3.5 newCondition](<#35_newCondition_195>)
-    * [3.6 getOwner](<#36_getOwner_200>)
-    * [3.7 getHoldCount](<#37_getHoldCount_205>)
-    * [3.8 isLocked](<#38_isLocked_208>)
-    * [3.9 readObject](<#39_readObject_211>)
-  * [4\. ReentrantLock 内部NonfairSync和FairSync继承Sync](<#4_ReentrantLock_NonfairSyncFairSyncSync_214>)
-  *     * [4.1 FairSync--lock](<#41_FairSynclock_215>)
-    * [4.2 FairSync--tryAcquire](<#42_FairSynctryAcquire_223>)
-    * [4.3 NonfairSync--lock](<#43_NonfairSynclock_283>)
-    * [4.4 NonfairSync--tryAcquire](<#44_NonfairSynctryAcquire_289>)
-  * [5\. ReentrantLock 的构造](<#5_ReentrantLock__295>)
-  *     * [5.1 ReentrantLock](<#51_ReentrantLock_298>)
-    * [5.2 ReentrantLock(boolean)](<#52_ReentrantLockboolean_301>)
-  * [6\. 总结](<#6__306>)
+  * 1\. ReentrantLock的整体结构
+  *     * 1.1 ReentrantLock的UML图
+    * 1.2 ReentrantLock的属性、方法
+  * 2\. ReentrantLock 实现Lock接口
+  *     * 2.1 tryLock
+    * 2.2 tryLock(long,TimeUnit)
+    * 2.3 lock
+    * 2.4 lockInterruptibly
+    * 2.5 unlock
+    * 2.6 newCondition
+    * 2.7 其他方法
+  * 3\. ReentrantLock 内部Sync实现了AQS
+  *     * 3.1 lock
+    * 3.2 nonfairTryAcquire--不公平的尝试获取锁
+    * 3.3 tryRelease
+    * 3.4 isHeldExclusively
+    * 3.5 newCondition
+    * 3.6 getOwner
+    * 3.7 getHoldCount
+    * 3.8 isLocked
+    * 3.9 readObject
+  * 4\. ReentrantLock 内部NonfairSync和FairSync继承Sync
+  *     * 4.1 FairSync--lock
+    * 4.2 FairSync--tryAcquire
+    * 4.3 NonfairSync--lock
+    * 4.4 NonfairSync--tryAcquire
+  * 5\. ReentrantLock 的构造
+  *     * 5.1 ReentrantLock
+    * 5.2 ReentrantLock(boolean)
+  * 6\. 总结
 
 ## 1\. ReentrantLock的整体结构
 

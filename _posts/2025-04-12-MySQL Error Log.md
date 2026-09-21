@@ -21,9 +21,9 @@ keywords: mysql, 数据库, Error Log, 错误日志, 启动日志
 
 #### MySQL Error Log
 
-  * [Error Log 的开启](<#Error_Log__15>)
-  * [Error Log 查看](<#Error_Log__41>)
-  * [Error Log 滚动](<#Error_Log__49>)
+  * Error Log 的开启
+  * Error Log 查看
+  * Error Log 滚动
 
   
 MySQL Error Log 

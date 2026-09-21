@@ -22,20 +22,20 @@ keywords: Java新特性, Lambda表达式, 函数接口与Lambda表达式, Java8�
 
 #### Lambda表达式
 
-  * [1.什么是Lambda表达式](<#1Lambda_1>)
-  * [2.Lambda的参数列表](<#2Lambda_50>)
-  * [3.Lambda的返回值](<#3Lambda_99>)
-  * [4.Lambda表达式的类型推断](<#4Lambda_145>)
-  * [5.Lambda表达式引用值](<#5Lambda_177>)
-  * [6.函数接口](<#6_215>)
-  * [7.jdk已定义的函数接口](<#7jdk_255>)
-  *     * [7.1BinaryOperator](<#71BinaryOperator_258>)
-    * [7.2Predicate](<#72Predicate_323>)
-    * [7.3Consumer](<#73Consumer_486>)
-    * [7.4Function](<#74Function_521>)
-    * [7.5Supplier](<#75Supplier_560>)
-    * [7.6UnaryOperator](<#76UnaryOperator_581>)
-    * [7.7@FunctionalInterface](<#77FunctionalInterface_615>)
+  * 1.什么是Lambda表达式
+  * 2.Lambda的参数列表
+  * 3.Lambda的返回值
+  * 4.Lambda表达式的类型推断
+  * 5.Lambda表达式引用值
+  * 6.函数接口
+  * 7.jdk已定义的函数接口
+  *     * 7.1BinaryOperator
+    * 7.2Predicate
+    * 7.3Consumer
+    * 7.4Function
+    * 7.5Supplier
+    * 7.6UnaryOperator
+    * 7.7@FunctionalInterface
 
 ## 1.什么是Lambda表达式
 

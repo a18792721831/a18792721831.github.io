@@ -22,40 +22,40 @@ keywords: golang, go, go并发管理, context, go 上下文
 
 #### Go-知识并发控制Context
 
-  * [1\. 介绍](<#1__3>)
-  * [2\. 实现原理](<#2__11>)
-  *     * [2.1 接口定义](<#21__13>)
-    * [2.2 Deadline()](<#22_Deadline_18>)
-    * [2.3 Done()](<#23_Done_22>)
-    * [2.4 Err()](<#24_Err_26>)
-    * [2.5 Value()](<#25_Value_35>)
-  * [3\. 空 context](<#3__context_39>)
-  * [4\. cancelCtx](<#4_cancelCtx_63>)
-  *     * [4.1 Done()](<#41_Done_69>)
-    * [4.2 Err()](<#42_Err_102>)
-    * [4.3 cancel()](<#43_cancel_114>)
-    * [4.4 WithCancel](<#44_WithCancel_170>)
-    * [4.5 例子](<#45__355>)
-    * [4.6 总结](<#46__445>)
-  * [5\. timerCtx](<#5_timerCtx_460>)
-  *     * [5.1 Deadline](<#51_Deadline_480>)
-    * [5.2 cancel](<#52_cancel_487>)
-    * [5.3 WithDeadline](<#53_WithDeadline_506>)
-    * [5.4 WithTimeout](<#54_WithTimeout_560>)
-    * [5.5 例子](<#55__564>)
-    * [5.6 总结](<#56__591>)
-  * [6\. valueCtx](<#6_valueCtx_600>)
-  *     * [6.1 Value](<#61_Value_606>)
-    * [6.2 WithValue](<#62_WithValue_618>)
-    * [6.3 例子](<#63__649>)
-    * [6.4 总结](<#64__679>)
-  * [7\. afterFuncCtx](<#7_afterFuncCtx_688>)
-  *     * [7.1 cancel](<#71_cancel_699>)
-    * [7.2 AfterFunc](<#72_AfterFunc_714>)
-    * [7.3 总结](<#73__761>)
-  * [8\. withoutCancelCtx](<#8_withoutCancelCtx_769>)
-  *     * [8.1 WithoutCancel](<#81_WithoutCancel_777>)
-  * [9\. 总结](<#9__790>)
+  * 1\. 介绍
+  * 2\. 实现原理
+  *     * 2.1 接口定义
+    * 2.2 Deadline()
+    * 2.3 Done()
+    * 2.4 Err()
+    * 2.5 Value()
+  * 3\. 空 context
+  * 4\. cancelCtx
+  *     * 4.1 Done()
+    * 4.2 Err()
+    * 4.3 cancel()
+    * 4.4 WithCancel
+    * 4.5 例子
+    * 4.6 总结
+  * 5\. timerCtx
+  *     * 5.1 Deadline
+    * 5.2 cancel
+    * 5.3 WithDeadline
+    * 5.4 WithTimeout
+    * 5.5 例子
+    * 5.6 总结
+  * 6\. valueCtx
+  *     * 6.1 Value
+    * 6.2 WithValue
+    * 6.3 例子
+    * 6.4 总结
+  * 7\. afterFuncCtx
+  *     * 7.1 cancel
+    * 7.2 AfterFunc
+    * 7.3 总结
+  * 8\. withoutCancelCtx
+  *     * 8.1 WithoutCancel
+  * 9\. 总结
 
 gitio: https://a18792721831.github.io/
 

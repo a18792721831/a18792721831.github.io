@@ -22,10 +22,10 @@ keywords: kubernetes, service, k8s负载均衡, k8s的高可用, k8s服务发现
 
 #### k8s-kubernetes-service小项目
 
-  * [1.service 简介](<#1service__1>)
-  * [2.service 定义](<#2service__15>)
-  * [3.实例](<#3_17>)
-  * [4.总结](<#4_52>)
+  * 1.service 简介
+  * 2.service 定义
+  * 3.实例
+  * 4.总结
 
 ## 1.service 简介
 
