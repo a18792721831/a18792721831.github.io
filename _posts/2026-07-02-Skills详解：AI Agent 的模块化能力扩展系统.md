@@ -1,5 +1,6 @@
 ---
 layout: post
+math: true
 title: "Skills详解：AI Agent 的模块化能力扩展系统"
 date: 2026-07-02 19:10:57 +0800
 categories: ["ai", "智能体", "agent", "专业", "提效"]
