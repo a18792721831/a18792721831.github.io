@@ -1,5 +1,6 @@
 ---
 layout: post
+math: true
 title: "spark源码编译和集群部署以及idea中sbt开发环境集成"
 date: 2022-02-13 21:18:07 +0800
 categories: [spark, spark源码编译, spark单机集群部署配置, sbtscala的开发环境, sbt打包提交spark]

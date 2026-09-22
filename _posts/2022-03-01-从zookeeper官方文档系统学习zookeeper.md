@@ -1,5 +1,6 @@
 ---
 layout: post
+math: true
 title: "从zookeeper官方文档系统学习zookeeper"
 date: 2022-03-01 00:55:47 +0800
 categories: [zookeeper, zookeeper搭建, zk选举Leader, zk的ZAB协议, zk命令使用]

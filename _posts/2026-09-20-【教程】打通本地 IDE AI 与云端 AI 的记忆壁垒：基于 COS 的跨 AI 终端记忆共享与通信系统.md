@@ -1,5 +1,6 @@
 ---
 layout: post
+math: true
 title: "【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统"
 date: 2026-09-20 16:54:43 +0800
 categories: ["ai", "智能体", "agent", "AGENTS", "Mem"]
