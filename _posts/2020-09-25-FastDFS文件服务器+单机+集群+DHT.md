@@ -157,9 +157,9 @@ mogilefs实现的是tracker，它通过数据库来保存元数据信息，包�
 
 MogileFS的架构图：
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/477816fef351d0a48dda3125ef5195bc.png)
+![img](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/477816fef351d0a48dda3125ef5195bc.png)
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/4302777cc7e338466421766191a69194.png)
+![img](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4302777cc7e338466421766191a69194.png)
 
 上图为Mogilefs架构图，下面也描述了图中体现出一次数据请求过程。  
 1、 客户端在发起一次数据请求，假设请求banner.jpg,请求首先到达前端代理perbal（当然此处可利用Nginx实现）  
@@ -184,11 +184,11 @@ FastDFS由跟踪服务器(Tracker Server)、存储服务器(Storage Server)和�
 
 FastDFS的系统结构图：
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/3a6a55af3c36d702e54748f55c65187b.png)
+![img](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3a6a55af3c36d702e54748f55c65187b.png)
 
 FastDFS网络时序图
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/59bb2d2a9134c605eab5adb6ab759c39.png)
+![img](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59bb2d2a9134c605eab5adb6ab759c39.png)
 
 ### 2.6 Zimg
 
@@ -248,7 +248,7 @@ zimg是个人开源的一个C实现的集图片存储，图片简单编辑的轻
 
 MogileFS主要由三部分构成：tracker节点、database节点、storage节点
 
-![这里写图片描述](https://i-blog.csdnimg.cn/blog_migrate/48f61a1db01d26e5f57912281734dca6.png)
+![这里写图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/48f61a1db01d26e5f57912281734dca6.png)
 
 >   * 1、分组存储，灵活简洁、对等结构，不存在单点
 >   * 2、 文件ID由FastDFS生成，作为文件访问凭证。FastDFS不需要传统的name server
@@ -267,11 +267,11 @@ MogileFS主要由三部分构成：tracker节点、database节点、storage节�
 源头数据才需要同步，备份数据不需要再次同步，否则就构成环路了；  
 上述第二条规则有个例外，就是新增加一台storage server时，由已有的一台storage server将已有的所有数据（包括源头数据和备份数据）同步给该新增服务器。
 
-![这里写图片描述](https://i-blog.csdnimg.cn/blog_migrate/eb4795cbf9e60f5aeedd0272ae7de3c5.png)
+![这里写图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eb4795cbf9e60f5aeedd0272ae7de3c5.png)
 
-![这里写图片描述](https://i-blog.csdnimg.cn/blog_migrate/107fb7fae656195356a44b847ee94917.png)
+![这里写图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/107fb7fae656195356a44b847ee94917.png)
 
-![这里写图片描述](https://i-blog.csdnimg.cn/blog_migrate/dab079250d232660b7de52900fabe69a.png)
+![这里写图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dab079250d232660b7de52900fabe69a.png)
 
 基于这些原因，采用FastDFS作为文件存储的解决方案。
 
@@ -309,7 +309,7 @@ storage:[FastDFS官方镜像](<season/fastdfs>)(可能不是真正的官方镜�
 
 #### 4.2.1 tracker
 
-![image-20200925102302223](https://i-blog.csdnimg.cn/blog_migrate/24ca3fbc89372a65647011ceb7df7b17.png)
+![image-20200925102302223](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/24ca3fbc89372a65647011ceb7df7b17.png)
 
 这个目录就是tracker的目录，将这个目录整个上传到`~`下即可。
 
@@ -317,15 +317,15 @@ storage:[FastDFS官方镜像](<season/fastdfs>)(可能不是真正的官方镜�
 
 **config目录**
 
-![image-20200925102413752](https://i-blog.csdnimg.cn/blog_migrate/fc731b64d4783f58c4603aa340185147.png)
+![image-20200925102413752](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fc731b64d4783f58c4603aa340185147.png)
 
 其中config中是FastDFS中全部的配置文件，可以根据需要随时调整。
 
-![image-20200925102503536](https://i-blog.csdnimg.cn/blog_migrate/66a57745e90c21eb8b91c921c606b1d5.png)
+![image-20200925102503536](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/66a57745e90c21eb8b91c921c606b1d5.png)
 
-![image-20200925102513137](https://i-blog.csdnimg.cn/blog_migrate/8f8c11529a307542b452c29441ab6aa4.png)
+![image-20200925102513137](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8f8c11529a307542b452c29441ab6aa4.png)
 
-![image-20200925102523132](https://i-blog.csdnimg.cn/blog_migrate/719cb159ca12fc564c68533776094718.png)
+![image-20200925102523132](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/719cb159ca12fc564c68533776094718.png)
 
 **docker-compose.yaml**
     
@@ -372,55 +372,55 @@ tracker里面包含traker和一个tracker下的storage.
 
 tracker目录在创建时，保持空目录即可，容器会自己创建其他的目录和数据。
 
-![image-20200925103321712](https://i-blog.csdnimg.cn/blog_migrate/510637800dd9995142d06ce8b1f651ae.png)
+![image-20200925103321712](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/510637800dd9995142d06ce8b1f651ae.png)
 
 tracker目录下分为fdfs和fdht目录。
 
 fdht目录下是相关数据：
 
-![image-20200925103406393](https://i-blog.csdnimg.cn/blog_migrate/31449e091b0076bb6f7261fb40715e76.png)
+![image-20200925103406393](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/31449e091b0076bb6f7261fb40715e76.png)
 
 fdht的日志在logs目录下。
 
-![image-20200925103427318](https://i-blog.csdnimg.cn/blog_migrate/e5cf5a52755d86e4cf66e0d6ba22a149.png)
+![image-20200925103427318](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e5cf5a52755d86e4cf66e0d6ba22a149.png)
 
 fdfs目录下分为两个目录：tracker+storage(因为tracker也有一个storage)
 
-![image-20200925103521285](https://i-blog.csdnimg.cn/blog_migrate/f9463a12120327c86bbbb78e08dcd500.png)
+![image-20200925103521285](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f9463a12120327c86bbbb78e08dcd500.png)
 
 tracker目录下分为两个目录：data+logs
 
-![image-20200925103546926](https://i-blog.csdnimg.cn/blog_migrate/e4603db6f51a1ccfcacd16d6ad0a22f3.png)
+![image-20200925103546926](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e4603db6f51a1ccfcacd16d6ad0a22f3.png)
 
 data目录是整个FastDFS系统的一些交换信息
 
-![image-20200925103617585](https://i-blog.csdnimg.cn/blog_migrate/459c69e694c6cb71ade5a888f398bd4d.png)
+![image-20200925103617585](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/459c69e694c6cb71ade5a888f398bd4d.png)
 
 logs目录是整个FastDFS系统的调度等日志
 
-![image-20200925103641830](https://i-blog.csdnimg.cn/blog_migrate/8393df003d766f381109c75d35dd3984.png)
+![image-20200925103641830](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8393df003d766f381109c75d35dd3984.png)
 
 storage目录是tracker服务器上的storage的相关数据和日志
 
-![image-20200925103719960](https://i-blog.csdnimg.cn/blog_migrate/51392d33be1a98b735e19bfd9b6aee1d.png)
+![image-20200925103719960](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/51392d33be1a98b735e19bfd9b6aee1d.png)
 
 data就是实际存储文件的位置。
 
-![image-20200925103745440](https://i-blog.csdnimg.cn/blog_migrate/8dc27a68ceb125caad570693d7c4f9de.png)
+![image-20200925103745440](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8dc27a68ceb125caad570693d7c4f9de.png)
 
 logs目录就是storage的日志
 
-![image-20200925103810022](https://i-blog.csdnimg.cn/blog_migrate/647c1d76e1f58017af92b0ca8bd57d1c.png)
+![image-20200925103810022](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/647c1d76e1f58017af92b0ca8bd57d1c.png)
 
 这些目录和文件都不需要创建，保证fdfs-tracker下存在tracker目录即可。
 
-![image-20200925103856431](https://i-blog.csdnimg.cn/blog_migrate/f10c35cd3b167df5068e5743efe03752.png)
+![image-20200925103856431](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f10c35cd3b167df5068e5743efe03752.png)
 
 #### 4.2.2 storage
 
 storage使用的是官方的纯净的镜像，和tracker类似，也是将数据和配置全部挂载。
 
-![image-20200925104020791](https://i-blog.csdnimg.cn/blog_migrate/0bc0179aee06c44261e097ca1a1be9cf.png)
+![image-20200925104020791](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0bc0179aee06c44261e097ca1a1be9cf.png)
 
 fdfs-storage就是storage相关的目录。
 
@@ -428,13 +428,13 @@ fdfs-storage就是storage相关的目录。
 
 fdfs-storage包含三个部分：docker-compose.yaml，config和storage目录
 
-![image-20200925104222059](https://i-blog.csdnimg.cn/blog_migrate/5bbd59b5110acebf9359dd7b071b8e48.png)
+![image-20200925104222059](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5bbd59b5110acebf9359dd7b071b8e48.png)
 
 **config目录**
 
 config目录下是storage的全部的FastDFSstorage的配置
 
-![image-20200925104248205](https://i-blog.csdnimg.cn/blog_migrate/78ee7a24623420e9247d9b02f92a37ad.png)
+![image-20200925104248205](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/78ee7a24623420e9247d9b02f92a37ad.png)
 
 **docker-compose.yaml**
     
@@ -465,13 +465,13 @@ config目录下是storage的全部的FastDFSstorage的配置
 
 storage目录下需要手动创建data目录
 
-![image-20200925104523865](https://i-blog.csdnimg.cn/blog_migrate/71d47c855fa4445db6d3f6bb66d94499.png)
+![image-20200925104523865](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/71d47c855fa4445db6d3f6bb66d94499.png)
 
 data目录下需要手动创建一个pid文件，文件名必须是`fdfs_storaged.pid`里面填写一个大于1的数字即可。
 
-![image-20200925104614183](https://i-blog.csdnimg.cn/blog_migrate/07b6d867772187147b102bd4ec5fe6ff.png)
+![image-20200925104614183](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/07b6d867772187147b102bd4ec5fe6ff.png)
 
-![image-20200925104625102](https://i-blog.csdnimg.cn/blog_migrate/9a681a5f70a612e70c7915a210d58229.png)
+![image-20200925104625102](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9a681a5f70a612e70c7915a210d58229.png)
 
 为什么tracker不需要？
 
@@ -479,15 +479,15 @@ data目录下需要手动创建一个pid文件，文件名必须是`fdfs_storage
 
 storage容器启动后，会创建logs目录
 
-![image-20200925104837644](https://i-blog.csdnimg.cn/blog_migrate/7874356b3ef43fef6313c90c8ed96eee.png)
+![image-20200925104837644](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7874356b3ef43fef6313c90c8ed96eee.png)
 
 在data目录下会创建实际存储的文件目录：
 
-![image-20200925104902256](https://i-blog.csdnimg.cn/blog_migrate/71e0cc7bb9d052db21152c3bcaaa2109.png)
+![image-20200925104902256](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/71e0cc7bb9d052db21152c3bcaaa2109.png)
 
 logs目录下是storage的目录：
 
-![image-20200925104919928](https://i-blog.csdnimg.cn/blog_migrate/9eb8d4c4d90f65c968acba54602e2eef.png)
+![image-20200925104919928](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9eb8d4c4d90f65c968acba54602e2eef.png)
 
 实际使用非常简单：
 
@@ -502,7 +502,7 @@ logs目录下是storage的目录：
 
 dht包含三个配置文件：
 
-![image-20200925105258118](https://i-blog.csdnimg.cn/blog_migrate/0f76510a57af6e91cca031ef2c51e46c.png)
+![image-20200925105258118](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0f76510a57af6e91cca031ef2c51e46c.png)
 
 **fdhtd.conf**
 
@@ -523,7 +523,7 @@ dht包含三个配置文件：
 
 **fdht_server.conf**
 
-![image-20200925105858642](https://i-blog.csdnimg.cn/blog_migrate/6ccc855c269d3d4b55054f35dccd74b9.png)
+![image-20200925105858642](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6ccc855c269d3d4b55054f35dccd74b9.png)
 
 里面就两个配置，第一个表示dht分为几组，第二个配置就是实际的分组了。
 
@@ -667,7 +667,7 @@ storage 中的其他配置和tracker-fdfs中的一样，一个服务中的配置
 
 ### 5.1 水平扩展
 
-![image-20200925113552997](https://i-blog.csdnimg.cn/blog_migrate/129355012a24c742a1adb83a91bcd3ed.png)
+![image-20200925113552997](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/129355012a24c742a1adb83a91bcd3ed.png)
 
 增加的storage与原有的组名不同即可。(同一个服务器中的配置文件中相同的配置应该保持一致)
 
@@ -677,7 +677,7 @@ storage 中的其他配置和tracker-fdfs中的一样，一个服务中的配置
 
 ### 5.2 垂直扩展
 
-![image-20200925113936879](https://i-blog.csdnimg.cn/blog_migrate/04b45705c81e7114c0d3ec0f9b58fbd3.png)
+![image-20200925113936879](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/04b45705c81e7114c0d3ec0f9b58fbd3.png)
 
 增加的storage与原有的组名相同即可。(同一个组名的storage的端口应该保持一致)
 
@@ -687,18 +687,18 @@ storage 中的其他配置和tracker-fdfs中的一样，一个服务中的配置
 
 可以进入docker容器，也可以启动官方镜像，只启动shell.
 
-![image-20200925114045010](https://i-blog.csdnimg.cn/blog_migrate/6a43b9566ec32aee6886d73de700abff.png)
+![image-20200925114045010](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a43b9566ec32aee6886d73de700abff.png)
 
 然后使用fdfs_monitor程序
 
-![image-20200925114211013](https://i-blog.csdnimg.cn/blog_migrate/db7f3fba3073d242aedbf5215564ef17.png)
+![image-20200925114211013](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/db7f3fba3073d242aedbf5215564ef17.png)
 
 输出结果
 
-![image-20200925114341257](https://i-blog.csdnimg.cn/blog_migrate/690e34032ac015cbe36bb787e65187ba.png)  
-![image-20200925114348940](https://i-blog.csdnimg.cn/blog_migrate/3afae503eda526b59b4e93727713672a.png)
+![image-20200925114341257](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/690e34032ac015cbe36bb787e65187ba.png)  
+![image-20200925114348940](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3afae503eda526b59b4e93727713672a.png)
 
-![image-20200925114358256](https://i-blog.csdnimg.cn/blog_migrate/c37d716be7312ffd7d96d5a362dcd591.png)
+![image-20200925114358256](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c37d716be7312ffd7d96d5a362dcd591.png)
 
 这个可以在任意storage,tracker或者shell中执行。
 
@@ -706,13 +706,13 @@ storage 中的其他配置和tracker-fdfs中的一样，一个服务中的配置
 
 在`fdfs-tracker/tracker/`下存储一张图片，用于测试。(任意一个storage,tracker或者shell都可以验证)
 
-![image-20200925114502832](https://i-blog.csdnimg.cn/blog_migrate/4741e058f353a01e43d8f0f1a6200a05.png)
+![image-20200925114502832](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4741e058f353a01e43d8f0f1a6200a05.png)
 
 上传
 
 然后使用`fdfs_upload_file`上传
 
-![image-20200925114630599](https://i-blog.csdnimg.cn/blog_migrate/7b3f709f5ef288e63098f51f8ef12642.png)
+![image-20200925114630599](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7b3f709f5ef288e63098f51f8ef12642.png)
 
 返回`group1/M00/00/00/CgDkmV9taA6AMBn0AAhzLEdg5HE776.jpg`上传成功
 
@@ -722,19 +722,19 @@ storage 中的其他配置和tracker-fdfs中的一样，一个服务中的配置
 
 比如
 
-![image-20200925114805996](https://i-blog.csdnimg.cn/blog_migrate/a7f59feae69a6e4f716b03b86fe36478.png)
+![image-20200925114805996](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a7f59feae69a6e4f716b03b86fe36478.png)
 
 下载
 
 使用`fdfs_download_file`下载
 
-![image-20200925114941221](https://i-blog.csdnimg.cn/blog_migrate/3af81d5c9a72828b59646d8a32cd59ff.png)
+![image-20200925114941221](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3af81d5c9a72828b59646d8a32cd59ff.png)
 
 删除
 
 使用`fdfs_delete_file`删除(删除服务器上的文件)
 
-![image-20200925115134269](https://i-blog.csdnimg.cn/blog_migrate/9ad2aef7a29e93c25e1fd388e77df943.png)
+![image-20200925115134269](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9ad2aef7a29e93c25e1fd388e77df943.png)
 
 浏览器依然能访问，可能是这几个原因：浏览器缓存，tracker中的nginx的缓存。  
 演示使用的是tracker容器，storage容器中程序和配置的所在位置可能和tracker容器不同，可以使用`find`搜索。
@@ -745,25 +745,25 @@ java程序连接FastDFS，就需要用到fastdfs-client-java客户端。
 
 [maven仓库fastdfs-client-java](<https://search.maven.org/search?q=fastdfs-client-java>)
 
-![image-20200925134655412](https://i-blog.csdnimg.cn/blog_migrate/4c6833b0c6eee1ca8b8c5526fbf2bf0c.png)
+![image-20200925134655412](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4c6833b0c6eee1ca8b8c5526fbf2bf0c.png)
 
 随便挑一个加入依赖，当然，有些集成了starter.
 
 [maven仓库fastdfs](<https://search.maven.org/search?q=fastdfs>)
 
-![image-20200925134841508](https://i-blog.csdnimg.cn/blog_migrate/647914e0826e2c604bd58885f81b74d6.png)
+![image-20200925134841508](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/647914e0826e2c604bd58885f81b74d6.png)
 
 然后将fastdfs-client-java包中的fdfs_client.conf.simple拷贝到resouce下(我演示的是spring boot web项目，gradler管理)，去掉.simple
 
 可以先依赖fastdfs-client-java包，拿到了conf文件后，在依赖starter包。
 
-![image-20200925135605774](https://i-blog.csdnimg.cn/blog_migrate/7e588f10b3794a3b662338e154f1cab5.png)
+![image-20200925135605774](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7e588f10b3794a3b662338e154f1cab5.png)
 
 支持两种配置方式.conf和.properties。
 
 主要还是配置tracker的ip和端口。
 
-![image-20200925135744215](https://i-blog.csdnimg.cn/blog_migrate/2b45081063f7d644e42c9cac89edc359.png)
+![image-20200925135744215](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2b45081063f7d644e42c9cac89edc359.png)
 
 然后在resource目录下放一张图片，用于上传和下载。
 
@@ -795,19 +795,19 @@ java程序连接FastDFS，就需要用到fastdfs-client-java客户端。
         }
     
 
-![image-20200925140024832](https://i-blog.csdnimg.cn/blog_migrate/297d7b1abd12fecc6222eb3f2175a7c0.png)
+![image-20200925140024832](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/297d7b1abd12fecc6222eb3f2175a7c0.png)
 
 我们也可以将这个图片上传到group0:
 
-![image-20200925140100994](https://i-blog.csdnimg.cn/blog_migrate/2bb7a5b458da48a0dd3af35ce628ff9b.png)
+![image-20200925140100994](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2bb7a5b458da48a0dd3af35ce628ff9b.png)
 
 什么情况，竟然异常了
 
-![image-20200925140229787](https://i-blog.csdnimg.cn/blog_migrate/bdc6524975ac294ffb97b0e0cbbf7360.png)
+![image-20200925140229787](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bdc6524975ac294ffb97b0e0cbbf7360.png)
 
 根据前面我们查看的FastDFS系统的信息，应该是group0的storage离线了。
 
-![image-20200925141340760](https://i-blog.csdnimg.cn/blog_migrate/98287d451a1f64bd328a8a8b5ed86f9d.png)
+![image-20200925141340760](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/98287d451a1f64bd328a8a8b5ed86f9d.png)
 
 一般storage有7种状态
 
@@ -860,9 +860,9 @@ java程序连接FastDFS，就需要用到fastdfs-client-java客户端。
         }
     
 
-![image-20200925144952535](https://i-blog.csdnimg.cn/blog_migrate/6b7a4b9c701b16065c3c89054815ce91.png)
+![image-20200925144952535](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6b7a4b9c701b16065c3c89054815ce91.png)
 
-![image-20200925145001632](https://i-blog.csdnimg.cn/blog_migrate/82b6ad09eb3beb9e364e2e13c4c15e5c.png)
+![image-20200925145001632](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/82b6ad09eb3beb9e364e2e13c4c15e5c.png)
 
 返回0表示成功。
 
@@ -889,13 +889,13 @@ java程序连接FastDFS，就需要用到fastdfs-client-java客户端。
         }
     
 
-![image-20200925145242802](https://i-blog.csdnimg.cn/blog_migrate/a7674cb5bdff77405656e5386b898163.png)
+![image-20200925145242802](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a7674cb5bdff77405656e5386b898163.png)
 
 返回0表示成功。
 
 然后在访问就404了
 
-![image-20200925145335048](https://i-blog.csdnimg.cn/blog_migrate/5f3e7128a1555c6571cd4cf422d48b6f.png)
+![image-20200925145335048](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5f3e7128a1555c6571cd4cf422d48b6f.png)
 
 ## 7\. 总结
 

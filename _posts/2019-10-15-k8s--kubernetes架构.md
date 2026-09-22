@@ -47,10 +47,10 @@ keywords: kubernetes架构, 如何在k8s上进行一次部署, k8s部署需要�
     kubectl get nodes
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/11daca323a716abffcc226194c828334.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/11daca323a716abffcc226194c828334.png)  
 k8s集群由master节点和node节点组成。  
 master节点是k8s集群的核心大脑，是调度、管理节点，运行着一些核心的服务。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f6f51b5f8b9edbda6439e6d815c7bd92.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f6f51b5f8b9edbda6439e6d815c7bd92.png)  
 coredns、etcd、kube-apiserver、kube-controller-manager、kube-flannel-ds、kube-proxy、kube-scheduler  
 node节点是工作节点，运行业务服务，当然也有配合master节点的服务  
 kube-flannel-ds、kube-proxy
@@ -119,7 +119,7 @@ node2里面的pod2也提供a服务
 
 这里引用一张k8s中文社区的架构图
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/cda5faf88a0c3b34e4c455ae636c7491.jpeg)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cda5faf88a0c3b34e4c455ae636c7491.jpeg)
 
 这张图非常清楚的说明了k8s集群中各个服务是如何协作的。
 
@@ -135,7 +135,7 @@ node2里面的pod2也提供a服务
     kubectl get namespaces --all-namespaces
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/29bdee767581aeaedd74214b3a71f8a4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/29bdee767581aeaedd74214b3a71f8a4.png)
 
 #### 4.1.2增加命名空间
 
@@ -146,7 +146,7 @@ node2里面的pod2也提供a服务
     
 
 注意：命名空间名称满足正则表达式[a-z0-9](<%5B-a-z0-9%5D*%5Ba-z0-9%5D>)?,最大长度为63位  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8e1d0257856707e043431e6c40477400.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8e1d0257856707e043431e6c40477400.png)  
 2.通过yml文件创建
     
     
@@ -170,7 +170,7 @@ node2里面的pod2也提供a服务
     kubectl get namespaces --all-namespaces
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6eb9a5e5db20f8756d16676150c269d2.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6eb9a5e5db20f8756d16676150c269d2.png)
 
 #### 4.1.3删除命名空间
     
@@ -180,7 +180,7 @@ node2里面的pod2也提供a服务
 
 1.删除一个namespace会自动删除所有属于该namespace的资源。  
 2.default和kube-system命名空间不可删除。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e69dfa192ef12aeae4cebe162fb9a4d9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e69dfa192ef12aeae4cebe162fb9a4d9.png)
 
 ### 4.2部署
     
@@ -188,12 +188,12 @@ node2里面的pod2也提供a服务
     kubectl run httpd-app --image=httpd --replicas=2 -n testcreatenamespaces2
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dce1bd80a83b84e07a2c9e627ffc2c19.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dce1bd80a83b84e07a2c9e627ffc2c19.png)  
 这条命令创建一个deployment，然后指定images是httpd，部署两个副本，在testcreatenamespaces2中执行。当然还未准备好，需要等待一段时间。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/56cbb58e22c94509bbabc9c4fd5d163d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/56cbb58e22c94509bbabc9c4fd5d163d.png)  
 然后在node1和node2的节点上就会运行对应的容器  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1fae48e8076a528c64378a75ea6f34b3.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3561b33322125590fa0d0b084fba0e4b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1fae48e8076a528c64378a75ea6f34b3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3561b33322125590fa0d0b084fba0e4b.png)  
 因为我的node2的网络出现了问题，ip地址重复。所以重启node2后，等待一段时间，完成。
 
   * a.kubectl发送部署请求到api server

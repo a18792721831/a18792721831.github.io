@@ -41,7 +41,7 @@ keywords: springBean初始化, 构造, spring xml文件bean配置, set注入, �
 
 ### 2.1新建一个空的spring项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4df1b4bea35b2996ddc7c4e14cfbe1fe.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4df1b4bea35b2996ddc7c4e14cfbe1fe.png)  
 其中：  
 client包是主方法所在类的包；  
 domain包是实体Bean的包；  
@@ -50,7 +50,7 @@ readme是项目介绍。
 
 ### 2.2类文件创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1683e327bd53df4e30cd61483b74d030.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1683e327bd53df4e30cd61483b74d030.png)
 
 ### 2.3java文件
     

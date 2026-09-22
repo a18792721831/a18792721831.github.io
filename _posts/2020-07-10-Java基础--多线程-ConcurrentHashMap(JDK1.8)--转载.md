@@ -44,7 +44,7 @@ HashMap非线程安全的，HashTable是线程安全的，所有涉及到多线�
 ## ConcurrentHashMap（JDK1.7）
 
 在JDK1.7中，ConcurrentHashMap的数据结构是由一个Segment数组和多个HashEntry组成的，如图：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/42f29c49d25746faa9260569537e8383.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/42f29c49d25746faa9260569537e8383.png)  
 Segment数组的意义就是将一个大的table分割成多个小的table来进行加锁，也就是锁分离技术，而每一个Segment元素存储的是HashEntry数组+ 链表。分段是一开始就确定的，后期不能再进行扩容（即并发度不能改变），但是单个Segment里面的数组是可以扩容的。
 
 而JDK1.8中，是bin扩容（并发度可变）。
@@ -98,7 +98,7 @@ ConcurrentHashMap的get操作跟HashMap类似，只是ConcurrentHashMap第一次
 ## ConcurrentHashMap（JDK1.8）
 
 JDK1.8的实现已经摒弃了Segment的概念，而是直接用Node数组+链表+红黑树的数据结构来实现，并发控制使用Synchronized和CAS来操作，整个看起来就像是优化过且线程安全的HashMap，虽然在JDK1.8中还能看到Segment的数据结构，但是已经简化了属性，只是为了兼容旧版本；loadFactor仅用于构造函数中设定初始容量，已经不能影响扩容阈值，JDK1.8中阈值计算基本恒定为0.75；concurrencyLevel只影响初始容量，后续的并发度大小依赖于table数组的大小。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6abd793e047ddb6c3c72ed31c0f2f1e9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6abd793e047ddb6c3c72ed31c0f2f1e9.png)  
 先看一些常量设计和数据结构：
     
     
@@ -142,7 +142,7 @@ JDK1.8的实现已经摒弃了Segment的概念，而是直接用Node数组+链�
 
 ## 类图
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3c225c4077d859f5a6ee654791a3f462.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3c225c4077d859f5a6ee654791a3f462.png)
 
   * **Node** 是ConcurrentHashMap存储结构的基本单元，实现了Map.Entry接口，用于存储数据。它对value和next属性设置了volatile同步锁(与JDK7的Segment相同)，它不允许调用setValue方法直接改变Node的value域，它增加了find方法辅助map.get()方法。
 
@@ -310,7 +310,7 @@ ConcurrentHashMap定义了三个原子操作，用于对指定位置的节点进
 JDK8中的实现也是锁分离思想，只是锁住的是一个node，而不是JDK7中的Segment；锁住Node之前的操作是基于在volatile和CAS之上无锁并且线程安全的。 
 
 put操作的流程图如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/14b2fd5adafd1fc4fb2bf76c6b1b6a5a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/14b2fd5adafd1fc4fb2bf76c6b1b6a5a.png)  
 从put可以看出有几个操作比较重要，下面我们就重点讲解这几个方法：initTable，helpTransfer，treeifyBin，addCount
 
 ## initTable初始化
@@ -494,11 +494,11 @@ put操作的流程图如下：
 
 状态变化图：  
 （1）初始化有一个16大小的数组：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a4efea7da6ca0dd0200abce0bd111867.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a4efea7da6ca0dd0200abce0bd111867.png)  
 （2）创建一个二倍大小的nextTable，并且new ForwardingNode<K,V>(nextTab)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/804383e9bf96cf22c0b0d1aea9011517.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/804383e9bf96cf22c0b0d1aea9011517.png)  
 （3）从后往前移动tab中元素到nextTable，比如：已经把tab[10-15]移动到nextTable中的状态图为：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c422233b4441c1a9e275dbc185eaa915.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c422233b4441c1a9e275dbc185eaa915.png)
 
 ## treeifyBin
 
@@ -579,6 +579,6 @@ put操作的流程图如下：
 ## size
 
 最后，我们看看size方法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/220fd379241d867dd5ff0007f4d0a7ff.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/220fd379241d867dd5ff0007f4d0a7ff.png)  
 调用sumCount获取数量。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c8996efc9213f8f4be33fe7990a67231.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c8996efc9213f8f4be33fe7990a67231.png)

@@ -58,7 +58,7 @@ java源码：
 
 然后使用javac进行编译  
 得到Java源码的字节码：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/de423863a0a0ad5ddbe22cf930230926.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/de423863a0a0ad5ddbe22cf930230926.png)  
 使用JD GUI进行反编译，得到反编译后的代码，发现：  
 1.对于值1进行自动装箱，得到value1  
 2.将自动装箱得到的value1赋值给我们的目标变量interge（引用）  
@@ -155,9 +155,9 @@ java源码：
 
 那么，如果都是基本类型，相同的操作，其编译和反编译后的区别有多大？  
 源码：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6f96ef55d6ede26d068086b05dde75e4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6f96ef55d6ede26d068086b05dde75e4.png)  
 通过JD GUI反编译：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ac7e170695cb036f7185a11058e8aec6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac7e170695cb036f7185a11058e8aec6.png)  
 通过Javap反编译
     
     
@@ -229,25 +229,25 @@ JVM不支持装箱类型的++操作，因为装箱类型实际上是对象。CPU
 还有一个问题：**-128~127是怎么来的**  
 我们已经知道了自动装箱的方法是valueOf()  
 那么valueOf的方法的源码是怎么样的？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/62e670f8c17004f067e073eb35487d38.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/62e670f8c17004f067e073eb35487d38.png)  
 Integer是final类，不可扩展  
 继承Number类  
 Number类是一个抽象类，定义了包装类到基本类型转换的所有方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5bee127d047f92e4d96b4bf8db42c469.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5bee127d047f92e4d96b4bf8db42c469.png)  
 当然也实现了序列化接口。  
 Integer还实现了Comparable接口，实现了Comparable接口，意味着，一些数组等的排序，对于包装类也可以使用(各个包装类之间可能存在不同)  
 Integer数据存储范围：  
 -2^31  
 2^31  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/12c9bc1fd72bd04765ba812ab56b3cfa.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/12c9bc1fd72bd04765ba812ab56b3cfa.png)  
 32位长度，最高为符号。  
 0x8000 0000 <=> 0b 1000 0000 0000 0000 0000 0000 0000 0000  
 0x7fff ffff <=> 0b 0111 1111 1111 1111 1111 1111 1111 1111  
 接下来看下valueOf方法
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1592d9cfce081ba33f5db6aadd288223.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1592d9cfce081ba33f5db6aadd288223.png)  
 在Integer内部有一个私有类  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/680f012c461c2f567f9160132d3704cf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/680f012c461c2f567f9160132d3704cf.png)  
 也就是说，Integer默认范围是-128 ~ 127,其在内部实现了-128 ~ 127之间包装类数据的缓存。
 
 ## 4.原始类型线程安全
@@ -379,7 +379,7 @@ Integer数据存储范围：
 
 其输出也是4W  
 使用内存可见，以及使用update进行更新。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a20f8473e51d3147e638a48e4a20e2d6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a20f8473e51d3147e638a48e4a20e2d6.png)  
 其内部是使用死循环的CAS实现的。  
 所以，基本类型多线程可能存在以下问题：
 

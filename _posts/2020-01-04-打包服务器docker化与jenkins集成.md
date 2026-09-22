@@ -65,14 +65,14 @@ keywords: docker, centos, dockerfile, 自定义dockerimage, docker+jenkins
 ### 1.1安装系统
 
 首先将CentOS-6.1-x86_64-bin-DVD1安装至虚拟机  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/97873c06cc08e88bd76b20f3c2d442b8.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d4f560f6ac15148ade38cf90074a0baf.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d8152cec004a28924273bc1d1f906f6a.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3eb10971497badaa9ca07a9b7290d2b6.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/037c452ce4d10d28fcf4e6b755de3df4.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/42f477a56073511e5adc4fbb85aae7e6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/97873c06cc08e88bd76b20f3c2d442b8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d4f560f6ac15148ade38cf90074a0baf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d8152cec004a28924273bc1d1f906f6a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3eb10971497badaa9ca07a9b7290d2b6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/037c452ce4d10d28fcf4e6b755de3df4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/42f477a56073511e5adc4fbb85aae7e6.png)  
 选择最小安装。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7fd38e121530d5cec151e68438a222c4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7fd38e121530d5cec151e68438a222c4.png)  
 等待完成即可。
 
 ### 1.2打包系统
@@ -90,9 +90,9 @@ keywords: docker, centos, dockerfile, 自定义dockerimage, docker+jenkins
     
 
 重启网络  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7c73ea9787a988fd1961869a381ab37e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7c73ea9787a988fd1961869a381ab37e.png)  
 然后查看IP，并使用ssh连接  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/40180f3e7eca51d3e52b53f3bbd5a427.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/40180f3e7eca51d3e52b53f3bbd5a427.png)
 
 在ssh中使用如下命令打包系统
     
@@ -106,7 +106,7 @@ keywords: docker, centos, dockerfile, 自定义dockerimage, docker+jenkins
 –exclude是忽略的目录  
 /是将根目录作为上下文传入  
 执行完成后会生成  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6dc36eb50bfa4eb835ad6fd7b99153f4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6dc36eb50bfa4eb835ad6fd7b99153f4.png)  
 base.tar文件。  
 然后将这个base.tar拷贝出来，准备工作就完成了。  
 （虚拟机就没有用了，可以关闭了，或者删除掉）
@@ -120,7 +120,7 @@ base.tar文件。
     docker import /tmp/base.tar centos6-64:base
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a10b6dd844a6face5587a036f65edb71.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a10b6dd844a6face5587a036f65edb71.png)
 
 ## 2.下载软件
 
@@ -139,7 +139,7 @@ base.tar文件。
     
 
 在update时会出现异常：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8113051378cab875e438ce12f16197e4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8113051378cab875e438ce12f16197e4.png)  
 使用
     
     
@@ -147,7 +147,7 @@ base.tar文件。
     
 
 去除依赖  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6de51c5aceb8789a711384ecd188811a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6de51c5aceb8789a711384ecd188811a.png)  
 然后在更新（时间比较长，等待完成即可）
 
 ### 2.2 设置yum源
@@ -159,7 +159,7 @@ base.tar文件。
     yum install wget -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/53ceec2986f207d16a4b3dbcded54514.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/53ceec2986f207d16a4b3dbcded54514.png)  
 下载阿里和163的yum源
     
     
@@ -168,7 +168,7 @@ base.tar文件。
     
 
 （阿里和163的yum源随便一个即可）  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d177113a2d810da03f817d76ab49edb8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d177113a2d810da03f817d76ab49edb8.png)  
 然后执行：
     
     
@@ -185,7 +185,7 @@ base.tar文件。
     yum install libxslt-devel --downloadonly --downloaddir=/tmp libxslt-devel -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c933f58b050a618b97ebf8644421703a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c933f58b050a618b97ebf8644421703a.png)
 
 ### 2.5 net-snmp
     
@@ -193,7 +193,7 @@ base.tar文件。
     yum install net-snmp --downloadonly --downloaddir=/tmp net-snmp -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d7bd76a0bb7d38dec05beb6fe683b900.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d7bd76a0bb7d38dec05beb6fe683b900.png)
 
 ### 2.6 net-snmp-utils
     
@@ -201,7 +201,7 @@ base.tar文件。
     yum install net-snmp-utils --downloadonly --downloaddir=/tmp net-snmp-utils -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8b4c27cb0e93cc64eb8c94d3daff83e5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8b4c27cb0e93cc64eb8c94d3daff83e5.png)
 
 ### 2.7 net-snmp-devel
     
@@ -209,7 +209,7 @@ base.tar文件。
     yum install net-snmp-devel --downloadonly --downloaddir=/tmp net-snmp-devel -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2713ea8a713dc71d54adf6783dc32598.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2713ea8a713dc71d54adf6783dc32598.png)
 
 ### 2.8 dos2unix
     
@@ -217,7 +217,7 @@ base.tar文件。
     yum install dos2unix --downloadonly --downloaddir=/tmp dos2unix -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e5a89b471aa58a8f9430e020985334a8.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e5a89b471aa58a8f9430e020985334a8.png)
 
 ### 2.9 zlib-devel
     
@@ -225,7 +225,7 @@ base.tar文件。
     yum install zlib-devel --downloadonly --downloaddir=/tmp zlib-devel -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c08e4916ca4f8707e1b9675dc482b292.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c08e4916ca4f8707e1b9675dc482b292.png)
 
 ### 2.10 libxml2
 
@@ -239,7 +239,7 @@ base.tar文件。
     yum install gcc --downloadonly --downloaddir=/tmp gcc -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/15c06d7a0f73ca7de09bfcbad12c1879.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/15c06d7a0f73ca7de09bfcbad12c1879.png)
 
 ### 2.12 gcc-c++
     
@@ -247,7 +247,7 @@ base.tar文件。
     yum install gcc-c++ --downloadonly --downloaddir=/tmp gcc-c++ -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c40aabdb1c466bd8a92df02f0fe944c5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c40aabdb1c466bd8a92df02f0fe944c5.png)
 
 ### 2.13 automake
     
@@ -255,7 +255,7 @@ base.tar文件。
     yum install automake --downloadonly --downloaddir=/tmp automake -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a1bd587ce7275d9ed17e78a292cc7270.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a1bd587ce7275d9ed17e78a292cc7270.png)
 
 ### 2.14 make
 
@@ -268,7 +268,7 @@ base.tar文件。
     yum install libtool --downloadonly --downloaddir=/tmp libtool -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7b740c4d3f33453cf45c3d7c9d1ffd8e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7b740c4d3f33453cf45c3d7c9d1ffd8e.png)
 
 ### 2.16 byacc
     
@@ -276,7 +276,7 @@ base.tar文件。
     yum install byacc --downloadonly --downloaddir=/tmp byacc -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/574ab1755dc6ef41bc19a04e7fdd059d.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/574ab1755dc6ef41bc19a04e7fdd059d.png)
 
 ### 2.17 bison
     
@@ -290,16 +290,16 @@ base.tar文件。
     yum install flex --downloadonly --downloaddir=/root/tmp/ flex -y
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c2d3b41bd4faf54f87edbd3aa8830591.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c2d3b41bd4faf54f87edbd3aa8830591.png)
 
 ### 2.19 zlib
 
 <http://rpmfind.net/linux/centos/6.10/os/x86_64/Packages/zlib-1.2.3-29.el6.x86_64.rpm>
 
 总计需要安装71个软件，其具体的软件名称与版本如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fc3e07030d309f2cd675a6e2e8e70845.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f289340c201e8f053b2bacc71fce86b6.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4c2030e54a246715c59466b0e48d871a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fc3e07030d309f2cd675a6e2e8e70845.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f289340c201e8f053b2bacc71fce86b6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4c2030e54a246715c59466b0e48d871a.png)
 
 ## 3.安装软件
 
@@ -325,7 +325,7 @@ base.tar文件。
     CMD ["/bin/bash"]
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/90abd0a4bc62641f42f79b74bb88ee21.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/90abd0a4bc62641f42f79b74bb88ee21.png)
 
 FROM 表示将centos6-64:base作为本次构建的基础镜像。  
 MAINTAINER表示作者以及邮箱。  
@@ -334,7 +334,7 @@ RUN表示执行shell命令。
 shell命令分为两部分，第一部分是遍历rpm文件夹中所有的安装包  
 第二部分是使用rpm -i命令安装遍历得到的所有软件包，忽略检测，强制安装。  
 CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法启动容器进行验证。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/02f563cd115fcacd9c93375cf215de59.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/02f563cd115fcacd9c93375cf215de59.png)
 
 ## 4.安装oracle
 
@@ -356,7 +356,7 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     
 
 然后进行构建  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cbac34955f0fdbb9993c3d0eac8496c0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cbac34955f0fdbb9993c3d0eac8496c0.png)
 
 ## 5\. env
 
@@ -414,8 +414,8 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     CMD ["/bin/bash"]
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1197878f4221b7d978c3546d53509f3d.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5f41855d4deeaf5b60259910168fdd78.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1197878f4221b7d978c3546d53509f3d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5f41855d4deeaf5b60259910168fdd78.png)
 
 ## 6\. gsoap 2.7.7
 
@@ -442,7 +442,7 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     CMD ["/bin/bash"]
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/de8f91c6e7254bedd7516482457b6a46.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/de8f91c6e7254bedd7516482457b6a46.png)
 
 ## 7\. java
     
@@ -461,13 +461,13 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     CMD ["/bin/bash"]
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9074bd44cc52f06d857e787d92fd736b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9074bd44cc52f06d857e787d92fd736b.png)
 
 ## 8\. jenkins
 
 首先去jenkins的官网下载jenkins的war包  
 <http://ftp-chi.osuosl.org/pub/jenkins/war-stable/2.204.1/jenkins.war>  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/17747c42b582cefd2b746958ac593141.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/17747c42b582cefd2b746958ac593141.png)  
 将下载的jenkins.war包放到docker 服务器中  
 然后编写dockerfile:
     
@@ -488,11 +488,11 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     WORKDIR /root
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ebf5b90fa9066bf8072a2bfbdc9e2498.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ebf5b90fa9066bf8072a2bfbdc9e2498.png)  
 启动jenkins镜像，验证jenkins是否安装成功  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1693791e33be82b2d158165e4dddd9c2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1693791e33be82b2d158165e4dddd9c2.png)  
 然后访问  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/311a6e2760469784c5e42947051be579.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/311a6e2760469784c5e42947051be579.png)  
 正常不是这样的，应该是需要去密码文件，以管理员登录，然后下载插件，创建用户等等。
 
 我这个是之前启动的jenkins时，保留的/root/.jenkins文件夹，这样不用每次重启镜像都需要重新下载插件了。  
@@ -533,9 +533,9 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     
 
 然后重新构建，并启动测试验证  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/319e2597e2ae9ee11450d786c7373b5e.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6d4d19d8a5d94de6f12fb45c05c842eb.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3acf2a5b59cae5664b08d07455fefb37.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/319e2597e2ae9ee11450d786c7373b5e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6d4d19d8a5d94de6f12fb45c05c842eb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3acf2a5b59cae5664b08d07455fefb37.png)
 
 ### 9.2 5->4
     
@@ -579,9 +579,9 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     ENTRYPOINT ["java","-jar","/jenkins.war","--httpPort=8080"]
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f2523a4eb4fee60acb5f5c9ebd8626d5.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/29c97f361a7c590114066299eb631efe.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/140f5a13f7b970e3124e5351fd1576f5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f2523a4eb4fee60acb5f5c9ebd8626d5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/29c97f361a7c590114066299eb631efe.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/140f5a13f7b970e3124e5351fd1576f5.png)
 
 ### 9.3 4->3
     
@@ -655,9 +655,9 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     ENTRYPOINT ["java","-jar","/jenkins.war","--httpPort=8080"]
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3d62cae58e9d04830a6560453effd647.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9a56416b87c9f233cba7768a04297343.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bc2d6f10e4310a4fb1c3808ba507ab77.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d62cae58e9d04830a6560453effd647.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9a56416b87c9f233cba7768a04297343.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bc2d6f10e4310a4fb1c3808ba507ab77.png)
 
 ### 9.4 3->2
     
@@ -738,11 +738,11 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     ENTRYPOINT ["java","-jar","/jenkins.war","--httpPort=8080"]
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/14f72aa991a474f23f0100bf3e2217a6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/14f72aa991a474f23f0100bf3e2217a6.png)  
 (这里镜像tag写错了，应该是centos6-64:v1,不是centos6-64:v0)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c0d7893a4f9da5ab2d021f7515f67360.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c0d7893a4f9da5ab2d021f7515f67360.png)  
 这是刷新后的图。。。。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7d58bf66c4cb0fea9b99de7fa12dfe23.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7d58bf66c4cb0fea9b99de7fa12dfe23.png)
 
 ### 9.5 2->1
     
@@ -827,9 +827,9 @@ CMD 表示执行cmd命令，执行/bin/bash命令，否则启动异常，无法�
     ENTRYPOINT ["java","-jar","/jenkins.war","--httpPort=8080"]
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e1b619d34db8118c249086ff6ba88e05.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e97d5afd4400b9b701c5a4f9a4f45485.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2eb00c39d516e84d2cb4574c69570b1d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e1b619d34db8118c249086ff6ba88e05.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e97d5afd4400b9b701c5a4f9a4f45485.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2eb00c39d516e84d2cb4574c69570b1d.png)  
 至此，就完成了docker化与Jenkins集成。
 
 ## 10\. 总结

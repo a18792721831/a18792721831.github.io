@@ -92,9 +92,9 @@ Exchange持久化类似Queue的持久化，都是使用durable为true来实现�
 
 ### 5.1新建一个gradle项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d4e3a8c901da0379207e5143ab03f35c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d4e3a8c901da0379207e5143ab03f35c.png)  
 创建java包  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b770e8c53ced772396af1fd41d85c026.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b770e8c53ced772396af1fd41d85c026.png)
 
 ### 5.2创建配置类
     
@@ -222,28 +222,28 @@ Exchange持久化类似Queue的持久化，都是使用durable为true来实现�
 ### 5.5生产
 
 启动MQ服务器，打开管理界面  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/289cefb60534fb26938b6f1483bc8b96.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/289cefb60534fb26938b6f1483bc8b96.png)  
 生产消息  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4d4c39e8da31596b46a515754c91e513.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/27d6d10aba8dfea6b002a10fac95e009.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4d4c39e8da31596b46a515754c91e513.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/27d6d10aba8dfea6b002a10fac95e009.png)  
 然后关闭生产者，关闭MQ服务器  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5cf35e3dab31a5dae4527296ea583811.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5cf35e3dab31a5dae4527296ea583811.png)  
 管理界面无法访问：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/38d94cf411374814e0a25d319d69cbec.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/38d94cf411374814e0a25d319d69cbec.png)
 
 ### 5.6消费
 
 启动MQ服务器  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/15294cb0da5763455e0ca1146157a4f6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/15294cb0da5763455e0ca1146157a4f6.png)  
 启动消费者：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/850c1473f4a80d9012903a6d0c3f2643.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f7341eb403386de1eda08594265d27b3.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/850c1473f4a80d9012903a6d0c3f2643.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f7341eb403386de1eda08594265d27b3.png)
 
 ### 5.7总结
 
 成功的持久化了队列、消息、交换机等等。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/93d9ccbb85f8b5ed79fe53927f7a59ab.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ccc7d4345920cbfc207c6dcce8f46aea.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/93d9ccbb85f8b5ed79fe53927f7a59ab.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ccc7d4345920cbfc207c6dcce8f46aea.png)
 
 git仓库地址：  
 <https://github.com/a18792721831/MQ.git>

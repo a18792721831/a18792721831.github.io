@@ -43,11 +43,11 @@ keywords: springBean的实例化方式, 无参构造器实例化, 静态工程�
 
 ### 2.1创建一个空的spring工程
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f739f37e162ef7c186bb42061210e075.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f739f37e162ef7c186bb42061210e075.png)
 
 ### 2.2新建Java类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e7419b037fc2877eb9adeb4090850380.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e7419b037fc2877eb9adeb4090850380.png)
     
     
     package client;

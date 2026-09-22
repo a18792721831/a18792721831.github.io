@@ -68,7 +68,7 @@ MultipartReslver是一个接口对象，只需要在配置文件中声明bean即
     
 
 要使用文件上传功能就需要使用这两个jar:  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/24a21093e35c89f448a2b960f2971a2c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/24a21093e35c89f448a2b960f2971a2c.png)  
 服务端解析：
     
     
@@ -111,11 +111,11 @@ MultipartReslver是一个接口对象，只需要在配置文件中声明bean即
 
 ### 4.1创建一个springmvc项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b6ff9cb9552f8f5200419a5d4ff47f92.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6ff9cb9552f8f5200419a5d4ff47f92.png)
 
 ### 4.2导入jar包
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ea7eca68a8e9274f116a45a9dd5696ae.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea7eca68a8e9274f116a45a9dd5696ae.png)
 
 ### 4.3配置web.xml
 
@@ -341,7 +341,7 @@ springmvc-config.xml
 
 ### 4.7编写jsp
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/38348ec99f908aae33179913fe74fe86.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/38348ec99f908aae33179913fe74fe86.png)  
 fileList.jsp
     
     
@@ -436,22 +436,22 @@ first.jsp
 
 ### 4.8发布测试
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/95240f250699b566b9a526083ccc581f.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/137cc7a7e380791daf982f1fb709c42c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/95240f250699b566b9a526083ccc581f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/137cc7a7e380791daf982f1fb709c42c.png)  
 上传1个文件  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d59775d2ed362532d9c79807d60671a2.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/99cdd4452023d248b6de01688091ec53.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/86fb8220a589689d5864bb4a0a22a1c9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d59775d2ed362532d9c79807d60671a2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99cdd4452023d248b6de01688091ec53.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/86fb8220a589689d5864bb4a0a22a1c9.png)  
 这个就是上传的文件目录：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/346c11dcbe7a16ea51bc0bc610f3509d.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6ee3c2e21b82edb7559f2e5c8950b85c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/346c11dcbe7a16ea51bc0bc610f3509d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6ee3c2e21b82edb7559f2e5c8950b85c.png)  
 在这里配置项目发布路径  
 下载：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c61931a4083ab35fc41904da4e8368a4.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a8fef905c97dd5ceef3dfb76ad2b7df2.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3a89fad4393b33ff799afc544078ddd3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c61931a4083ab35fc41904da4e8368a4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a8fef905c97dd5ceef3dfb76ad2b7df2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3a89fad4393b33ff799afc544078ddd3.png)  
 上传多个文件：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4872bb66412f4da49ab381f6ed9a6fae.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e6de4920241eb2dfa44f779fb59c4299.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ffd3b908b50518bfea73ca88db994365.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4872bb66412f4da49ab381f6ed9a6fae.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e6de4920241eb2dfa44f779fb59c4299.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ffd3b908b50518bfea73ca88db994365.png)
 {% endraw %}

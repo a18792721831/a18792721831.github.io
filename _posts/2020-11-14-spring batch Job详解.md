@@ -84,17 +84,17 @@ https://github.com/a18792721831/studybatch.git
 
 一个Job由1个或者多个Step组成，Step有读写处理三部分组成；Job运行期间，所有的数据通过Job Repository进行持久化，同时通过Job Launcher负责调度Job作业。
 
-![image-20201109165536490](https://i-blog.csdnimg.cn/blog_migrate/c99ece23d8fb2125c77ebb23ea8b9886.png)
+![image-20201109165536490](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c99ece23d8fb2125c77ebb23ea8b9886.png)
 
 ## Job的基本配置
 
 Job的核心属性：
 
-![image-20201109165640147](https://i-blog.csdnimg.cn/blog_migrate/6db2da93eb6cfce5726181b3833576e2.png)
+![image-20201109165640147](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6db2da93eb6cfce5726181b3833576e2.png)
 
 Job的组成：
 
-![image-20201109165705304](https://i-blog.csdnimg.cn/blog_migrate/e1c2339187c61745c89feecac5243f14.png)
+![image-20201109165705304](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e1c2339187c61745c89feecac5243f14.png)
 
 ## Job重启
 
@@ -104,7 +104,7 @@ Job的组成：
 
 不可重启job的定义非常简单，只需要调用一个方法即可：
 
-![image-20201109185217758](https://i-blog.csdnimg.cn/blog_migrate/f6810daf6e749ce240d4545833b0b75c.png)
+![image-20201109185217758](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f6810daf6e749ce240d4545833b0b75c.png)
     
     
         @Bean
@@ -128,13 +128,13 @@ Job的组成：
 
 是一个死循环。所以，需要手动停止。手动停止，在数据库中就不是"COMPLETED".
 
-![image-20201109184850812](https://i-blog.csdnimg.cn/blog_migrate/4f5815a3690dd726883e3801748004c8.png)
+![image-20201109184850812](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4f5815a3690dd726883e3801748004c8.png)
 
-![image-20201109184830405](https://i-blog.csdnimg.cn/blog_migrate/cafbe6aa2e4527e0a0f5975d5e4c097c.png)
+![image-20201109184830405](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cafbe6aa2e4527e0a0f5975d5e4c097c.png)
 
 此时状态不是"COMPLETED"，但是因为我们设置了不可重启，所以，在不修改任何代码的情况下，重新启动服务：
 
-![image-20201109185023074](https://i-blog.csdnimg.cn/blog_migrate/26fa002ac412bc72af7c43d074ca680d.png)
+![image-20201109185023074](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/26fa002ac412bc72af7c43d074ca680d.png)
 
 就会抛出JobRestartException。
 
@@ -144,51 +144,51 @@ Job默认是可以重启的。
 
 我们拷贝不可重启的bean，然后去掉设置不可重启的操作。
 
-![image-20201109185303763](https://i-blog.csdnimg.cn/blog_migrate/28d7d5dd674ee2bd6a64a89158aa0581.png)
+![image-20201109185303763](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/28d7d5dd674ee2bd6a64a89158aa0581.png)
 
 记得在调度中启动
 
-![image-20201109185339279](https://i-blog.csdnimg.cn/blog_migrate/86fed2abd255324d593848124fac57db.png)
+![image-20201109185339279](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/86fed2abd255324d593848124fac57db.png)
 
 第一次运行 还是死循环
 
-![image-20201109185408462](https://i-blog.csdnimg.cn/blog_migrate/bb0a49d3fc6c84136ecdb7622ff3faee.png)
+![image-20201109185408462](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bb0a49d3fc6c84136ecdb7622ff3faee.png)
 
 手动停止
 
-![image-20201109185503426](https://i-blog.csdnimg.cn/blog_migrate/056098a35b27d2ff3c6c62a1e33c56c0.png)
+![image-20201109185503426](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/056098a35b27d2ff3c6c62a1e33c56c0.png)
 
-![image-20201109185441387](https://i-blog.csdnimg.cn/blog_migrate/7dd08f3e2112ad8bfd72c15337b3a853.png)
+![image-20201109185441387](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7dd08f3e2112ad8bfd72c15337b3a853.png)
 
 然后重新启动
 
-![image-20201109185733935](https://i-blog.csdnimg.cn/blog_migrate/b25bea7b09c89fad4bc3d3233f62da37.png)
+![image-20201109185733935](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b25bea7b09c89fad4bc3d3233f62da37.png)
 
 虽然也异常了，但是，异常非常明显不一样，这是说有一个JobExecution已经在执行了。
 
 我们现在修改job,不要让job是一个死循环，而是当循环次数大于10次的时候，抛出异常：
 
-![image-20201109192634158](https://i-blog.csdnimg.cn/blog_migrate/98bba4044dadbb342c90a989b149efd3.png)
+![image-20201109192634158](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/98bba4044dadbb342c90a989b149efd3.png)
 
 然后，在启动的时候修改job名字，或者传入一个参数。
 
-![image-20201109192709983](https://i-blog.csdnimg.cn/blog_migrate/a19356980a6da233bb2f271a281bca5a.png)
+![image-20201109192709983](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a19356980a6da233bb2f271a281bca5a.png)
 
 启动在循环到第10次的时候，出现异常
 
-![image-20201109192738791](https://i-blog.csdnimg.cn/blog_migrate/69a40a5b5bd120c6ef9dec01ea43800d.png)
+![image-20201109192738791](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/69a40a5b5bd120c6ef9dec01ea43800d.png)
 
 此时数据库中，记录的状态是FAILED.接着在不修改参数的前提下，注释掉抛出异常的代码。
 
-![image-20201109192949280](https://i-blog.csdnimg.cn/blog_migrate/d92a0e2738df033c0b931bd863f57f7e.png)
+![image-20201109192949280](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d92a0e2738df033c0b931bd863f57f7e.png)
 
 因为我们没有修改Job的名字，也没有修改Job的参数，所以，在spring batch看来，这就是同一个Job Instance。
 
-![image-20201109193306234](https://i-blog.csdnimg.cn/blog_migrate/1918b439d0d41ff45354f4abc90bdfcb.png)
+![image-20201109193306234](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1918b439d0d41ff45354f4abc90bdfcb.png)
 
 接着重新启动，重新运行这个Job Instance
 
-![image-20201109193253875](https://i-blog.csdnimg.cn/blog_migrate/fb83681b428a13ed1415676ded327ae9.png)
+![image-20201109193253875](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fb83681b428a13ed1415676ded327ae9.png)
 
 ## Job拦截器
 
@@ -247,7 +247,7 @@ Job 执行阶段拦截器需要实现接口：`JobExecutionListener`
 
 执行结果
 
-![image-20201109195042406](https://i-blog.csdnimg.cn/blog_migrate/611b902114286bd5b022e5d34f8a32b0.png)
+![image-20201109195042406](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/611b902114286bd5b022e5d34f8a32b0.png)
 
 这里有个坑，Job的监听，只能实现接口，不能使用注解。
 
@@ -305,7 +305,7 @@ Job 执行阶段拦截器需要实现接口：`JobExecutionListener`
 
 启动
 
-![image-20201109203534237](https://i-blog.csdnimg.cn/blog_migrate/7025fd23e99c2d787e0f2d8f605d2735.png)
+![image-20201109203534237](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7025fd23e99c2d787e0f2d8f605d2735.png)
 
 前后操作都没有执行。
 
@@ -404,7 +404,7 @@ Job 执行阶段拦截器需要实现接口：`JobExecutionListener`
 
 执行结果
 
-![image-20201110192447726](https://i-blog.csdnimg.cn/blog_migrate/1c8fe2b657ed136a100c2a4e68635b85.png)
+![image-20201110192447726](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1c8fe2b657ed136a100c2a4e68635b85.png)
 
 ## Job Parameters校验
 
@@ -412,7 +412,7 @@ spring batch框架提供了Job作业参数的校验功能，Job Parameters支持
 
 当然spring batch也提供了一些简单的校验类，可供我们使用
 
-![image-20201110193005900](https://i-blog.csdnimg.cn/blog_migrate/ccbd945f43a4fe9cf41d525a7ed7eb7e.png)
+![image-20201110193005900](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ccbd945f43a4fe9cf41d525a7ed7eb7e.png)
 
 ### 自定义的Job Parameters校验
 
@@ -463,7 +463,7 @@ spring batch框架提供了Job作业参数的校验功能，Job Parameters支持
 
 启动
 
-![image-20201110194643254](https://i-blog.csdnimg.cn/blog_migrate/6c012dd30b8413c12bbbddb4bc93c163.png)
+![image-20201110194643254](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6c012dd30b8413c12bbbddb4bc93c163.png)
 
 为什么会被调用两次呢？
 
@@ -471,11 +471,11 @@ spring batch框架提供了Job作业参数的校验功能，Job Parameters支持
 
 第一次调用在SimpleJobLauncher中的调用：
 
-![image-20201110195027760](https://i-blog.csdnimg.cn/blog_migrate/39180e2356c0c8536f896a7435ebf60e.png)
+![image-20201110195027760](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/39180e2356c0c8536f896a7435ebf60e.png)
 
 第二次是在AbstractJob中调用的
 
-![image-20201110195108218](https://i-blog.csdnimg.cn/blog_migrate/7a884b7a8ed81da2e638fc0d61403516.png)
+![image-20201110195108218](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7a884b7a8ed81da2e638fc0d61403516.png)
 
 在JobLauncher真正运行的时候，会在执行线程地方启动后，调用Job的execut方法中调用AbstractJob中的validate方法。
 
@@ -516,23 +516,23 @@ spring batch框架默认提供了Job ParametersValidator的实现。
 
 正确运行了
 
-![image-20201110201025978](https://i-blog.csdnimg.cn/blog_migrate/69a8a383d43c38cfa941d47a21432e87.png)
+![image-20201110201025978](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/69a8a383d43c38cfa941d47a21432e87.png)
 
 我们要求参数校验，id必填，name可选。
 
-![image-20201110201518394](https://i-blog.csdnimg.cn/blog_migrate/2fd720e97d598d70df93c81350e829cd.png)
+![image-20201110201518394](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2fd720e97d598d70df93c81350e829cd.png)
 
 接着将id传入空，name 传入非空
 
-![image-20201110201559779](https://i-blog.csdnimg.cn/blog_migrate/a49417523fb4855823c02eca147ddbdd.png)
+![image-20201110201559779](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a49417523fb4855823c02eca147ddbdd.png)
 
 验证通过
 
-![image-20201110201709782](https://i-blog.csdnimg.cn/blog_migrate/3ffb8fbbc1aab7528aa58dfb60b4e034.png)
+![image-20201110201709782](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3ffb8fbbc1aab7528aa58dfb60b4e034.png)
 
 如果一个参数都没有呢？
 
-![image-20201110202000259](https://i-blog.csdnimg.cn/blog_migrate/1ec3994b605ea2d5d48d14ba4b2443c7.png)
+![image-20201110202000259](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1ec3994b605ea2d5d48d14ba4b2443c7.png)
 
 抛出了Job Parameters验证异常，缺失必须的参数：id.
 
@@ -575,7 +575,7 @@ spring 框架还提供了组合校验器`CompositeJobparametersValidator`
 
 第一次，我们什么参数都不传：
 
-![image-20201110203508467](https://i-blog.csdnimg.cn/blog_migrate/10ada31597d4167821616cdeba3dbcf5.png)
+![image-20201110203508467](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/10ada31597d4167821616cdeba3dbcf5.png)
 
 提示少id参数
 
@@ -583,19 +583,19 @@ spring 框架还提供了组合校验器`CompositeJobparametersValidator`
 
 运行成功
 
-![image-20201110203608269](https://i-blog.csdnimg.cn/blog_migrate/b4e4ae7a9cf37ba26422722e23f08a23.png)
+![image-20201110203608269](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b4e4ae7a9cf37ba26422722e23f08a23.png)
 
 增加name参数，也是可以运行成功的
 
-![image-20201110203705625](https://i-blog.csdnimg.cn/blog_migrate/5beaae62c6cd33ffaf4475a2fd793b04.png)
+![image-20201110203705625](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5beaae62c6cd33ffaf4475a2fd793b04.png)
 
 需要注意，如果传入了必选参数和可选参数之外的参数，则验证失败(只针对默认的参数校验器，自定义的根据自己的规则校验)
 
-![image-20201110203831262](https://i-blog.csdnimg.cn/blog_migrate/af09106599a0afcc4453b23d77e62a48.png)
+![image-20201110203831262](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/af09106599a0afcc4453b23d77e62a48.png)
 
 运行
 
-![image-20201110203900886](https://i-blog.csdnimg.cn/blog_migrate/4a0ed1258104c62078430167ea90a07f.png)
+![image-20201110203900886](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a0ed1258104c62078430167ea90a07f.png)
 
 参数校验异常，提示date参数既不在必选参数，也不在可选参数。
 
@@ -727,7 +727,7 @@ SleepSimpleJob中的操作和PlaySimpleJob中的操作相同，都是打印日�
 
 最后调度。
 
-![image-20201111162706365](https://i-blog.csdnimg.cn/blog_migrate/d15dd9af450c9ba5f144b6a173c15b39.png)
+![image-20201111162706365](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d15dd9af450c9ba5f144b6a173c15b39.png)
 
 ### 继承Job
 
@@ -786,7 +786,7 @@ SleepSimpleJob中的操作和PlaySimpleJob中的操作相同，都是打印日�
 
 启动
 
-![image-20201111163957358](https://i-blog.csdnimg.cn/blog_migrate/0b27090859a804810c70f1706a81199e.png)
+![image-20201111163957358](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0b27090859a804810c70f1706a81199e.png)
 
 ## 作用域绑定
 
@@ -893,17 +893,17 @@ spring batch框架通过特定的表达式支持为Job或者Step关联的实体�
 
 运行
 
-![image-20201112193329361](https://i-blog.csdnimg.cn/blog_migrate/46af417c84204dd631b0effe362922d4.png)
+![image-20201112193329361](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/46af417c84204dd631b0effe362922d4.png)
 
 数据库记录
 
-![image-20201112193357874](https://i-blog.csdnimg.cn/blog_migrate/863d84c7b63820e53a74f66d4fc1cd93.png)
+![image-20201112193357874](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/863d84c7b63820e53a74f66d4fc1cd93.png)
 
 ## Job运行
 
 spring batch框架提供一组执行job的接口。包括JobLauncher，JobExplorer和JobOperator三个操作Job的接口。
 
-![image-20201112193639458](https://i-blog.csdnimg.cn/blog_migrate/a3a31dc5a78a5300932425c667241749.png)
+![image-20201112193639458](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a3a31dc5a78a5300932425c667241749.png)
 
 JobLauncher是最常用的作业调度器，通过给定的Job Name和Job Parameters可以执行Job；JobExplorer主要负责从JobRepository中获取执行的信息，包括获取作业实例、获取作业执行器、获取正在运行的作业执行器，获取作业列表等操作；JobOperator包含了JobLauncher和JobExplorer中的大部分操作。
 
@@ -932,7 +932,7 @@ JobLauncher是最常用的作业调度器，通过给定的Job Name和Job Parame
 
 默认情况下，JobLauncher的run操作通过同步方式调用Job，任何调用Job的客户端需要等待Job的执行结果返回后才能结束。
 
-![image-20201112195010781](https://i-blog.csdnimg.cn/blog_migrate/3fa7f1019e9bdb50e2ff93b8ee6d42b7.png)
+![image-20201112195010781](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3fa7f1019e9bdb50e2ff93b8ee6d42b7.png)
 
 比如
     
@@ -970,9 +970,9 @@ JobLauncher是最常用的作业调度器，通过给定的Job Name和Job Parame
 
 这就是同步执行，任务中的线程睡眠，调度操作也会被阻塞
 
-![image-20201112200426332](https://i-blog.csdnimg.cn/blog_migrate/48ba876f218d89052b4b435211e2c5dd.png)
+![image-20201112200426332](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/48ba876f218d89052b4b435211e2c5dd.png)
 
-![image-20201112200536996](https://i-blog.csdnimg.cn/blog_migrate/ae2670c3b6cf2cca82cdf3482f0379f8.png)
+![image-20201112200536996](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ae2670c3b6cf2cca82cdf3482f0379f8.png)
 
 同步操作的优势在于作业一旦执行完毕，调用客户端能够立刻收到返回值。但在实际的使用中，往往Job的执行所需时间太长，不能一直等下去。
 
@@ -1022,7 +1022,7 @@ JobLauncher提供了异步执行Job的能力。
 
 执行结果
 
-![image-20201112203419237](https://i-blog.csdnimg.cn/blog_migrate/a5dff53363aff9dbe41ecd2a26079e59.png)
+![image-20201112203419237](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a5dff53363aff9dbe41ecd2a26079e59.png)
 
 ### 定时任务执行
 
@@ -1030,7 +1030,7 @@ spring 中也有一个轻量级的调度器，所以，我们可以借助spring�
 
 首先开启调度
 
-![image-20201114130927310](https://i-blog.csdnimg.cn/blog_migrate/efb8d0c0761be33ede371c6316d59d0a.png)
+![image-20201114130927310](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/efb8d0c0761be33ede371c6316d59d0a.png)
 
 接着创建调度执行的目标job
     
@@ -1089,7 +1089,7 @@ spring 中也有一个轻量级的调度器，所以，我们可以借助spring�
 
 接着启动微服务，就会每一秒中执行一次任务：
 
-![image-20201114131301537](https://i-blog.csdnimg.cn/blog_migrate/0fe24096789376062d49c47ef164660b.png)
+![image-20201114131301537](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0fe24096789376062d49c47ef164660b.png)
 
 ### Web接口启动任务
 
@@ -1198,13 +1198,13 @@ spring 中也有一个轻量级的调度器，所以，我们可以借助spring�
 
 也就是预期结果中，第三个执行步不会执行。
 
-![image-20201114141543826](https://i-blog.csdnimg.cn/blog_migrate/6884614b25a878ef7d2844b9631d1863.png)
+![image-20201114141543826](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6884614b25a878ef7d2844b9631d1863.png)
 
-![image-20201114141556465](https://i-blog.csdnimg.cn/blog_migrate/e3cf608c37158132cfd20ea448061945.png)
+![image-20201114141556465](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e3cf608c37158132cfd20ea448061945.png)
 
 第三个执行步没有执行，在数据库中查询job执行结果，也是终止
 
-![image-20201114141655638](https://i-blog.csdnimg.cn/blog_migrate/a5731ee4f01e735903421e7fcf438fed.png)
+![image-20201114141655638](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a5731ee4f01e735903421e7fcf438fed.png)
 
 ### JMX终止
 
@@ -1285,35 +1285,35 @@ spring 中也有一个轻量级的调度器，所以，我们可以借助spring�
 
 接着启动
 
-![image-20201114150410786](https://i-blog.csdnimg.cn/blog_migrate/4a8deaf5f620535ec19c07941b0fdc3f.png)
+![image-20201114150410786](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a8deaf5f620535ec19c07941b0fdc3f.png)
 
 然后在控制台启动jconsole
 
-[图片]![image-20201114153932286](https://i-blog.csdnimg.cn/blog_migrate/e247869af4474e217cfc4db7f735468c.png)
+[图片]![image-20201114153932286](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e247869af4474e217cfc4db7f735468c.png)
 
 并连接我们的应用
 
-![image-20201114150514267](https://i-blog.csdnimg.cn/blog_migrate/8115b270e4228210bae72c92ca405c74.png)
+![image-20201114150514267](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8115b270e4228210bae72c92ca405c74.png)
 
 接着在数据库中找到我们的job的execution
 
-![image-20201114150544528](https://i-blog.csdnimg.cn/blog_migrate/ddd4e33823430a76811fe75ded95612e.png)
+![image-20201114150544528](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ddd4e33823430a76811fe75ded95612e.png)
 
 等待程序执行到第30~60秒期间
 
 调用jobOperatoer的stop操作，传入job_execution_id
 
-![image-20201114150638727](https://i-blog.csdnimg.cn/blog_migrate/70d967843746274fbc63a2f86e002360.png)
+![image-20201114150638727](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/70d967843746274fbc63a2f86e002360.png)
 
 此时程序会将第30~60秒的stopStep2执行完毕，但是不会执行stopStep3
 
-![image-20201114150730297](https://i-blog.csdnimg.cn/blog_migrate/12de4d240a6a21dfc59ca0c934bebc18.png)
+![image-20201114150730297](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/12de4d240a6a21dfc59ca0c934bebc18.png)
 
-![image-20201114150737608](https://i-blog.csdnimg.cn/blog_migrate/8f41ef53b7c5c31e7ec7b2eca0984aff.png)
+![image-20201114150737608](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8f41ef53b7c5c31e7ec7b2eca0984aff.png)
 
 此时在查询数据库
 
-![image-20201114150758617](https://i-blog.csdnimg.cn/blog_migrate/4977ad054835325f71b377f89fabf84f.png)
+![image-20201114150758617](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4977ad054835325f71b377f89fabf84f.png)
 
 job_execution就是stop状态了。
 
@@ -1403,9 +1403,9 @@ job_execution就是stop状态了。
 
 启动
 
-![image-20201114152832209](https://i-blog.csdnimg.cn/blog_migrate/858182b3fb6879c42f6a1ae5547e76c7.png)
+![image-20201114152832209](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/858182b3fb6879c42f6a1ae5547e76c7.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5aa46d6bdfb315a140621d1c3debb639.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/614e4728a73b840960029e37b7ece361.png)
 
 第三个执行步不会执行，而且日志中也显示，得到了停止消息。
 

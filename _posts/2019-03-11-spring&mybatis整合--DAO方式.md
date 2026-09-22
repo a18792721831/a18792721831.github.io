@@ -41,12 +41,12 @@ keywords: spring&amp;amp;mybatis整合, spring&amp;amp;mybatis传统开发方式
 
 ## 1.新建一个Java工程
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f3f8043d891f34ca921d93961212f7d4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f3f8043d891f34ca921d93961212f7d4.png)
 
 ## 2.导入jar包
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/461f360de7910833f95f3f299dbd52b2.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5de19479fcee5b0d185b7da2ebec3f54.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/461f360de7910833f95f3f299dbd52b2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5de19479fcee5b0d185b7da2ebec3f54.png)
 
 ## 3.数据库准备
     
@@ -181,7 +181,7 @@ keywords: spring&amp;amp;mybatis整合, spring&amp;amp;mybatis传统开发方式
 
 ## 4.创建实体
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6ffcb85849df971908648abe41d5eae0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6ffcb85849df971908648abe41d5eae0.png)
     
     
     package domain;
@@ -378,7 +378,7 @@ keywords: spring&amp;amp;mybatis整合, spring&amp;amp;mybatis传统开发方式
 
 ## 5.创建增强类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3e78934991dcaf285bc9f6eb133881b6.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3e78934991dcaf285bc9f6eb133881b6.png)
     
     
     package aspect;
@@ -445,7 +445,7 @@ keywords: spring&amp;amp;mybatis整合, spring&amp;amp;mybatis传统开发方式
 
 ## 6.创建日志配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/71cd00a93236f03a6ca84f8414d82bfe.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/71cd00a93236f03a6ca84f8414d82bfe.png)
     
     
     # Global logging configuration
@@ -461,7 +461,7 @@ keywords: spring&amp;amp;mybatis整合, spring&amp;amp;mybatis传统开发方式
 
 ## 7.创建工具类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d0d300b55c56317a46d9af46cc382d3c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d0d300b55c56317a46d9af46cc382d3c.png)
     
     
     package util;
@@ -488,7 +488,7 @@ keywords: spring&amp;amp;mybatis整合, spring&amp;amp;mybatis传统开发方式
 
 ## 8.配置数据源
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/29b403f2665cfa46ab3fdd2b26038e37.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/29b403f2665cfa46ab3fdd2b26038e37.png)
     
     
     ojdbc.driver=oracle.jdbc.driver.OracleDriver
@@ -505,7 +505,7 @@ keywords: spring&amp;amp;mybatis整合, spring&amp;amp;mybatis传统开发方式
 
 ## 9.创建工程配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3feff7eedcd267f472a0179a8ab4f51f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3feff7eedcd267f472a0179a8ab4f51f.png)  
 aop.xml
     
     
@@ -671,7 +671,7 @@ transaction.xml
 
 ## 10.增加服务
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ea26b1170223f246136e838885b28d55.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea26b1170223f246136e838885b28d55.png)
     
     
     package service;
@@ -695,7 +695,7 @@ transaction.xml
 
 ## 11.增加Dao
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eec3d208074446cdc6886c9f44975926.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eec3d208074446cdc6886c9f44975926.png)
     
     
     package dao;
@@ -776,7 +776,7 @@ transaction.xml
 
 ## 12.服务的实现
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/07dc733dc02b7f3086d0921018d5e954.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/07dc733dc02b7f3086d0921018d5e954.png)
     
     
     package serviceImpl;
@@ -888,7 +888,7 @@ transaction.xml
 
 ## 13.Dao的实现
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4f0acf5dc92ae2c48f5c600ad32ddadb.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4f0acf5dc92ae2c48f5c600ad32ddadb.png)
     
     
     package daoImpl;
@@ -1094,7 +1094,7 @@ transaction.xml
 
 ## 14.mapper编写
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/637cdfa41ab92c9cc0ee4df5e8d0b7e6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/637cdfa41ab92c9cc0ee4df5e8d0b7e6.png)  
 baseMapper.xml
     
     
@@ -1507,7 +1507,7 @@ selectServerMapper.xml
 
 ## 15.编写测试类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2a69775ff1e520cbcbfe0656c55f6775.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/screenshot/image-20260104155254.png)
     
     
     package test;

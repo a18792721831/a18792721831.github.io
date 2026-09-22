@@ -104,15 +104,15 @@ Undo Log 的格式有以下4种：
 
 `innodb_purge_rseg_truncate_frequency`参数指定 Purge 操作被唤醒多少次之后才释放回滚段。当Undo 表空间中的回滚段被释放时，Undo 表空间才会被截断。因此如果`innodb_purge_rseg_truncate_frequency`参数设置的越小，Undo 表空间被尝试截断的频率越高。
 
-![image-20250803120237413](https://i-blog.csdnimg.cn/img_convert/c8589efcbdc4d46e14014daa257e9c55.png)
+![image-20250803120237413](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250803120237413.png)
 
 在目录下新建 undolog目录，并设置权限
 
-![image-20250803120507377](https://i-blog.csdnimg.cn/img_convert/92bc74196afebc04455337bb6d11b0fc.png)
+![image-20250803120507377](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250803120507377.png)
 
 在配置文件中加入`innodb_undo_directory=/var/lib/mysql-undolog`配置
 
-![image-20250803120452044](https://i-blog.csdnimg.cn/img_convert/72ba49c2fb098444e204b0f0b3b15263.png)
+![image-20250803120452044](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250803120452044.png)
 
 使用如下命令挂载并启动
     
@@ -136,11 +136,11 @@ Undo Log 的格式有以下4种：
 > 
 > 因为使用 docker stop master 停止的，所以是安全关闭的mysql，此时可以认为undo为空(因为所有的链接将被关闭，未提交事务认为回滚)
 
-![image-20250803121934492](https://i-blog.csdnimg.cn/img_convert/4f4b746276ac33c17db8d3bdf856a475.png)
+![image-20250803121934492](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250803121934492.png)
 
 在指定的目录下会产生新的Undo Log
 
-![image-20250803143226791](https://i-blog.csdnimg.cn/img_convert/505afa4cb1612c37ec64e72af57f2dd4.png)
+![image-20250803143226791](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250803143226791.png)
 
 ## Binlog 和 Redo Log 的区别
 

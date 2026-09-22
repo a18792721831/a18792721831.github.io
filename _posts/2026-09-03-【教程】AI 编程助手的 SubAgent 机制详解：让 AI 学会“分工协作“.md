@@ -18,7 +18,7 @@ keywords: ["ai", "智能体", "agent", "Agent", "智能"]
 
 本文深入解析 AI 编程助手中的 SubAgent（子代理）机制，包括什么是 SubAgent、为什么需要它、核心工作原理、主流工具的实现对比，以及如何自定义 SubAgent 提升开发效率。适合已使用过 Claude Code、Cursor 等 AI 编程助手的进阶开发者阅读。
 
-![思维导图](https://i-blog.csdnimg.cn/img_convert/b00ce133cb934c48dbd50eed99c94e8e.png)
+![思维导图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/mindmap/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%20SubAgent%20%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3_20260109162045.png)
 
 ### 1\. 什么是 SubAgent
 

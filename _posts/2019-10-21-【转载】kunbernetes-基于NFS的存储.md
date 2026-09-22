@@ -30,7 +30,7 @@ NFS是Network File System的简写，即网络文件系统，NFS是FreeBSD支持
 
 NFS 使用RPC(Remote Procedure Call)的机制进行实现，RPC使得客户端可以调用服务端的函数。同时，由于有 VFS 的存在，客户端可以像使用其它普通文件系统一样使用 NFS 文件系统。经由操作系统的内核，将 NFS 文件系统的调用请求通过 TCP/IP 发送至服务端的 NFS 服务。NFS服务器执行相关的操作，并将操作结果返回给客户端。
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/0dd67171e5e7023bdd54e52eff00983c.png)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0dd67171e5e7023bdd54e52eff00983c.png)
 
 NFS服务主要进程包括：
 

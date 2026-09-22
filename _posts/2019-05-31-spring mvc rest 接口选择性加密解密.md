@@ -143,8 +143,8 @@ spring mvc rest接口以前是采用https加密的，但是现在需要更加安
 在方法前面加入注解：  
 @Encryption
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/196ee9bdfd0164baf6fd88ad7780098c.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ebb8534eee60767f00d60b884916760b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/196ee9bdfd0164baf6fd88ad7780098c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ebb8534eee60767f00d60b884916760b.png)
 
 ### 3.2拦截器
 
@@ -182,11 +182,11 @@ spring mvc rest接口以前是采用https加密的，但是现在需要更加安
 
 #### 3.2.2配置拦截器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/30ef865c0bcbf475c95c434f0291f907.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/30ef865c0bcbf475c95c434f0291f907.png)
 
 #### 3.2.3使用
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/db67770356d985c3ead62c0bfe08ea6c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/db67770356d985c3ead62c0bfe08ea6c.png)  
 不使用参数，如果使用参数就在拦截器里判断参数，然后进行相应的处理。
 
 ## 4.加密

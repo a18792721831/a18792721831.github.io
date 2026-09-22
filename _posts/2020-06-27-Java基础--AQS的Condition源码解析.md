@@ -41,7 +41,7 @@ keywords: Condition源码解读, AQS中的Condition, ConditionObject, 解读Cond
 
 ## 1\. Condition 谱系图
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4d381a7fc9426699c8ef9030e76c574b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4d381a7fc9426699c8ef9030e76c574b.png)
 
 ## 2\. Condition 接口
 
@@ -64,7 +64,7 @@ keywords: Condition源码解读, AQS中的Condition, ConditionObject, 解读Cond
 
 ### 3.1 ConditionObject 存储结构
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b91a7196175d45b6ed9632e6d296fa76.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b91a7196175d45b6ed9632e6d296fa76.png)  
 在ConditionObject中，保存了条件队列的第一个等待节点，以及条件队列的最后一个等待节点。  
   
 请注意，在AQS中，有两个双向队列，在AQS外部有一个，分别用head和tail进行引用双向列表的头结点和尾节点；在ConditionObject中也有一个双向列表，用firstWaiter和lastWaiter进行引用双向列表的头节点和尾节点。  
@@ -291,7 +291,7 @@ keywords: Condition源码解读, AQS中的Condition, ConditionObject, 解读Cond
 
 这个方法的作用是阻塞等待通知，阻塞期间不响应中断  
 其时序图如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/43d7a3e2cbb3ba2f22b69126c7d2f4fd.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/43d7a3e2cbb3ba2f22b69126c7d2f4fd.png)  
 这个方法看上去很复杂，不过不要怕，我们一步一步看
     
     
@@ -450,7 +450,7 @@ keywords: Condition源码解读, AQS中的Condition, ConditionObject, 解读Cond
 ### 3.9 await
 
 这是await的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d52b14e1bbd8601c1df8431acfabfafc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d52b14e1bbd8601c1df8431acfabfafc.png)  
 这些方法基本逻辑都差别不大，详细阅读了一个方法源码，根据源码一步一步往下看，除了一些细节，大致上差不多。
     
     
@@ -531,7 +531,7 @@ keywords: Condition源码解读, AQS中的Condition, ConditionObject, 解读Cond
 ### 3.10 awaitNanos
 
 这是awaitNanos的时序图：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fcc23e7b4dbcc10363b3b8eac7d782b1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fcc23e7b4dbcc10363b3b8eac7d782b1.png)  
 这个等待一定的时间的方法和前面的等待大同小异吧
     
     
@@ -621,7 +621,7 @@ keywords: Condition源码解读, AQS中的Condition, ConditionObject, 解读Cond
 
 这个方法和3.10的方法区别在于：3.10等待时间较短，等待时间的单位是纳秒，这个等待的时间的单位是日期，范围上比3.10要大  
 这是awaitUntil的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d379030bedf17e5b8b7cccf53d4e7379.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d379030bedf17e5b8b7cccf53d4e7379.png)
     
     
     public final boolean awaitUntil(Date deadline)
@@ -656,7 +656,7 @@ keywords: Condition源码解读, AQS中的Condition, ConditionObject, 解读Cond
 
 这个比3.11更加灵活，由调用者传入时间和时间单位  
 这是时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cac70cebae5c560aedd48fe90906d61a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cac70cebae5c560aedd48fe90906d61a.png)
     
     
     public final boolean await(long time, TimeUnit unit)
@@ -694,7 +694,7 @@ keywords: Condition源码解读, AQS中的Condition, ConditionObject, 解读Cond
 
 获取等待通知队列中节点的数量  
 这是时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/377f5b5007bca7d507c96254e424ca7c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/377f5b5007bca7d507c96254e424ca7c.png)
     
     
     protected final int getWaitQueueLength() {

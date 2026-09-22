@@ -26,7 +26,7 @@ keywords: ["ai", "agent", "智能体", "大模型", "注意力机制"]
 
 上一篇说过，后续所有层对矩阵的处理都是"逐行计算"——第 1 行算第 1 行的，第 3 行算第 3 行的。现在把"我吃苹果"和"苹果吃我"这两句话分别送进模型，如图 4-1 所示。
 
-![排列等变性](https://i-blog.csdnimg.cn/img_convert/2acc79c43327d142a45c35f7e13ab1a2.png)
+![排列等变性](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig41_permutation.png)
 
 **图4-1 排列等变性：注意力是「位置盲」——这是必须补位置的根因**
 
@@ -48,7 +48,7 @@ keywords: ["ai", "agent", "智能体", "大模型", "注意力机制"]
 
 三代方案对这三条要求的满足程度，决定了各自的命运，演进时间线如图 4-2 所示。
 
-![三代演进时间线](https://i-blog.csdnimg.cn/img_convert/702ca1caa6aa97c3d316782cbd64a66c.png)
+![三代演进时间线](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig42_evolution.png)
 
 **图4-2 位置编码三代演进：从绝对到可学习，再到旋转**
 
@@ -66,7 +66,7 @@ P E ( m , 2 i ) = sin ⁡ ( m 10000 2 i / d ) , P E ( m , 2 i \+ 1 ) = cos ⁡ (
 
 直觉如图 4-3 上半部分：不同维度用不同频率的波。高频维度（波长短）像尺子的毫米刻度，能分辨相邻位置；低频维度（波长大）像厘米刻度，负责分辨远距离。
 
-![正弦余弦编码](https://i-blog.csdnimg.cn/img_convert/3419449b46cdbd400e65296cc812c9f9.png)
+![正弦余弦编码](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig43_sincos-v2.png)
 
 **图4-3 第一代：不同维度不同频率的波 + 贯穿案例的PE数值**
 
@@ -95,7 +95,7 @@ GPT-2 和 BERT 的思路更简单粗暴：位置也当成"词"来学。
 
 给每个位置配一个可训练的 4096 维向量，存成一张表（最大长度 8192 行 × 4096 列），训练时和嵌入表一起自动学出来。使用时位置序号当行号查表，加到词向量上，如图 4-4 所示。
 
-![可学习位置编码](https://i-blog.csdnimg.cn/img_convert/f05c59c50d8683368fba62076a7b1267.png)
+![可学习位置编码](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig44_learnable.png)
 
 **图4-4 第二代：可学习位置编码——把位置也当成词来学**
 
@@ -113,7 +113,7 @@ GPT-2 和 BERT 的思路更简单粗暴：位置也当成"词"来学。
 
 RoPE（Rotary Position Embedding，2021 年 RoFormer 论文提出）换了个思路：不往向量里加任何数字，而是把向量按自己的位置旋转一个角度，如图 4-5 所示。
 
-![RoPE旋转直觉](https://i-blog.csdnimg.cn/img_convert/e2fcfdad258c9690678519b3b11d494b.png)
+![RoPE旋转直觉](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig45_rope.png)
 
 **图4-5 第三代：RoPE——用旋转角表示位置**
 
@@ -195,7 +195,7 @@ RoPE 最漂亮的地方在于：各自旋转后的两个向量做点积，结果
 
 以「西安」（位置 m=1）为例，手算过程如图 4-6 所示。
 
-![RoPE手算](https://i-blog.csdnimg.cn/img_convert/a1d8322c2f29e1bea8c93599b693b439.png)
+![RoPE手算](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig46_rope_calc.png)
 
 **图4-6 贯穿案例：给6×4矩阵做RoPE（「西安」行完整手算）**
 
@@ -229,7 +229,7 @@ X 今天 ⋅ X 天气 = − 1.5708 \mathbf{X}_{今天} \cdot \mathbf{X}_{天气}
   
 点积随距离剧烈变化，曲线如图 4-7 所示。
 
-![有无RoPE对比](https://i-blog.csdnimg.cn/img_convert/e71bf96795669e0194e66c337b64b61c.png)
+![有无RoPE对比](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig47_rope_vs_none-v2.png)
 
 **图4-7 有无 RoPE 的天壤之别：无 → 一条死水平线；有 → 距离进了点积**
 

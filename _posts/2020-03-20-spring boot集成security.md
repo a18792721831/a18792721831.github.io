@@ -73,17 +73,17 @@ Spring Security 是Spring Resource 社区的一个安全组件.Sping Secuity为J
   *     6. 庞大的社区与用户
 
 Spring Security 和Spring Boot Security的关系如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6e5a373afa7e5b5a0dd362f35a14f3a4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6e5a373afa7e5b5a0dd362f35a14f3a4.png)
 
 ## 3\. Security如何使用
 
 ### 3.1 创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9e1d0e7ac3e1a1ac12f0ef35405efa19.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9e1d0e7ac3e1a1ac12f0ef35405efa19.png)
 
 ### 3.2 配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f1152e288fb9641dd2f0d1d2b8d25517.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f1152e288fb9641dd2f0d1d2b8d25517.png)
 
 ### 3.3 security 配置
 
@@ -144,13 +144,13 @@ security需要自己写一个配置类，配置类集成于`WebSecurityConfigure
 
 这里的私有属性是在config.properties里面配置的用户名、密码与权限的信息。  
 这里最好不要硬编码。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7214eb1de596456aed778527a313b579.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7214eb1de596456aed778527a313b579.png)
 
 #### 3.3.1 configureGlobal方法
 
 这个方法中，在内存中创建2个用户的信息，用户的用户名、密码以及密码的加密方式，和其具有的角色。  
 密码的加密方式：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/50997db3eca36f0a18367f08f489b479.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/50997db3eca36f0a18367f08f489b479.png)  
 这个方法里只有短短的两行代码，但是其完成了非常多的操作:
 
   *     1. 应用的每一个请求都要认证
@@ -174,12 +174,12 @@ security需要自己写一个配置类，配置类集成于`WebSecurityConfigure
 
 #### 3.3.2 启动登陆
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b1859ce4fdd265ba6509d8fb3b497773.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b1859ce4fdd265ba6509d8fb3b497773.png)  
 其源码如下  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/08fd26d59afb1201273e5760b607de0e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/08fd26d59afb1201273e5760b607de0e.png)  
 写一个简单的html界面用来标识登陆成功。  
 使用admin登陆  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/34b195e1307d7e0f4dadb274dc59d746.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34b195e1307d7e0f4dadb274dc59d746.png)
 
 #### 3.3.3 自定义配置 configure
 
@@ -374,23 +374,23 @@ index.html
 
 ### 3.4 启动
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bd9e0b88711a9ca58253820e9e93d68f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bd9e0b88711a9ca58253820e9e93d68f.png)  
 不登陆访问/user或者admin的界面  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0aaffeed7abc662a7223c84289d303a9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0aaffeed7abc662a7223c84289d303a9.png)  
 访问admin的界面登陆user用户(user用户只有user角色)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/59f5a5cdff68ea4166e223d256760fd6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59f5a5cdff68ea4166e223d256760fd6.png)  
 相反的，访问user界面，登陆admin用户(admin用户有user和admin的角色)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/69d45eb995bb9fd195fb1976c04bca46.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/69d45eb995bb9fd195fb1976c04bca46.png)  
 访问admin下的界面  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e5368fc967bbdf983fe9f0848c0706a3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e5368fc967bbdf983fe9f0848c0706a3.png)  
 然后登出  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d8ebeb14dab3440322eba7c219208414.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d8ebeb14dab3440322eba7c219208414.png)  
 登陆user角色访问user界面  
 登陆失败  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fa4a748e9dfc2ffb29e02f17512041ac.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c0e3cbdc4f8ef698c8b1f34614872fc8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fa4a748e9dfc2ffb29e02f17512041ac.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c0e3cbdc4f8ef698c8b1f34614872fc8.png)  
 然后访问admin的界面  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3d94970922dcc7445af1db658e8a0610.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d94970922dcc7445af1db658e8a0610.png)
 
 ## 4\. security 方法保护
 
@@ -445,45 +445,45 @@ index.html
 
 ### 4.2 创建服务
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1a08e9e7559baa1822c5bcd37a7e90e4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1a08e9e7559baa1822c5bcd37a7e90e4.png)
 
 ### 4.3 创建controller
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0cf9c47a5e71fcf8c1f6eca6df77d01e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0cf9c47a5e71fcf8c1f6eca6df77d01e.png)
 
 ### 4.4 访问验证
 
 可以看到，我们在service上有两个访问，一个是获取全部的学生的getStudentList的方法，这个方法只要有任意一个权限就能够访问。而另一个方法则必须拥有ADMIN的权限的用户登录才能进行访问。  
 首先以USER权限进行登录：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c5e0727cae6fb502e151ecf29398427f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c5e0727cae6fb502e151ecf29398427f.png)  
 然后获取所有的用户  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/19ad85bcd6b2a29b00a62a548a8b77c3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/19ad85bcd6b2a29b00a62a548a8b77c3.png)  
 然后进行尝试删除学生–小美  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6e7f335314ef707d60d87f900613c190.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6e7f335314ef707d60d87f900613c190.png)  
 发现其在controller接收到请求调用服务时，因权限不够而发生异常，但是我们之前在配置时配置，当有异常出现时，自动重定向到401的界面。  
 所以，其展示的urlk地址是删除的地址，但是界面的内容确是，401的内容。  
 接下来使用admin权限的用户进行登录，然后尝试删除学生。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0ac6d6645c922d2d2fb7f1015a818426.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/afed6748edc7299afaab33258921f1fb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0ac6d6645c922d2d2fb7f1015a818426.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/afed6748edc7299afaab33258921f1fb.png)  
 这里没有任何返回值，表示已经删除成功了，接下来重新获取所有的学生：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e764ab720dbecd838a6b4f6373d61ec5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e764ab720dbecd838a6b4f6373d61ec5.png)
 
 ## 5\. 从数据库中读取用户认证信息
 
 ### 5.1 创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fdb5e303e23c5df615b0a28f250dda1a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fdb5e303e23c5df615b0a28f250dda1a.png)  
 为了防止因为字符集的问题，需要手动增加依赖  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3e1462aa0a8a290cc493ce6fd890294d.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3e1462aa0a8a290cc493ce6fd890294d.png)
 
 ### 5.2 配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ea9af0ba1ad190afca6b5c37ac9ba7a2.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea9af0ba1ad190afca6b5c37ac9ba7a2.png)
 
 ### 5.3 创建实体
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/69189c9e9ddf9cfed355007627ce200d.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0634e77201d732b76fab2c162fc6855a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/69189c9e9ddf9cfed355007627ce200d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0634e77201d732b76fab2c162fc6855a.png)
     
     
     @Entity
@@ -579,25 +579,25 @@ index.html
 
 ### 5.4 dao
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4c9cf5ee18e58ca9cbd2403eb95908a1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4c9cf5ee18e58ca9cbd2403eb95908a1.png)
 
 ### 5.5 service
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f1755966eb94d787d0439a1e4d0cc790.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f1755966eb94d787d0439a1e4d0cc790.png)
 
 ### 5.6 config
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4f4cc9dd676ae40368cd28b14a6e6294.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4f4cc9dd676ae40368cd28b14a6e6294.png)
 
 ### 5.7 启动验证
 
 这是启动项目前的数据库中所有的表  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/af04d8fc1f451abd26206af0ca62dde6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/af04d8fc1f451abd26206af0ca62dde6.png)  
 接着启动  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/13cdba5ccb89b57e60630f67ef71e7a9.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cab6b11ec3235d5723cb88964341dee0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13cdba5ccb89b57e60630f67ef71e7a9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cab6b11ec3235d5723cb88964341dee0.png)  
 中间关系表与我们猜想的一致  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9a268727291661c37c141cb9f80080ee.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9a268727291661c37c141cb9f80080ee.png)  
 不过有一点没有想到，这个中间关系表竟然有外键。
 
 | 用户     | 权限    |
@@ -616,38 +616,38 @@ index.html
 | allC   | ADMIN |
 
 我们插入上述数据：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bdd27fef493220c8a156a43e90767ff3.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4cffbef836d6cda2a268b5ea745df132.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4fe8fad4e160aa64bd6b1dd87c452832.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/391f6c53f8a15f491942d17e8651acc2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bdd27fef493220c8a156a43e90767ff3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4cffbef836d6cda2a268b5ea745df132.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4fe8fad4e160aa64bd6b1dd87c452832.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/391f6c53f8a15f491942d17e8651acc2.png)  
 接下来用这些用户尝试登陆，并且结合4中的逻辑，进行验证。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/990f8e01999e8b92bf40c968d8dae789.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/990f8e01999e8b92bf40c968d8dae789.png)
 
 改动点如上图所示  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/09417c244254be203131a5cfa2f56af5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/09417c244254be203131a5cfa2f56af5.png)  
 登陆  
 userA  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d7a1ef56e020cf1d4ea69733ff2c1c49.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/220f0ae4ec4e9f9cb98116e888588b2f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d7a1ef56e020cf1d4ea69733ff2c1c49.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/220f0ae4ec4e9f9cb98116e888588b2f.png)  
 adminA  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f84c6463b4ead44575109b50056466f6.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/268cbe9de842a230586eda1182bd6a5f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f84c6463b4ead44575109b50056466f6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/268cbe9de842a230586eda1182bd6a5f.png)  
 allA  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d83fa11d1489fa884073364c75067194.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b260271fc7a9bc8ee919f4d739cd429a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d83fa11d1489fa884073364c75067194.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b260271fc7a9bc8ee919f4d739cd429a.png)  
   
 注意点：  
 这里面有两个坑：  
 1.password需要返回加密方式：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d2400ccb37b4160fdd30611075964eae.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d2400ccb37b4160fdd30611075964eae.png)  
 原因：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cb2112f214b22d32de1a45faa439b17e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cb2112f214b22d32de1a45faa439b17e.png)  
 可选  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3e4f4ea895297ec36349b76742435c2c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3e4f4ea895297ec36349b76742435c2c.png)  
 2.role返回的时候需要加前缀  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e19d93bb3200ff6379d2048e85e0418f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e19d93bb3200ff6379d2048e85e0418f.png)  
 原因：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f064727981d29899d27de0585cb06871.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f064727981d29899d27de0585cb06871.png)  
 使用配置的时候会自动加这个前缀，现在使用jpa则不会自动加前缀  
 
 ## 6\. 总结

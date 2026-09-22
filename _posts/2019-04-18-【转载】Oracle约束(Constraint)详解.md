@@ -98,7 +98,7 @@ UNIQUE需要注意：
 
 实际上，外键约束列和对应的父表列可以在同一张表中，常见的就是表的业务逻辑含义是一棵树，最简单的例子如下（id为主键id，fid为父id，fid存储对id的引用），这种结构的表根据业务要求可通过Oracle的递归查询来获取这种层级关系
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/ec73b5aedba182769b0a6abfa2c2abba.png)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ec73b5aedba182769b0a6abfa2c2abba.png)
 
 **检查约束（CHECK)**
 

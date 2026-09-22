@@ -36,7 +36,7 @@ keywords: spring bean, bean生命周期, bean从创建到销毁, bean完整的�
   
 先来一张bean的生命周期图 
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/7173e533e627f1851026834f18f02b31.png)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7173e533e627f1851026834f18f02b31.png)
 
 github地址：
 
@@ -46,19 +46,19 @@ https://github.com/a18792721831/studySpringSource.git
 
 BeanNameAware的结构图非常简单
 
-![image-20200829134754413](https://i-blog.csdnimg.cn/blog_migrate/b6db183b3fbdf7485753231b4b85fc2b.png)
+![image-20200829134754413](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6db183b3fbdf7485753231b4b85fc2b.png)
 
 其中Aware是一个标记性接口，内部没有定义任何方法：
 
-![image-20200829134850253](https://i-blog.csdnimg.cn/blog_migrate/3d4beed7d3183d87fe82885f0f0aa609.png)
+![image-20200829134850253](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d4beed7d3183d87fe82885f0f0aa609.png)
 
 通过其注释就能看出来
 
-![image-20200829134952050](https://i-blog.csdnimg.cn/blog_migrate/b13ed89f9944fbd8b95f3b422ac5adf6.png)
+![image-20200829134952050](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b13ed89f9944fbd8b95f3b422ac5adf6.png)
 
 `BeanNameAware`接口只有一个方法：`setBeanName`设置bean的名字。
 
-![image-20200829135326711](https://i-blog.csdnimg.cn/blog_migrate/cea7a5ba6b2915c34277e5aa79e67ff6.png)
+![image-20200829135326711](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cea7a5ba6b2915c34277e5aa79e67ff6.png)
 
 说实话，我一开始对这个方法是一脸懵B的，这个方法有什么用呢？
 
@@ -86,7 +86,7 @@ BeanNameAware的结构图非常简单
 
 `BeanFactoryAware`和`BeanNameAware`类似，结构非常简单，都是继承了标记性接口：`Aware`接口，然后实现一个方法：
 
-![image-20200829140559564](https://i-blog.csdnimg.cn/blog_migrate/ca9ff8c222ab61b4267ba91ce01e6207.png)
+![image-20200829140559564](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ca9ff8c222ab61b4267ba91ce01e6207.png)
 
 如果你理解了`BeanNameAware`接口的方法，那么这个方法也非常容易理解。
 
@@ -108,7 +108,7 @@ BeanNameAware的结构图非常简单
 
 `ApplicationContext`就是bean生活的范围，所以，清晰的认知自己生活的范围，就明白了自己存在的意义了。
 
-![image-20200829145234557](https://i-blog.csdnimg.cn/blog_migrate/af679d5a259e4fb7b428187d1b90cc53.png)
+![image-20200829145234557](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/af679d5a259e4fb7b428187d1b90cc53.png)
 
 `ApplicationContextAware`的方法，就是告诉bean，运行时的上下文环境。
 
@@ -116,7 +116,7 @@ BeanNameAware的结构图非常简单
 
 预初始化操作，针对全部的bean生效。
 
-![image-20200829145910153](https://i-blog.csdnimg.cn/blog_migrate/60b20e21f9c20666caf450a07e1d7b29.png)
+![image-20200829145910153](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/60b20e21f9c20666caf450a07e1d7b29.png)
 
 可以实现偷梁换柱。将默认的一个bean替换为其他的bean，以最终return的结果为主。
 
@@ -124,7 +124,7 @@ BeanNameAware的结构图非常简单
 
 从Java EE5规范开始，Servlet中增加了两个影响Servlet生命周期的注解，@PostConstruct和@PreDestroy，这两个注解被用来修饰一个非静态的void（）方法。
 
-![image-20200829150557581](https://i-blog.csdnimg.cn/blog_migrate/9ea09f40f135f34c733455abbacd78a1.png)
+![image-20200829150557581](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9ea09f40f135f34c733455abbacd78a1.png)
 
 ## afterPropertiesSet
 
@@ -134,7 +134,7 @@ InitializingBean接口为bean提供了初始化方法的方式，它只包括aft
 
 我们全盘搜索一下：`instanceof InitializingBean`
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8c714f08f9f5831f0e9cc135f44af8cf.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5c07b1d86e6006119e70a18a8c51f08d.png)
 
 如果init-method和afterPropertiesSet同时配置，先执行afterPropertiesSet方法，然后执行init-method.
 
@@ -142,19 +142,19 @@ InitializingBean接口为bean提供了初始化方法的方式，它只包括aft
 
 预初始化操作，针对全部的bean生效。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6e54402ae6cf327e6fdec02c98bcd52e.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6ba8f7cde200958af66dcbfccf9edd5d.png)
 
 ## @PreDestory
 
 从Java EE5规范开始，Servlet中增加了两个影响Servlet生命周期的注解，@PostConstruct和@PreDestroy，这两个注解被用来修饰一个非静态的void（）方法。
 
-![image-20200829152019234](https://i-blog.csdnimg.cn/blog_migrate/045d716246db4d41c5693510d68ea9d0.png)
+![image-20200829152019234](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/045d716246db4d41c5693510d68ea9d0.png)
 
 ## DisposableBean
 
 对于实现了 DisposableBean 的 bean ，在spring释放该bean后调用它的destroy() 方法。
 
-![image-20200829152439912](https://i-blog.csdnimg.cn/blog_migrate/be001aa6f5447170788d54b09c7dd545.png)
+![image-20200829152439912](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be001aa6f5447170788d54b09c7dd545.png)
 
 ## 实例
 
@@ -259,14 +259,14 @@ main类
 
 输出结果：
 
-![image-20200829152730962](https://i-blog.csdnimg.cn/blog_migrate/5fb1a8f385a08da83613ac9fe069f578.png)
+![image-20200829152730962](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5fb1a8f385a08da83613ac9fe069f578.png)
 
-![image-20200829152811633](https://i-blog.csdnimg.cn/blog_migrate/59518299cef5169032a21bcdd63e22f4.png)
+![image-20200829152811633](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59518299cef5169032a21bcdd63e22f4.png)
 
 查看下`AnnotationConfigApplicationContext`的调用链
 
-![image-20200829153038102](https://i-blog.csdnimg.cn/blog_migrate/32e82ef67748f089ada7b06ca36ea76a.png)
+![image-20200829153038102](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/32e82ef67748f089ada7b06ca36ea76a.png)
 
 其中的refresh就是spring中核心的内容了
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/57a8896dabc0926f925a2afbc0ce5b06.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/007768df6d8fbe175d9089c39e2eb1e8.png)

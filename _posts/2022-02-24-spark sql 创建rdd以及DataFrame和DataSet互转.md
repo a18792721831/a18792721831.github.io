@@ -113,13 +113,13 @@ keywords: spark, sql, big data, thriftserver, spark连接thrift
 
 使用ide的一个优点是ide会把推断出来的类型进行展示，比如
 
-![image-20220222224325922](https://i-blog.csdnimg.cn/blog_migrate/4edba7e4c195c95751d37fdba51b4289.png)
+![image-20220222224325922](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4edba7e4c195c95751d37fdba51b4289.png)
 
 需要注意的是，如果你在一行中有多个操作，那么推断的是最后一个操作的类型，如果是Unit类型，则不进行展示
 
 这里告诉大家一个小技巧，如果我们的操作没有用括弧进行包含，而且是类似我这种喜欢省略 `.` 的调用，那么是不能换行的，这样一行就比较长，我们可以使用小括弧进行包起来，这样中间就可以换行了，比如下面这个例子
 
-![image-20220222224613294](https://i-blog.csdnimg.cn/blog_migrate/b8d486047e64319f6726e1285e6cb5ec.png)
+![image-20220222224613294](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b8d486047e64319f6726e1285e6cb5ec.png)
 
 本来这应该放在一行中写完，但是这样在写的时候，ide无法帮助我们推断类型，写起来就比较费力，而我们用小括弧包起来，并每一个操作进行换行的话，ide就会在后面展示推断出来的类型的，这样对我们比较友好。
 
@@ -143,23 +143,23 @@ DataSet是一个分布式的数据集合，是在spark 1.6 中引入的，DataSe
 
 下载api文档命令`mvn dependency:resolve -Dclassifier=javadoc`
 
-![image-20220222230044578](https://i-blog.csdnimg.cn/blog_migrate/9280892690bd80491330f9dcc619ef70.png)
+![image-20220222230044578](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9280892690bd80491330f9dcc619ef70.png)
 
-![image-20220222230124859](https://i-blog.csdnimg.cn/blog_migrate/b44798035b442c71c0e70f64d50c6059.png)
+![image-20220222230124859](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b44798035b442c71c0e70f64d50c6059.png)
 
 下载源码命令`mvn dependency:sources`
 
-![image-20220222230157593](https://i-blog.csdnimg.cn/blog_migrate/e81f0edf75bbece70b3ba5cdff88356c.png)
+![image-20220222230157593](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e81f0edf75bbece70b3ba5cdff88356c.png)
 
-![image-20220222230213494](https://i-blog.csdnimg.cn/blog_migrate/767f8e315af7ea844caef2e5d6c9266f.png)
+![image-20220222230213494](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/767f8e315af7ea844caef2e5d6c9266f.png)
 
 接着我们就可以查看DataSet的源码了
 
-![image-20220222230342385](https://i-blog.csdnimg.cn/blog_migrate/6c8525b7607129dc6dde64222ba08da2.png)
+![image-20220222230342385](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6c8525b7607129dc6dde64222ba08da2.png)
 
 说白了DataSet和RDD差不多，就是一个类型而已，不要想的太复杂。
 
-![image-20220222230456432](https://i-blog.csdnimg.cn/blog_migrate/1d744f9a8ae859b53b441dfc7ac0a9ad.png)
+![image-20220222230456432](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d744f9a8ae859b53b441dfc7ac0a9ad.png)
 
 ## DataFrame的介绍
 
@@ -171,7 +171,7 @@ DataSet是一个分布式的数据集合，是在spark 1.6 中引入的，DataSe
 
 通过查看源码可能更加直观
 
-![image-20220223000533097](https://i-blog.csdnimg.cn/blog_migrate/5b2eba7851d4369aede79439a2fee82b.png)
+![image-20220223000533097](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5b2eba7851d4369aede79439a2fee82b.png)
 
 DataFrame就是DataSet[Row]
 
@@ -225,17 +225,17 @@ csv文件相关配置见[CSV Files - Spark 3.2.1 Documentation (apache.org)](<ht
 
 读取后打印的结构信息如下
 
-![image-20220223002215924](https://i-blog.csdnimg.cn/blog_migrate/fa43929daea83ac289cbbd83ee67e578.png)
+![image-20220223002215924](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fa43929daea83ac289cbbd83ee67e578.png)
 
 是以树形结构打印结构信息的，这个在json中可能存在嵌套，在csv中只是一颗简单的树结构。
 
 读取的数据打印如下
 
-![image-20220223002330743](https://i-blog.csdnimg.cn/blog_migrate/36010806537668620de17174774f6925.png)
+![image-20220223002330743](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/36010806537668620de17174774f6925.png)
 
 简单查询结果如下
 
-![image-20220223002359157](https://i-blog.csdnimg.cn/blog_migrate/c4e615faa6cd42f7c90f63a4cdc04488.png)
+![image-20220223002359157](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c4e615faa6cd42f7c90f63a4cdc04488.png)
 
 ### DF风格查询
 
@@ -272,15 +272,15 @@ csv文件相关配置见[CSV Files - Spark 3.2.1 Documentation (apache.org)](<ht
 
 DF风格查询结果如下
 
-![image-20220223003534324](https://i-blog.csdnimg.cn/blog_migrate/ee87eb0db64b3e07e905a3235c386c26.png)
+![image-20220223003534324](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ee87eb0db64b3e07e905a3235c386c26.png)
 
 带有条件，只展示值为4的查询结果如下
 
-![image-20220223003600755](https://i-blog.csdnimg.cn/blog_migrate/c232ed6e0a06475a9c154f969f4641b0.png)
+![image-20220223003600755](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c232ed6e0a06475a9c154f969f4641b0.png)
 
 分组计数的查询结果如下
 
-![image-20220223003627447](https://i-blog.csdnimg.cn/blog_migrate/00be9eb61dfa883430423222ce38437e.png)
+![image-20220223003627447](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/00be9eb61dfa883430423222ce38437e.png)
 
 ### sql风格查询
 
@@ -329,7 +329,7 @@ DF风格查询结果如下
 
 查询结果如下
 
-![image-20220223004337805](https://i-blog.csdnimg.cn/blog_migrate/c0771fc54435924b98197c99c09950f3.png)
+![image-20220223004337805](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c0771fc54435924b98197c99c09950f3.png)
 
 ### 查看sql的执行计划
 
@@ -358,7 +358,7 @@ DF风格查询结果如下
 
 打印结果如下
 
-![image-20220223005417106](https://i-blog.csdnimg.cn/blog_migrate/538e17801a07a7667bc481417d858675.png)
+![image-20220223005417106](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/538e17801a07a7667bc481417d858675.png)
 
 ### RDD通过指定结构转为DataFrame
 
@@ -416,15 +416,15 @@ DF风格查询结果如下
 
 这种方式的结构信息如下
 
-![image-20220223222418810](https://i-blog.csdnimg.cn/blog_migrate/2a0132a85dc551f66b955b173255b9ed.png)
+![image-20220223222418810](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2a0132a85dc551f66b955b173255b9ed.png)
 
 随机打印5条数据
 
-![image-20220223222500253](https://i-blog.csdnimg.cn/blog_migrate/77ce5ebcb9844824e84ac03d98b9e7d0.png)
+![image-20220223222500253](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/77ce5ebcb9844824e84ac03d98b9e7d0.png)
 
 使用sql风格查询结果为
 
-![image-20220223222525442](https://i-blog.csdnimg.cn/blog_migrate/19d8048dbc376e8addac809529c3f931.png)
+![image-20220223222525442](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/19d8048dbc376e8addac809529c3f931.png)
 
 ### RDD通过反射构造结构转为DataFrame
 
@@ -481,15 +481,15 @@ DF风格查询结果如下
 
 打印的结构与指定结构构造的DataFrame的结构相同的
 
-![image-20220223223503510](https://i-blog.csdnimg.cn/blog_migrate/df31d1a5e6e913b849195d22fb8c2fae.png)
+![image-20220223223503510](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/df31d1a5e6e913b849195d22fb8c2fae.png)
 
 随机展示几条数据也是一样的
 
-![image-20220223223524917](https://i-blog.csdnimg.cn/blog_migrate/19b071d23ba2e542802062aad3c37cb7.png)
+![image-20220223223524917](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/19b071d23ba2e542802062aad3c37cb7.png)
 
 sql风格的查询也是可以的
 
-![image-20220223223545667](https://i-blog.csdnimg.cn/blog_migrate/516eadab7734c047362d155f0e6d8d1a.png)
+![image-20220223223545667](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/516eadab7734c047362d155f0e6d8d1a.png)
 
 ## Rdd 转DataSet
 
@@ -497,7 +497,7 @@ sql风格的查询也是可以的
 
 借用网上的一些对比图
 
-![image-20220223224915019](https://i-blog.csdnimg.cn/blog_migrate/8c2c0f0263d7331dff0e275fe7cc30ce.png)
+![image-20220223224915019](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8c2c0f0263d7331dff0e275fe7cc30ce.png)
 
 除了上面两种方式转化，我们还可以直接使用隐式方法直接转换
     
@@ -512,13 +512,13 @@ sql风格的查询也是可以的
 
 打印的结构也是相同的
 
-![image-20220223224658460](https://i-blog.csdnimg.cn/blog_migrate/46a55d8410d2624d982806309eb82ce3.png)
+![image-20220223224658460](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/46a55d8410d2624d982806309eb82ce3.png)
 
 ## 从DataFrame或DataSet中获取RDD
 
 实际上DataFrame和DataSet中都会存储RDD，可以直接获取RDD
 
-![image-20220223225158305](https://i-blog.csdnimg.cn/blog_migrate/1c55d7d2e9bdf0328887d1d1c13ead24.png)
+![image-20220223225158305](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1c55d7d2e9bdf0328887d1d1c13ead24.png)
 
 没错，在DataSet中有一个属性就是rdd，就可以直接从DataSet中获取到rdd。
 
@@ -576,7 +576,7 @@ sql风格的查询也是可以的
 
 然后在根目录下使用maven命令下载依赖`mvn dependency:sources`下载源码和依赖，然后重新加载maven项目，此时会把除了jdk.tools之外的依赖加入到项目中
 
-![image-20220224013344093](https://i-blog.csdnimg.cn/blog_migrate/6c9d1f884506615d223e23592dca31c5.png)
+![image-20220224013344093](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6c9d1f884506615d223e23592dca31c5.png)
 
 接着就可以开始编码了
     
@@ -622,13 +622,13 @@ sql风格的查询也是可以的
 
 执行结果如下
 
-![image-20220224013717788](https://i-blog.csdnimg.cn/blog_migrate/8b3fa0fdf28887317a0e3dcf126d235b.png)
+![image-20220224013717788](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8b3fa0fdf28887317a0e3dcf126d235b.png)
 
 我们也可以在thriftserver的监控界面查看执行的sql
 
-![image-20220224013749506](https://i-blog.csdnimg.cn/blog_migrate/7579e77728f6c243c4098c856f7a1a8b.png)
+![image-20220224013749506](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7579e77728f6c243c4098c856f7a1a8b.png)
 
-![image-20220224013812656](https://i-blog.csdnimg.cn/blog_migrate/f271b175a2773503a2df38d22380d30a.png)
+![image-20220224013812656](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f271b175a2773503a2df38d22380d30a.png)
 
 ## 总结
 

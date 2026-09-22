@@ -71,17 +71,17 @@ https://github.com/a18792721831/studybatch.git
 
 顺序Flow是指在Job中定义多个Step，每个Step之间按照定义好的顺序执行，任何一个Step的失败都会导致Job的失败。
 
-![image-20201209185108457](https://i-blog.csdnimg.cn/blog_migrate/8aa9c6ccde9943f8a813caede4bd23b2.png)
+![image-20201209185108457](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8aa9c6ccde9943f8a813caede4bd23b2.png)
 
 比如
 
 我们定义这样的4个step
 
-![image-20201209192410564](https://i-blog.csdnimg.cn/blog_migrate/c537ce116606e4c926f027a590572d2c.png)
+![image-20201209192410564](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c537ce116606e4c926f027a590572d2c.png)
 
 定义完成之后，在job中使用
 
-![image-20201209192441494](https://i-blog.csdnimg.cn/blog_migrate/9af03f5dd59c607a8c986eaac2f74b8d.png)
+![image-20201209192441494](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9af03f5dd59c607a8c986eaac2f74b8d.png)
 
 完整代码
     
@@ -151,13 +151,13 @@ https://github.com/a18792721831/studybatch.git
 
 执行结果
 
-![image-20201209193128082](https://i-blog.csdnimg.cn/blog_migrate/e3b6fd2605519ece228d766cbefb8bb2.png)
+![image-20201209193128082](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e3b6fd2605519ece228d766cbefb8bb2.png)
 
 ## 条件Flow
 
 更多的业务场景需要根据作业步的执行结果决定后续调用哪个作业步，而不是像上面就事先定义好了作业的执行顺序。spring batch框架提供了条件Flow来满足有选择的执行作业步的功能。
 
-![image-20201209194201598](https://i-blog.csdnimg.cn/blog_migrate/f2f1a351b9c7b6533157e86f93e6e74f.png)
+![image-20201209194201598](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f2f1a351b9c7b6533157e86f93e6e74f.png)
 
 ### 条件Flwo配置
 
@@ -172,7 +172,7 @@ https://github.com/a18792721831/studybatch.git
 
 比如我们创建5个step
 
-![image-20201209200620686](https://i-blog.csdnimg.cn/blog_migrate/34a287ffcb1dbf7fd3a18afeb530c52b.png)
+![image-20201209200620686](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34a287ffcb1dbf7fd3a18afeb530c52b.png)
 
 接着我们创建job的时候，指定，当0执行完后执行1,1执行完后执行3.如果0执行的有误，执行2，如果1执行有误，执行4。
 
@@ -261,7 +261,7 @@ st4
 
 执行结果
 
-![image-20201212125925833](https://i-blog.csdnimg.cn/blog_migrate/df37a205ddd4ce490e3015d31494f4be.png)
+![image-20201212125925833](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/df37a205ddd4ce490e3015d31494f4be.png)
 
 这么写，虽然也不错，但是，判断的必须是指定的字符串。所以写起来还是比较麻烦的。
 
@@ -321,15 +321,15 @@ n
 
 首先定义两个方法，用于创建step
 
-![image-20201212134613208](https://i-blog.csdnimg.cn/blog_migrate/325f2830e404065d2b22557168e6b5ba.png)
+![image-20201212134613208](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/325f2830e404065d2b22557168e6b5ba.png)
 
 接着统一创建step
 
-![image-20201212134648263](https://i-blog.csdnimg.cn/blog_migrate/78c5472a40bf657f5fbfb5dd424cefe7.png)
+![image-20201212134648263](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/78c5472a40bf657f5fbfb5dd424cefe7.png)
 
 然后就是配置规则
 
-![image-20201212134707809](https://i-blog.csdnimg.cn/blog_migrate/455910bd6b83a1e0cf314bb015df0db0.png)
+![image-20201212134707809](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/455910bd6b83a1e0cf314bb015df0db0.png)
 
 完整代码
     
@@ -423,7 +423,7 @@ n
 
 执行结果
 
-![image-20201212134751546](https://i-blog.csdnimg.cn/blog_migrate/de76b6cb57a457dc6b821c9956038777.png)
+![image-20201212134751546](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/de76b6cb57a457dc6b821c9956038777.png)
 
 ### ExitStatus & BatchStatus
 
@@ -468,7 +468,7 @@ StepExecution.getStatus()操作可以获取作业步Step的批处理状态。
 
 JobExecutionDecider接口只有一个方法
 
-![image-20201212140506304](https://i-blog.csdnimg.cn/blog_migrate/f86ebac70814bcc327ea006e058a63c3.png)
+![image-20201212140506304](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f86ebac70814bcc327ea006e058a63c3.png)
 
 也就是说，我们可以使用lambda创建接口内容对象。
 
@@ -520,23 +520,23 @@ y
 
 在理解上，可以认为我们将一部分step的进行了特殊化，只处理流程跳转，而且，将这些step做了简化。比如JobExecutionDecider不需要我们传入名字，不需要JobRepository等等。实际上，在Builder里面，进行了处理，在Builder里面，JobExecutionDecider和Step是相等的。JobExecutionDecider的名字也是由Builder来指定的。
 
-![image-20201212143148432](https://i-blog.csdnimg.cn/blog_migrate/b246c4bf7d52ea5614a447a96b3d9594.png)
+![image-20201212143148432](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b246c4bf7d52ea5614a447a96b3d9594.png)
 
-![image-20201212143215930](https://i-blog.csdnimg.cn/blog_migrate/a16c536fc7e150b60e57ae29fbe395b6.png)
+![image-20201212143215930](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a16c536fc7e150b60e57ae29fbe395b6.png)
 
 多说无益，我们还是以事实说话
 
 创建两个方法，分别用于创建step和JobExecutionDecider
 
-![image-20201212143342125](https://i-blog.csdnimg.cn/blog_migrate/4d1ae6c2c33e837dab4ea206fed9e005.png)
+![image-20201212143342125](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4d1ae6c2c33e837dab4ea206fed9e005.png)
 
 接着统一创建step和JobExecutionDecider（真正使用中，这些step和JobExecutionDecider可能非常的复杂，而且每一个都不一样）
 
-![image-20201212143412812](https://i-blog.csdnimg.cn/blog_migrate/f362168a86e9bc6d29643acc8f297fe4.png)
+![image-20201212143412812](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f362168a86e9bc6d29643acc8f297fe4.png)
 
 接着定义关系
 
-![image-20201212143532873](https://i-blog.csdnimg.cn/blog_migrate/72399b5e8bff3af89abaf59bbf6d3a0a.png)
+![image-20201212143532873](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/72399b5e8bff3af89abaf59bbf6d3a0a.png)
 
 完整代码
     
@@ -635,7 +635,7 @@ y
 
 执行结果
 
-![image-20201212143623277](https://i-blog.csdnimg.cn/blog_migrate/f95f31199bb32031bddbc0eb9744547d.png)
+![image-20201212143623277](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f95f31199bb32031bddbc0eb9744547d.png)
 
 ## 并行Flow
 
@@ -669,23 +669,23 @@ split元素
 
 首先我们创建一个睡眠step的创建方法
 
-![image-20201212160312352](https://i-blog.csdnimg.cn/blog_migrate/2f96cf9170d4afd280106659b8469146.png)
+![image-20201212160312352](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2f96cf9170d4afd280106659b8469146.png)
 
 接着创建一个线程池(并行执行，肯定需要线程池)
 
-![image-20201212160351157](https://i-blog.csdnimg.cn/blog_migrate/2be0dc98b46105c09555c246a63b258e.png)
+![image-20201212160351157](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2be0dc98b46105c09555c246a63b258e.png)
 
 然后我们创建两个flow
 
-![image-20201212160408471](https://i-blog.csdnimg.cn/blog_migrate/2c402bf70575e30f8e66029a037ac8b4.png)
+![image-20201212160408471](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2c402bf70575e30f8e66029a037ac8b4.png)
 
 为了保证服务正确的被停止，我们增加一个step，当并行任务执行完毕后，用于关闭线程池
 
-![image-20201212160446892](https://i-blog.csdnimg.cn/blog_migrate/3d89861926bd709e91033799d72d07f6.png)
+![image-20201212160446892](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d89861926bd709e91033799d72d07f6.png)
 
 所以，完整的定义如下
 
-![image-20201212160504555](https://i-blog.csdnimg.cn/blog_migrate/ac1ad2adecbce46ff225a1f58928a3f8.png)
+![image-20201212160504555](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac1ad2adecbce46ff225a1f58928a3f8.png)
 
 完整的代码
     
@@ -749,13 +749,13 @@ split元素
 
 执行结果
 
-![image-20201212160545758](https://i-blog.csdnimg.cn/blog_migrate/7ec77aff48e0158f5812982aed196222.png)
+![image-20201212160545758](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7ec77aff48e0158f5812982aed196222.png)
 
 ## Step Job Flow关系
 
 Step和Flow和Job的关系
 
-![image-20201212161852982](https://i-blog.csdnimg.cn/blog_migrate/e6451053c99c332f4d9567c08df77716.png)
+![image-20201212161852982](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e6451053c99c332f4d9567c08df77716.png)
 
 ### Flow
 
@@ -805,29 +805,29 @@ Job Execution Context在整个Job的执行期间存在，不同的Step可以将�
 
 **StepExecutionContext**
 
-![image-20201212170432488](https://i-blog.csdnimg.cn/blog_migrate/8ee1be64c93238270c616028b5b54442.png)
+![image-20201212170432488](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8ee1be64c93238270c616028b5b54442.png)
 
 执行结果
 
-![image-20201212170448143](https://i-blog.csdnimg.cn/blog_migrate/5a6ced7071808f5e387fe0406d8edada.png)
+![image-20201212170448143](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5a6ced7071808f5e387fe0406d8edada.png)
 
 数据库中的记录
 
-![image-20201212170550320](https://i-blog.csdnimg.cn/blog_migrate/34e636c0baaa06710deb872ad4ae9b44.png)
+![image-20201212170550320](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34e636c0baaa06710deb872ad4ae9b44.png)
 
 **JobExecutionContext**
 
 我们创建两个step，在第一个step中放入信息，在第二个step中取出
 
-![image-20201212170848715](https://i-blog.csdnimg.cn/blog_migrate/b280948c6431422a254494aa71794d8a.png)
+![image-20201212170848715](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b280948c6431422a254494aa71794d8a.png)
 
 执行结果
 
-![image-20201212171103401](https://i-blog.csdnimg.cn/blog_migrate/ee351e31d7090b0642f8d720c205e296.png)
+![image-20201212171103401](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ee351e31d7090b0642f8d720c205e296.png)
 
 数据库记录
 
-![image-20201212171135129](https://i-blog.csdnimg.cn/blog_migrate/2185d0ee1cda26f09cb2e96ae53a366b.png)
+![image-20201212171135129](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2185d0ee1cda26f09cb2e96ae53a366b.png)
 
 完整代码
     
@@ -918,39 +918,39 @@ end的使用方式
 
 首先创建两个step，第一个step的退出码是quit,第二个step的退出码是ok。
 
-![image-20201212175622794](https://i-blog.csdnimg.cn/blog_migrate/6d12e480108600229a522534352a160a.png)
+![image-20201212175622794](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6d12e480108600229a522534352a160a.png)
 
 然后配置关系：如果step1的退出状态是quit，那么end这个job，退出码是step1.如果step2的退出状态是ok，那么end这个job,退出码是step2
 
-![image-20201212175746139](https://i-blog.csdnimg.cn/blog_migrate/aca2450f892fd7cc30f26bbfdb9b11b6.png)
+![image-20201212175746139](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/aca2450f892fd7cc30f26bbfdb9b11b6.png)
 
 执行结果
 
-![image-20201212175800256](https://i-blog.csdnimg.cn/blog_migrate/d05d487b6b954ff7b7b2d88a466d9bf7.png)
+![image-20201212175800256](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d05d487b6b954ff7b7b2d88a466d9bf7.png)
 
 数据库中step执行结束，退出码是quit
 
-![image-20201212173200624](https://i-blog.csdnimg.cn/blog_migrate/e3c43f5fbfc83edc7f426d772ba2a2fe.png)
+![image-20201212173200624](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e3c43f5fbfc83edc7f426d772ba2a2fe.png)
 
 end的参数是设置Job的退出状态
 
-![image-20201212175524876](https://i-blog.csdnimg.cn/blog_migrate/9d8ded3546a68695c0bb359e7e463604.png)
+![image-20201212175524876](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9d8ded3546a68695c0bb359e7e463604.png)
 
 如果我们注释掉step1中的设置退出状态的代码
 
-![image-20201212175842176](https://i-blog.csdnimg.cn/blog_migrate/5b39e04ba01585131f85f72fcaf2649a.png)
+![image-20201212175842176](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5b39e04ba01585131f85f72fcaf2649a.png)
 
 然后执行
 
-![image-20201212175931432](https://i-blog.csdnimg.cn/blog_migrate/965bdcdf8df50b39b5736a935071c0d6.png)
+![image-20201212175931432](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/965bdcdf8df50b39b5736a935071c0d6.png)
 
 数据库中Job的退出码
 
-![image-20201212175958636](https://i-blog.csdnimg.cn/blog_migrate/498587e3466f6d6932e5af0f4e01215f.png)
+![image-20201212175958636](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/498587e3466f6d6932e5af0f4e01215f.png)
 
 数据库中step的退出码
 
-![image-20201212180030624](https://i-blog.csdnimg.cn/blog_migrate/94e13632659ac26d38a5ef2bd9d66b58.png)
+![image-20201212180030624](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/94e13632659ac26d38a5ef2bd9d66b58.png)
 
 需要注意，我们通过end结束job，job的状态是COMPLETED。
 
@@ -1023,7 +1023,7 @@ stop的属性
 
 首先创建两个step,用于设置退出码
 
-![image-20201212180707865](https://i-blog.csdnimg.cn/blog_migrate/229b5d1183cfd3af802147d180a51a23.png)
+![image-20201212180707865](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/229b5d1183cfd3af802147d180a51a23.png)
 
 接着设置停止关系
 
@@ -1035,61 +1035,61 @@ stop的属性
 
 如果step2退出码是stop2那么停止。
 
-![image-20201212180901237](https://i-blog.csdnimg.cn/blog_migrate/cf57f86af0761aaf0e2a56b7d24c159e.png)
+![image-20201212180901237](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf57f86af0761aaf0e2a56b7d24c159e.png)
 
 第一次直接运行，会在step1哪里停止，退出码是stop1
 
-![image-20201212180932487](https://i-blog.csdnimg.cn/blog_migrate/718f709c75d2c6869ac2d6cdc62ac731.png)
+![image-20201212180932487](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/718f709c75d2c6869ac2d6cdc62ac731.png)
 
 step的数据库记录
 
-![image-20201212181010594](https://i-blog.csdnimg.cn/blog_migrate/70fe3c4fcd34c1a86c28c116ad93a26a.png)
+![image-20201212181010594](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/70fe3c4fcd34c1a86c28c116ad93a26a.png)
 
 job的数据库记录STOPPED
 
-![image-20201212181111540](https://i-blog.csdnimg.cn/blog_migrate/7e18240b9149923c866a7feb0f535a01.png)
+![image-20201212181111540](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7e18240b9149923c866a7feb0f535a01.png)
 
 接着我们修改step1的退出码为stop1r
 
-![image-20201212181157775](https://i-blog.csdnimg.cn/blog_migrate/d958d184442e65b72e4fbf95064f3b37.png)
+![image-20201212181157775](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d958d184442e65b72e4fbf95064f3b37.png)
 
 然后运行
 
-![image-20201212181456119](https://i-blog.csdnimg.cn/blog_migrate/544d609fc821fcc93b41205552bfaa2b.png)
+![image-20201212181456119](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/544d609fc821fcc93b41205552bfaa2b.png)
 
 step数据库中的记录
 
-![image-20201212181450803](https://i-blog.csdnimg.cn/blog_migrate/7b40950739a3fcf876cc40beecb2f1e9.png)
+![image-20201212181450803](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7b40950739a3fcf876cc40beecb2f1e9.png)
 
 此时Job的状态是STOPPED，我们重启这个Job实例
 
-![image-20201212181406112](https://i-blog.csdnimg.cn/blog_migrate/728f49fc4c6e6a477a5183f7668108d9.png)
+![image-20201212181406112](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/728f49fc4c6e6a477a5183f7668108d9.png)
 
 重启，重启之后就不会 在从step1开始了，而是直接从step2开始了。
 
-![image-20201212181528645](https://i-blog.csdnimg.cn/blog_migrate/fc168e081345e7ff28f1e667a17d13d3.png)
+![image-20201212181528645](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fc168e081345e7ff28f1e667a17d13d3.png)
 
 因为在第一次运行的时候step1的状态是COMPLETED，重启当然就不会在继续执行了。
 
 如果这么认为我们不设置，也是会从step2开始运行。那么我们修改为step1执行的退出码是stop1r，那么重启后，再次从step1开始运行
 
-![image-20201212184428322](https://i-blog.csdnimg.cn/blog_migrate/33c3dfdd3a694618075c5a0aa3adf866.png)
+![image-20201212184428322](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/33c3dfdd3a694618075c5a0aa3adf866.png)
 
 再次重启，因为在step2中，也是stop，所以job本身是stop的
 
-![image-20201212184552630](https://i-blog.csdnimg.cn/blog_migrate/1c8cea09e9994721b6b1f7a2eebe2b52.png)
+![image-20201212184552630](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1c8cea09e9994721b6b1f7a2eebe2b52.png)
 
 如果我们注释掉step1的退出码设置
 
-![image-20201212182057411](https://i-blog.csdnimg.cn/blog_migrate/80009c771656963ebfda36fe8504808f.png)
+![image-20201212182057411](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/80009c771656963ebfda36fe8504808f.png)
 
 然后重新执行(需要修改参数，之前的job实例是一个死循环，在数据库中的记录是运行状态，不能重启)(不是死循环了)
 
-![image-20201212182241421](https://i-blog.csdnimg.cn/blog_migrate/d8d2134d4b4976059abdfb0c4e2d1fde.png)
+![image-20201212182241421](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d8d2134d4b4976059abdfb0c4e2d1fde.png)
 
 数据库中job还是stop
 
-![image-20201212182316761](https://i-blog.csdnimg.cn/blog_migrate/546854126411148a6e0e4a8a2c24437c.png)
+![image-20201212182316761](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/546854126411148a6e0e4a8a2c24437c.png)
 
 完整代码
     
@@ -1159,7 +1159,7 @@ fail属性
 
 首先创建两个step1，step2.
 
-![image-20201212184046689](https://i-blog.csdnimg.cn/blog_migrate/2e9a95c9d84e604415c913109efcd14c.png)
+![image-20201212184046689](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2e9a95c9d84e604415c913109efcd14c.png)
 
 然后定义关系
 
@@ -1169,33 +1169,33 @@ fail属性
 
 如果step2的退出码是fail，那么结束job,设置状态为fail
 
-![image-20201212183054880](https://i-blog.csdnimg.cn/blog_migrate/9d46f5418b7e93b7a2078b4add780e64.png)
+![image-20201212183054880](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9d46f5418b7e93b7a2078b4add780e64.png)
 
 第一次执行
 
-![image-20201212183332941](https://i-blog.csdnimg.cn/blog_migrate/8e34a9a1cf54b0a29a202e8043b9fe50.png)
+![image-20201212183332941](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8e34a9a1cf54b0a29a202e8043b9fe50.png)
 
 step的数据库记录COMPLETED，退出码是fail(退出码是无法修改的)
 
-![image-20201212183412326](https://i-blog.csdnimg.cn/blog_migrate/cfd96642b2f182828ce6bfa84e59bafe.png)
+![image-20201212183412326](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cfd96642b2f182828ce6bfa84e59bafe.png)
 
 job的数据库记录
 
-![image-20201212183521092](https://i-blog.csdnimg.cn/blog_migrate/8046dbcd451536da103adce67d43417e.png)
+![image-20201212183521092](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8046dbcd451536da103adce67d43417e.png)
 
 我们修改step1的退出码，然后重启
 
-![image-20201212183556530](https://i-blog.csdnimg.cn/blog_migrate/524f0da0fe0c103edb16de405266e7b2.png)
+![image-20201212183556530](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/524f0da0fe0c103edb16de405266e7b2.png)
 
 执行结果
 
-![image-20201212184149513](https://i-blog.csdnimg.cn/blog_migrate/de635edb2ffb59525094b98a4bfd91e2.png)
+![image-20201212184149513](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/de635edb2ffb59525094b98a4bfd91e2.png)
 
 此时数据库中还是失败
 
-![image-20201212184218739](https://i-blog.csdnimg.cn/blog_migrate/b774dc8b31393f2f1eb33da10c648f2c.png)
+![image-20201212184218739](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b774dc8b31393f2f1eb33da10c648f2c.png)
 
-![image-20201212184300828](https://i-blog.csdnimg.cn/blog_migrate/9735f1176d23d10c1a85a776b5c055a0.png)
+![image-20201212184300828](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9735f1176d23d10c1a85a776b5c055a0.png)
 
 完整代码
     

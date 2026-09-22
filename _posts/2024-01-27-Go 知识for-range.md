@@ -69,7 +69,7 @@ for-range 一般可以返回两个值，对于不同类型的data有不同的返
     	}
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/04b73f62e15c9e7218c5010adb67a37e.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ee97476b0a78616e0567406c8ae73da2.png)
 
 ### 1.2 切片
     
@@ -85,7 +85,7 @@ for-range 一般可以返回两个值，对于不同类型的data有不同的返
     	}
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3ef384a81a9ee0cbb06e8acfae88a81c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/315ad3796f23c6112b7367dc150148ab.png)
 
 ### 1.3 字符串
     
@@ -100,7 +100,7 @@ for-range 一般可以返回两个值，对于不同类型的data有不同的返
     	}
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2573dc791551eae1356763d4292a90ad.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c8e624b255e93794d5d01f69e5681f1.png)
 
 需要注意的是，对于中英文，因为编码的方式不同，每个字符的占用空间不同，就会出现下标不连续的问题。
     
@@ -115,7 +115,7 @@ for-range 一般可以返回两个值，对于不同类型的data有不同的返
     	}
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/88602cfa0d18c323aeb2b7b49fd7a371.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/83a934bfdd378c71a3143c6f604ba621.png)
 
 ### 1.4 map
     
@@ -136,7 +136,7 @@ for-range 一般可以返回两个值，对于不同类型的data有不同的返
     	}
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d8cd283ce8459d0ef8a3882efa4c0241.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/26e1e3cbeddcfdeb60c5a8461994280d.png)
 
 ### 1.5 chan
     
@@ -156,11 +156,11 @@ for-range 一般可以返回两个值，对于不同类型的data有不同的返
     	//}
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9c9558a20425e494a15fd997a64da0ae.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9cf66a44272cd07e9a0eefac0c873c25.png)
 
 因为chan里面没有数据了，所以就阻塞了，并不会自动结束哦。  
 当你视图用两个变量接收返回值的时候，就会编译失败  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a50326464440a7335c272898fae58067.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d503ca93335ac501fd5a7132a390b2e.png)
 
 ## 2\. 原理
 
@@ -222,7 +222,7 @@ for-range是在编译的时候，转换为传统的for语句。
 
 因为不同的字符集，占用的长度不同，所以这里会对是否是utf8字符集字符进行判断，并进行不同的处理。  
 比如：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/882a1e18e02d4ada784101b12daf552c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f3a4c3b16695ad9bfc8caede69dc3a43.png)
 
 ### 2.4 map
     

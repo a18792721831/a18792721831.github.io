@@ -42,25 +42,25 @@ Binlog 的特点是只记录数据修改语句，有时可能需要记录客户�
 
 使用 `select @@general_log;`查看
 
-![image-20250328172331381](https://i-blog.csdnimg.cn/img_convert/b6b7d3edf2ddc62b44fdf0a23e43fb1d.png)
+![image-20250328172331381](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328172331381.png)
 
 使用 `set glogbal general_log_file = "/var/log/mysql/general_log.log"`设置`general_log`的保存位置
 
 使用`set global general_log=on;`开启`general_log`
 
-![image-20250328172748008](https://i-blog.csdnimg.cn/img_convert/0fb3ce8fc5d8e602c540ca2627b53c2c.png)
+![image-20250328172748008](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328172748008.png)
 
 在服务端查看是否有`general_log`
 
-![image-20250328172829488](https://i-blog.csdnimg.cn/img_convert/f9c0d0b71ebada08cf0473c1e8cc9298.png)
+![image-20250328172829488](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328172829488.png)
 
 ## General Log 的用法
 
 执行一句SQL`select 'test_general_log';`查看是否被记录到了`general_log`中了
 
-![image-20250328172914757](https://i-blog.csdnimg.cn/img_convert/e2dfb7e60abecf31b676d3d9b1469e4d.png)
+![image-20250328172914757](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328172914757.png)
 
-![image-20250328172928636](https://i-blog.csdnimg.cn/img_convert/51610a8e7d6f03dcfff9024c43da3bfa.png)
+![image-20250328172928636](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328172928636.png)
 
 一模一样。
 
@@ -83,19 +83,19 @@ Binlog 的特点是只记录数据修改语句，有时可能需要记录客户�
 
 > TABLE和FILE可以同时开启
 
-![image-20250328173444342](https://i-blog.csdnimg.cn/img_convert/60ee1ff20cc8043a93a7a2c8740baf83.png)
+![image-20250328173444342](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328173444342.png)
 
 调整为 `TABLE`
 
-![image-20250328173527261](https://i-blog.csdnimg.cn/img_convert/b66d8d5b318f8f87a6ff0fd696b41d4e.png)
+![image-20250328173527261](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328173527261.png)
 
 执行一条sql
 
-![image-20250328173711768](https://i-blog.csdnimg.cn/img_convert/c880669c3735fcad1ce4e8d3538c66fe.png)
+![image-20250328173711768](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328173711768.png)
 
 查看file
 
-![image-20250328173725801](https://i-blog.csdnimg.cn/img_convert/0e44275c673a3b01fd984e3d77427472.png)
+![image-20250328173725801](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328173725801.png)
 
 之后的就不在记录了
 
@@ -103,8 +103,8 @@ Binlog 的特点是只记录数据修改语句，有时可能需要记录客户�
 
 `set global log_output="TABLE,FILE";`
 
-![image-20250328173858559](https://i-blog.csdnimg.cn/img_convert/41912eb344d4cc86a85a0494cbcd5f39.png)
+![image-20250328173858559](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328173858559.png)
 
 查看file
 
-![image-20250328173929317](https://i-blog.csdnimg.cn/img_convert/3c6d0d00ab11ccc97489322b71b30a48.png)
+![image-20250328173929317](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328173929317.png)

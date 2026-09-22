@@ -52,30 +52,30 @@ jdk的版本太低，或者jvm的版本太低，只能发送ssl1的请求，但�
 解决方案：  
 增加jdk的版本（最简单），如果非要用低版本，网上也有解决的方案。  
 步骤：（eclipse）  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f1be7298f6d4aef46a5421395e220e70.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f1be7298f6d4aef46a5421395e220e70.png)  
 右键->build path->configure build path  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2fdcf9f3a9bb809c135c4ed912b18916.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2fdcf9f3a9bb809c135c4ed912b18916.png)  
 Add Library  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/59136e3afa69634e356c211bf25911e2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59136e3afa69634e356c211bf25911e2.png)  
 next  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8abb639c9c930d73e4904a0bca6768bb.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/140e73d37d7d4f77a124ed32a39945fd.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4391b17962693574140773543f15ced9.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d052f724c3034d6c14b9e62ef654d267.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2af968fa036461f93a8afdddd06bd4e5.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c1e57e374c77c66d0ea9106194f18bba.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/329ee0ea28492c0084d173ea00e2f03f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8abb639c9c930d73e4904a0bca6768bb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/140e73d37d7d4f77a124ed32a39945fd.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4391b17962693574140773543f15ced9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d052f724c3034d6c14b9e62ef654d267.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2af968fa036461f93a8afdddd06bd4e5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c1e57e374c77c66d0ea9106194f18bba.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/329ee0ea28492c0084d173ea00e2f03f.png)  
 或者不用选择：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/05bcf1acb074bf7a267848ba31069f20.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/90fdf530302f994cb2bf5d3c0fd5a292.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/05bcf1acb074bf7a267848ba31069f20.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/90fdf530302f994cb2bf5d3c0fd5a292.png)  
 不删除也可以  
 但有可能引起混乱  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/551ba2ffa24772a0c87e18a0bf928691.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/551ba2ffa24772a0c87e18a0bf928691.png)
 
 ## 2.Unsupported major.minor version XXX
 
 原因：编译jdk版本与运行的jdk版本不一致  
 右键->build path->configure build path  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/12188c3525eb1b6b433787972b2876c7.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7c9aabbb7ddaa6f725a850fdae317789.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/12188c3525eb1b6b433787972b2876c7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7c9aabbb7ddaa6f725a850fdae317789.png)  
 然后一直确定就可以，最后会重新编译项目。

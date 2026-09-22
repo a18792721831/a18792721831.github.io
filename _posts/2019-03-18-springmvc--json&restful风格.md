@@ -144,11 +144,11 @@ PUT、POST、DELETE、GET
 
 ### 5.1创建springmvc项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bb14002010f47ca2f393dd7df7e8e7e9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bb14002010f47ca2f393dd7df7e8e7e9.png)
 
 ### 5.2导入jar包
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/766c2b323a0355784437db211722a15c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/766c2b323a0355784437db211722a15c.png)
 
 ### 5.3配置web.xml
 
@@ -498,7 +498,7 @@ springmvc-config.xml
 
 ### 5.8创建controller
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/92606e0d78a3943cce26d9145503966c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/92606e0d78a3943cce26d9145503966c.png)
     
     
     package controller;
@@ -593,29 +593,29 @@ springmvc-config.xml
 ## 6.测试结果
 
 在controller中使用ArrayList模拟restful的操作。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/845e2af8ef312ad54020fb645c7fa41e.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f732f710d6b5a56edd3b1ba4a5d35bd6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/845e2af8ef312ad54020fb645c7fa41e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f732f710d6b5a56edd3b1ba4a5d35bd6.png)  
 ajax JSON交互：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/319c221b3439f5746d51a0fd4c0fb9c0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/319c221b3439f5746d51a0fd4c0fb9c0.png)  
 restful增加：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/21666cca2004ecbd733fbc96df7d2b84.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0249f17ea6871d05c6bdb6d0d65a76cf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/21666cca2004ecbd733fbc96df7d2b84.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0249f17ea6871d05c6bdb6d0d65a76cf.png)  
 restful查询：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7f8dea7a2404bb352a5e711b2a1ee9f0.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0bde5ad5cc9968b970e6dc14d59c0ea6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7f8dea7a2404bb352a5e711b2a1ee9f0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0bde5ad5cc9968b970e6dc14d59c0ea6.png)  
 restful修改  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ceb697fa50ddf49b2220fbbab2c1de5d.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/60eff668069a100aacb8b4bc75f88a54.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ceb697fa50ddf49b2220fbbab2c1de5d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/60eff668069a100aacb8b4bc75f88a54.png)  
 restful查询  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/083ed40e4977f4aad2195e81b3637e16.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/06ed798a65da26881f1da910aab044e8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/083ed40e4977f4aad2195e81b3637e16.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/06ed798a65da26881f1da910aab044e8.png)  
 restful删除  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/50cd125d8e483547c5c2cf261e85b863.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6ec7cdf0552595747833b1fdc96cbd70.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6887c418c25a963daef498b6c5a4f399.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1f686652f64b62b24aa7991a01407a8a.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3073f77cb2ff0d20b03fa2a7cd846dba.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/24d5c0f9df1132bf4fc83362d0798ed8.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ebb786c85e47b2854cdc4c73efcec22d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/50cd125d8e483547c5c2cf261e85b863.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6ec7cdf0552595747833b1fdc96cbd70.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6887c418c25a963daef498b6c5a4f399.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1f686652f64b62b24aa7991a01407a8a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3073f77cb2ff0d20b03fa2a7cd846dba.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/24d5c0f9df1132bf4fc83362d0798ed8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ebb786c85e47b2854cdc4c73efcec22d.png)  
 在restful风格中，对一种资源的操作，实际上访问的是一个地址的请求，在访问方式上有所区别。

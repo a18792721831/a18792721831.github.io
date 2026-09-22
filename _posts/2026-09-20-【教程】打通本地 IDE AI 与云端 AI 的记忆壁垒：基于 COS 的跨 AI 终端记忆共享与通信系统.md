@@ -20,7 +20,7 @@ keywords: ["ai", "智能体", "agent", "AGENTS", "Mem"]
 
 本文详细介绍如何基于腾讯云 COS 对象存储构建一套跨 AI 终端的记忆共享与异步通信系统。实现本地 IDE 内置 AI（如 CodeBuddy）与云端 AI（如企微 Bot）之间的记忆双向同步、智能融合与异步通信。包含完整的架构设计、核心代码实现、融合策略、信箱协议、定时任务配置和新终端接入指南。
 
-![思维导图](https://i-blog.csdnimg.cn/img_convert/0756655478f82df9ed103c0a17abe0e0.png)
+![思维导图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/mindmap/cross-ai-memory-sharing-system_20260306144622.png)
 
 ### 1\. 背景与痛点
 
@@ -668,7 +668,7 @@ AI 上下文，避免重复犯错
 
 #### 4.1 接入卡（一段脚本秒接入）
 
-![新终端一键接入](https://i-blog.csdnimg.cn/img_convert/6a27d406cf5789d0ec06a8b4b49a785b.png)
+![新终端一键接入](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/cross-ai-memory-onboarding.png)
 
 这是我觉得最酷的设计——新终端只需要执行一段 Python 脚本，就能自动接入整个记忆系统：
 

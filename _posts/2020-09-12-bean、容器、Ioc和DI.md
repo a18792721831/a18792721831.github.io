@@ -133,11 +133,11 @@ https://github.com/a18792721831/studySpringSource.git
 
 ### bean简介
 
-![这里写图片描述](https://i-blog.csdnimg.cn/blog_migrate/91f2caf89bacbabbc6000b9f51ff34c1.jpeg)
+![这里写图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/91f2caf89bacbabbc6000b9f51ff34c1.jpeg)
 
 ### bean 创建
 
-![这里写图片描述](https://i-blog.csdnimg.cn/blog_migrate/a256d96a2559b30a3754beb5ebc76fcf.jpeg)
+![这里写图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a256d96a2559b30a3754beb5ebc76fcf.jpeg)
 
 我认为这个对于javaBean的定义还是比较准确的，理解上也是比较简单的。
 
@@ -147,7 +147,7 @@ bean就是Java实体类。
 
 在spring中又有一个FactoryBean的接口，这个接口定义了springBean应该是什么样的：
 
-![image-20200903184606285](https://i-blog.csdnimg.cn/blog_migrate/97a7d633af982ba8fd0bb68376be4986.png)
+![image-20200903184606285](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/97a7d633af982ba8fd0bb68376be4986.png)
 
 可以看到，springBean的定义非常简单，只需要实现两个方法就行，分别是getObject和getObjectType即可。
 
@@ -162,7 +162,7 @@ bean就是Java实体类。
 
 #### BeanDefinition
 
-![image-20200903185703182](https://i-blog.csdnimg.cn/blog_migrate/164a06b91ce9d6d1383bc7e5165df0fd.png)
+![image-20200903185703182](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/164a06b91ce9d6d1383bc7e5165df0fd.png)
 
 BeanDefinition才是springBean中常用的描述对象，因为FactoryBean中能够存储的信息实在是太少了，所以BeanDefinition是对FactoryBean的一个扩展。
 
@@ -170,11 +170,11 @@ BeanDefinition才是springBean中常用的描述对象，因为FactoryBean中能
 
 BeanDefinition中记录了springBean的作用域
 
-![image-20200903190026298](https://i-blog.csdnimg.cn/blog_migrate/c60c1489c3ca70f39b3123f6df57264a.png)
+![image-20200903190026298](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c60c1489c3ca70f39b3123f6df57264a.png)
 
 而且还对springBean进行角色区分：
 
-![image-20200903190158811](https://i-blog.csdnimg.cn/blog_migrate/b0e312665d2941266e061e08ac891fc5.png)
+![image-20200903190158811](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b0e312665d2941266e061e08ac891fc5.png)
 
 0是用户自定义的springBean
 
@@ -202,13 +202,13 @@ bean的元数据。
 
 这个接口就非常简单了，获取元数据，默认还返回空。
 
-![image-20200903191334687](https://i-blog.csdnimg.cn/blog_migrate/85a8b133eeceae01c3e1330657bb6274.png)
+![image-20200903191334687](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/85a8b133eeceae01c3e1330657bb6274.png)
 
 #### AttributeAccessor
 
 这个接口定义了访问和设置元数据的操作。
 
-![image-20200903191542587](https://i-blog.csdnimg.cn/blog_migrate/f7076aae03c4504b17259954c8530f1a.png)
+![image-20200903191542587](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f7076aae03c4504b17259954c8530f1a.png)
 
 所以，这个接口主要定义了这些操作：
 
@@ -264,7 +264,7 @@ BeanFactory是Spring中最底层的容器接口，它定义了作为一个spring
 
 或者说，spring中，划分的更加专一，详细了。
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/b7040a0aa6dc958cf90c93f82afe4a8c.png)
+![img](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b7040a0aa6dc958cf90c93f82afe4a8c.png)
 
 这里面的哪一个接口，定义了什么？
 
@@ -284,7 +284,7 @@ BeanFactory是Spring中最底层的容器接口，它定义了作为一个spring
 
 #### BeanFactory
 
-![image-20200901193121803](https://i-blog.csdnimg.cn/blog_migrate/4471b7fa7fa0363c97d496d4b8c8d4c2.png)
+![image-20200901193121803](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4471b7fa7fa0363c97d496d4b8c8d4c2.png)
 
   1. 从容器中获取bean
   2. 容器中是否包含指定bean
@@ -293,7 +293,7 @@ BeanFactory是Spring中最底层的容器接口，它定义了作为一个spring
 
 #### HierarchicalBeanFactory
 
-![image-20200901193355567](https://i-blog.csdnimg.cn/blog_migrate/a646528c00da53582905df947a5679f2.png)
+![image-20200901193355567](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a646528c00da53582905df947a5679f2.png)
 
   1. 获取父容器(上层容器)
   2. 是否包含bean
@@ -347,7 +347,7 @@ spring的容器存储的是springBean，注重的是功能，所以，需要将�
 
 而`SingletonBeanRegistry`就是定义spring容器如何将一个springBean放入的。
 
-![image-20200901195618699](https://i-blog.csdnimg.cn/blog_migrate/58dad7245c01ddbceec818a51176ec22.png)
+![image-20200901195618699](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/58dad7245c01ddbceec818a51176ec22.png)
 
 所以，这个接口定义了这些操作：
 
@@ -369,7 +369,7 @@ springBean的作用域有单例和原型：
 
 这个类就是定义的，springBean的作用域：
 
-![image-20200902193353838](https://i-blog.csdnimg.cn/blog_migrate/78330194534f7374f5334cb3f6a2c37e.png)
+![image-20200902193353838](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/78330194534f7374f5334cb3f6a2c37e.png)
 
 这个接口主要做这几件事：
 
@@ -406,7 +406,7 @@ springBean的作用域有单例和原型：
 
 基于此，这个接口定义了可以自动装配的spring容器。
 
-![image-20200902195256491](https://i-blog.csdnimg.cn/blog_migrate/458a7e8f0fc654c975bd2b9cc7fa9e25.png)
+![image-20200902195256491](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/458a7e8f0fc654c975bd2b9cc7fa9e25.png)
 
 自动装配有5个模式：
 
@@ -444,7 +444,7 @@ springBean的作用域有单例和原型：
 
 `ConfigurableListableBeanFactory`中的方法就是定义spring容器在自动装配的时候，忽略哪些类型：
 
-![image-20200903183147413](https://i-blog.csdnimg.cn/blog_migrate/4c72dd5a08798271f08c7b09b2a59dcf.png)
+![image-20200903183147413](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4c72dd5a08798271f08c7b09b2a59dcf.png)
 
 所以，这个类主要的操作：
 
@@ -464,7 +464,7 @@ springBean的作用域有单例和原型：
 
 这个接口就是定义springBean注册别名的。
 
-![image-20200903192611645](https://i-blog.csdnimg.cn/blog_migrate/2177c353e31771842430a57bd2d1b016.png)
+![image-20200903192611645](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2177c353e31771842430a57bd2d1b016.png)
 
 这个接口定义的操作：
 
@@ -487,7 +487,7 @@ AliasRegistory侧重于springBean别名的注册
 
 BeanDefinitioonRegistory注重于springBean详细信息的注册
 
-![image-20200903193441217](https://i-blog.csdnimg.cn/blog_migrate/699e672c1d764f547a5a243435cff0a9.png)
+![image-20200903193441217](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/699e672c1d764f547a5a243435cff0a9.png)
 
 这个接口主要定义：
 
@@ -504,7 +504,7 @@ BeanDefinitioonRegistory注重于springBean详细信息的注册
 
 ### 实现
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/b7040a0aa6dc958cf90c93f82afe4a8c.png)
+![img](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b7040a0aa6dc958cf90c93f82afe4a8c.png)
 
 在前面我们基本上将这个关系中的接口都过了又一遍(Deprecated和SuppressWarning是注解)
 
@@ -518,21 +518,21 @@ BeanDefinitioonRegistory注重于springBean详细信息的注册
 
 `SimpleAliasRegistory`实现了`AliasRegistory`接口，所以，这个实现主要是完成接口中定义的内容。
 
-![image-20200903195429340](https://i-blog.csdnimg.cn/blog_migrate/6bdaec16c9cd5cf8b5e7836d96d930ed.png)
+![image-20200903195429340](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6bdaec16c9cd5cf8b5e7836d96d930ed.png)
 
 这是核心的注册方法
 
-![image-20200903195623975](https://i-blog.csdnimg.cn/blog_migrate/d6c47358e063040c39733ab71cedcc7f.png)
+![image-20200903195623975](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d6c47358e063040c39733ab71cedcc7f.png)
 
 注册的方法也很简单，首先使用`synchronized`给`ConcurrentHashMap`加锁，然后注册别名。
 
 简单别名注册器中的别名和bean的映射关系采用ConcurrentHashMap存储，格式是bean的别名对应bean的名字。
 
-![image-20200903195848233](https://i-blog.csdnimg.cn/blog_migrate/301ffc72e7c7505458e1e8ede6196aed.png)
+![image-20200903195848233](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/301ffc72e7c7505458e1e8ede6196aed.png)
 
 当然，注册之前还需要判断是否是循环别名。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cb1f52a2355c61064f70997575443c73.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a51db01324a88920a8f194338a03fff.png)
 
 为了保持并发安全，在简单别名注册器中，对于保存别名映射关系的`ConCurrentHashMap`的写入操作都是需要使用`synchronized`加锁，而读取则不需要。
 
@@ -550,7 +550,7 @@ BeanDefinitioonRegistory注重于springBean详细信息的注册
 
 获取一个树形结构，使用迭代是最好的选择。当然，写个死循环一次一次的遍历也能实现。
 
-![image-20200903200745587](https://i-blog.csdnimg.cn/blog_migrate/9b23aabb3be09bf51469439bec1d542e.png)
+![image-20200903200745587](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9b23aabb3be09bf51469439bec1d542e.png)
 
 为什么说比较巧妙呢？
 
@@ -568,9 +568,9 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 默认的单例容器注册器继承了简单别名注册器，需要实现单例bean容器接口定义的全部操作：
 
-![image-20200901195618699](https://i-blog.csdnimg.cn/blog_migrate/58dad7245c01ddbceec818a51176ec22.png)
+![image-20200901195618699](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/58dad7245c01ddbceec818a51176ec22.png)
 
-![image-20200907154143806](https://i-blog.csdnimg.cn/blog_migrate/dac1ba0b7ff526e6a880ad107a4dd206.png)
+![image-20200907154143806](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dac1ba0b7ff526e6a880ad107a4dd206.png)
 
 在默认单例容器注册器中，有很多属性，这些属性用于记录单例容器的一些信息。
 
@@ -594,7 +594,7 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 ##### 注册–SingletonBeanRegistry
 
-![image-20200907161048691](https://i-blog.csdnimg.cn/blog_migrate/2535e3b77945a08ccf7961b123e0cbe8.png)
+![image-20200907161048691](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2535e3b77945a08ccf7961b123e0cbe8.png)
 
 将一个beanInstance注册到单例容器中，需要调用这个方法。参数一个是beanName，一个是beanInstance。
 
@@ -602,7 +602,7 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 如果没有注册，则加入到`singletonObjects`中。
 
-![image-20200907164915366](https://i-blog.csdnimg.cn/blog_migrate/d8d8dae48f0d0eb20153c56e442792f7.png)
+![image-20200907164915366](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d8d8dae48f0d0eb20153c56e442792f7.png)
 
 当然，我们注册了一个beanInstance，那么未注册的beanInstance就少一个。所以需要移除beanName对应的beanFactory因为bean已经被注册，就表示，bean已经被创建完成了，而且当前容器是单例容器。换句话说，在单例容器中，一个bean被注册，那么这个beanName对应的beanFactory就失去了作用。
 
@@ -612,9 +612,9 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 ##### 获取–SingletonBeanRegistry
 
-![image-20200907165613718](https://i-blog.csdnimg.cn/blog_migrate/205e29493b1074f3d74c685edd1cf18a.png)
+![image-20200907165613718](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/205e29493b1074f3d74c685edd1cf18a.png)
 
-![image-20200907165706339](https://i-blog.csdnimg.cn/blog_migrate/0781112fbc3ca7079824020613dfe757.png)
+![image-20200907165706339](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0781112fbc3ca7079824020613dfe757.png)
 
 首先尝试从`singletonObjects`中获取，如果获取失败，而且获取的bean是正在创建的bean，那么尝试对`singletonObjects`加锁(如果加锁成功，那么表示创建bean已经完成了，因为只有bean创建完成，而且放入`singletonObjects`中后，才会释放锁。而`syynchronized`是排他锁，不可重入锁，所以，获取锁，就表示创建完成。)
 
@@ -626,7 +626,7 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 这个倒是很简单了，直接看看已经注册的beanName的映射关系中是否包含指定的key(beanName)。
 
-![image-20200907170431814](https://i-blog.csdnimg.cn/blog_migrate/a6442a5c733d770ed5432835240ce666.png)
+![image-20200907170431814](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a6442a5c733d770ed5432835240ce666.png)
 
 ##### 获取全部的beanName–SingletonBeanRegistry
 
@@ -634,23 +634,23 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 对于整个默认的单例容器注册器来说，最重要的就是`singletonObjects`映射，所以，加锁和释放锁，操作的一般都是这个核心的映射关系。
 
-![image-20200907171057620](https://i-blog.csdnimg.cn/blog_migrate/a7ce397c089bf3ffe3e6362315efe112.png)
+![image-20200907171057620](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a7ce397c089bf3ffe3e6362315efe112.png)
 
 ##### 获取单例容器中已经注册的bean的数量–SingletonBeanRegistry
 
-![image-20200907171136740](https://i-blog.csdnimg.cn/blog_migrate/6ee3e4f1b4ecf20e5354a7e7e2bf1168.png)
+![image-20200907171136740](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6ee3e4f1b4ecf20e5354a7e7e2bf1168.png)
 
 ##### 获取单例互斥对象–SingletonBeanRegistry
 
-![image-20200907172232423](https://i-blog.csdnimg.cn/blog_migrate/734998c972fb6736b81bddcbcd2b48d9.png)
+![image-20200907172232423](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/734998c972fb6736b81bddcbcd2b48d9.png)
 
 说实话，这个方法到底是干什么的，暂时没看明白，从注释上看，是将默认单例容器注册器中最核心的`singletonObjects`暴露出去。提供子类或者其他类使用。
 
 ##### 使用给定的beanFactory创建beanInstance
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e9d4f7ff254626c7a93dc6c8b64b6d7e.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/91a47decd659862da0c87d787520d586.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bb811fda447d53809dbfeab9b6da0774.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/90e5f542c8b67fde282126827b60bbba.png)
 
 这个方法就有意思了。
 
@@ -668,17 +668,17 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 有创建肯定有移除。
 
-![image-20200907182115539](https://i-blog.csdnimg.cn/blog_migrate/9aea651b7fffc0eddc97f2e22c6bea23.png)
+![image-20200907182115539](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9aea651b7fffc0eddc97f2e22c6bea23.png)
 
 首先对`singletonObjects`上锁，然后从`singletonObjects、singleFactory、earlySingletonObjects和registeredSingletons`移除。
 
 ##### 设置正在创建的bean
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b62fa1a872ded8d19fe63fd6a4582d1d.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/db1f0e50cbde60b9fc62059ac16643f1.png)
 
 这两个方法很奇怪，是覆盖的子类的方法。这两个方法的定义在`ConfigurableBeanFactory`中的
 
-![image-20200907182426682](https://i-blog.csdnimg.cn/blog_migrate/a263d82149f594de98b58c6c8e655918.png)
+![image-20200907182426682](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a263d82149f594de98b58c6c8e655918.png)
 
 但是`DefaultSingletonBeanRegitry`并没有继承或者实现`ConfigurableBeanFactory`。所以是覆盖。
 
@@ -686,19 +686,19 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 在`DefaultSingletonBeanRegistry`中有一对属性:`dependentBeanMap和dependenciesForBeanMap`。这一对属性分别是依赖的bean和依赖的bean的映射关系。
 
-![image-20200907183228865](https://i-blog.csdnimg.cn/blog_migrate/5c3c98223ecae8f1ddb6a14fb88af09f.png)
+![image-20200907183228865](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5c3c98223ecae8f1ddb6a14fb88af09f.png)
 
 如果这个依赖的beanInstance的别名可能不存在，但是beanName一定存在。所以先处理别名，后处理映射关系。
 
 ##### 判断两个bean之间是否存在依赖
 
-![image-20200907183752386](https://i-blog.csdnimg.cn/blog_migrate/000aaaf593ea8e5a74a6022ef29906c3.png)
+![image-20200907183752386](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/000aaaf593ea8e5a74a6022ef29906c3.png)
 
 这个关系就是从依赖相关的两个映射中读取的。
 
 而且这判断还是一个迭代
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3cf7d68b727ea806b3e9ac0b19c3708c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f16b8741959df825015108dcfa1907d6.png)
 
 第一次迭代，初始化了alreadySeen集合，然后将依赖关系中的每一个value都进行遍历。(依赖关系的数据格式：Map<String,Set< String>>)
 
@@ -710,7 +710,7 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 ##### 获取依赖的beanName
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6868b7cd35af2f49d383644bc789f518.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fe21e50eb95466f006003aefd2ab0311.png)
 
 问一个正经问题，这个依赖关系是怎么设置进来的？
 
@@ -718,7 +718,7 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 ##### 单例容器销毁
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1eab35f2aa5ee989807564ce2824fea0.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3aeeed12367a5d0568f4353708a6f841.png)
 
 有注册，肯定就有注销，这个注销的方法，也是`ConfigurableBeanFactory`接口定义的方法。
 
@@ -728,13 +728,13 @@ SimpleAliasRegistory使用`ConCurrentHashMap`保存<别名,beanName>的映射关
 
 单个bean的销毁
 
-![image-20200907185114465](https://i-blog.csdnimg.cn/blog_migrate/73941e0188a7b4e1d9a10aa3431906eb.png)
+![image-20200907185114465](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/73941e0188a7b4e1d9a10aa3431906eb.png)
 
 首先将该beanName从已注册集合中移除。
 
 然后将该beanInstance从销毁映射中移除。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d693cc7240458b2f3e81d5de866c400c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d079d020933beea5f996fbfa1063517a.png)
 
 最后先移除依赖关系，移除依赖。最后才是调用beanInstance的destroy方法移除beanInstance.
 
@@ -746,7 +746,7 @@ beanInstance移除后，需要同步将别名的beanInstance一样移除。
 
 `DefaultSingletonBeanRegistroy`支持多个线程并行创建：
 
-![image-20200907190529907](https://i-blog.csdnimg.cn/blog_migrate/e4d439674dcbbbf0120b2dc312eae568.png)
+![image-20200907190529907](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e4d439674dcbbbf0120b2dc312eae568.png)
 
 #### FactoryBeanRegistorySupport
 
@@ -754,13 +754,13 @@ beanInstance移除后，需要同步将别名的beanInstance一样移除。
 
 `FactoryBeanRegistorySupport`继承于`DefaultSingletonBeanRegistory`，是一个抽象类。
 
-![image-20200907190801300](https://i-blog.csdnimg.cn/blog_migrate/d6498d0ad3427e0518b5fb2228f884c2.png)
+![image-20200907190801300](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d6498d0ad3427e0518b5fb2228f884c2.png)
 
 内部有一个factoryBean和beanName的映射。
 
 ##### 获取beanInstance的类型
 
-![image-20200907192518014](https://i-blog.csdnimg.cn/blog_migrate/c4bb07d9e12a8076c4aa6a358a07ab48.png)
+![image-20200907192518014](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c4bb07d9e12a8076c4aa6a358a07ab48.png)
 
 传入一个factoryBean也就是beanInstance，然后返回Class<?>也就是这个beanInstance的类型。
 
@@ -772,15 +772,15 @@ beanInstance移除后，需要同步将别名的beanInstance一样移除。
 
 同样的，这个抽象类，也将自己创建的beanInstance的集合容器暴露给子类。
 
-![image-20200907192926754](https://i-blog.csdnimg.cn/blog_migrate/2c4221e0806753426581f0c32a34bb19.png)
+![image-20200907192926754](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2c4221e0806753426581f0c32a34bb19.png)
 
 ##### 处理指定的FactoryBean
 
 这个方法是这个抽象类的核心，功能就是处理指定的FactoryBean。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/50855c67210a60a99957d5412381f189.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1e2f8944dfd29648831e6f511eb9a783.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/aaf04be4e9037156b81c44034b48168f.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4ab4341c9c19be5707cbbdbfd0d659ac.png)
 
   * 判断指定的FactoryBean是否是单例的
   * 如果是单例的，那么给`singletonObjects`上锁
@@ -797,25 +797,25 @@ beanInstance移除后，需要同步将别名的beanInstance一样移除。
 
 ##### doGetObjectFromFactoryBean
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1a42a38ef575a485d2d4bf4c40284ff4.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5648e264260b1f1b0e254f5884541190.png)
 
 这个就简单了。直接获取FactoryBean的getObject方法即可，如果获取的结果是个空，那么判断当前bean是否正在创建beanInstance，如果没有，那么返回一个空的Bean
 
 ##### beforeSingletonCreation
 
-![image-20200907194926496](https://i-blog.csdnimg.cn/blog_migrate/ae51e3c2fe41b18c18a4fb3a5bed2f1a.png)
+![image-20200907194926496](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ae51e3c2fe41b18c18a4fb3a5bed2f1a.png)
 
 这里是一个提供给子类的创建前回调。在父类中会判断当前beanInstance是否正在创建。或者创建过程中出现异常。可以认为是创建前检查。
 
 ##### postProcessObjectFromFactoryBean
 
-![image-20200907195118598](https://i-blog.csdnimg.cn/blog_migrate/50769e16b0bf9e5639a844641078dc27.png)
+![image-20200907195118598](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/50769e16b0bf9e5639a844641078dc27.png)
 
 这也是一个提供子类扩展的方法，创建完beanInstance后进行的处理。
 
 ##### afterSingletonCreation
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/16f560007dd8f844384e04e19333f478.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ad1a0dc158d47f0f21062bc8bddf793f.png)
 
 这个方法是创建后处理，如果在创建的时候出现了异常，并不会立即抛出异常，而是记录下来，然后在这个方法中处理。
 
@@ -852,7 +852,7 @@ beanInstance移除后，需要同步将别名的beanInstance一样移除。
 
 ##### 多层容器
 
-![image-20200909190043228](https://i-blog.csdnimg.cn/blog_migrate/5acf047cb718e6095b0339d4a2b3746b.png)
+![image-20200909190043228](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5acf047cb718e6095b0339d4a2b3746b.png)
 
 在`AbstractBbeanFactory`中，有一个父容器，而这个父容器也是一个spring容器，可以是任意类型的spring容器，只要实现`BeanFactory`即可。
 
@@ -862,51 +862,51 @@ beanInstance移除后，需要同步将别名的beanInstance一样移除。
 
 父容器有两种方式设置：1.构造器传入；2.set方法设置。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/14f2e01ee429da7bab54316167832021.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bb6666f583dcbd796166a77042b6e7e3.png)
 
-![image-20200909190533290](https://i-blog.csdnimg.cn/blog_migrate/41e726cb75f83a029a2000dfb3afd427.png)
+![image-20200909190533290](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/41e726cb75f83a029a2000dfb3afd427.png)
 
 而且，父容器不允许重复设置。
 
 父容器可以通过get方法获取
 
-![image-20200909190406240](https://i-blog.csdnimg.cn/blog_migrate/37f94365ed310ba6972addc985bc2c9f.png)
+![image-20200909190406240](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/37f94365ed310ba6972addc985bc2c9f.png)
 
 ##### 类加载
 
 在`AbstractBeanFactory`中，持有两个类加载器。一个是默认的当前线程的类加载器，另一个是临时的类加载器。
 
-![image-20200909190749258](https://i-blog.csdnimg.cn/blog_migrate/14a915911e01bae9d8930571efb19be8.png)
+![image-20200909190749258](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/14a915911e01bae9d8930571efb19be8.png)
 
 默认的类加载器加载顺序：当前线程的类加载器>ClassUtils的类加载>系统默认的类加载器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d7f7bf3b1f73ffe59692242b21376281.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/181b167d8837a3467eccd490056d325b.png)
 
 类加载器也是可以指定的。
 
-![image-20200909191009888](https://i-blog.csdnimg.cn/blog_migrate/e38e6b61d2d0970f1b86fe1edc652198.png)
+![image-20200909191009888](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e38e6b61d2d0970f1b86fe1edc652198.png)
 
 ##### 依赖处理
 
-![image-20200909191124794](https://i-blog.csdnimg.cn/blog_migrate/3e38db60be466695114eac4f38680949.png)
+![image-20200909191124794](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3e38db60be466695114eac4f38680949.png)
 
 依赖解析器，也是可以指定的。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6a0973c6d56b42203dc01ac6694ab8c5.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6594cba21b90d255fbc46a10bdb56d6d.png)
 
 在创建bean的时候，需要处理依赖，此时就会用到依赖解析器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/871b0de63dd45ed89ed6c587aaf0df85.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34ad597cb4ccd7f900bbf25fbb9ce59a.png)
 
 判断一个beanName是否可以进行类型匹配的时候，不仅仅需要beanInstance的类型匹配，其依赖也应该是匹配的。
 
-![image-20200909191530643](https://i-blog.csdnimg.cn/blog_migrate/a720c460cb1c2aec93c48fd1a3b1c7d5.png)
+![image-20200909191530643](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a720c460cb1c2aec93c48fd1a3b1c7d5.png)
 
 这个方法就是如何从beanInstance的类型到全部依赖的类型做的比较，非常复杂。
 
 ##### 属性配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4096cf07ea91fef6c5c4e651aa85cc26.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/57340b587922da310b4486672f6ee31c.png)
 
 属性配置分为两个种类：
 
@@ -914,63 +914,63 @@ beanInstance移除后，需要同步将别名的beanInstance一样移除。
 
 属性注册器：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/25af6f6375313e43659789f6e6eb4c8d.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6e070851f19d966f6d20b0e47a3d7129.png)
 
 属性编辑器：
 
-![image-20200909193451008](https://i-blog.csdnimg.cn/blog_migrate/86edb1bedbe7b69248c6b8e6af81ed07.png)
+![image-20200909193451008](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/86edb1bedbe7b69248c6b8e6af81ed07.png)
 
 ##### 类型转换
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0d7a3cfb3e2381b1e35c6d2543eed5f3.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/683ddf32ab9b4af2a98d27542e71e9ff.png)
 
 可以指定自定义的类型转换器，如果不设置，就使用默认的类型转换器。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4cd5e153796f79024f65ac863a176552.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9122f4192e7c5543c79109a4bdbf385d.png)
 
 然后将类型转换器注册到自定义的编辑器中即可。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9c9ebc14891289e82a3f309751be4227.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1aa5b331505335aca745aae141b134c8.png)
 
 如果属性编辑器不为空，那么将每一个属性编辑器都进行注册。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/285aeb92f6546f0a870deee4f58e8848.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f9d72fd245e29e278f602453dfa2a0bd.png)
 
 ##### 属性解析
 
-![image-20200909194107103](https://i-blog.csdnimg.cn/blog_migrate/54709e34ab8d5120f92221682edc486c.png)
+![image-20200909194107103](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/54709e34ab8d5120f92221682edc486c.png)
 
 字符串类型的属性解析器
 
-![image-20200909194126829](https://i-blog.csdnimg.cn/blog_migrate/ea7d32e27adad56ffd8f8c0b629ac7e3.png)
+![image-20200909194126829](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea7d32e27adad56ffd8f8c0b629ac7e3.png)
 
 可以传入一个字符串，然后进行属性解析，返回解析后的属性
 
-![image-20200909194218357](https://i-blog.csdnimg.cn/blog_migrate/1e799910a630cd8edcda64a98b18a0ac.png)
+![image-20200909194218357](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1e799910a630cd8edcda64a98b18a0ac.png)
 
 其实就是说，自定义配置的配置可能形形色色，没有一定的标准。而这个方法就是将传入的不标准的属性，尝试用全部的解析器进行解析，只要有一个能够成功解析，就立刻返回。
 
 ##### bean处理器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b848b0f3b9c512a3b4b7dba6b4fa0861.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a2cc9a55a931254e48147b97fbb1f1d.png)
 
 bean处理器分为前置处理器和后置处理器
 
-![image-20200909195005475](https://i-blog.csdnimg.cn/blog_migrate/1557a5e26172472b6dda8d59f924def6.png)
+![image-20200909195005475](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1557a5e26172472b6dda8d59f924def6.png)
 
 加入的时候会先移除旧的处理器，然后判断是类bean处理器，最后才是真正的加入。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8764c042d7c553573e3b6956c918e9f9.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7b4c36536df838118906168c4d3d4eea.png)
 
 bean处理器有很多的种类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3da57a432937495a4c4c458841d26474.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c0286c2cb441cfe5181267debbd8ad84.png)
 
 `BeanPostProcessor`提供的是全体bean的前后置处理，也就是容器级别的bean前后置处理。而有些则是类信息合并的，有些设计冲突解决的，有些是专门为注解开发的。功能各不相同。
 
 不过这些信息在`AbstractBeanFactory`中都没有用到
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/60e2000a944382bae5dffb5cac46f8ab.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/036b7cb223b32e1ae35087b7a9e4fabf.png)
 
 而是提供给子类使用了。
 
@@ -978,27 +978,27 @@ bean处理器有很多的种类
 
 ##### 作用域
 
-![image-20200909195748945](https://i-blog.csdnimg.cn/blog_migrate/a2159fa9677f922b7d24b10824119810.png)
+![image-20200909195748945](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a2159fa9677f922b7d24b10824119810.png)
 
 `AbstractBeanFactory`实现作用域注册的方法
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/033bf7449bc8c4220a26214a8c069140.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/01bb3d739c7fcddab7e5db2776176d7d.png)
 
 作用域注册方法，在spring的容器中只实现了一次。一方面这个比较简单，没有什么可以特殊化的，另一方面，`AbstractBeanFactory`是所有spring容器的父类。
 
 ##### 类信息
 
-![image-20200909200139421](https://i-blog.csdnimg.cn/blog_migrate/d1e1f3bc883ee76a2ca81ae801328398.png)
+![image-20200909200139421](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d1e1f3bc883ee76a2ca81ae801328398.png)
 
 `AbstractBeanFactory`使用`ConcurrentHashMap`存储类信息。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0c826b50e0f90df1e2c6db683a546fbd.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3dc11a3a2e15e2964d8564f5870be145.png)
 
 bean信息在有写入操作的时候，需要加锁，使用`synchronized`加锁。
 
 子类的bean需要和父类的bean进行类信息合并。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fad857202ca6adce19dcdedf3139bab4.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eec6ab639042a3c96ad35ce30563dd04.png)
 
 比如A继承于B，A有beanInstance 小a，B有beanInstance 小b。
 
@@ -1006,7 +1006,7 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 也许你会这样认为，类信息使用map存储，如果重复就直接覆盖不就完了吗？》‘
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/742671ddee55959b092297a8c6b86fc8.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/efb31404261a643a41f7c7db4b63eaea.png)
 
 在写入的时候，键是beanName。
 
@@ -1022,21 +1022,21 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 `AbstractBeanFactory`默认是单例bean
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6b56d5edccf24e0899673fe90f6466f0.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e7e998a2ba63406503ee52daca711a56.png)
 
 ##### 留给子类扩展
 
 是否存在类信息
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d46f16cb2d28043233dc982d08319316.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d48aa1ea8a62ceeeff763cb53e320be5.png)
 
 获取类信息
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bf0b727c3c0993a1d619ac543fdac4aa.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1b8c55c5adf5fe2c2b1660e30a3b7756.png)
 
 根据类信息和参数创建beanInstance
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8f098551e8e1fb9171a6f34de7c41055.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b4b62d72bac454534fa30c2868a01a21.png)
 
 可以看到，`AbstractBeanFactory`是没有实现`FactoryBeanRegistrySupport`中前后置factory后置处理器的，全部交由子类实现。
 
@@ -1056,7 +1056,7 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 创建Bean实例的策略，默认是Cglib
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2f6ec229e65b76c62bd89e328a65afa2.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a060e95bb7aefbdbe78db59eb91aadbe.png)
 
 这是`AbstractAutowireCapableBeanFactory`的创建Bean实例的方法：
     
@@ -1139,51 +1139,51 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
     	}
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/36b693811c5fe0fc63a617f4f20393ec.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bb664ca6be28932927444b0870741bf5.png)
 
 这是整个的时序图：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ff0cfcb42f6ce10a77e89f9148c8479d.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e0881f04b2ac3e356dc5606bdd3b033e.png)
 
 巨复杂，不过，看起来挺容易，挺舒服的。这里面大量使用了模板方法的设计模式，哪些操作，哪些属性可以暴露给子类，哪些是子类不需要关心的等等，分的非常清楚。
 
 当然，创建bean不止这一个方法，不过这是最全的，其他几个方法营业都是调用这个方法实现的。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/374d1bb766e55d08eede919e1161d1fc.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4de21209003eb5d5d85e8ca9db7513c0.png)
 
 ##### bean前置处理
 
 在AutowireCapableBeanFactory中定义了前后置处理器(全体bean生效)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d454c18b7a7028e13c35832dfcb418d0.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/922152d785836c2bab0e4be1c214bf5d.png)
 
 ##### bean处理器factory后置处理器
 
 在`FactoryBeanRegistorySupport`中，要求子类实现或者说覆盖factory后置处理器：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/661e5b027e4fd10c9be9bd5ca9fd1914.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/323727ff1449a23910a5e25271a77131.png)
 
 直接执行后置处理器。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/861aa2d475d3daffefc2efb6200523d3.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9236b6d3f23782c3e8d49f4f35d2d9d6.png)
 
 ##### bean后置处理器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c60ce54d1a904af4402a9c8ee71dd985.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ab3fc16bf47bb4a53b0b8cb3bfa6a0c2.png)
 
 ##### 自动装配
 
 毕竟这个类最核心的就两点：1.创建bean；2.自动装配bean；
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6dd61df3d34cc7330f12a198ab6fbd4e.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c6949c14daec4afdc240d183e9ef40f.png)
 
 自动装配的方法有三个。
 
 首先看第一个，这是时序图
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/76ad99de5b8efaabcfdd1f3e0dcf6100.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2228e8206140bc1673d4ca0a128588f1.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6d08879b6551972cddc7fce59d804e44.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/48d0e8602f9508bb838485da410f4678.png)
 
 大概的逻辑就是创建类信息，然后设置作用域，获取创建策略，使用创建策略创建实例。
 
@@ -1191,7 +1191,7 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 其余两个方法大同小异
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/62213fe76bb306b37368266cf0dc7ea2.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/87228cbf52368a2c3ef12285c2b64f94.png)
 
 虽然这也是一种获取bean的方式，但是这种方式获取的bean都是一次性的，不是单例的，可复用的。
 
@@ -1199,11 +1199,11 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 虽然说是配置bean，实际上，这个方法也是一个获取bean实例的方法
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cc485406c6e11895a3446e0965e6b1cd.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1e57de3f83f5981eb213c966186d5d83.png)
 
 ##### 销毁bean
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4e7eeb087ce1c20805e3a45437556fba.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b2cd060bc73d932706626db2225de54f.png)
 
 创建了销毁bean的适配器。
 
@@ -1213,11 +1213,11 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 适配器里面的销毁方法
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/81e30c2e683526b8176ff1b6aff0351b.png#pic_center)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/31b47e8402274ade3139f86f4ea823b0.png)
 
 会在销毁方法中调用销毁前处理。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/22767989d63054ce2b695bc1736b5d57.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f8575e8b66fe3f225f881789690c1e24.png)
 
 看到这里，bean的生命周期中的方法，除了注解的两个方法暂时没见过外，其他的方法都看到了，也知道了具体是在什么时机调用的。
 
@@ -1225,9 +1225,9 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 `AbstractAutowireCapableBeanFactory`在创建bean时，肯定需要忽略一些依赖，所以也提供了两个方法用于忽略接口和忽略类型。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/22da62c9ed0902cc10d4310551580a45.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/128ae502a05c24316fd9afca1f01caeb.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/61c5b1ddee181de7f5e5aa46dc3d9ec8.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/521f8b40a4a6a3987d9d09677ce78fce.png)
 
 ##### 子类扩展
 
@@ -1254,7 +1254,7 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 ##### 关系
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9456ad269bd1ec2c84a63a36c8b27fe4.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b7e40dde4d141dedc46a9f4a1f54cb30.png)
 
 `DefaultListableBeanFactory`继承了`AbstractAutowireCapableBeanFactory`类，需要实现`containsBeanDefinition`和`getBeanDefinition`方法。
 
@@ -1266,15 +1266,15 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 ##### 抽象方法实现
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/61d9f9f81d1a28c1eaa8767f46b049a8.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e941d0818c67974d7ddb73ae02155dc7.png)
 
 可以看到这个方法，是从一个Map中查询：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3a5cf1fe709a14d52c910a0023edd066.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f8e19c783a5849f6fe5792280822cc5b.png)
 
 那么，是什么时候方进去的呢？
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/72facdf2521596eb5186df5124897810.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d51f83bc84d396199755f45c16d8446e.png)
 
 通过跟踪代码，发现是在注册bean信息的时候方进去的。
 
@@ -1290,13 +1290,13 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 这是注册bean信息的时序图
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d411ab71d2877bb5b1c41a4e7d0308fa.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/562518e70655b41f9d061ca4bfb39d0f.png)
 
 整个`rehistoryBeanDefinition`还是挺复杂的。
 
 还有一个抽象方法是`getBeanDefinition`，这个方法倒是很简单
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0914017ba50575151266601d52624189.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/05b59506cbdf34dca8dca922a47151b7.png)
 
 直接从`beanDefinitionMap`中获取即可。
 
@@ -1306,17 +1306,17 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 忽略依赖很简单，直接将依赖放入忽略依赖的对应的Map中即可：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/557ef443639c9a8741ed1246d76cd728.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4312d45dae1fb344e7203f45d96aa679.png)
 
 用的时候也很简单，如果对应的类型在忽略的依赖中，那么就跳过这个类型，这样就是忽略类型了。
 
 `ConfigurableListableBeanFactory`还有比如手动指定依赖的方法：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9363cf576f0d5f597342375eb59c997b.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/94f84cc45b864cfe9f2c33275fe17bd9.png)
 
 当然还有单例实例的处理：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1e6d14f4fd2d78ee864d394b60dad096.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d556393eae37afb6bafb2061927b4e87.png)
 
 首先会遍历全部的bean信息，然后从合并后的bean信息映射中，找到这个bean信息。
 
@@ -1324,7 +1324,7 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 如果都不是，那么就是单例的，可实例化的，需要初始化加载的。就会调用`AbstractBeanFactory`中的`getBean`方法获取beanInstance。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/44b7269da5ca77172dfcaf5d9edc9639.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b26f6ac0591bb825e4df4d1bb46d0b09.png)
 
 如果是单例的bean，那么就从单例beanName的Map中找，否则就从全部的beanName的Map中找。
 
@@ -1334,7 +1334,7 @@ bean信息在有写入操作的时候，需要加锁，使用`synchronized`加�
 
 但是怎么说呢，`AbstractBeanFactory`也实现了`BeanDefinitionRegistry`接口，但是`AbstractBeanFactory`实际上没有实现其中的两个方法，这两个方法就是抽象方法`containsBeanDefinition`和`getBeanDefinition`方法，而这两个方法，在`DefaultListableBeanFactory`中再次因实现`BeanDefinitionRegistry`接口，而要求实现，所以这两部分属于重复了。接口关系虽然不同，但是定义的方法相同
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/04fe1c1a2a3e5a722a8aaaa1b82529d6.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7d1afdb2c2d15a198bf02975475d51a3.png)
 
 bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap；2.frozenBeanDefdinitionNames；3.beanDefinitionNames;
 
@@ -1342,7 +1342,7 @@ bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap�
 
 我们知道序列化和反序列化主要调用的是readObject和writeObject方法。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7d3af1b6ff30aaf99f3f4e81dce44678.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5115ed513edbc696a2cfacc232ebaa63.png)
 
 没想到吧，`DefaultListableBeanFactory`是不允许进行实例化的。
 
@@ -1352,7 +1352,7 @@ bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap�
 
 获取有指定注解的beanNames
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b437756159daf38e6ddd73095b9d4459.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/522187a89ecf85aa491b6bf346a747e1.png)
 
 这个方法很重要，特别是spring新版本推荐使用注解配置。
 
@@ -1360,7 +1360,7 @@ bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap�
 
 它有两个构造器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/37615c0b58e424bded4948564ebba5ac.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/08c6daf1f85cd8c59a7194280526ddf4.png)
 
 但是貌似这个spring容器还是不够智能，需要手动创建，手动注册。
 
@@ -1368,15 +1368,15 @@ bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap�
 
 首先我们创建三个bean类型
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/786d1ad5995e385715b63bb272401d0b.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/db6d2bddf480c42bc527d3e486bd75e7.png)
 
 很简单的类型
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d3cd373d7b82ed4c63b18be5307a7ad4.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/de743180d8b3197d67093b4b6f7ce398.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7c2b6d77955bb65314bbf4c6e0f5a981.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e122b2ae2c996e9a9ed37c392254e91a.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/29b5579106aede57fe7f027c1c37d9d8.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bd5b8060a168c854e4c734122fd1971f.png)
 
 很简单的模型：
 
@@ -1384,59 +1384,59 @@ bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap�
 
 接着，我们创建一个main.
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c03467c24b57400d6d68e8e6a17368c8.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/394fbaaba716fb5408b0a5cb45621d90.png)
 
 尝试运行，发现虽然报错了，因为我们创建beanDefinition不正确还是依赖的问题。
 
 不过，至少我们想要的目的都达到了
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3b7adc5e7d290b0e74709f4c81785564.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/597c70016814e8215ebb752325d13d57.png)
 
 我们告诉了spring容器三个bean的bean信息，然后spring容器给我们创建了三个beanInstance.
 
 如果创建两个bean处理器呢？
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/973d63c9d17151563a9b4266bfac107a.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/066d172e7f81a6e925335c7bc1ad6bf3.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b277df6dfebca9c8f30350e6c5fb9572.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f33458f49d8d94c39999a901251733a8.png)
 
 但是因为我们没有主动处理依赖，所以，里面的依赖还是空的。
 
 如果手动注册依赖呢？
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/54870ae5633616c37176d0a145a1a3c3.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/834f00c0cc2d79d880a9ba57623399f8.png)
 
 很遗憾还是空的
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eb6dc2206ae99d88bda31f6fcec0ec3e.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c2b262652264d2fd8f5ffe0e8e3ce89e.png)
 
 我们虽然注册了依赖，但是没有处理依赖，所以：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/17f3696c2743e1dc28a177d25dd07acf.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/07f755e9d37b9d72d50ca540cd81fe8b.png)
 
 手动处理依赖。
 
 此时执行，发现和预期的一致了：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d0964e5598679f3616177a9987d9cd96.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/872bbda2e0140861e9b89dd864ef9f78.png)
 
 至少有一定的顺序性了，至于对不对，就暂时不考虑了。
 
 我们从beanFactory获取的bean，没有自动装配，所以，还需要手动调用自动装配。所以，使用autowire从spring容器中获取bean:
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/86198f046bb3cf5e01efa3b64d06f514.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2af2aeb366e9602234f757c4286da12c.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/da74fee88ab3ff3e78e40e415985d5b2.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9926b495ac55a7e127e7439741af459d.png)
 
 哈哈，完美，虽然名字都是空的，但是至少，属性不为空了。
 
 我们查看日志发现，注册的三个bean都是单例的bean，所以，如果我们将注册完product的bean后，将product的beanInstance的名字设置，那么，其余两个beanInstance中的product的名字应该和我们设置的是一样的。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/76805b076a1c8ba0b754136151a0a91b.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/04300066c404c0cca891c3c2cceaa732.png)
 
 看看，这三个beanInstance里面的名字都是一样的。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/924d738e85f2f6028bdfec9e5deba7a5.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b633d0e0586623a274b4f9f585eec900.png)
 
 #### XmlBeanFactory
 
@@ -1454,7 +1454,7 @@ bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap�
 
 `XmlBeanFactory`的关系就很简单了，直接继承`DefaultListableBeanFactory`就完了。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/902e8daca0be6437cffcad053cc0c059.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9d13d0c42026af17b7c6b17869282d97.png)
 
 比起其他的，我们可能更关心，`XmlBeanFactory`主要做了什么吧？
 
@@ -1462,7 +1462,7 @@ bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap�
 
 首先，`XmlBeanFactory`中有一个属性，这个属性非常重要，而且这个属性不是一般的属性：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4e5f1534b0e73400cf12829c89d67ebd.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0796635cd410301943c21c81a23a4c80.png)
 
 请注意，这类创建这个属性的时候，将`XmlBeanFactory`给传入了。
 
@@ -1470,29 +1470,29 @@ bean信息的处理，主要还是依赖于这些属性：1.beanDefiniitionMap�
 
 `XmlBeanFactory`只有两个构造方法，核心是调用reader的loadBeanDefinitions方法。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/224903e9f1b6bf965b9c6e42eaabac78.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea12b7fa991c8e90e3d1d713c4956b4a.png)
 
 ##### XmlBeanDefinitionReader#loadBeanDefinitions
 
 先对xml文件进行解码
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5c9cae7194d1bff9ae123d3987f5340b.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7b5a6b4698aea2e114f6ca0b780b7d40.png)
 
 然后获得指定编码后的输入流
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/082276d64c2cff800b5edfe6e313b50a.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bf9a1612815138209eb20077432c445c.png)
 
 目前，一般xml验证的两种方式：DTD和XSD：
 
 spring这两种方式都支持
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b5743a7ac3b2b223ac80341de29db982.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/70d702d22150849117662386d4e35ed9.png)
 
 而且是spring自己实现的，厉害哦。
 
 OK，不跑题，我们继续看，通过输入流，获取了Document对象，然后根据Document对象注册beanDefinitions
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9d3719e1536dc3229db80516c70781ed.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e0b2a3030ee4237a40db346c6cf41045.png)
 
 因为需要返回传入的Document解析了多少个beanDefinition（可能有多个xml配置bean，因为spring支持正则匹配配置文件）
 
@@ -1506,31 +1506,31 @@ OK，不跑题，我们继续看，通过输入流，获取了Document对象，�
 
 在这个方法中就实际开始解析bean信息了：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bf1af079a2b69d94c7a5eaf9ba91be20.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/998970d1da2f59e5cadaef647b452a2c.png)
 
 看看这里
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e1ac0e5eb67fa06af6dd2d6be6721f13.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/189bae27ac815387a956c8d786b47e84.png)
 
 是不是非常熟悉，这些都是在xml中配置bean的时候，可以配置的属性。
 
 但是总感觉少了点，毕竟bean可以配置的属性可比这多的多了。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/575f374e3fc53f101b31dfebebca36c8.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/802838ef3e37e32e065bbe55d7255d11.png)
 
 重点就在这个方法中了
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0d7c1d2fd49f56b5819b6186872ed384.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4495df1c6aa914ae02631748a920a46c.png)
 
 这个方法倒是也是非常的简单，那么，到底在哪呢？
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/af6bb387e0af2fb95aedc5403e577c1f.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59bd7c947ce91249aedf78a2e848712d.png)
 
 没错，是这个属性。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/baa5d83e6f5924bbe4cdec9b91087dfc.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/638852c63b7711a067cf7358029ed23c.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/78f29ac5a13be776d75f98dac7b039cd.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/202b22ac7a5a913dd937a698d790b31c.png)
 
 怎么说呢，`XmlBeanFactory`将自己传给了`XmlBeanDefinitionReader`，因为`XmlBeanDefinitionReader`拥有全部的spring容器的信息，需要访问的映射关系，也都能全部访问。所以在解析xml的时候，解析到一个，就设置到对应的映射关系中，需要执行的操作，在解析的时候，就会执行。
 

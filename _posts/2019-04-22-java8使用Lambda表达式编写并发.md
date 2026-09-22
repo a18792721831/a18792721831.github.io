@@ -42,8 +42,8 @@ keywords: java8, 并发, 响应式编程, 非阻塞IO, 高性能
 
 ## 2.回调
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/75de4b36234782102fc757288e94af2b.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7485759027cffc8a51fc2edf108e2ea9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/75de4b36234782102fc757288e94af2b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7485759027cffc8a51fc2edf108e2ea9.png)
     
     
     package intf;
@@ -237,7 +237,7 @@ Future对象的get方法会阻塞当前线程进行阻塞性获取值。
     
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b2d17ab7b07dc8f256a9c3dd41ff78f8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b2d17ab7b07dc8f256a9c3dd41ff78f8.png)  
 使用Future容易因为调用get方法造成阻塞
 
 ## 6.CompletableFuture

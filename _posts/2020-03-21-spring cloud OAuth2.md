@@ -69,11 +69,11 @@ https://github.com/a18792721831/studySpringCloud.git
 接下来看下oauth的一些专有名词。  
 oauth的工业标准：  
 https://tools.ietf.org/html/rfc6749  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1a5225e9aa647787ab8dc7c5b19922c6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1a5225e9aa647787ab8dc7c5b19922c6.png)  
 oauth是基于http授权的。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0bdd31309f8c4a610699efba6c3ca9e8.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/48647d2e07e728edb2c1bb57c7a85c55.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d3eb2a339e19062bb8024435a419c5a0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0bdd31309f8c4a610699efba6c3ca9e8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/48647d2e07e728edb2c1bb57c7a85c55.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d3eb2a339e19062bb8024435a419c5a0.png)
 
 ## 3\. oauth的组成
 
@@ -95,7 +95,7 @@ OAuth2 Provider的角色被分为Authorization Service（授权服务）和Resou
 
 其整体实现如图：  
 https://naotu.baidu.com/file/1465ee54a758ba989953f8518f028172?token=14b06e4991ef8660  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0229cc35acd43d55b379f57e55efce9e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0229cc35acd43d55b379f57e55efce9e.png)
 
   *     1. ClientDetailsServiceConfigurer:配置客户端信息
   *     2. AuthorizationServerEndpointsConfigurer:配置授权的Token节点和服务
@@ -142,7 +142,7 @@ Resource Server提供了收OAuth2保护的资源，可以是API接口、HTML页�
 ### 3.2 OAuth2 Client
 
 OAuth2 Client（客户端）用于访问被OAuth2保护起来的资源。客户端需要提供用于存储用户的授权码和访问令牌的机制，需要配置如下两个选项。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4b0850842715fcede2dc821e0aecc94d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4b0850842715fcede2dc821e0aecc94d.png)  
 http://naotu.baidu.com/file/93e43f7235046ba93909e83fb992d034?token=482eebbed3e161ba
 
 #### 3.2.1 Protected Resource Configuration
@@ -166,12 +166,12 @@ http://naotu.baidu.com/file/93e43f7235046ba93909e83fb992d034?token=482eebbed3e16
 
 ## 4\. 实例
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/767a720ce550187b99c69df41b3a2544.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/767a720ce550187b99c69df41b3a2544.png)  
 https://www.processon.com/view/link/5e75aa28e4b011fccea52457
 
 原本打算按照教程，做一个实例，完完整整的练习一遍。  
 但是吧，没想到。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c5c2d5115ab26d3f74ca54c4f18ea356.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c5c2d5115ab26d3f74ca54c4f18ea356.png)  
 [传送门](<https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide>)  
 教程是spring boot 1.x的，对应的OAuth2.x  
 现在是spring boot 2.x的，对应的OAuth5.2.x  
@@ -184,22 +184,22 @@ OAuth5.2.x他们做的改动太大了。
 也就是说不管你想怎么配置，全部都在一个类中。  
 嗯，有些无法适应。  
 比如：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dbfd2d3fcb2e66812b2303ecb2a65ab0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dbfd2d3fcb2e66812b2303ecb2a65ab0.png)  
 去掉了@EnableOAuth2Client的注解，替换为了oauth2Client配置  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a8018d4677c7fea16033470386c120fa.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/09437b68e056b48166f8b4d86d018e6a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a8018d4677c7fea16033470386c120fa.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/09437b68e056b48166f8b4d86d018e6a.png)  
 废弃了@EnableOAuth2Sso注解，替换为了oauth2Login()配置  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0383c998aa12a9783b9a416d908c9162.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0383c998aa12a9783b9a416d908c9162.png)  
 废弃了@EnableResourceServer注解，而是使用oauth2ResourceServer配置  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f3977b7e8c4599ece226694baca05398.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f3977b7e8c4599ece226694baca05398.png)  
 废弃了ResourceServerConfigurerAdapter适配器类，将其融入了WebSecurityConfigurerAdapter类。  
 好多好多，而且开放的issues也很多。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2d460f8facb8b47e73ed7fda057305d5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2d460f8facb8b47e73ed7fda057305d5.png)
 
 怎么说呢，不管怎么改都可以，但是最好还是不要动一些常用的配置。  
 比如他废弃了好多的注解，然后都放在了WebSecurityConfigurerAdapter中。  
 这些方法的配置也没有很好的注释说明：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dd3ecbf5a0546924c8d693eec8e4907e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dd3ecbf5a0546924c8d693eec8e4907e.png)  
 从这里以下一半的注释都很少。  
 就导致，这东西现在不知道该怎么用，网上的资料也是少的可怜。至少你19年11月之前的资料都是无法用的(可能能用一点点)。  
 我到现在大概看源码、找资料花费了大概6个小时，依然没有成功。  

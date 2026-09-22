@@ -35,7 +35,7 @@ keywords: kubernetes, pod, yaml, k8s实例, k8s入门
     kubectl create namespace study
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e435be71176f55940904446be900c23c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e435be71176f55940904446be900c23c.png)
 
 ## 2.选择tomcat镜像
 
@@ -46,7 +46,7 @@ k8s是基于docker的，docker中是以images来管理的。
     docker search --no-trunc tomcat
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b24b5643f0d6a9844565407735d6b7f1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b24b5643f0d6a9844565407735d6b7f1.png)  
 我们使用stars最多的就行。
 
 ## 3.存储关系确定
@@ -58,7 +58,7 @@ k8s是基于docker的，docker中是以images来管理的。
     docker pull tomcat
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/047b1662cb488c218a1d6ea0fb00835f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/047b1662cb488c218a1d6ea0fb00835f.png)  
 接下来启动image,然后进入到image里面
     
     
@@ -70,7 +70,7 @@ k8s是基于docker的，docker中是以images来管理的。
 即请求主机的18080端口就是请求容器内的8080端口。  
 tomcat是images的名字，如果是latest那么可以不写，否则需要  
 tomcat:tag  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/21af272c6547714af2ca930b4ecff2ea.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/21af272c6547714af2ca930b4ecff2ea.png)
     
     
     docker exec -it d925784f0a /bin/bash
@@ -86,16 +86,16 @@ dockerfile是人机交互的容器描述，images是容易静态持久，也是�
 类似java：  
 .java .class runtime
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3dc1b15bd95319b38352f3e4d87756fc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3dc1b15bd95319b38352f3e4d87756fc.png)  
 接下来我们查看文件目录  
 对于tomcat 我们一般之关系两个目录：  
 1.logs  
 2.webapps  
 当然，可能还有一个bin目录，但是一般需要用到bin目录进行重启时，直接重启整个容器即可。  
 logs目录  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e085f93c8f37bd3d120de0a60f9cc9df.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e085f93c8f37bd3d120de0a60f9cc9df.png)  
 webapps目录  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1065c7edc724f69ada834f37688addd0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/screenshot/sysctl_20260104_192031.png)
     
     
     exit
@@ -146,7 +146,7 @@ nfs配置详细信息见
     showmount -e 共享主机ip
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cc0892328ee38b1203c68dc9c27a9be1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cc0892328ee38b1203c68dc9c27a9be1.png)
 
 ## 5.yaml
 
@@ -225,27 +225,27 @@ nfs配置详细信息见
     kubectl apply -f tomcat-study.yml
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f2e7b25d5c6778ad958f1b05f7c60b78.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f2e7b25d5c6778ad958f1b05f7c60b78.png)  
 查看pod
     
     
     kubectl get pods -n study
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7f92aa0ad54dab150ab8883dea445928.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7f92aa0ad54dab150ab8883dea445928.png)  
 查看详细信息
     
     
     kubectl describe pod tomcat-study -n study
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b5d03eef8e9888930bb42b19f6d734de.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b5d03eef8e9888930bb42b19f6d734de.png)  
 启动成功后，就可以访问node主机的映射端口，进而访问tomcat的管理项目.(因为我们没有进行service管理，即kube-proxy实际上还没有参与到集群管理中，所以需要访问实际启动images的node)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7075efefefc569533c93237d1a8d8844.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7075efefefc569533c93237d1a8d8844.png)  
 然后去共享目录主机上查看日志  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a9e5c9a265686126e830b2efa11019c1.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fde91732e44d623c67e0539d5d7d85c5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a9e5c9a265686126e830b2efa11019c1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fde91732e44d623c67e0539d5d7d85c5.png)  
 这里的日志并不是实时刷新的，比如我们在浏览器上刷新下，那么实际上需要稍微等待一段时间，日志中才能刷出来。
 
 至此，一个基于nfs的pod就被我们创建成功了。

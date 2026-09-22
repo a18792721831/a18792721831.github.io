@@ -55,7 +55,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：1表示新增键值对，0表示更新键值对。（不支持空值）
 
-![image-20200716121151040](https://i-blog.csdnimg.cn/blog_migrate/5831fc7bec7e325c84c25bffe3f670de.png)
+![image-20200716121151040](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5831fc7bec7e325c84c25bffe3f670de.png)
 
 ### 2.2 取值
 
@@ -65,7 +65,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：指定key的指定field的值。如果key活着field不存在，返回空。
 
-![image-20200716121512232](https://i-blog.csdnimg.cn/blog_migrate/f5a86cc6a8df3abc3a37c3529e4b9316.png)
+![image-20200716121512232](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f5a86cc6a8df3abc3a37c3529e4b9316.png)
 
 ### 2.3 键是否存在
 
@@ -75,7 +75,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：1：存在；0：field或者key不存在。
 
-![image-20200716174111618](https://i-blog.csdnimg.cn/blog_migrate/b3c37b95cf3cc88563406872aa43131e.png)
+![image-20200716174111618](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b3c37b95cf3cc88563406872aa43131e.png)
 
 ### 2.4 统计键的数量
 
@@ -85,7 +85,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：key中field的数量，0：key不存在，或者key为空。
 
-![image-20200716174418486](https://i-blog.csdnimg.cn/blog_migrate/7602526eaeeb06845f737ed3756ee046.png)
+![image-20200716174418486](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7602526eaeeb06845f737ed3756ee046.png)
 
 ### 2.5 删除键
 
@@ -95,7 +95,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：实际删除的数量。0：没有删除任何field。
 
-![image-20200716174742315](https://i-blog.csdnimg.cn/blog_migrate/e6c8e218012a0f932a8107680a333be0.png)
+![image-20200716174742315](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e6c8e218012a0f932a8107680a333be0.png)
 
 ### 2.6 不存在赋值
 
@@ -105,7 +105,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：1：成功赋值；0：什么都没做。
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/f2b688e9a47863617b186348cb592a6f.png)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f2b688e9a47863617b186348cb592a6f.png)
 
 ### 2.7 值增加x
 
@@ -115,7 +115,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：value+increment
 
-![image-20200716175659327](https://i-blog.csdnimg.cn/blog_migrate/3c98917c8ede82ec6fd230ba931114ec.png)
+![image-20200716175659327](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3c98917c8ede82ec6fd230ba931114ec.png)
 
 ### 2.8 获取所有键值对
 
@@ -125,7 +125,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：一个field，一个value，交替返回。空hash返回空。
 
-![image-20200716175857183](https://i-blog.csdnimg.cn/blog_migrate/317266ac79d1365a8732eb2c48f3781f.png)
+![image-20200716175857183](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/317266ac79d1365a8732eb2c48f3781f.png)
 
 ### 2.9 获取所有的键
 
@@ -135,7 +135,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：field列表。当key不存在时，返回空。
 
-![image-20200716183922958](https://i-blog.csdnimg.cn/blog_migrate/147806396f88d77b3a80b463e29e2897.png)
+![image-20200716183922958](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/147806396f88d77b3a80b463e29e2897.png)
 
 ### 2.10 获取所有的值
 
@@ -145,7 +145,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：value列表。当key不存在时，返回空。
 
-![image-20200716184157035](https://i-blog.csdnimg.cn/blog_migrate/2445caaaebb40d9f2ac50a610fcaee0b.png)
+![image-20200716184157035](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2445caaaebb40d9f2ac50a610fcaee0b.png)
 
 ### 2.11 批量赋值
 
@@ -155,7 +155,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：OK
 
-![image-20200716184426719](https://i-blog.csdnimg.cn/blog_migrate/cb211d8270bc77e54eeed5f3f8d44cc2.png)
+![image-20200716184426719](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cb211d8270bc77e54eeed5f3f8d44cc2.png)
 
 ### 2.12 批量获取
 
@@ -165,7 +165,7 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 返回值：value列表。或者空列表，或者列表中含有空元素。
 
-![image-20200716184855671](https://i-blog.csdnimg.cn/blog_migrate/f5da6c05d10c304afdfc9d63b6d5ef71.png)
+![image-20200716184855671](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f5da6c05d10c304afdfc9d63b6d5ef71.png)
 
 ## 3\. 示例
 
@@ -175,16 +175,16 @@ keywords: Redis的hash, Redis的Hash操作, Redis的Hash实现限购, Redis的Ha
 
 每次抢到，就需要用值增加的操作减少。
 
-![image-20200716185331646](https://i-blog.csdnimg.cn/blog_migrate/62e0405d0bb58193ed092d5eaf696568.png)
+![image-20200716185331646](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/62e0405d0bb58193ed092d5eaf696568.png)
 
 ### 3.2 激活码
 
 创建激活码key,创建激活码field，value为1表示激活码未使用，为0表示已用。
 
-![image-20200716185823255](https://i-blog.csdnimg.cn/blog_migrate/dbc6498869cd8375f25446dda4065823.png)
+![image-20200716185823255](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dbc6498869cd8375f25446dda4065823.png)
 
 ### 3.3 用户名是否被占用
 
 首先创建用户名的key，用户输出用户名后使用键是否存在判断，增加的时候使用不存在赋值插入。
 
-![image-20200716190050899](https://i-blog.csdnimg.cn/blog_migrate/8c38a892bac8234f843b3d2c768a0058.png)
+![image-20200716190050899](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8c38a892bac8234f843b3d2c768a0058.png)

@@ -87,10 +87,10 @@ spring中Bean有三种装配方式：
 ## 4.例子
 
 首先创建一个spring的项目，并且导入需要的jar包：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2d0956f8a14899aefa18d96ad2fc7b0e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2d0956f8a14899aefa18d96ad2fc7b0e.png)  
 其中：bean是实体类的包，client是主方法入口的包，resource是xml文件的包。  
 readme是对这个工程简单的介绍，作为备注，否则过一段时间，再次打开这个项目，连这个项目做什么都忘记了，还需要看代码才能知道。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dce004ca7877ea88217febf46908248e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dce004ca7877ea88217febf46908248e.png)
     
     
     package bean;
@@ -349,7 +349,7 @@ readme是对这个工程简单的介绍，作为备注，否则过一段时间�
     
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d959417c5d0908e8d8120b90e1ffedcc.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d959417c5d0908e8d8120b90e1ffedcc.png)
     
     
     package client;

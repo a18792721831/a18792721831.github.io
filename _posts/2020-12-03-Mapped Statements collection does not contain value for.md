@@ -46,7 +46,7 @@ IllegalArgumentException: Mapped Statements collection does not contain value fo
     
 
 解决方式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2939e45365356b79359ebc7aaa5a14e7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2939e45365356b79359ebc7aaa5a14e7.png)  
 虽然我们实际上没有用到CustomerQuery这个Mapper，但是这样写可以保证在装配runJob的时候，Mapper已经装配完成了。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/53620f77b8ae9a0ea3d67247ccbc14b5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/53620f77b8ae9a0ea3d67247ccbc14b5.png)  
 这只是我的解决方式，希望对你有用。

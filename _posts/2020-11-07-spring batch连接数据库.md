@@ -66,21 +66,21 @@ https://github.com/a18792721831/studybatch.git
 
 ## 创建项目
 
-![image-20201107134817228](https://i-blog.csdnimg.cn/blog_migrate/28725f3682da444e3e67c2adfec9830c.png)
+![image-20201107134817228](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/28725f3682da444e3e67c2adfec9830c.png)
 
 选择数据库和spring batch
 
-![image-20201107134850794](https://i-blog.csdnimg.cn/blog_migrate/3e561e5e154aa28ce4382d263bb1513d.png)
+![image-20201107134850794](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3e561e5e154aa28ce4382d263bb1513d.png)
 
 下载完依赖后，目录结构如下
 
-![image-20201107134924932](https://i-blog.csdnimg.cn/blog_migrate/a3d8bea8558030b8042fcc15531cc4c9.png)
+![image-20201107134924932](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a3d8bea8558030b8042fcc15531cc4c9.png)
 
 ## 创建配置
 
 在resources目录下创建application.yaml配置文件
 
-![image-20201107135012111](https://i-blog.csdnimg.cn/blog_migrate/3f7c64399fa4fdec4cc601f5428fb733.png)
+![image-20201107135012111](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3f7c64399fa4fdec4cc601f5428fb733.png)
 
 接着配置数据库
     
@@ -106,29 +106,29 @@ https://github.com/a18792721831/studybatch.git
 
 ### 创建job配置类
 
-![image-20201107135116623](https://i-blog.csdnimg.cn/blog_migrate/a821450ba8d4d3c46ff170ca320217ea.png)
+![image-20201107135116623](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a821450ba8d4d3c46ff170ca320217ea.png)
 
 ### 创建ItemReader
 
 我们不使用spring batch提供的已经实现的包装好的数据读取器，而是直接实现接口。
 
-![image-20201107135241687](https://i-blog.csdnimg.cn/blog_migrate/e5af46d7aff70d8cf5624b00ccc94229.png)
+![image-20201107135241687](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e5af46d7aff70d8cf5624b00ccc94229.png)
 
 ### 创建ItemProcess
 
-![image-20201107135304534](https://i-blog.csdnimg.cn/blog_migrate/681b7d83bbffe3de951dbc87f314dbbb.png)
+![image-20201107135304534](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/681b7d83bbffe3de951dbc87f314dbbb.png)
 
 ### 创建ItemWriter
 
-![image-20201107135327646](https://i-blog.csdnimg.cn/blog_migrate/6a78962a3d51358dde2cb110393cc9a5.png)
+![image-20201107135327646](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a78962a3d51358dde2cb110393cc9a5.png)
 
 ### 组装Step
 
-![image-20201107135409954](https://i-blog.csdnimg.cn/blog_migrate/743f76e1fd2a429b837a8a96e546c3f6.png)
+![image-20201107135409954](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/743f76e1fd2a429b837a8a96e546c3f6.png)
 
 ### 配置Job
 
-![image-20201107135431435](https://i-blog.csdnimg.cn/blog_migrate/d1b69a496317865ccd7471863f9f12f8.png)
+![image-20201107135431435](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d1b69a496317865ccd7471863f9f12f8.png)
 
 ## 配置数据库
 
@@ -142,13 +142,13 @@ spring batch注入的这两个接口，使用的是默认的配置。
 
 所以，还需要配置数据库。
 
-![image-20201107135713704](https://i-blog.csdnimg.cn/blog_migrate/a1d10bd8e073187c46567c5132dc5af9.png)
+![image-20201107135713704](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a1d10bd8e073187c46567c5132dc5af9.png)
 
 我们在容器中注入了相关的配置，没有注入使用我们想要的配置的接口。
 
 ### 覆盖接口jobRepository
 
-![image-20201107135843277](https://i-blog.csdnimg.cn/blog_migrate/2bdd7710224b11e58430d600ab2638d2.png)
+![image-20201107135843277](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2bdd7710224b11e58430d600ab2638d2.png)
 
 ## 注意
 
@@ -160,7 +160,7 @@ spring batch注入的这两个接口，使用的是默认的配置。
 
 当然，我也是这么想的，所以，我将这一切配置好后，启动，发现了一个很有意思的事情：
 
-![image-20201107140209999](https://i-blog.csdnimg.cn/blog_migrate/6d44fc7bc7e783bfa5dbc782f916bb80.png)
+![image-20201107140209999](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6d44fc7bc7e783bfa5dbc782f916bb80.png)
 
 就像这样，什么都没有。
 
@@ -186,11 +186,11 @@ spring batch注入的这两个接口，使用的是默认的配置。
 
 想着开启debug之后，打印的信息更多，可能会看出问题的原因来：
 
-![image-20201107140704297](https://i-blog.csdnimg.cn/blog_migrate/ba1dbf60b75834b6993444b9198b7d01.png)
+![image-20201107140704297](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ba1dbf60b75834b6993444b9198b7d01.png)
 
 开启debug级别的日志后，确实打印的信息更多了
 
-![image-20201107140755667](https://i-blog.csdnimg.cn/blog_migrate/32c895f61a1a09c0a22a395306e7ccf3.png)
+![image-20201107140755667](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/32c895f61a1a09c0a22a395306e7ccf3.png)
 
 从日志中可以看出来，我们的job配置是没有任何问题的。
 
@@ -242,15 +242,15 @@ spring batch注入的这两个接口，使用的是默认的配置。
 
 我可能明白了，需要我们自己调度。
 
-![image-20201107143319098](https://i-blog.csdnimg.cn/blog_migrate/8c3e0cc09728aac672fa4f5c79f49b87.png)
+![image-20201107143319098](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8c3e0cc09728aac672fa4f5c79f49b87.png)
 
 于是，我在job的配置类中，写了调度方法
 
-![image-20201107143509622](https://i-blog.csdnimg.cn/blog_migrate/b36d6873bb6488e96397bd12fb8b21d3.png)
+![image-20201107143509622](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b36d6873bb6488e96397bd12fb8b21d3.png)
 
 接着启动
 
-![image-20201107143541490](https://i-blog.csdnimg.cn/blog_migrate/b4efddafe061f0511e01bc9faad20faa.png)
+![image-20201107143541490](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b4efddafe061f0511e01bc9faad20faa.png)
 
 成功
 
@@ -258,11 +258,11 @@ spring batch注入的这两个接口，使用的是默认的配置。
 
 在spring batch的配置中，还有一个地方有坑。
 
-![image-20201107143639613](https://i-blog.csdnimg.cn/blog_migrate/a85afc8b298df06cf6c8979cdaad93ad.png)
+![image-20201107143639613](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a85afc8b298df06cf6c8979cdaad93ad.png)
 
 在数据库初始化策略中，有三种模式：
 
-![image-20201107143714944](https://i-blog.csdnimg.cn/blog_migrate/aedc5eb787a7c4383eec314ca2d7abfd.png)
+![image-20201107143714944](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/aedc5eb787a7c4383eec314ca2d7abfd.png)
 
 从不初始化，每次都初始化，根据需要初始化。
 

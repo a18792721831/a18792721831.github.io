@@ -55,16 +55,16 @@ support包含了core和object包的支持类。
 
 ### 3.1准备
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/13dc0561db8299b14c1c0e3244b8992b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13dc0561db8299b14c1c0e3244b8992b.png)  
 增加上图中红框框起来的jar
 
 ### 3.2创建一个springJDBC项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7715287746e9903e6095a5e53d587cc9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7715287746e9903e6095a5e53d587cc9.png)
 
 ### 3.3Java文件
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d464c0db777e2e3ce19c6667fe72ed55.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d464c0db777e2e3ce19c6667fe72ed55.png)
     
     
     package aspect;
@@ -527,9 +527,9 @@ dataBase.xml
 
 ### 3.6 数据验证
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c882f9db68ecadb6f92ae328c5363198.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/376ec128cd8c5e44f7113429e3d7d1ee.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f9afc17ac2ce1e7673982e3d956e391e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c882f9db68ecadb6f92ae328c5363198.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/376ec128cd8c5e44f7113429e3d7d1ee.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f9afc17ac2ce1e7673982e3d956e391e.png)
 
 ## 4.方法解读
 
@@ -636,14 +636,14 @@ dataBase.xml
 首先是PeopleDaoImpl类有一个私有属性：  
 private JdbcTemplate jdbcTemplate;  
 可以看到这个属性在每一个方法基本上都用到了：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/794cff4a20766a60b6fd2e96f8ad5c9a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/794cff4a20766a60b6fd2e96f8ad5c9a.png)  
 所以，DaoImple中对数据库的操作都是通过jdbcTemplate来实现的。  
 但是这个对象是怎么进行实例化的呢？  
 在spring容器中管理的对象就是bean，所以jdbcTemplate也是一个JavaBean。  
 那么这个JavaBean是在哪里配置的呢？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3bdd5ed72ba489f30add31634e4d34e1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3bdd5ed72ba489f30add31634e4d34e1.png)  
 在配置数据源的时候，配置了JDBC的模板，在这里注册的JavaBean，然后在DaoImpl类中进行依赖注入：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b8cd8977b77656ef2cd0e6614fd01933.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b8cd8977b77656ef2cd0e6614fd01933.png)  
 自动注入。
 
 private static final String SELECT = “[P.ID](<http://P.ID>),[P.NAME](<http://P.NAME>),P.AGE,P.SEX”;  

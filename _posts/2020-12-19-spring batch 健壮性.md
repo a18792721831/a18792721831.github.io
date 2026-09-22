@@ -108,25 +108,25 @@ Spring Batch框架通过属性 skip-limit、skippable-exception-classes. skip-po
 
 比如
 
-![image-20201214202121464](https://i-blog.csdnimg.cn/blog_migrate/32635a771d10ad4a22c8618a72d30535.png)
+![image-20201214202121464](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/32635a771d10ad4a22c8618a72d30535.png)
 
 运行结果
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f8c9d33c242b4acb168f865bcd98c260.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f8c9d33c242b4acb168f865bcd98c260.png)
 
 这里有一个问题，就是我们定义的onSkipInRead没有执行。
 
 我们调试一下，看看原因
 
-![image-20201215193716940](https://i-blog.csdnimg.cn/blog_migrate/c8c6bf92119fe2fe274c2b4215c520c4.png)
+![image-20201215193716940](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c8c6bf92119fe2fe274c2b4215c520c4.png)
 
 只会调用onReadError，而不是OnSkipInRead
 
-![image-20201215194104598](https://i-blog.csdnimg.cn/blog_migrate/67c464771377f21c699407a6f0e714e1.png)
+![image-20201215194104598](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/67c464771377f21c699407a6f0e714e1.png)
 
 稍等，这个方法还有映像。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7d7d9c63eb3e96851e20214897ed6219.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7d7d9c63eb3e96851e20214897ed6219.png)
 
 [spring batch ItemReader详解](<https://gitee.com/jyq_18792721831/blogImages/raw/master/img/image-20201216192501850.png>)
 
@@ -136,27 +136,27 @@ Spring Batch框架通过属性 skip-limit、skippable-exception-classes. skip-po
 
 [onSkipInProcess is not called if the exception is marked as no-rollback [BATCH-1383] #2198](<https://github.com/spring-projects/spring-batch/issues/2198>)
 
-![image-20201216192643595](https://i-blog.csdnimg.cn/blog_migrate/b57ba41af754d38740c9fcb942339948.png)
+![image-20201216192643595](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b57ba41af754d38740c9fcb942339948.png)
 
 基于这个原因，我创建了一个ItemReader的onErrorRead的拦截器
 
-![image-20201216192814483](https://i-blog.csdnimg.cn/blog_migrate/607ea1b205452b95b6295bb6563c5f21.png)
+![image-20201216192814483](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/607ea1b205452b95b6295bb6563c5f21.png)
 
 然后设置使用这个拦截器
 
-![image-20201216192959499](https://i-blog.csdnimg.cn/blog_migrate/935e1d49ca1a76448c5766985a46753f.png)
+![image-20201216192959499](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/935e1d49ca1a76448c5766985a46753f.png)
 
 执行结果
 
-![image-20201216193115112](https://i-blog.csdnimg.cn/blog_migrate/8353a631e01f8b6a7c9a5b0edf2b47d0.png)
+![image-20201216193115112](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8353a631e01f8b6a7c9a5b0edf2b47d0.png)
 
 如果同时配置Policy和limit,会将policy和limit进行合并（以最大的为主(如果异常相同，如果异常不同那么设置多少就是多少)）：
 
-![image-20201216193232797](https://i-blog.csdnimg.cn/blog_migrate/42beb4147a482c0227411f5ba4a19e9c.png)
+![image-20201216193232797](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/42beb4147a482c0227411f5ba4a19e9c.png)
 
 执行结果
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e85f169957d49164bf607756c46fe8db.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e85f169957d49164bf607756c46fe8db.png)
 
 完整代码
     
@@ -218,47 +218,47 @@ Spring Batch框架通过属性 skip-limit、skippable-exception-classes. skip-po
 
 ItemProcessor也是一样的，只会调用OnProcessError，而不会调用OnSkipInProcess
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2b0f2a0b03362cf0f89536f2f7f2582e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2b0f2a0b03362cf0f89536f2f7f2582e.png)
 
 这里有一个比较坑的点：在ItemProcess中，如果使用lambda写逻辑，可能会造成死循环。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/21cdd6c5a821239d629c92f92a58f2f6.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/21cdd6c5a821239d629c92f92a58f2f6.png)
 
 即使我在prcoess中抛出异常
 
-![image-20201217184207203](https://i-blog.csdnimg.cn/blog_migrate/5805bc91625875b7b9a81243de440672.png)
+![image-20201217184207203](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5805bc91625875b7b9a81243de440672.png)
 
 而将lambda换为匿名内部类，就可以
 
-![image-20201217184259708](https://i-blog.csdnimg.cn/blog_migrate/62ec845b0a5822099e4fc127a36246ac.png)
+![image-20201217184259708](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/62ec845b0a5822099e4fc127a36246ac.png)
 
 执行结果
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/af189c6eabb71f4a676df5f3260dd982.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/af189c6eabb71f4a676df5f3260dd982.png)
 
 哎，发现这里的skipInProcess又执行了。
 
 嗯~，调试一下吧
 
-![image-20201217184646455](https://i-blog.csdnimg.cn/blog_migrate/140efba74356e24ba2b637e4b1f6165a.png)
+![image-20201217184646455](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/140efba74356e24ba2b637e4b1f6165a.png)
 
 这里是ItemProcess的异常拦截器，这个异常拦截器每次都会执行。
 
 那么，skipInProcess什么时候执行呢？
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c5279cf1be70964486ac9091b021a08c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c5279cf1be70964486ac9091b021a08c.png)
 
 在write里面会调用skipInProcess
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0c3834ece55b36a63e6489f676f40b11.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c3834ece55b36a63e6489f676f40b11.png)
 
 也就是说，如果我们在write中进行操作，那么skipInProcess和onProcessError谁会执行呢
 
-![image-20201217185658847](https://i-blog.csdnimg.cn/blog_migrate/288b66208a913be965e6f53be7340c54.png)
+![image-20201217185658847](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/288b66208a913be965e6f53be7340c54.png)
 
 经过验证，发现write里面的数据先执行，然后才是skipInProcess
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d16872e895a2db2552f59148bb0c43d7.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d16872e895a2db2552f59148bb0c43d7.png)
 
 从这里和github上找到的资料，我们基本上可以得到结论：
 
@@ -274,11 +274,11 @@ process > write
 
 比如
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7dd9e4879cca89834964c08e534b907c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7dd9e4879cca89834964c08e534b907c.png)
 
 我们发现首先是读、处理、写(异常(批量))、处理、写(异常(单个))
 
-![image-20201217192351136](https://i-blog.csdnimg.cn/blog_migrate/f8ef1e056d363e7d772da88cf3705e2b.png)
+![image-20201217192351136](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f8ef1e056d363e7d772da88cf3705e2b.png)
 
 当出现写异常的时候，spring batch将会将每一个都write一次，目的是为了找出出现异常的那一个。
 
@@ -288,7 +288,7 @@ process > write
 
 如果process异常，那么就不会走到write,也就不存在先后关系
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/36130167f37124f587baef934b916498.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/36130167f37124f587baef934b916498.png)
 
 综上所述，我们基本上可以得出如下结论。
 
@@ -302,7 +302,7 @@ process > write
 
 接口定义
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/40d8ffb429af37da232f9e0379c8a8b8.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/40d8ffb429af37da232f9e0379c8a8b8.png)
 
 可以自定义实现跳过判断的接口，来决定是否跳过。
 
@@ -310,7 +310,7 @@ process > write
 
 跳过策略
 
-![image-20201217193800327](https://i-blog.csdnimg.cn/blog_migrate/0abdb6cc67d6a274c640439f8a3ada06.png)
+![image-20201217193800327](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0abdb6cc67d6a274c640439f8a3ada06.png)
 
 见名知义。
 
@@ -340,17 +340,17 @@ Retry属性
 
 ### reader
 
-![image-20201217201250168](https://i-blog.csdnimg.cn/blog_migrate/8dfdd4a2879e6acdca3fda509d8e0ff3.png)
+![image-20201217201250168](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8dfdd4a2879e6acdca3fda509d8e0ff3.png)
 
 执行结果
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0fdde60d5fdd16951d34e69bd58ec2dc.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0fdde60d5fdd16951d34e69bd58ec2dc.png)
 
 提示没有配置跳过异常，我们配上，然后将拦截器配置上
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4133aa4f8d555a1962fa4e8193ec4765.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4133aa4f8d555a1962fa4e8193ec4765.png)
 
-执行结果![image-20201218191359033](https://i-blog.csdnimg.cn/blog_migrate/78466df49f6c156b9bdacea3d528deb9.png)
+执行结果![image-20201218191359033](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/78466df49f6c156b9bdacea3d528deb9.png)
 
 发现reader并不会进行重试，也就是说，reader出现异常了，不会进行重试。
 
@@ -358,15 +358,15 @@ Retry属性
 
 我们在reader中返回数字，在process中抛出异常。(这里需要注意，使用lambda表达式，会在某种场景下造成死循环)
 
-![image-20201218192644137](https://i-blog.csdnimg.cn/blog_migrate/e9e58ff3a23b5c982281945508cecd34.png)
+![image-20201218192644137](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e9e58ff3a23b5c982281945508cecd34.png)
 
 然后配置重试2次，跳过5次，然后添加对应的拦截器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3368b325debc99aff6cb8f59382319f8.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3368b325debc99aff6cb8f59382319f8.png)
 
 执行结果
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b473a767949c6633d0d33d7650ae9225.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b473a767949c6633d0d33d7650ae9225.png)
 
 从这里我们看出，spring batch的执行过程大概是：
 
@@ -380,29 +380,29 @@ Retry属性
 
 当第一个元素被执行完后，会再次调用RetryListener的open和close方法。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3e9828e8766f90f870e4767cd6872877.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3e9828e8766f90f870e4767cd6872877.png)
 
 当这一组数据全部都这样处理之后，就会执行skipListener的skipOnProcess方法。
 
-![image-20201218193720888](https://i-blog.csdnimg.cn/blog_migrate/77593475fe33bebaecee2ab39e6c2b6a.png)
+![image-20201218193720888](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/77593475fe33bebaecee2ab39e6c2b6a.png)
 
 在超出skipLimit的限制之前，首先会将这一组数据全部执行一次
 
-![image-20201218193839914](https://i-blog.csdnimg.cn/blog_migrate/05480212e44a58284c6c4ec0da3ce827.png)
+![image-20201218193839914](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/05480212e44a58284c6c4ec0da3ce827.png)
 
 ### Writer
 
 逻辑差不多，只不过将异常抛出的位置移动到了writer里面了
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5bac90ce01e7d44357987121462a80e1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5bac90ce01e7d44357987121462a80e1.png)
 
 重试、跳过策略以及对应的拦截器不可少。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a13cd82fe5b7b0800e9b3f3726bd4663.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a13cd82fe5b7b0800e9b3f3726bd4663.png)
 
 执行结果
 
-![image-20201218194722466](https://i-blog.csdnimg.cn/blog_migrate/1fbeb8c75d09656272d8adb24ee1c006.png)
+![image-20201218194722466](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1fbeb8c75d09656272d8adb24ee1c006.png)
 
 首先是3次reader调用，当达到chunk的次数后，将reader的结果放到一个list中，然后将list中的元素一个一个传输给processor。
 
@@ -416,7 +416,7 @@ Retry属性
 
 图中红框框起来的就是writer的执行过程
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f0ebbb1f66868313cf63f0f57c7e9bac.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f0ebbb1f66868313cf63f0f57c7e9bac.png)
 
 当在writer中出现异常时，首先会调用ItemWriter的拦截器的onWriteError方法。
 
@@ -430,7 +430,7 @@ Retry属性
 
 在上面的跳过中，我们知道，当writer出现异常的时候，需要一个一个的传输给writer，然后找到异常的记录。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/11be4544b7a259cb1da68cbd6d8f99e0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/11be4544b7a259cb1da68cbd6d8f99e0.png)
 
 当全部的数据都这样一个一个重新执行process和write方法后，就可以得到这一次list中全部的异常的数据了。
 
@@ -438,7 +438,7 @@ Retry属性
 
 接着对异常的数据，每一个调用SkipOnWriter方法
 
-![image-20201218200221758](https://i-blog.csdnimg.cn/blog_migrate/5096e4f7f3be2153ebcdc2ee41eccd9c.png)
+![image-20201218200221758](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5096e4f7f3be2153ebcdc2ee41eccd9c.png)
 
 ### 重试策略RetryPolicy
 
@@ -461,7 +461,7 @@ RetryOperations接口定义了重试操作的基本方法，重试模板实现�
 
 重试模板的类图
 
-![image-20201218201126274](https://i-blog.csdnimg.cn/blog_migrate/78b15b35960c0cfbf867d0dc56168d74.png)
+![image-20201218201126274](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/78b15b35960c0cfbf867d0dc56168d74.png)
 
 关键的接口和类
 
@@ -478,53 +478,53 @@ RetryOperations接口定义了重试操作的基本方法，重试模板实现�
 
 接口定义，里面分别是有状态重试和无状态重试。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2f15df6c7d977d57c20df597bcabd1f7.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2f15df6c7d977d57c20df597bcabd1f7.png)
 
 真正重试执行的业务操作
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/edbfbeafe611b728cddb64c6975105db.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/edbfbeafe611b728cddb64c6975105db.png)
 
 业务补偿操作：start操作在重试过程中仅执行一次，backOff操作在每次重试发生后都会触发补偿操作。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f7e75ef43d297a8741455b0042888e61.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f7e75ef43d297a8741455b0042888e61.png)
 
 在整个重试操作完成后会触发RecoveryCallback操作
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/10d6cce8d4731b334df2f72d549b10ad.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/10d6cce8d4731b334df2f72d549b10ad.png)
 
 重试状态的定义
 
-![image-20201218202553055](https://i-blog.csdnimg.cn/blog_migrate/9b9bc75581e0c2e97d50665fab13ceca.png)
+![image-20201218202553055](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9b9bc75581e0c2e97d50665fab13ceca.png)
 
 #### 重试Tasklet
 
 我们创建一个tasklet，然后在里面定义retryCallback，retryPolicy和retryListener。最后用retryTemplate执行无状态的重试。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a3c78dd8a8eb6cb7e5648332d6eb7d7e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a3c78dd8a8eb6cb7e5648332d6eb7d7e.png)
 
 执行结果
 
-![image-20201219113333693](https://i-blog.csdnimg.cn/blog_migrate/35e58f0fe1b5f5d72179b625949fa12f.png)
+![image-20201219113333693](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/35e58f0fe1b5f5d72179b625949fa12f.png)
 
 还有一个是有状态的重试，这个状态主要是传输一些值可以用到。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/13ea65fbc9ae7acee11adef8326f9509.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13ea65fbc9ae7acee11adef8326f9509.png)
 
-![image-20201219113737827](https://i-blog.csdnimg.cn/blog_migrate/908589e9c93c70890174cc64c2860311.png)
+![image-20201219113737827](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/908589e9c93c70890174cc64c2860311.png)
 
 #### 补偿Tasklet
 
 在重试Tasklet的基础上，额外创建一个补偿策略
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/772e7ab8379bd5854e5b6dfe7162ca51.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/772e7ab8379bd5854e5b6dfe7162ca51.png)
 
 接着将补偿策略设置给重试模板
 
-![image-20201219115710049](https://i-blog.csdnimg.cn/blog_migrate/df59484053b50f1a8919443ff64b3203.png)
+![image-20201219115710049](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/df59484053b50f1a8919443ff64b3203.png)
 
 然后执行
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9d42bb71d1e44bb980798dabd89d38c8.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9d42bb71d1e44bb980798dabd89d38c8.png)
 
 第一次并不会直接调用补偿backOff，而是调用start。
 
@@ -554,19 +554,19 @@ spring batch框架对重启Job有如下限制
 
 正常情况下，如果我们的job执行失败，那么是可以无限次进行重启的
 
-![image-20201219140323973](https://i-blog.csdnimg.cn/blog_migrate/a9cb6e9e2b731169fec3cbef574346dd.png)
+![image-20201219140323973](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a9cb6e9e2b731169fec3cbef574346dd.png)
 
 第二次重启
 
-![image-20201219140412773](https://i-blog.csdnimg.cn/blog_migrate/66c0e17bd5521a6a6ce25e400035f7ea.png)
+![image-20201219140412773](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/66c0e17bd5521a6a6ce25e400035f7ea.png)
 
 如果需要设置不能重启，那么可以在创建Job的时候，设置不允许重启，即使Job失败，也是不允许重启的
 
-![image-20201219140504839](https://i-blog.csdnimg.cn/blog_migrate/9e35e287b7c6e03ba3e6ee0df17b1eaa.png)
+![image-20201219140504839](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9e35e287b7c6e03ba3e6ee0df17b1eaa.png)
 
 如果非要进行重启，那么是什么都不会执行，而是直接抛出异常
 
-![image-20201219140559836](https://i-blog.csdnimg.cn/blog_migrate/05937205cd4ed6ea1c6bdef28d04bb43.png)
+![image-20201219140559836](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/05937205cd4ed6ea1c6bdef28d04bb43.png)
 
 ### 重启已完成的任务
 
@@ -578,27 +578,27 @@ spring batch框架对重启Job有如下限制
 
 比如我们有两个step，然后给step1设置允许重启已完成。当然，step1不会抛出异常的。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/55970b75d08cf2acb27346d1bdb24f64.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/55970b75d08cf2acb27346d1bdb24f64.png)
 
 在step2中抛出异常
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/be793a33fddb504d4f9442ed96eda6e9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be793a33fddb504d4f9442ed96eda6e9.png)
 
 抛出异常会导致Job失败。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b1cab65a589343edbcf91cdcdf9e4b32.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b1cab65a589343edbcf91cdcdf9e4b32.png)
 
 因为step1是允许重启已完成的step的，所以我们重启，step1还是会执行
 
-![image-20201219141238866](https://i-blog.csdnimg.cn/blog_migrate/3562eb02f1a0712652a2d3f03ee139c0.png)
+![image-20201219141238866](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3562eb02f1a0712652a2d3f03ee139c0.png)
 
 如果我们将step1的允许重启已完成的配置去掉，默认情况下，已完成的step不会重复执行
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/30a843b3063979364b198dfbfaab5b04.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/30a843b3063979364b198dfbfaab5b04.png)
 
 就像这样
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/360b945c274dbd46b8e720f5b3371975.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/360b945c274dbd46b8e720f5b3371975.png)
 
 ### 重启次数限制
 
@@ -608,20 +608,20 @@ spring batch框架对重启Job有如下限制
 
 比如我们允许step1重启已完成。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/442fd0cabc6ab8a3fab1b3b570d1fe08.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/442fd0cabc6ab8a3fab1b3b570d1fe08.png)
 
 在默认情况下是可以先限制的重启执行step1.但是如果有重启次数限制，那么就可以限制。比如限制3次
 
-![image-20201219141723586](https://i-blog.csdnimg.cn/blog_migrate/05a988932d94b748528b57839aad54c8.png)
+![image-20201219141723586](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/05a988932d94b748528b57839aad54c8.png)
 
 接着我们多次重启
 
 第一次
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ea17551cfa0195066c378615eff90b86.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea17551cfa0195066c378615eff90b86.png)
 
 第4次的时候
 
 就会抛出异常
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/130d6af7e3c5b94342010abf4dd6f60d.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/130d6af7e3c5b94342010abf4dd6f60d.png)

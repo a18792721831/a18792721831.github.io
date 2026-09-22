@@ -56,7 +56,7 @@ Binlog 包含描述数据库修改的语句，如 create , update 等数据变�
 
 使用 `show master status` 查看当前Binlog的位点
 
-![image-20250310183401493](https://i-blog.csdnimg.cn/img_convert/eedbc920540ba46dfaa20d95942c4b1e.png)
+![image-20250310183401493](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250310183401493.png)
 
 创建databases,并创建一张表
     
@@ -68,19 +68,19 @@ Binlog 包含描述数据库修改的语句，如 create , update 等数据变�
 
 然后在查看Binlog的位点信息
 
-![image-20250310183551459](https://i-blog.csdnimg.cn/img_convert/c0455efa2f2517628710d150d7f80b45.png)
+![image-20250310183551459](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250310183551459.png)
 
 其 Position 从2427增加到 2818。
 
 使用 `show binlog events in 'mysql-bin.000004' from 2427 \G` 查看从 2427 开始发生了什么操作
 
-![image-20250310183847224](https://i-blog.csdnimg.cn/img_convert/0cc321367bd2b99369ba8813a0db3524.png)
+![image-20250310183847224](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250310183847224.png)
 
 创建database和table 的sql都被记录到 Binlog 中了。
 
 试着查询一下呢
 
-![image-20250310184029054](https://i-blog.csdnimg.cn/img_convert/3aa38aaabcf2cab018789facf9dae777.png)
+![image-20250310184029054](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250310184029054.png)
 
 发现执行了 select 的语句，但是 Position 并没有增加。
 
@@ -122,11 +122,11 @@ Binlog 包含描述数据库修改的语句，如 create , update 等数据变�
 
 表示将 容器内的 `/var/lib/mysql-bin` 目录挂载到`/data/mysql/master/binlog`目录，在配置文件中指定Binlog日志存储目录是 `/var/lib/mysql-bin`目录，文件名是 `mysql-bin`后接序列号
 
-![Clipboard_Screenshot_1741603687](https://i-blog.csdnimg.cn/img_convert/ddcdb0cc1a86dfe05fbc329d7cac13d5.png)
+![Clipboard_Screenshot_1741603687](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1741603687.png)
 
 为了跟踪使用了那些Binlog文件，mysqld还创建了一个Binlog索引文件，其中包含Binlog文件的名称。默认情况下，该名称与Binlog文件具有相同的基本名称，扩展名为`.index`。比如上面的 `mysql-bin.index`。
 
-![image-20250311142515832](https://i-blog.csdnimg.cn/img_convert/1a87daa99f33f488cf11aac4dcd7c7a5.png)
+![image-20250311142515832](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250311142515832.png)
 
 如果没有指定Binlog的文件名和路径，那么在mysqld中的配置为空
 
@@ -186,15 +186,15 @@ Binlog 记录的格式由参数 binlog_format 控制，如果要设置为 row格
 
 `set session binlog_format='row';`
 
-![image-20250327191714860](https://i-blog.csdnimg.cn/img_convert/c23546a844cdea3659397c4db8e99a8e.png)
+![image-20250327191714860](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327191714860.png)
 
-![image-20250327191823940](https://i-blog.csdnimg.cn/img_convert/745a9f6c1decbc875f0986b60055fc19.png)
+![image-20250327191823940](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327191823940.png)
 
-![image-20250327191906986](https://i-blog.csdnimg.cn/img_convert/8cb0966f33fc90689246f03c64881c73.png)
+![image-20250327191906986](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327191906986.png)
 
-![image-20250327191937754](https://i-blog.csdnimg.cn/img_convert/700559a74e1e620376e66157bd6dce22.png)
+![image-20250327191937754](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327191937754.png)
 
-![image-20250327192021973](https://i-blog.csdnimg.cn/img_convert/c94c604525a25d3a481072ed4c80d8c0.png)
+![image-20250327192021973](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327192021973.png)
 
 ## Binlog 的解析
 
@@ -204,17 +204,17 @@ Binlog 文件不能直接查看，需要通过 mysqlbinlog 工具解析。
 
 首先查看`binlog_format`是否为 `row`
 
-![image-20250327193658060](https://i-blog.csdnimg.cn/img_convert/91ef3242e586d5a9cd0a0fcdf7b8130d.png)
+![image-20250327193658060](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327193658060.png)
 
 首先查看位点
 
-![image-20250327193729589](https://i-blog.csdnimg.cn/img_convert/30274e7084a2e25a72471736976d6d08.png)
+![image-20250327193729589](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327193729589.png)
 
 文件index=6,pos=157
 
 创建一个表
 
-![image-20250327193807721](https://i-blog.csdnimg.cn/img_convert/15ab0045706b573a3b6baf75ff437967.png)
+![image-20250327193807721](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327193807721.png)
 
 创建一个表，并且插入一行数据后，binlog的index=6，但是pos=362
 
@@ -222,7 +222,7 @@ Binlog 文件不能直接查看，需要通过 mysqlbinlog 工具解析。
 
 `mysqlbinlog --start-position=157 mysql-bin.000006 -vv > ./log`
 
-![image-20250327194322704](https://i-blog.csdnimg.cn/img_convert/8555ea3d32b4a6c9b6e847fec6fdb7b8.png)
+![image-20250327194322704](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327194322704.png)
     
     
     /*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/;
@@ -263,7 +263,7 @@ Binlog 文件不能直接查看，需要通过 mysqlbinlog 工具解析。
 
 也可以直接 `mysqlbinlog mysql-bin.000006`
 
-![image-20250327194456064](https://i-blog.csdnimg.cn/img_convert/a9c2b1ab15b6abcd5acfdf0474b3b9e9.png)
+![image-20250327194456064](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327194456064.png)
 
 ## Binlog 加密
 
@@ -279,31 +279,31 @@ Binlog 文件不能直接查看，需要通过 mysqlbinlog 工具解析。
 
 也可以通过`select @@binlog_encryption`查看
 
-![image-20250327194808777](https://i-blog.csdnimg.cn/img_convert/3a7bedb6c20c06d83691f689caf8ea82.png)
+![image-20250327194808777](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327194808777.png)
 
 修改`[mysqld]`
 
-![image-20250327200129300](https://i-blog.csdnimg.cn/img_convert/6f7e5a5888a6f921c9dedb4ef89e5ac6.png)
+![image-20250327200129300](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327200129300.png)
 
 再次查看
 
-![image-20250327200205898](https://i-blog.csdnimg.cn/img_convert/90c98a868843e079d423b74d7032a3d9.png)
+![image-20250327200205898](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327200205898.png)
 
 使用 `show binary logs;` 查看
 
-![image-20250327200229356](https://i-blog.csdnimg.cn/img_convert/ae5d6b0aad04a4794eb2f0f7cf7f042a.png)
+![image-20250327200229356](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327200229356.png)
 
 可以发现最新的 binlog encryption 已经变成yes了
 
 第一次配置过加密的插件后，后面可以通过 `set global binlog_encryption='off';`关闭或者`set global binlog_encryption='on';`开启
 
-![image-20250327200502553](https://i-blog.csdnimg.cn/img_convert/e4487bf602e7d195139fe025e502210d.png)
+![image-20250327200502553](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327200502553.png)
 
-![image-20250327200922428](https://i-blog.csdnimg.cn/img_convert/d256fcf8cfc5c4827acdb53a18648cfa.png)
+![image-20250327200922428](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327200922428.png)
 
 从上图可以看出，`mysql-bin.000009` 文件是加密,使用`mysqlbinlog`解析加密的binlog文件
 
-![image-20250327201111292](https://i-blog.csdnimg.cn/img_convert/dbef83f26761007f6e5faf58dc084f53.png)
+![image-20250327201111292](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250327201111292.png)
 
 已经解析不出来结果了。
 
@@ -377,15 +377,15 @@ Binlog 文件不能直接查看，需要通过 mysqlbinlog 工具解析。
 
 首先使用`show binary logs`查看
 
-![image-20250328164722647](https://i-blog.csdnimg.cn/img_convert/0bf4c5ed8efc013e94b01c9a5acec080.png)
+![image-20250328164722647](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328164722647.png)
 
 然后使用 `purge binary logs to 'mysql-bin.000004'`删除 1~3 的Binlog文件
 
-![image-20250328164842418](https://i-blog.csdnimg.cn/img_convert/64b84e509dd7af644385f20ffd3e3a7a.png)
+![image-20250328164842418](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328164842418.png)
 
 直接在mysql服务的binlog目录下查看
 
-![image-20250328164910321](https://i-blog.csdnimg.cn/img_convert/bad7e16c3ebf9e6e01d38f92798ff6dd.png)
+![image-20250328164910321](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328164910321.png)
 
 也是没有了
 
@@ -393,11 +393,11 @@ Binlog 文件不能直接查看，需要通过 mysqlbinlog 工具解析。
 
 直接在mysql的服务端查看Binlog文件的详细信息
 
-![image-20250328165017505](https://i-blog.csdnimg.cn/img_convert/2c5e341095147d0cbc7ab47690c9c63f.png)
+![image-20250328165017505](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328165017505.png)
 
 假设我们删除 20点之前的Binlog文件，执行`purge binary logs before '2025-03-27 20:00:00';`
 
-![image-20250328165309545](https://i-blog.csdnimg.cn/img_convert/7a872c3fa286ec3c6346e98b327fe3dc.png)
+![image-20250328165309545](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328165309545.png)
 
 好像和预期有点不符，不过还是可以看到是可以删除的。
 
@@ -409,9 +409,9 @@ Binlog 文件不能直接查看，需要通过 mysqlbinlog 工具解析。
 
 MySQL 8.0 建议设置`binlog_expire_logs_seconds`参数，在未来版本中可能会废除`expire_logs_days`参数。
 
-![image-20250328165803855](https://i-blog.csdnimg.cn/img_convert/5f12bf93e62f866956fef4935b27f56d.png)
+![image-20250328165803855](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328165803855.png)
 
-![image-20250328165851969](https://i-blog.csdnimg.cn/img_convert/98e90d8fdae08835a46fb84f6ae2c52c.png)
+![image-20250328165851969](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328165851969.png)
 
 `expire_logs_days`为0表示永远不删除，`expire_logs_days`默认值为0
 
@@ -419,15 +419,15 @@ MySQL 8.0 建议设置`binlog_expire_logs_seconds`参数，在未来版本中可
 
 假设将`binlog_expire_logs_seconds`设置为1小时，也就是3600s，那么之前保留的Binlog文件会被删除
 
-![image-20250328170130371](https://i-blog.csdnimg.cn/img_convert/0a15a818f87cc6311819841ca2040398.png)
+![image-20250328170130371](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328170130371.png)
 
-![image-20250328170416098](https://i-blog.csdnimg.cn/img_convert/b42366f1cdd4339184678e90a36ad153.png)
+![image-20250328170416098](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328170416098.png)
 
 不管设置为多少，不会自动删除
 
 需要使用`flush logs`触发生效
 
-![image-20250328170521962](https://i-blog.csdnimg.cn/img_convert/42e7bf1d5b43f4dbad69e5dac7a7b262.png)
+![image-20250328170521962](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328170521962.png)
 
 ## Binlog 的落盘
 
@@ -437,17 +437,17 @@ Binlog 同步到磁盘的频率由 `sync_binlog` 参数控制。`sync_binlog`参
   * `sync_binlog=1`：每个事务都会同步到磁盘。这是最安全的设置，但是磁盘写入次数的增加可能会导致性能下降
   * `sync_binlog=N`：表示每N个事物Binlog同步一次到磁盘。当操作系统崩溃时，服务器提交的事务可能没有被刷新到Binlog中，此时可能会丢失部分事务，虽然设置比较大的值可以提高性能，但是数据丢失的风险也会增加。
 
-![image-20250328171003002](https://i-blog.csdnimg.cn/img_convert/4e28f7948dea3509ca37567665cc5f53.png)
+![image-20250328171003002](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328171003002.png)
 
 可以通过 `set global sync_binlog=3;`调整
 
-![image-20250328171107662](https://i-blog.csdnimg.cn/img_convert/3f2b8629a5946f08fae994877e0c40ef.png)
+![image-20250328171107662](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328171107662.png)
 
 ## Binlog 相关参数
 
   1. `max_binlog_size`：单个Binlog文件大小的最大值
 
-![image-20250328171815372](https://i-blog.csdnimg.cn/img_convert/93e62568027db39da71f6969997d8c2d.png)
+![image-20250328171815372](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250328171815372.png)
 
   2. `log-slave-update`：从库从主库接收的更新是否记录到从库自身的Binlog中，如果从库后面又接了从库，或者在从库上做备份，或者MySQL 5.6 主从复制使用了GTID模式，那么建议开启这个参数
 

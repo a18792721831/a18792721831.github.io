@@ -50,21 +50,21 @@ keywords: golang, go, go recover, go 异常捕获, recover
 ### 2.1 recover 定义
 
 与panic函数一样，recover函数也是一个内置函数  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bab68265d2b54c8e9d80ae5f4851856b.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d725b9bc57b3cbea8389f28990aa6531.png)
 
 recover函数的返回值就是panic函数的参数，当程序产生panic时，recover函数就可用于消除panic，  
 同时返回panic函数的参数，如果程序没有发生panic，则recover函数返回nil.  
 如果panic函数参数为nil,那么仍然是一个有效的panic，此时recover函数仍然可以捕获panic，但返回值为nil。  
 recover函数必须且直接位于defer函数中才有效。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/527a9a1ecaf445d2b7a4b8174a66f255.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/096c3b9aba2c1de6bb2b22fab249585d.png)
 
 即使在defer函数中调用func，func中的recover也无法消除panic，必须是直接的defer中才行，而且不能嵌套：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/32e77cfe8322415397c9139788adc52c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b769425c70b28032b909c84de55c44f2.png)
 
 ### 2.2 工作流程
 
 出现panic后，recover可以恢复程序正常的执行流程  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a84252a2baa34ccb97899b2bc303cbc2.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7ee623bf189155de60c6499a7efaa099.png)
 
 黑色箭头代表征程执行流程，红色箭头表示出现了panic的执行流程。  
 当出现panic后，panic后续的代码不在被执行。  
@@ -88,7 +88,7 @@ recover的几个要点：
 
 recover内置函数实际上调用的是gorecover函数  
 在`src/runtime2.go`中  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/21161fa45bb24596888cb3c065337856.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e806e1f19177b2de06d4e26ac16d86be.png)
 
 当panic不为空，而且panic没有被捕获，而且recover必须被defer直接调用，才会进行捕获处理。
 
@@ -98,7 +98,7 @@ gorecover函数通过协程数据结构中的_panic得到当前panic实例，如
 最后返回panic函数的参数。  
 当前执行的recover函数的defer函数是被gopanci执行的，defer函数执行结束后，在gopanic中会检查_panic的recoverd的状态，如果发现panic被恢复，  
 则gopanic将结束当前panic流程，将程序流程回复正常。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/23477c4c5ef547f08a9a3015d483872d.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/14ba520eb6ff991667a42795d0dc1d41.png)
 
 ### 3.3 生效条件
     
@@ -113,7 +113,7 @@ gorecover函数通过协程数据结构中的_panic得到当前panic实例，如
 假设函数包含多个defer函数，前面的defer函数通过recover函数消除panic后，函数中剩余的defer仍然会执行，但不能再次recover。也就是p.recoverdtrue  
 内置函数recover没有参数，但是gorecover函数却有参数，gorecover中的参数为调用recover函数的参数地址，通常是defer 函数的参数地址。  
 _panic实例中也保存了当前defer函数的参数地址，如果二者一致，说明recover被defer函数直接调用。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6738d0c1e0c945fdaa751830031d3133.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c028a2f40aaa15978a35e3795cf9a7cf.png)
     
     
     func TestTwelve(t *testing.T) {
@@ -130,7 +130,7 @@ _panic实例中也保存了当前defer函数的参数地址，如果二者一致
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c5745735506b4a68a6a49831ea932809.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d6cfb7288f76659632ecf2b0de6dba3c.png)
 
 ## 4\. 总结
 

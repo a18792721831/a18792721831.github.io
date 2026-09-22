@@ -70,7 +70,7 @@ WaitGroup 可理解为 Wait-Goroutine-Group,即等待一组 goroutine 结束。
     
 
 执行如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b95efb4a3fa46e523d66646878df50d1.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/892e44d9bcf733c9197ce4adf583a5b3.png)
 
 在上面程序中wg内部维护了一个计数器：
 
@@ -94,10 +94,10 @@ WaitGroup也可以嵌套调用，以实现更复杂的并发管理逻辑，不�
 ### 2.2 数据结构
 
 在源码包`src/sync/waitgroup.go`定义了数据结构：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4af21cf78628998fb45daa0a0f57b6e4.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/07d09e1e1f6933999ff1db4e2ece3188.png)
 
 上面的 noCopy 是内部结构，防止拷贝 WaitGroup 进行使用  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b0ebad4982f80afe3d4fabce70bebe4f.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8aac8365aa2455234d8ba1e9c3153950.png)
 
 而 state 分为两部分，高32位是当前还未执行结束的 goroutine 计数器 counter ，低32位是等待 goroutine-group 结束的 goroutine 数量 waiter count，即有多少个等候者。  
 sema 则是信号量。  
@@ -214,7 +214,7 @@ Wait 方法也是两个操作，第一个是累加 waiter count ，第二个是�
 
 Done 方法只做一件事，就是把 counter 减 1，但是需要注意的是， counter 减 1 的操作是通过 Add 方法实现的。  
 所以 Done 等价于 Add(-1)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0ef31284fe5c0671d39a12ae5b49fd5c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a8a8c6797c96e7fd406a66352725851b.png)
 
 在回过头看看 Add 的逻辑：
     

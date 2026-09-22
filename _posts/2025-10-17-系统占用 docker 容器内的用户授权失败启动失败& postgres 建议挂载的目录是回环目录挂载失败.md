@@ -79,7 +79,7 @@ keywords: 1024程序员节, docker, postgresql, docker 权限, 容器
 
 使用 `getent passwd 999`验证
 
-![image-20251017113106934](https://i-blog.csdnimg.cn/img_convert/da3098f2dad27ee80d7819bbb13d3b00.png)
+![image-20251017113106934](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017113106934.png)
 
 **systemd-coredump:input**
 
@@ -89,19 +89,19 @@ keywords: 1024程序员节, docker, postgresql, docker 权限, 容器
 
   1. 使用 `docker inspect postgres` 查看
 
-![image-20251017142356605](https://i-blog.csdnimg.cn/img_convert/a7555787beaef71ae6b5a83456616e69.png)
+![image-20251017142356605](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017142356605.png)
 
 为空表示在容器内使用 root 账号
 
   2. 临时启动容器查看`docker run -it --rm postgres id`
 
-![image-20251017142456859](https://i-blog.csdnimg.cn/img_convert/0ca47990c3816115c7fa742ae0a3790f.png)
+![image-20251017142456859](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017142456859.png)
 
 表示使用root 账号
 
   3. 使用镜像构建查看`docker history --no-trunc postgres|grep -i "USER"`
 
-![image-20251017142640110](https://i-blog.csdnimg.cn/img_convert/2d3b9eb775e21ffd24eacec8536f2b8a.png)
+![image-20251017142640110](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017142640110.png)
 
 有的，这里表示增加 postgres 用户和组，使用uid:gid=999:999
 
@@ -109,7 +109,7 @@ keywords: 1024程序员节, docker, postgresql, docker 权限, 容器
 
 https://hub.docker.com/layers/library/postgres/latest/images/sha256-cdb16ede83438364ee7e4f30052a1b9c8c3e30df43ccfb6b6028a524adcd6001
 
-![Clipboard_Screenshot_1760682775](https://i-blog.csdnimg.cn/img_convert/f3d1b88ad7c3ec24262731e4f0cf148e.png)
+![Clipboard_Screenshot_1760682775](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760682775.png)
 
 ## 解决方案
 
@@ -117,13 +117,13 @@ https://hub.docker.com/layers/library/postgres/latest/images/sha256-cdb16ede8343
 
 使用 `cat /etc/passwd | cut -d: -f1,3,4` 查看当前系统中占用的 uid:gid
 
-![image-20251017144436421](https://i-blog.csdnimg.cn/img_convert/a4113167fc8dca3ef68bf7ee4640c1ff.png)
+![image-20251017144436421](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017144436421.png)
 
 基于这个，我们可以让 postgres 使用 2000 这个uid
 
 `chown -R 2000:2000 /data/postgres`
 
-![image-20251017144542159](https://i-blog.csdnimg.cn/img_convert/56ffe2de0c83525a61f26d90b1323e92.png)
+![image-20251017144542159](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017144542159.png)
 
 然后在docker 启动的时候，指定 2000 用户
     
@@ -141,25 +141,25 @@ https://hub.docker.com/layers/library/postgres/latest/images/sha256-cdb16ede8343
 
 还是报错
 
-![image-20251017152708446](https://i-blog.csdnimg.cn/img_convert/7739bd465b187b6d0f17fc6325c2c68e.png)
+![image-20251017152708446](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017152708446.png)
 
 接着分析容器内是不是有这个目录呢？
 
 首先使用`docker inspect postgres`查看镜像的元数据
 
-![image-20251017152846594](https://i-blog.csdnimg.cn/img_convert/3f548775b0e69a260cd6b986c0d816af.png)
+![image-20251017152846594](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017152846594.png)
 
 发现镜像的元数据中的数据卷是 `/var/lib/postgresql`目录
 
 但是网络上大多数都是建议挂载 `/var/lib/postgresql/data`目录
 
-![Clipboard_Screenshot_1760686199](https://i-blog.csdnimg.cn/img_convert/2bd274ee2fc173e5b948e7874595834d.png)
+![Clipboard_Screenshot_1760686199](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760686199.png)
 
 在 docker hub 的主页中，也有写到这个变化
 
 https://hub.docker.com/_/postgres
 
-![Clipboard_Screenshot_1760686401](https://i-blog.csdnimg.cn/img_convert/34f34fb1497c1b1b5ad677907b8bea88.png)
+![Clipboard_Screenshot_1760686401](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760686401.png)
 
 > 简单一句话描述就是 postgres 17 及以下，挂载 `/var/lib/postgresql/data`目录
 > 
@@ -181,7 +181,7 @@ https://hub.docker.com/_/postgres
 
 启动
 
-![image-20251017153707011](https://i-blog.csdnimg.cn/img_convert/4017ceb5f46dbc055f12843e80725c98.png)
+![image-20251017153707011](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017153707011.png)
 
 完美解决
 

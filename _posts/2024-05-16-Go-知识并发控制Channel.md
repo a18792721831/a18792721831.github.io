@@ -74,7 +74,7 @@ channel 一般用于协程之间的通信，不过channel也可以用于并发�
     
 
 执行结果如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/965972b5ed56ff3401a05a54004ef16b.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/69f7c6be82de7f2c98ff234a2657e386.png)
 
 和预期一致。
 
@@ -114,10 +114,10 @@ channel 一般用于协程之间的通信，不过channel也可以用于并发�
     
 
 执行结果  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b192d6f0d0416c4b26f59aebda2379a7.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/028e9cb11ece60e27e1ab127e5863bec.png)
 
 上面的程序即使不带缓冲，也是能实现并发控制的：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6a297d3499d687f88e862bbc884cd10c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/904f04f6711f2b27ab92c2474d1f74de.png)
 
 ## 3\. 总结
 

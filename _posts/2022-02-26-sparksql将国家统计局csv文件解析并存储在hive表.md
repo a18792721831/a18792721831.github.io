@@ -63,25 +63,25 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 从国家统计局下载一个csv文件，首先需要注册国家统计局账号，并查询需要的数据，以价格指数为例
 
-![image-20220226003839332](https://i-blog.csdnimg.cn/blog_migrate/c179e4e68fc04f6177114bc95c4af09b.png)
+![image-20220226003839332](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c179e4e68fc04f6177114bc95c4af09b.png)
 
 默认查询最近13个月的数据，从界面上最多可以下载5年的数据，在时间那里输入`201601-`确定查询
 
-![image-20220226003959874](https://i-blog.csdnimg.cn/blog_migrate/817b142404b9ffdca282066236f77ca9.png)
+![image-20220226003959874](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/817b142404b9ffdca282066236f77ca9.png)
 
 然后点击下载
 
-![image-20220226004025468](https://i-blog.csdnimg.cn/blog_migrate/324d362d00df541794cfe0a90973e591.png)
+![image-20220226004025468](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/324d362d00df541794cfe0a90973e591.png)
 
 登录后记得重新指定查询时间条件，下载csv格式的文件
 
-![image-20220226004117042](https://i-blog.csdnimg.cn/blog_migrate/aa15cb1bf0ab08440c0f31ab5738c61e.png)
+![image-20220226004117042](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/aa15cb1bf0ab08440c0f31ab5738c61e.png)
 
 ### 数据标准化
 
 下载后用excel打开如下
 
-![image-20220226004136721](https://i-blog.csdnimg.cn/blog_migrate/fbaadd221f8c2d544207393fc46ee79f.png)
+![image-20220226004136721](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fbaadd221f8c2d544207393fc46ee79f.png)
 
 数据表和数据库中的数据存在不同，比如在数据的上面和下面有说明信息，然后是数据是横向排列的，而不是纵向排列的
 
@@ -105,13 +105,13 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 整个项目结构如下
 
-![image-20220226005052326](https://i-blog.csdnimg.cn/blog_migrate/eb03f3b31f80b728079b570ad7f779d9.png)
+![image-20220226005052326](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eb03f3b31f80b728079b570ad7f779d9.png)
 
 把数据存储在根项目的`data/gov`目录下
 
 接着创建一个object文件
 
-![image-20220226005207601](https://i-blog.csdnimg.cn/blog_migrate/f63893e105f783f93d0ed21bb7ab7480.png)
+![image-20220226005207601](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f63893e105f783f93d0ed21bb7ab7480.png)
 
 ### 依赖
 
@@ -160,13 +160,13 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 默认是utf-8编码打开csv文件
 
-![image-20220226005619617](https://i-blog.csdnimg.cn/blog_migrate/88d42c756fe1d67151d24dd513ed7ec4.png)
+![image-20220226005619617](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/88d42c756fe1d67151d24dd513ed7ec4.png)
 
 最新的idea中会自动尝试不同的编码方式，提示正确的编码方式。如果没有提示，可以不断尝试不同的常见的中文编码方式。
 
 国家统计局下载的csv文件的编码方式为`GB18030`
 
-![image-20220226005756871](https://i-blog.csdnimg.cn/blog_migrate/cb21b8f5187cc19433a06bc9cd90a563.png)
+![image-20220226005756871](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cb21b8f5187cc19433a06bc9cd90a563.png)
 
 但是在开发中，一般是使用UTF-8编码方式，而且spark读取文件，默认也是UTF-8的文件编码方式，所以需要把csv文件转为UTF-8格式。
 
@@ -353,7 +353,7 @@ DataFrame可以查询某一个列，将某个列转置为行，将全部的列�
 
 第一次启动后，就可以配置启动信息了
 
-![image-20220226011830410](https://i-blog.csdnimg.cn/blog_migrate/68f032a523fdb3d1d7a8f0fb9b03c1a1.png)
+![image-20220226011830410](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/68f032a523fdb3d1d7a8f0fb9b03c1a1.png)
 
 设置启动参数为数据的目录。
 
@@ -367,7 +367,7 @@ DataFrame可以查询某一个列，将某个列转置为行，将全部的列�
 
 这样保存是在项目根目录下创建表名目录，然后将数据写入这个目录
 
-![image-20220226012014034](https://i-blog.csdnimg.cn/blog_migrate/001d556f1f2590de420234486847a675.png)
+![image-20220226012014034](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/001d556f1f2590de420234486847a675.png)
 
 在程序中继续使用这个表，数据的读取来源就是这里。
 
@@ -537,31 +537,31 @@ hive的配置hive-site.xml
 
 此时启动如果是直接存储，会在hdfs中存储和直接存储类似的数据
 
-![image-20220226012751001](https://i-blog.csdnimg.cn/blog_migrate/8e515e877c0b6453049102f43908a4a6.png)
+![image-20220226012751001](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8e515e877c0b6453049102f43908a4a6.png)
 
 如果没有指定`HADOOP_USER_NAME`则会以当前登录的windows用户名作为用户名的目录下以表名的目录存储
 
-![image-20220226013051510](https://i-blog.csdnimg.cn/blog_migrate/ec13315caa07d8769d3f1dac3f53cad6.png)
+![image-20220226013051510](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ec13315caa07d8769d3f1dac3f53cad6.png)
 
 **数据库表存储**
 
 如果你的hive的元数据不是使用mysql存储，那么会在hdfs上的用户名中以database创建目录，以表名再次创建目录，然后存储
 
-![image-20220226013413611](https://i-blog.csdnimg.cn/blog_migrate/ac11b77d12e3fbbf40b2bacec536aa0c.png)
+![image-20220226013413611](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac11b77d12e3fbbf40b2bacec536aa0c.png)
 
 如果是用mysql存储hive的元数据，则会在mysql中存储数据库表的元数据
 
-![image-20220226013257459](https://i-blog.csdnimg.cn/blog_migrate/e6cb464152e95d3f93ff54a3f43ac26b.png)
+![image-20220226013257459](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e6cb464152e95d3f93ff54a3f43ac26b.png)
 
 真正的数据存储在warehouse目录下
 
-![image-20220226012953984](https://i-blog.csdnimg.cn/blog_migrate/b210a9238c83133836d1f4e168d1aead.png)
+![image-20220226012953984](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b210a9238c83133836d1f4e168d1aead.png)
 
-![image-20220226013004778](https://i-blog.csdnimg.cn/blog_migrate/dfa56929d2f20d047f06dd7555ddd938.png)
+![image-20220226013004778](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dfa56929d2f20d047f06dd7555ddd938.png)
 
 存储为数据库表就可以在hive的客户端中查询了
 
-![image-20220226013530317](https://i-blog.csdnimg.cn/blog_migrate/9f62ad8808f1c057f8b3457cbf2b0bef.png)
+![image-20220226013530317](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9f62ad8808f1c057f8b3457cbf2b0bef.png)
 
 ## 总结
 

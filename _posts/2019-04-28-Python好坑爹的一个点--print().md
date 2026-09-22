@@ -44,13 +44,13 @@ keywords: Pytnon好坑
     
 
 输出如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ad9263f8cfa13c52fcc8567d90858cd5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ad9263f8cfa13c52fcc8567d90858cd5.png)  
 调试如下:  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/27a733505f0ef4ece83df62c5cfbfe98.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/27a733505f0ef4ece83df62c5cfbfe98.png)  
 这个print方法把我一个网页中最重要的标签给丢了。  
 我不知道是什么原因。  
 python库  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/584a34a42cf66526c565fc6f787f83b9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/584a34a42cf66526c565fc6f787f83b9.png)
 
 不清楚为什么，初学Python，求大神路过解惑。
 

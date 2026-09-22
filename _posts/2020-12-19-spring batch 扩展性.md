@@ -105,47 +105,47 @@ spring batch提供的扩展能力
 
 比如这样的一个step
 
-![image-20201219162842235](https://i-blog.csdnimg.cn/blog_migrate/6b97903b247efff14d2c34e63bd691db.png)
+![image-20201219162842235](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6b97903b247efff14d2c34e63bd691db.png)
 
 我首先使用默认的执行方式(单线程串行执行)，看看需要多长时间
 
-![image-20201219160608677](https://i-blog.csdnimg.cn/blog_migrate/ce2ca45d6492d0aa7794531c795ea137.png)
+![image-20201219160608677](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ce2ca45d6492d0aa7794531c795ea137.png)
 
 执行结果，第一个step开始
 
-![image-20201219163300568](https://i-blog.csdnimg.cn/blog_migrate/1f5c2f6dc5b65d9e71b13188167a849c.png)
+![image-20201219163300568](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1f5c2f6dc5b65d9e71b13188167a849c.png)
 
 直到20次循环后结束
 
-![image-20201219163406087](https://i-blog.csdnimg.cn/blog_migrate/ae3c80f8c927448b709cd2886469df8f.png)
+![image-20201219163406087](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ae3c80f8c927448b709cd2886469df8f.png)
 
 如果我们使用多线程呢？
 
 首先创建一个线程池，最大线程数量是3，初始线程数量是3，等待队列初始化为15
 
-![image-20201219163529828](https://i-blog.csdnimg.cn/blog_migrate/37bf028466761a8243ce1af09d7324be.png)
+![image-20201219163529828](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/37bf028466761a8243ce1af09d7324be.png)
 
 接着配置step使用这个线程池
 
-![image-20201219163546176](https://i-blog.csdnimg.cn/blog_migrate/ff99882201d277dabe2f7210db68ccdf.png)
+![image-20201219163546176](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ff99882201d277dabe2f7210db68ccdf.png)
 
 然后执行，我们期望的目标是并行执行，这样只需要70秒就搞定了
 
-![image-20201219163746025](https://i-blog.csdnimg.cn/blog_migrate/92ac4d525240ec23d6b434185c7f672a.png)
+![image-20201219163746025](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/92ac4d525240ec23d6b434185c7f672a.png)
 
 但是很明显，结果又一次出乎意料。
 
-![image-20201219163812175](https://i-blog.csdnimg.cn/blog_migrate/e2331b93dca9fdf25f33dc3f8a610989.png)
+![image-20201219163812175](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e2331b93dca9fdf25f33dc3f8a610989.png)
 
 这样配置，线程是不安全的。主要是我们使用AtomicInteger的方式不对
 
-![image-20201219165201105](https://i-blog.csdnimg.cn/blog_migrate/9a79e5ed95a261870190f1d2f4d3b8de.png)
+![image-20201219165201105](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9a79e5ed95a261870190f1d2f4d3b8de.png)
 
 `AtomicInteger`应该只被调用一次。
 
-![image-20201219165240475](https://i-blog.csdnimg.cn/blog_migrate/ab433d801022fe58723f7f443ff9fdd4.png)
+![image-20201219165240475](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ab433d801022fe58723f7f443ff9fdd4.png)
 
-![image-20201219165319403](https://i-blog.csdnimg.cn/blog_migrate/071e51e5541128175b1739fdf68ca630.png)
+![image-20201219165319403](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/071e51e5541128175b1739fdf68ca630.png)
 
 但是，即使这样，还是发现存在线程安全问题。
 
@@ -153,17 +153,17 @@ spring batch提供的扩展能力
 
 比如
 
-![image-20201219164148241](https://i-blog.csdnimg.cn/blog_migrate/776f24e25ed974be712e5f174a490fd1.png)
+![image-20201219164148241](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/776f24e25ed974be712e5f174a490fd1.png)
 
 整个step中的tasklet执行又变成了单线程了
 
-![image-20201219164214922](https://i-blog.csdnimg.cn/blog_migrate/8ce7020c2074caa115ef90e95f20a376.png)
+![image-20201219164214922](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8ce7020c2074caa115ef90e95f20a376.png)
 
 也可以指定并发量为2
 
 这是并发量就是2个线程执行了
 
-![image-20201219165051685](https://i-blog.csdnimg.cn/blog_migrate/9fb6314206304cbf7a49787bcb54fb33.png)
+![image-20201219165051685](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9fb6314206304cbf7a49787bcb54fb33.png)
 
 ### 线程安全性
 
@@ -177,11 +177,11 @@ spring batch提供的扩展能力
 
 主要是在read方法上使用synchronized关键字来保证线程安全
 
-![image-20201219170016662](https://i-blog.csdnimg.cn/blog_migrate/57ee16d85db84581cbe77166d2e0fd57.png)
+![image-20201219170016662](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/57ee16d85db84581cbe77166d2e0fd57.png)
 
 同样的ItemWriter有`SynchronizedItemStreamWriter`。
 
-![image-20201219170158235](https://i-blog.csdnimg.cn/blog_migrate/594cb81fa0f01071f7f9ef7b4c74a6eb.png)
+![image-20201219170158235](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/594cb81fa0f01071f7f9ef7b4c74a6eb.png)
 
 但是需要注意，ItemProcessor是没有的。
 
@@ -191,15 +191,15 @@ spring batch提供的扩展能力
 
 比如上面的例子，我们用自定义的线程安全的方式执行
 
-![image-20201219171728557](https://i-blog.csdnimg.cn/blog_migrate/10540262b0fd0648e67b33b8eb200bb3.png)
+![image-20201219171728557](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/10540262b0fd0648e67b33b8eb200bb3.png)
 
 使用
 
-![image-20201219171835065](https://i-blog.csdnimg.cn/blog_migrate/153fc678210faf52812862abe1cd34a8.png)
+![image-20201219171835065](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/153fc678210faf52812862abe1cd34a8.png)
 
 执行，很可惜，在方法级别上加上synchronized关键字，就又变成单线程的了
 
-![image-20201219171937910](https://i-blog.csdnimg.cn/blog_migrate/0e165fb5345b0212a9758caa3b39bfad.png)
+![image-20201219171937910](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0e165fb5345b0212a9758caa3b39bfad.png)
 
 但是，加上synchronized也至少保证了线程安全。
 
@@ -237,23 +237,23 @@ split元素
 
 首先我们创建一个睡眠step的创建方法
 
-![image-20201212160312352](https://i-blog.csdnimg.cn/blog_migrate/2f96cf9170d4afd280106659b8469146.png)
+![image-20201212160312352](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2f96cf9170d4afd280106659b8469146.png)
 
 接着创建一个线程池(并行执行，肯定需要线程池)
 
-![image-20201212160351157](https://i-blog.csdnimg.cn/blog_migrate/2be0dc98b46105c09555c246a63b258e.png)
+![image-20201212160351157](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2be0dc98b46105c09555c246a63b258e.png)
 
 然后我们创建两个flow
 
-![image-20201212160408471](https://i-blog.csdnimg.cn/blog_migrate/2c402bf70575e30f8e66029a037ac8b4.png)
+![image-20201212160408471](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2c402bf70575e30f8e66029a037ac8b4.png)
 
 为了保证服务正确的被停止，我们增加一个step，当并行任务执行完毕后，用于关闭线程池
 
-![image-20201212160446892](https://i-blog.csdnimg.cn/blog_migrate/3d89861926bd709e91033799d72d07f6.png)
+![image-20201212160446892](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d89861926bd709e91033799d72d07f6.png)
 
 所以，完整的定义如下
 
-![image-20201212160504555](https://i-blog.csdnimg.cn/blog_migrate/ac1ad2adecbce46ff225a1f58928a3f8.png)
+![image-20201212160504555](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac1ad2adecbce46ff225a1f58928a3f8.png)
 
 完整的代码
     
@@ -317,7 +317,7 @@ split元素
 
 执行结果
 
-![image-20201212160545758](https://i-blog.csdnimg.cn/blog_migrate/7ec77aff48e0158f5812982aed196222.png)
+![image-20201212160545758](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7ec77aff48e0158f5812982aed196222.png)
 
 ## 远程Step
 
@@ -329,7 +329,7 @@ split元素
 
 远程Step技术本质上是将对ltem读、写的处理逻辑进行分离;通常情况下读的逻辑放在一个节点进行操作，将写操作分发到另外的节点执行。
 
-![image-20201219172505423](https://i-blog.csdnimg.cn/blog_migrate/25ea325c1120adf791c415740f37df76.png)
+![image-20201219172505423](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/25ea325c1120adf791c415740f37df76.png)
 
 在Master节点，作业步负责读取数据，并将读取的数据通过远程技术发送到指定的远端节点上，进行处理，处理完毕后Master 负责回收Remote端执行的情况。在Spring Batch框架中通过两个核心的接口来完成远程 Step的任务，分别是ChunkProvider 与 ChunkProcessor。
 
@@ -337,13 +337,13 @@ ChunkProvider:根据给定的ItemReader 操作产生批量的Chunk操作。
 
 ChunkProvider接口定义
 
-![image-20201219172614458](https://i-blog.csdnimg.cn/blog_migrate/b3afcfbe1583a81112b05d58e9a8ef36.png)
+![image-20201219172614458](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b3afcfbe1583a81112b05d58e9a8ef36.png)
 
 其中的provide就是将数据进行分组，然后返回将被发送给远程端的处理。
 
 ChunkProcessor接口定义
 
-![image-20201219172821416](https://i-blog.csdnimg.cn/blog_migrate/e1140cd1bd64de31b8a13a07cab5a675.png)
+![image-20201219172821416](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e1140cd1bd64de31b8a13a07cab5a675.png)
 
 chunkProcessor处理的方法中，会接收到一个Chunk对象。
 
@@ -355,11 +355,11 @@ SI就是spring batch Integration。
 
 [Spring Batch Integration](<https://docs.spring.io/spring-batch/docs/current/reference/html/spring-batch-integration.html>)
 
-![image-20201219174129414](https://i-blog.csdnimg.cn/blog_migrate/3217535a0a4a6d05032ea0450ed8e956.png)
+![image-20201219174129414](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3217535a0a4a6d05032ea0450ed8e956.png)
 
 Si的核心思想，就是利用消息队列实现远程Step的一个思想。
 
-![image-20201219173419337](https://i-blog.csdnimg.cn/blog_migrate/e7e38876f88bccfa19269c79c01fc328.png)
+![image-20201219173419337](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e7e38876f88bccfa19269c79c01fc328.png)
 
 ## 分区Step
 
@@ -381,19 +381,19 @@ PartitionHandler 知道执行结构-它需要将请求发送到远程步骤并�
 
 Partitioner接口定义了如何根据给定的分区规则进行创建作业步执行分区的上下文。每个分区的上下文需要根据对应的分区规则来计算当前分区的处理情况。
 
-![image-20201219175231414](https://i-blog.csdnimg.cn/blog_migrate/3dd8b77d5f2a25281ceb68924cc2e59f.png)
+![image-20201219175231414](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3dd8b77d5f2a25281ceb68924cc2e59f.png)
 
 **StepExecutionSplitter**
 
 StepExecutionSplitter 接口定义了如何根据给定的分区规则进行创建作业步执行分区的执行器。
 
-![image-20201219175309198](https://i-blog.csdnimg.cn/blog_migrate/ce1eac98ab294f45cfba80a1a7500421.png)
+![image-20201219175309198](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ce1eac98ab294f45cfba80a1a7500421.png)
 
 **PartitionHandler**
 
 PartitionHandler接口定义了分区处理的逻辑;根据给定的StepExecutionSplitter进行分区，并执行，最后将执行的结果进行收集，最终反馈到前端.
 
-![image-20201219175346162](https://i-blog.csdnimg.cn/blog_migrate/7d373d559458d9b5a4239542ff8a7a2e.png)
+![image-20201219175346162](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7d373d559458d9b5a4239542ff8a7a2e.png)
 
 ### 基本配置
 
@@ -434,37 +434,37 @@ PartitionHandler接口定义了分区处理的逻辑;根据给定的StepExecutio
 
 首先我们创建一个分区策略，将100个数字分成10份。
 
-![image-20201223183213356](https://i-blog.csdnimg.cn/blog_migrate/42eba5eb7acf6fa31e9cc50a85a39984.png)
+![image-20201223183213356](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/42eba5eb7acf6fa31e9cc50a85a39984.png)
 
 接着在tasklet中使用分区时传入的参数
 
-![image-20201223184313162](https://i-blog.csdnimg.cn/blog_migrate/1f0b972e8b23373c69755b504b3726ea.png)
+![image-20201223184313162](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1f0b972e8b23373c69755b504b3726ea.png)
 
 接着设置分区处理操作
 
-![image-20201223184330631](https://i-blog.csdnimg.cn/blog_migrate/418dfa0e16c0249ea2918541f594b388.png)
+![image-20201223184330631](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/418dfa0e16c0249ea2918541f594b388.png)
 
 最终将每个线程的计算结果统计起来
 
-![image-20201223184350226](https://i-blog.csdnimg.cn/blog_migrate/8043235aa97da1a7cc4aeb759a2d9800.png)
+![image-20201223184350226](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8043235aa97da1a7cc4aeb759a2d9800.png)
 
 执行结果
 
 分区计算
 
-![image-20201223184447590](https://i-blog.csdnimg.cn/blog_migrate/85e743326dc9103af075bad444334ed0.png)
+![image-20201223184447590](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/85e743326dc9103af075bad444334ed0.png)
 
 计算结束
 
-![image-20201223184526222](https://i-blog.csdnimg.cn/blog_migrate/43fbab3ea9959d4d8ab77479b4284555.png)
+![image-20201223184526222](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/43fbab3ea9959d4d8ab77479b4284555.png)
 
 计算结果
 
-![image-20201223184553123](https://i-blog.csdnimg.cn/blog_migrate/d67b08e2430af57ea9dada40c822472a.png)
+![image-20201223184553123](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d67b08e2430af57ea9dada40c822472a.png)
 
 时间统计
 
-![image-20201223184616440](https://i-blog.csdnimg.cn/blog_migrate/8865a37bd56f89f6d3d7e16f35322247.png)
+![image-20201223184616440](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8865a37bd56f89f6d3d7e16f35322247.png)
 
 完整代码
     

@@ -41,13 +41,13 @@ https://github.com/a18792721831/studySpringCloud
 
 ## 1\. 创建 Feign
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/27536c3f5a2c065a28b254e9a30403cf.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bfe1c1f4b28d8871b9aba573fe3816cf.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/adeab9465fe12224bc96d33158650e79.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/27536c3f5a2c065a28b254e9a30403cf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bfe1c1f4b28d8871b9aba573fe3816cf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/adeab9465fe12224bc96d33158650e79.png)
 
 ## 2\. 配置gradle
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8c1c282b47e5f7f557d22bde62216c73.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8c1c282b47e5f7f557d22bde62216c73.png)
     
     
     repositories {
@@ -66,7 +66,7 @@ https://github.com/a18792721831/studySpringCloud
 
 ## 3\. Feign配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2dba143a7929ab9b58b494e4bdc44dbd.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2dba143a7929ab9b58b494e4bdc44dbd.png)
     
     
     server:
@@ -104,15 +104,15 @@ https://github.com/a18792721831/studySpringCloud
 在SpringbootfeignApplication类增加注解  
 EnableFeignClients–开启Feign  
 EnableEurekaClient–开启Eureka  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f1b2a929ce4f9f05165e08035068e492.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f1b2a929ce4f9f05165e08035068e492.png)
 
 ## 5\. 创建Feign配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1d03b0b33d9894fa38afcc0c0a06d84b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d03b0b33d9894fa38afcc0c0a06d84b.png)
 
 ## 6\. 创建FeignDao
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/764cfc68e2798749d557d28cb4549511.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/764cfc68e2798749d557d28cb4549511.png)  
 其中，  
 EUREKA-CLIENT表示eureka-client服务提供者的服务名字  
 FeignConfig.class指定Feign的配置  
@@ -124,11 +124,11 @@ FeignConfig.class指定Feign的配置
 
 ## 7\. 创建FeignService
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3d4afec73a135dc33e915b3c6fe46ec1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d4afec73a135dc33e915b3c6fe46ec1.png)
 
 ## 8\. 创建FeignController
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7565d7755e7c6b64c45d638706874f76.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7565d7755e7c6b64c45d638706874f76.png)
 
 ## 9\. 启动&验证
 
@@ -136,26 +136,26 @@ FeignConfig.class指定Feign的配置
 接着启动eureka-client服务提供者（多实例启动）  
 最后启动feign-client服务消费者  
 全部启动后是5个实例  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fcb14435409d04e7a30692334333c9b4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fcb14435409d04e7a30692334333c9b4.png)  
 访问eureka-server的主面板  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/15bd72ba5afb7c9c771de93e32125992.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/15bd72ba5afb7c9c771de93e32125992.png)  
 接着验证eureka-client服务提供者的接口  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c1266e3de08ca0162d237be322f1d36e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c1266e3de08ca0162d237be322f1d36e.png)  
 然后请求feign的接口  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9f8aba652aca4eb7d59c47115d38dd45.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e9dca5f604f70fdfc0e2ced4c75eca25.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9f8aba652aca4eb7d59c47115d38dd45.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e9dca5f604f70fdfc0e2ced4c75eca25.png)  
 发现其效果与Ribbon一致，都是轮询访问的。
 
 ## 10\. Feign与Ribbon的关系
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6a4dd642d5a92a43bd8a69d23a0fbb08.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a4dd642d5a92a43bd8a69d23a0fbb08.png)  
 从github看，Feign维护很好，Issues处理比较及时。  
 而且从readme中看，feign的计划什么的都有，且分短期、中期和长期计划  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8f3d7d9a2167bc5a1a29f62a1cf46f8a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8f3d7d9a2167bc5a1a29f62a1cf46f8a.png)  
 而且给的例子也很多。赞。
 
 从Feign的jar包依赖看  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/40141de9c0fafecc4fca7f8ea0919058.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/40141de9c0fafecc4fca7f8ea0919058.png)  
 其依赖了ribbon.  
 对于Feign有书上是这样介绍的
 
@@ -166,11 +166,11 @@ FeignConfig.class指定Feign的配置
 ## 11\. FeignClient
 
 我们在FeignDao上加上FeignClient注解的  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/51d2693453e991e8def5d1ca14c2aa28.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/51d2693453e991e8def5d1ca14c2aa28.png)  
 注解的属性：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d63484714d01f884876eee03cece6347.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d63484714d01f884876eee03cece6347.png)  
 看到了与Ribbon有关的包  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/092981b448e3bef626ac03499da3bf5b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/092981b448e3bef626ac03499da3bf5b.png)
 
   * FeignClient 注解被@Target(ElementType.TYPE)修饰，表示 FeignClient 注解的作用目标在接口上。
   * @Retention(RetentionPolicv.RUNITINF)注解表明该注解会在Class字节码文件中存在，在运行时可以通过反射获取到。
@@ -185,13 +185,13 @@ FeignConfig.class指定Feign的配置
 ## 12\. FeignClient配置
 
 Feign Client 默认的配置类为 FeignClientsConfiguration，这个类在 spring-cloud-netflix-core的jar包下。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d1bcd0b2f8cb82ba0d9dea8e9a683abc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d1bcd0b2f8cb82ba0d9dea8e9a683abc.png)  
 打开这个类,可以发现这个类注入了很多Feign相关的配置Bean，包括FeignRetryer、FeignLoggerFactory 和FormattingConversionService 等。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/97392bc810bcff06d15b055afd123707.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/de6083134b00e87f47cbf86ed871ee1a.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/905399d392ea94b7cdd98e7cdf1c6815.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/97392bc810bcff06d15b055afd123707.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/de6083134b00e87f47cbf86ed871ee1a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/905399d392ea94b7cdd98e7cdf1c6815.png)  
 另外，Decoder、Encoder 和 Contract这3个类在没有Bean被注入的情况下，会自动注入默认配置的Bean，即ResponseEntityDecoder、SpringEncoder 和 SpringMvcContract。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/72e53883086166b9e3dba8811e9e1c49.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/72e53883086166b9e3dba8811e9e1c49.png)
 
 默认注入的配置如下。
 

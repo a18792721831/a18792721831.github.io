@@ -18,7 +18,7 @@ keywords: ["智能体", "agent", "ai", "goal", "loop"]
 
 > 本文以一套真实运行的"失败任务批量排查系统"（状态机 v3 + watchdog 守护进程）为例，系统拆解 Loop Engineering（循环工程）从概念到工程落地的完整路径：状态机设计、Gate 硬约束与状态门槛的对应关系、Prompt 填空模板、watchdog 调度与执行模型钉住、`/goal` 自驱动模式，并给出一份"如何从零搭建同类系统"的可复用清单，同时用系统实际跑出的运行数据（脱敏后的成果展示）验证前面每一条设计决策，最后复盘搭建过程中踩过的坑与沉淀的亮点。文中涉及的工单系统 / 在线文档系统均为通用指代，不绑定具体厂商产品，方便读者对照自己团队的技术栈迁移使用。全文正文近 9000 字，配 8 张架构/流程/数据图，适合正在设计 Agent 自主运行系统的工程师参考。
 
-![文章结构总览](https://i-blog.csdnimg.cn/img_convert/248d4292a2bfbc558fd7026be780d184.png)
+![文章结构总览](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/mindmap/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91Loop%20Engineering%20%E8%90%BD%E5%9C%B0%E5%AE%9E%E6%88%98%EF%BC%9A%E7%8A%B6%E6%80%81%E6%9C%BA%E3%80%81Gate%20%E4%B8%8E%20Watchdog%20%E5%85%A8%E8%A7%A3%E6%9E%90_20260703105317.png)
 
 ### 一、从两句推文说起
 
@@ -74,7 +74,7 @@ AI 可能代替人工签字
 
 结合这套系统的实现，我把 Loop Engineering 的落地拆成三个必须同时具备的组件：**状态机（State Machine）、护栏（Gate）、驱动器（Driver / Watchdog）** 。三者的关系可以概括为一句话：**状态机回答"任务在哪一步"，Gate 回答"这一步做得对不对"，驱动器回答"谁来推进、什么时候推进、推进不动怎么办"** 。缺一个都撑不起"无人值守"这个目标。
 
-![Loop Engineering 全景图：状态机、Gate、Watchdog 三组件协作关系](https://i-blog.csdnimg.cn/img_convert/2277ae4592fd69cf9a74d789259a5b0a.png)
+![Loop Engineering 全景图：状态机、Gate、Watchdog 三组件协作关系](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/screenshot/loop-engineering-02-loop-engineering-overview.png)
 
 下面依次展开这三个组件，其中第二个组件（Gate）会重点回应"状态和门槛究竟是什么关系"这个问题。
 
@@ -97,7 +97,7 @@ BLOCKED| 终态：转人工| —| —
   
 状态之间不是简单的直线推进，而是"原地重试 → 通过则前进 → 超限则转人工"的循环结构，下图完整画出了这条状态机的转移逻辑（含每个状态的重试分支）：
 
-![10 状态有限状态机的完整转移逻辑与重试分支](https://i-blog.csdnimg.cn/img_convert/991ba2c32ceda4e85fbd2850da72df2d.png)
+![10 状态有限状态机的完整转移逻辑与重试分支](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/screenshot/loop-engineering-03-state-machine-v2.png)
 
 这里有个细节很值得说：**每个状态的重试上限是独立设置的** ，而不是全局统一一个"最多重试 3 次"。S1_COLLECT 依赖的下游查询通道响应慢、偶发限流，所以给到 20 次；S3_JUDGE 是纯 AI 裁决，成本低、失败大多是格式问题，所以给到 50 次；S4_REVIEW 本质是等人，直接设为 0（无限循环，不消耗重试预算）。**这是 Loop Engineering 里"循环预算分配"的第一课：不同环节的失败代价不同，重试策略也必须分层设计，而不是一刀切。**通用规则是：**重试代价越低、失败越可能是"噪声"而非"真实错误"的状态，给的预算越大；依赖人的状态，预算应该是"无限但不占用循环资源"，而不是被硬性掐断。**
 
@@ -113,7 +113,7 @@ BLOCKED| 终态：转人工| —| —
 
 下面这张图给出了任意一个状态通用的 Gate 判定流程：
 
-![任意状态通用的 Gate 判定流程：确定性校验、重试计数与转人工](https://i-blog.csdnimg.cn/img_convert/dabe85ffb6b05c45a2739c80254f5039.png)
+![任意状态通用的 Gate 判定流程：确定性校验、重试计数与转人工](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/screenshot/loop-engineering-04-gate-flow-v2.png)
 
 结合真实的 Gate 实现，逐条列出每个状态的门槛具体检查什么、以及它堵住了哪种"看起来完成了但其实没做对"的高危场景：
 
@@ -187,7 +187,7 @@ S5_PUBLISH| 工单/文档的 ID 与链接 4 个字段非空，且双向回链校
 
 如果说状态机是"骨架"、Gate 是"护栏"，那么驱动循环真正转起来的是 watchdog 守护进程。这是我认为整套系统里 Loop Engineering 落地得最彻底的部分，它的调度原则可以概括为五条：
 
-![watchdog 主循环四步与调度护栏五条原则](https://i-blog.csdnimg.cn/img_convert/ef554d2c974d57d10973afe174151c32.png)
+![watchdog 主循环四步与调度护栏五条原则](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/screenshot/loop-engineering-05-watchdog-loop.png)
 
 **① 任务级锁 + 状态级并发隔离** ：每条任务在独立的锁文件上加锁，保证同一条任务永远只有一个进程在跑（避免状态机被并发写坏），但不同任务之间可以并行——默认 5 个进程池，每个状态还单独设了并发上限（10）。这解决了一个常见的坑：如果不做状态级隔离，当某个状态（比如依赖限流下游通道的采集状态）大量堆积时，会把整个进程池占满，导致其它本可以推进的任务被饿死。
 
@@ -284,7 +284,7 @@ Strict constraints:
 
 需要先澄清一个容易被误解的点：**这篇文章真正的"落地点"，不是"排查失败任务"这套具体代码本身，而是一套可以迁移到任意"Agent 批量无人值守执行"场景的方法论骨架** ——说白了，只要你的任务满足"要重复执行很多次、有明确的成功/失败判据、可以容忍异步和重试"，就可以照搬下面这份九步清单，从零搭建一套结构相似的系统。
 
-![从零搭建 Loop Engineering 系统的九步落地清单](https://i-blog.csdnimg.cn/img_convert/60a4d8f03d49e1b092ec5a7f47173438.png)
+![从零搭建 Loop Engineering 系统的九步落地清单](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/screenshot/loop-engineering-07-nine-steps-v2.png)
 
 逐条展开：
 
@@ -348,7 +348,7 @@ BLOCKED（重试耗尽，转人工兜底）| 2| 0.35%
   
 242 条工单和 242 篇文档几乎一一对应，这不是巧合，而是第五节里 S5_PUBLISH 状态 Gate 的直接效果——Gate 强制要求"工单 ID / 文档 ID / 双向链接 4 个字段全部非空"才允许放行到 DONE，所以只要任务进了 DONE，就意味着这两个产出物一定是配套完整的，不存在"建了工单却没建文档"的半成品。
 
-![573 条任务的最终去向分布：DONE、审核中、BLOCKED、推进中](https://i-blog.csdnimg.cn/img_convert/7564ba308607b66bdd5763bc4c187de0.png)
+![573 条任务的最终去向分布：DONE、审核中、BLOCKED、推进中](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/screenshot/loop-engineering-08-results-stats-v2.png)
 
 #### 12.3 调度执行规模与每状态成功率
 

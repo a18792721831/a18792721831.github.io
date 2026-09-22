@@ -36,7 +36,7 @@ keywords: golang, go, go 测试, benchmark, go 性能测试分析, benchstat
 ## benchmark 结果
 
 benchmark 测试是实际项目中经常使用的测试方法，下面是一个执行的结果  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a7f6c931a357445cac2f0c02d768979c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/91887b9c8167c8be96930718bee6ee5b.png)
 
 输出结果的含义：  
 BenchmarkMakeWithout 表示1个CPU，BenchmarkMakeWithout-2 表示使用了2个CPU  
@@ -53,11 +53,11 @@ BenchmarkMakeWith 表示创建切片的时候，指定容量，不使用自动�
 
 benchstat 是 Go 官方推荐的一款命令行工具，可以针对一组或多组样本进行分析，如果同时分析两组样本，还可以给出性能变化结果。  
 使用`go get golang.org/x/perf/cmd/benchstat`可以安装benchstat，将被安装到$GOPATH/bin中。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/80111d09181642ffba96977793a64cf6.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a6894d5cd26e1abf46cf19c1626b749.png)
 
 使用时需要把benchmark测试输出到文件中，benchstat会读取这些文件。  
 如果你使用的是mac，并且在goland中执行，那么可能会提示  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1b13142a80d6440089f0f6575854e561.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/739d1e5e84c8a2cfefeed549a51bfdea.png)
 
 ### 确认 `benchstat` 已安装
 
@@ -131,22 +131,22 @@ benchstat 是 Go 官方推荐的一款命令行工具，可以针对一组或多
 
 比如把 BenchmarkWithout 输出到 without 中  
 `go test -v slice_test.go -bench MakeWithout -count 20 -benchmem > without`  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5317058deea64b019452c2dab8f1f329.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/757b004ddfbe3525ee1dc65613ef1d55.png)
 
 然后使用`benchstat without`执行  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1fc41392a73d4d85b78144032e67c7ee.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/361c644e5d547bafbdddcdbb9ea6518d.png)
 
 自动计算出了平均值，在cpu=10的时候，每次操作2.534微妙，样本离散值(2%)  
 在执行一次，输出到withou1，然后一次性传入两个文件分析  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2b4f5e56cc0d4503af24a06ab59ebecb.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c23724900852083e37206a6d6a48c8f9.png)
 
 因为两次执行几乎没有变化，所以会提示all samples are equal。  
 如果将BenchmarkMakeWith 和BenchmarkMakeWithout做对比  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e678df0931a747f99c657875b6be22dc.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fd62cba7f1203219e52bc81431d747a7.png)
 
 p=0.000表示结果的可信程度，p值越大可信程度越低，统计学中通常把p=0.05作为临界值，超过此值说明结果不可信，可能是样本过少等原因。  
 当只有两组样本是，benchstat 还会额外计算出差值，用正负表示变化的百分比。  
 如果是不同的两组样本：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/95ce99f3dc9d4a0fbb404b53c2fc500c.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b5e9c065be19a6f553991256d4b0fe44.png)
 
 > 至此，go的测试结束，通过学习go测试，首先是会写各种测试case，其次是理解了各种测试的目的，最后则是学习了很多优秀的实现。加油~

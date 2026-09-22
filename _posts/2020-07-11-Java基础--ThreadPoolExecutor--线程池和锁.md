@@ -64,7 +64,7 @@ keywords: 线程池, 线程池使用, Executors使用, 线程池源码解析, �
 
 ### 1.1 Executors构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/658b5fb73d4b3409ebab9712d524ffe2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/658b5fb73d4b3409ebab9712d524ffe2.png)  
 Executors是一个工具类，不能被实例化。
 
 ### 1.2 newFixedThreadPool(int nThreads)
@@ -79,67 +79,67 @@ Executors是一个工具类，不能被实例化。
   * 非核心空闲线程存活时间
   * 非核心空闲线程存活时间单位
   * 任务存储队列  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bb6c798b5eb8792ec3ef682b7e154deb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bb6c798b5eb8792ec3ef682b7e154deb.png)  
 调用的是threadPoolExecutor。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/05a2c37307dd8d1b14977fd063fb9722.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/05a2c37307dd8d1b14977fd063fb9722.png)  
 调用的是threadPoolExecutor。
 
 ### 1.3 newCachedThreadPool
 
 创建一个可根据需要创建新线程的线程池，但是在以前构造的线程可用时将重用它们。  
 创建一个初始为0的可缓存的线程池。非核心空闲线程存活时间为60s.  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f243ed5a4497d1942e991c6ce74b4d56.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d8f935b828a1ba188aa417c3f17d6baf.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f243ed5a4497d1942e991c6ce74b4d56.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d8f935b828a1ba188aa417c3f17d6baf.png)
 
 ### 1.4 newSingleThreadExecutor
 
 创建一个使用单个 worker 线程的 Executor，以无界队列方式来运行该线程。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/27f185c04bd9766f3d4b7053c4e8101c.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c4f0fc5ec3bce2850507c29f7ac198c1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/27f185c04bd9766f3d4b7053c4e8101c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c4f0fc5ec3bce2850507c29f7ac198c1.png)
 
 ### 1.5 newScheduledThreadPool
 
 创建一个线程池，它可安排在给定延迟后运行命令或者定期地执行。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/850897b581c0bb0593863167c90a572b.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/51ec982040fcc536f3bc34cb4835f919.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/850897b581c0bb0593863167c90a572b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/51ec982040fcc536f3bc34cb4835f919.png)
 
 ### 1.6 newSingleThreadScheduledExecutor
 
 创建一个单线程执行程序，它可安排在给定延迟后运行命令或者定期地执行。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0828cb154cccf4d01995a739b38cb5e4.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/061db70cc5b9d2240a1da9fa26a6d929.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0828cb154cccf4d01995a739b38cb5e4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/061db70cc5b9d2240a1da9fa26a6d929.png)
 
 ### 1.7 newWorkStealingPool
 
 具有抢占式操作的线程池（1.8增加）  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4f811ea5bfe039f23537334e2120523a.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/99923ed10c713a920102631b327cc5de.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4f811ea5bfe039f23537334e2120523a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99923ed10c713a920102631b327cc5de.png)
 
 ### 1.8 总结
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8f5de91f48a9f54ac59f70770e2fc07a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8f5de91f48a9f54ac59f70770e2fc07a.png)
 
 ## 2\. ThreadPoolExecutor
 
 这是ThreadPoolExecutor的结构  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/11124bdfe5ddcfd97ed8adf4903df3c8.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/11124bdfe5ddcfd97ed8adf4903df3c8.png)
 
 ## 3 Executor
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c357a2fd98dddfec2ba8593e86f5ce3d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c357a2fd98dddfec2ba8593e86f5ce3d.png)  
 Executor接口只有一个方法，execute，参数是一个Runnable。  
 传入一个Runnable任务，调用execute执行，其执行的时间是不确定的。
 
 ## 4 ExecutorService
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3ed5008c29e2b3f198c19f17f942706d.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8cae879dfd9d3f62b8f5835a4d59c626.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3ed5008c29e2b3f198c19f17f942706d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8cae879dfd9d3f62b8f5835a4d59c626.png)
 
 ## 5 RejectedExecutionHandler
 
 无法由 ThreadPoolExecutor 执行的任务的处理程序。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b37c0b3607d3e8240e07d97d98379645.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f3669e170ac7b3f675ddf7e0d9204478.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b37c0b3607d3e8240e07d97d98379645.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f3669e170ac7b3f675ddf7e0d9204478.png)
 
 ## 6 ThreadPoolExecutor
 
@@ -160,27 +160,27 @@ ThreadPoolExecutor内部还组合了多个Policy的内部类，用于当ThreadPo
 
 #### tryAcquire
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3db1e9e23ddd31f786e3427978a6aa9a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3db1e9e23ddd31f786e3427978a6aa9a.png)  
 ThreadPoolExecutor内部的Worker是独占锁，而且是二进制锁，其锁状态只有两个状态：0,1  
 0表示空闲，1表示占用。
 
 #### tryRelease
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ac3af0504aa4e2309590e8b5e8fa7890.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac3af0504aa4e2309590e8b5e8fa7890.png)  
 释放锁，清空锁持有线程，然后设置锁状态为0.  
 因为是独占锁，所以Worker没有实现tryAcquireShared和tryReleaseShared方法。
 
 #### run
 
 Wroker还实现了Runnable接口，Runnable接口只有一个方法，就是定义任务的run方法。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/94dfeb9f3eced2b64a1e520109857bcf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/94dfeb9f3eced2b64a1e520109857bcf.png)  
 这是run方法的时序图，我们看下run方法都干了什么：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9b5d7883fe67e4f056a129eae8fe121d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9b5d7883fe67e4f056a129eae8fe121d.png)  
 看起来挺复杂的。
 
 ##### 构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ced01fa46ac7a4a661d558f24a8222ce.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ced01fa46ac7a4a661d558f24a8222ce.png)  
 构造方法需要有一个Runnable 的任务来初始化。  
 创建Worker时，会设置Worker的锁状态是-1,然后将传入的Runnable任务初始化任务。  
 然后将当前Runnable任务传入，从ThreadFactory获取线程。
@@ -321,9 +321,9 @@ Wroker还实现了Runnable接口，Runnable接口只有一个方法，就是定�
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ce9f52c8e8e82fbd2344aaaec63e065a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ce9f52c8e8e82fbd2344aaaec63e065a.png)  
 一个线程安全的整形变量。它有这几个值：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d699178f55550097902b57335f23cd42.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d699178f55550097902b57335f23cd42.png)  
 RUNNING,SHUTDOWN,STOP,TIDYING,TERMINATED.
 
   * RUNNING:Worker可以接收新的任务执行
@@ -333,12 +333,12 @@ RUNNING,SHUTDOWN,STOP,TIDYING,TERMINATED.
   * TERMINATED:Worker的异常方法已经执行。
 
 这几个状态的状态转换图：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/18df7045063db2d388053a74b2094827.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18df7045063db2d388053a74b2094827.png)
 
 ##### decrementWorkerCount
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0f9ca52d469f6796b6dfc47f740162f0.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d9415145d1a9a512c775818efc07376a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0f9ca52d469f6796b6dfc47f740162f0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d9415145d1a9a512c775818efc07376a.png)  
 每次将线程安全的ctl的值减1，直到为0.
 
 ##### processWorkerExit
@@ -608,29 +608,29 @@ worker增加失败，将worker移除
 ## 9\. submit(AbstractExecutorService)
 
 提交任务，有返回值  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/594c78a6f480c0ef47d7feb511e1a3e0.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0a5058ab021195b2125a6f4ba276f100.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/347bc68915e4d76aaaf2ab36fa49521d.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/594c78a6f480c0ef47d7feb511e1a3e0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0a5058ab021195b2125a6f4ba276f100.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/347bc68915e4d76aaaf2ab36fa49521d.png)
 
 ## 10\. AbortPolicy
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c63bb210d93b92560384dfa9dca74e1f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c63bb210d93b92560384dfa9dca74e1f.png)  
 任务执行失败，抛出异常。
 
 ## 11\. CallerRunsPolicy
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1cfea474ff1da354ec0644d8e08dcce6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1cfea474ff1da354ec0644d8e08dcce6.png)  
 任务被拒绝，那么在当前线程调用(不能保证是多线程，可能是主线程直接调用run方法(串行))
 
 ## 12\. DiscardOldestPolicy
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f6b81aafb489f25fbbeb002eafe6fdce.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f6b81aafb489f25fbbeb002eafe6fdce.png)  
 移除任务队列头的任务。  
 可以理解为，任务队列满了，在加入任务的时候，会将队列头部的挤掉。
 
 ## 13\. DiscardPolicy
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8f0d79c2bb00a795ae52421603bb933c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8f0d79c2bb00a795ae52421603bb933c.png)  
 任务增加失败，什么也不做。
 
 ## 14\. 总结

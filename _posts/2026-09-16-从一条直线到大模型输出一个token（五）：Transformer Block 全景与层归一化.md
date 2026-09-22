@@ -35,7 +35,7 @@ keywords: ["agent", "智能体", "ai", "AI", "LLM"]
 
 外加两个配角：**层归一化** （LayerNorm，本篇主角）和残差连接（第 8 篇讲）。
 
-![Block结构](https://i-blog.csdnimg.cn/img_convert/783122c804eb432b5a259ea0c33accbd.png)
+![Block结构](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig51_block-v3.png)
 
 **图5-1 一个 Block 的完整流程（Pre-Norm 结构）**
 
@@ -58,7 +58,7 @@ keywords: ["agent", "智能体", "ai", "AI", "LLM"]
 
 嵌入层 + RoPE 之后，矩阵依次流过 Block 1、Block 2……Block N，最后进输出层，如图 5-2 所示。
 
-![Block堆叠](https://i-blog.csdnimg.cn/img_convert/de68a2e2c6404262a28cdd7a00ed7a96.png)
+![Block堆叠](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig52_stack.png)
 
 **图5-2 N 个 Block 堆叠：矩阵 6×4096 从头流到尾，逐层加深语义**
 
@@ -81,7 +81,7 @@ keywords: ["agent", "智能体", "ai", "AI", "LLM"]
 
 Block 里的每一步都是矩阵运算，数字会一层层被放大。做个实验：设每层让数值扩大 1.5 倍再加一点偏移（真实模型里的放大系数远不止 1.5），不加归一化连续过 10 层，结果如图 5-3 所示。
 
-![数值爆炸](https://i-blog.csdnimg.cn/img_convert/e25acb3ccf23ec5cd08cf05c1f35d768.png)
+![数值爆炸](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig54_explode.png)
 
 **图5-3 为什么必须归一化：无 LayerNorm 时数值指数爆炸**
 
@@ -148,7 +148,7 @@ class LayerNorm:
 
 拿 RoPE 后的「西安」向量  [ − 1.079 , 0.004 , 0.277 , − 0.717 ] [-1.079,\ 0.004,\ 0.277,\ -0.717] [−1.079, 0.004, 0.277, −0.717]，四步手算如图 5-4 所示。
 
-![LayerNorm手算](https://i-blog.csdnimg.cn/img_convert/b657d64e17432db5e782316cabb98569.png)
+![LayerNorm手算](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig53_layernorm-v4.png)
 
 **图5-4 LayerNorm 手算：「西安」行的完整四步**
 
@@ -206,7 +206,7 @@ token| μ（这行的均值）| σ（这行的标准差）
 
 放进我们的矩阵里看（矩阵一行是一个 token、一列是一个维度），分组方式如图 5-5 所示。
 
-![LayerNorm vs BatchNorm](https://i-blog.csdnimg.cn/img_convert/37bfe67d74ee08ea512dcbf25cdd0f2b.png)
+![LayerNorm vs BatchNorm](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig55_ln_vs_bn-v2.png)
 
 **图5-5 为什么 NLP 选 LayerNorm 而不是 BatchNorm**
 

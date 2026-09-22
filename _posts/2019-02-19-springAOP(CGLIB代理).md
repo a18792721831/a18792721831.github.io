@@ -46,11 +46,11 @@ spring核心包已经继承CGLIB。
 
 ### 3.1创建一个spring的项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2bc7d644498520101dd2e34266652f1b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2bc7d644498520101dd2e34266652f1b.png)
 
 ### 3.2创建Java类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5f757957bdc5ee992f2ab1eda216a8de.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5f757957bdc5ee992f2ab1eda216a8de.png)
     
     
     package bean;

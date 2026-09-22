@@ -46,27 +46,27 @@ configmap用于保存配置数据的键值对，可以用来保存单个属性�
     kubectl create configmap test -n study --from-literal=test.hello=hello --from-literal=testhello.hi=hi
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/01d72ad0f2d74c338c5f533dcd13df68.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/01d72ad0f2d74c338c5f533dcd13df68.png)  
 当然也可以使用格式化输出形式查看  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8d2d9976e3989648c8a377028e1905c4.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4d0c234af36a8f426360db15c7d19b73.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b65bc4ba64e3a31431391e990a5d6a3e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8d2d9976e3989648c8a377028e1905c4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4d0c234af36a8f426360db15c7d19b73.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b65bc4ba64e3a31431391e990a5d6a3e.png)  
 为了后面例子能够串起来，我们删除这个configmap，然后重新创建一个：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2ae7c8a4dcc87e58a06b67f4e1aa2606.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6f307aa2d57934ed6914a51f204b2ce4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2ae7c8a4dcc87e58a06b67f4e1aa2606.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6f307aa2d57934ed6914a51f204b2ce4.png)
 
 ### 2.2 env文件创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eadfa8e5e0591081ddd5cd8ed29ee14c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eadfa8e5e0591081ddd5cd8ed29ee14c.png)
 
 ### 2.3 从目录创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/92eea4e0842fdd7bc92e044636217edd.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/92eea4e0842fdd7bc92e044636217edd.png)
 
 ### 2.4 yaml/json创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bf8c09692b648f99febec8b5199e8038.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b912d6a025bfeced03c440c74d9583e5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bf8c09692b648f99febec8b5199e8038.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b912d6a025bfeced03c440c74d9583e5.png)
 
 ## 3.使用
 
@@ -153,12 +153,12 @@ useforenv.yaml
           path: /userdata/testtomcatlog
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5456101ba5aef05d9836c872d867177c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5456101ba5aef05d9836c872d867177c.png)
 
 ### 3.2 command
 
 先创建一个configmap  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e43d7f2b9b9884e6bf1c9d69fa85ac8e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e43d7f2b9b9884e6bf1c9d69fa85ac8e.png)  
 在command中使用configmp需要将configmap先用3.1的方式设置为环境变量，然后在command中用$(envName)的方式使用。  
 useforcommand.yaml
     
@@ -220,16 +220,16 @@ useforcommand.yaml
           path: /userdata/testtomcatlog
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9b07c0442265f58f26757d3e425b2ad4.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/29e7dfcb2580c614518a09e099a08f9f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9b07c0442265f58f26757d3e425b2ad4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/29e7dfcb2580c614518a09e099a08f9f.png)  
 已经启动了。。
 
 ### 3.3 volume挂载
 
 创建configmap可以根据文件及目录进行创建，同样的，在使用的时候，可以根据configmap恢复成文件目录  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/25fe8395978b9b08a4abb8759ebb1699.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/25fe8395978b9b08a4abb8759ebb1699.png)  
 根据这个目录创建configmap  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c21efa2a2aa6a3160a3d8905153d849c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c21efa2a2aa6a3160a3d8905153d849c.png)  
 在pod中使用  
 useforvolume.yaml
     
@@ -317,7 +317,7 @@ useforvolume.yaml
           name: testdir
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3d21d9b38f85806a846bdd4984eec5f7.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d21d9b38f85806a846bdd4984eec5f7.png)
 
 ## 4.总结
 

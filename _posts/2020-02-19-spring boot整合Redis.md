@@ -47,27 +47,27 @@ docker pull docker.io/redis
 然后启动  
 docker run -d -P redis
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/974a260d89e4a49a1a229c69d713600d.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/974a260d89e4a49a1a229c69d713600d.png)
 
 ## 3\. 创建项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/798a24fed527246f609632e075f65e05.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/798a24fed527246f609632e075f65e05.png)
 
 ## 4\. 创建配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/134b7391db1163f7654773b92dbb2280.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/134b7391db1163f7654773b92dbb2280.png)
 
 ## 5\. 创建Dao
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0d7c1d0ea704bec5e5e19ce2174d3003.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0d7c1d0ea704bec5e5e19ce2174d3003.png)
 
 ## 6\. 创建Test
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7dd05e37199fa5becedca4f9b0cf06b0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7dd05e37199fa5becedca4f9b0cf06b0.png)
 
 ## 7\. 测试
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9c4065fddb933f46eb4b0c00dc8eca0c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9c4065fddb933f46eb4b0c00dc8eca0c.png)
 
 ## 8\. 验证
 
@@ -77,4 +77,4 @@ docker exec -it boring_joliot /bin./bash
 然后使用 redis-cli进入redis命令行  
 然后使用select 1切换到1数据库  
 最后使用keys * 查看所有键值对  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bc4b75e47ff67a0fcffec18d679423af.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bc4b75e47ff67a0fcffec18d679423af.png)

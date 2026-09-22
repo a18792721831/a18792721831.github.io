@@ -66,36 +66,36 @@ keywords: 可重入读写锁, 可重入读写锁源码解读, 带你阅读可重
 
 ### 1.1 ReentrantReadWriterLock的UML图
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b90359f2596d2384da5e3db420bb695d.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b90359f2596d2384da5e3db420bb695d.png)
 
 ### 1.2 ReentrantReadWriterLock的属性、方法
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a7143d49a665a4a913fe1fdb55e81a63.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a7143d49a665a4a913fe1fdb55e81a63.png)
 
 ## 2\. ReentrantReadWriterLock 实现ReadWriterLock接口
 
 既然ReentrantReadWriteLock实现了ReadWriteLock接口，那么就需要实现ReadWriteLock的方法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ac856b3f5549ecb2523a72d48f25782f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac856b3f5549ecb2523a72d48f25782f.png)  
 不管是readLock还是writeLock返回的都是Lock类型，Lock则必须实现这些方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/82f2f5474c5a9daf089b1ad2cb685d0f.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/82f2f5474c5a9daf089b1ad2cb685d0f.png)
 
 ### 2.1 readLock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/88a37aef3e45a06e516fbcfe3e8e3cec.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/88a37aef3e45a06e516fbcfe3e8e3cec.png)  
 readLock方法直接返回局部变量readerLock的值。
 
 #### 2.1.1 tryLock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a4c979eb306ba03716e44466998b6ee1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a4c979eb306ba03716e44466998b6ee1.png)  
 直接调用Sync的tryReadLock方法，请跳转3.1.  
 sync,tryReadLoack的方法总结就是看看当前线程有没有获取读锁，如果已经获取了读锁，那么将当前线程的重入层数++，如果当前线程没有获取读锁，且不能获取锁，那么尝试获取读锁失败。否则当前线程是第一次获取读锁，将当前线程加入读锁持有线程映射表中。
 
 #### 2.1.2 tryLock(long,TimeUnit)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8c0a80a1c4457f0699b487ddce2f74fb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8c0a80a1c4457f0699b487ddce2f74fb.png)  
 带有超时时间的尝试获取锁，则是调用AQS的带有超时时间的尝试获取共享锁的方法。  
 这是AQS的带有超时时间的尝试获取共享锁的方法的时序图如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/273ebffa5a39ec7e51a67a6812c350d4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/273ebffa5a39ec7e51a67a6812c350d4.png)  
 巨复杂！！！不过，不要怕，我们一步一步看。
     
     
@@ -119,13 +119,13 @@ doAcquireSharedNanos请看
 
 #### 2.1.3 lock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b3ba1541bd8f949f86816b2155547b41.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b3ba1541bd8f949f86816b2155547b41.png)  
 直接调用Sync的acquireShared方法，请见3.2.
 
 #### 2.1.4 lockInterruptibly
 
 阻塞获取锁，响应中断。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/56a69bfe0823b4ff3c8256e5f790e55b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/56a69bfe0823b4ff3c8256e5f790e55b.png)  
 直接调用AQS的acquireSharedInterruptibly方法。  
 AQS的acquireSharedInterruptibly方法请看  
 [Java基础–AQS原理](<https://blog.csdn.net/a18792721831/article/details/106730738>)  
@@ -133,7 +133,7 @@ AQS的acquireSharedInterruptibly方法请看
 
 #### 2.1.5 unlock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/45e6b44a423dd34cb0af1e119e89a021.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/45e6b44a423dd34cb0af1e119e89a021.png)  
 直接调用AQS的releaseShared方法。
     
     
@@ -152,27 +152,27 @@ AQS的acquireSharedInterruptibly方法请看
     
 
 在ReentrantReadWriteLock中，Sync继承了AQS。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f1af22815fb66a17f82d078c35579222.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f1af22815fb66a17f82d078c35579222.png)  
 Sync的tryReleaseShared请见3.4
 
 #### 2.1.6 newCondition
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/25fe8ce30aa58c7fedbafff33219c355.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/25fe8ce30aa58c7fedbafff33219c355.png)  
 读锁不允许使用condition,强行使用会直接抛出异常。
 
 ### 2.2 writerLock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/88e1cab614cd926d56aaaa1266eaa573.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/88e1cab614cd926d56aaaa1266eaa573.png)  
 writeLock方法直接返回局部变量readerLock的值。
 
 #### 2.2.1 tryLock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6a1aacc4d8900d64cd23ef3bb6964485.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a1aacc4d8900d64cd23ef3bb6964485.png)  
 调用Sync的tryWriteLock方法，请见3.5
 
 #### 2.2.2 tryLock(long,TimeUnit)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0e23e680fc8462c5243898633f6f18ae.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0e23e680fc8462c5243898633f6f18ae.png)  
 调用AQS的tryAcquireNanos方法  
 AQS的tryAcquireNanos方法请看  
 [Java基础–AQS原理](<https://blog.csdn.net/a18792721831/article/details/106730738>)  
@@ -183,7 +183,7 @@ AQS的tryAcquireNanos方法会调用子类实现的tryAcquire实现独占锁的�
 
 #### 2.2.3 lock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b412bd533d22bcfdc0ee9599700fb73b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b412bd533d22bcfdc0ee9599700fb73b.png)  
 直接调用AQS的acquire方法  
 AQS的acquire方法请看  
 [Java基础–AQS原理](<https://blog.csdn.net/a18792721831/article/details/106730738>)  
@@ -194,7 +194,7 @@ AQS的acquire方法请看
 
 #### 2.2.4 lockInterruptibly
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/36c70918e0981c94805787ad90fe6e3a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/36c70918e0981c94805787ad90fe6e3a.png)  
 调用AQS的acquireInterruptibly方法。  
 AQS的acquireInterruptibly方法请看  
 [Java基础–AQS原理](<https://blog.csdn.net/a18792721831/article/details/106730738>)  
@@ -202,7 +202,7 @@ AQS的acquireInterruptibly方法请看
 
 #### 2.2.5 unlock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/415dfdfb1203fc97980321c24c78a22f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/415dfdfb1203fc97980321c24c78a22f.png)  
 调用AQS的release方法  
 AQS的release方法请看  
 [Java基础–AQS原理](<https://blog.csdn.net/a18792721831/article/details/106730738>)  
@@ -213,9 +213,9 @@ ReentrantReadWriteLock中的Sync实现了tryRelease方法，
 
 #### 2.2.6 newCondition
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/17d03bf0884651d5ab7a515d2f3893cd.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/17d03bf0884651d5ab7a515d2f3893cd.png)  
 调用ReentrantReadWriteLock的Sync的newCondition方法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c136ce450e18282bc2602fbd4ed272a8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c136ce450e18282bc2602fbd4ed272a8.png)  
 ReentrantReadWriteLock的Sync的newCondition方法直接返回AQS的ConditionObject对象。  
 请看  
 [AQS的Condition源码解析](<https://blog.csdn.net/a18792721831/article/details/106889626>)
@@ -223,14 +223,14 @@ ReentrantReadWriteLock的Sync的newCondition方法直接返回AQS的ConditionObj
 ## 3\. ReentrantReadWriterLock 内部类Sync继承了AQS
 
 Sync继承了AQS:  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/44824ae2a0688be595ba65fe483e1570.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/44824ae2a0688be595ba65fe483e1570.png)  
 Sync内部使用了HoldCounter和ThreadLocalHoldCounter  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c8e1879fb64c7a00bc350b30473b41c0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c8e1879fb64c7a00bc350b30473b41c0.png)
 
 ### 3.1 tryReadLock
 
 这是tryReadLock的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3fd43810672c57f5b2bd57d9f9e436c7.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3fd43810672c57f5b2bd57d9f9e436c7.png)
     
     
     // 尝试获取读锁
@@ -283,20 +283,20 @@ Sync内部使用了HoldCounter和ThreadLocalHoldCounter
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f0b953930c0b610f699f01a4211b269a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f0b953930c0b610f699f01a4211b269a.png)  
 传入数量除以每一个独占线程的间隔进行与操作。可以理解为，返回c/65535  
 为什么需要这样处理呢？  
 因为在ReentrantReadWriteLock中state的高16位表示读锁，低16位表示写锁。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fcbfc2228526ee737eb1edb66a83626d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fcbfc2228526ee737eb1edb66a83626d.png)  
 SHARED_SHIFT的值是16，那么EXCLUSIVE_MASK的值是65535  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6cda8dd8815f67b7ab52668d4f881d01.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6cda8dd8815f67b7ab52668d4f881d01.png)  
 获取持有锁的线程。
 
 ### 3.2 tryAcquireShared
 
 尝试获取共享锁  
 时序图如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/79943cadd43b29348413d19af8b14ac0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/79943cadd43b29348413d19af8b14ac0.png)
     
     
     // 尝试获取共享锁(读锁)
@@ -348,7 +348,7 @@ SHARED_SHIFT的值是16，那么EXCLUSIVE_MASK的值是65535
 当当前线程前面还有等待读取的线程的时候，需要先处理前面的读线程，然后在处理后面的线程。  
 自旋获取共享锁  
 这是自旋获取共享锁的时序图：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/87fcca1f32a117c6b8bb9c6101b451aa.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/87fcca1f32a117c6b8bb9c6101b451aa.png)
     
     
     // 自旋获取共享锁(读锁)
@@ -444,7 +444,7 @@ SHARED_SHIFT的值是16，那么EXCLUSIVE_MASK的值是65535
 
 尝试释放共享锁(读锁)  
 这是tryReleaseShared的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b6c52267a3bcf12b03aa26885968f5fe.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6c52267a3bcf12b03aa26885968f5fe.png)
     
     
     // 尝试释放共享锁(读锁)
@@ -502,7 +502,7 @@ SHARED_SHIFT的值是16，那么EXCLUSIVE_MASK的值是65535
 
 尝试获取写锁。  
 这是尝试获取写锁的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/908e836f0b841591c90c8fe01eca3c86.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/908e836f0b841591c90c8fe01eca3c86.png)
     
     
     // 尝试获取写锁
@@ -538,7 +538,7 @@ SHARED_SHIFT的值是16，那么EXCLUSIVE_MASK的值是65535
 ### 3.6 tryAcquire
 
 这是tryAcquire的时序图：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b33f19a2282ce1be5b07324bad2b94cf.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b33f19a2282ce1be5b07324bad2b94cf.png)
     
     
     // 尝试获取独占锁
@@ -583,7 +583,7 @@ SHARED_SHIFT的值是16，那么EXCLUSIVE_MASK的值是65535
 
 tryRelease是尝试释放独占锁的方法  
 这是尝试释放独占锁的方法的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6f535f850c8ab41a3fd3ff7abb1a954f.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6f535f850c8ab41a3fd3ff7abb1a954f.png)
     
     
     // 尝试释放独占锁(写锁)
@@ -611,60 +611,60 @@ tryRelease是尝试释放独占锁的方法
 
 ## 4\. 继承于Sync的FairSync
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/94eea3818a52387f75fec7e07e337698.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/94eea3818a52387f75fec7e07e337698.png)  
 直接调用AQS的hasQueuedPredecessors方法  
 获取当前线程在等待竞争队列中有没有前继节点。  
 简单来说，就是获取当前线程前面还有没有等待线程。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c4ae510f0cda0423655eb7ad6e7b16b3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c4ae510f0cda0423655eb7ad6e7b16b3.png)  
 如果等待竞争队列不为空，那么头结点的后继节点为空或者等待线程不是当前现场，那么就表示当前线程前面还有等待的线程。  
 (不会存在head != tail && head.next == null)
 
 ## 5\. 继承于Sync的NonfairSync
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dc1259a09755558af30a7bb26e244fc6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dc1259a09755558af30a7bb26e244fc6.png)  
 对于非公平锁，写锁直接返回false,读锁则调用apparentlyFirstQueuedIsExclusive方法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/857695cf201e3bf05effc71bef9d3478.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/857695cf201e3bf05effc71bef9d3478.png)  
 apparentlyFirstQueuedIsExclusive是判断等待竞争队列中的等待线程是不是共享模式。
 
 ## 6\. ReadLock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0a5eddcbfbbf7bdb2b115deaf70cc60c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0a5eddcbfbbf7bdb2b115deaf70cc60c.png)  
 读锁内部冗余持有ReentrantReadWriteLock的Sync对象实例。  
 读锁将Lock全部的方法代理到了ReentrantReadWriteLock内部的Sync的方法中。
 
 ## 7\. WriteLock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/310cddc94ab60a44782103aad775553f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/310cddc94ab60a44782103aad775553f.png)  
 写锁和读锁实现完全相同。
 
 ## 8\. HoldCounter
 
 线程重入数量计数器  
 两个属性：线程id和重入层数。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4b2f20d6a696d726fc6b9441aa0bd2af.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4b2f20d6a696d726fc6b9441aa0bd2af.png)  
 HoldCounter很简单，记录线程重入层数，并且调用getThreadId方法获取当前线程的线程id  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bf93cf1240dbedad298e5baabbdd50c2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bf93cf1240dbedad298e5baabbdd50c2.png)  
 使用的是UNSAFE的方法获取线程id.
 
 ## 9\. ThreadLocalHoldCounter
 
 线程变量。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1bf581c8358a11735cb9c4ef58fdb335.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1bf581c8358a11735cb9c4ef58fdb335.png)  
 线程变量，存储的是线程重入数量计数器。
 
 ## 10\. ReentrantReadWriteLock的构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d4a91ae663ac3b1dc46a6738f52c7ae1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d4a91ae663ac3b1dc46a6738f52c7ae1.png)  
 因为ReentrantReadWriteLock内部也实现了AQS的Sync类，而且也基于Sync实现了FairSync和NonfairSync，所以，构造方法就是决定，ReentrantReadWriteLock使用何种方式实现锁。
 
 ### 10.1 ReentrantReadWriteLock的无参构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f751278bb23bd935f4e8d413f246fa16.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f751278bb23bd935f4e8d413f246fa16.png)  
 无参构造方法直接调用有参构造，传入false
 
 ### 10.2 ReentrantReadWriteLock的有参数构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d2933003e7190afa527fca0461596e58.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d2933003e7190afa527fca0461596e58.png)  
 有参构造的参数是一个boolean参数，boolean参数决定使用FairSync还是NonfairSync。
 
 然后传入自己，创建ReadLock和WriteLock.
@@ -689,11 +689,11 @@ HoldCounter很简单，记录线程重入层数，并且调用getThreadId方法�
 
 锁降级是在线程持有写锁的情况下，获取读锁，获取到读锁后，释放写锁。此时锁就从写锁降级为读锁。  
 在持有写锁的时候，获取读锁：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b6a70a0c53ee2d5077f074c2238a2af9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6a70a0c53ee2d5077f074c2238a2af9.png)  
 在同时持有读锁和写锁的时候释放写锁：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d864b5e1e24bf22434738adb64d12203.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/35f31adca68265f46c9385f07e35922f.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a0574a45abeee86ad0dd94060018a504.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d864b5e1e24bf22434738adb64d12203.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/35f31adca68265f46c9385f07e35922f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a0574a45abeee86ad0dd94060018a504.png)
 
 ### 11.2 锁升级
 
@@ -705,7 +705,7 @@ HoldCounter很简单，记录线程重入层数，并且调用getThreadId方法�
 而且要求其他线程放弃共享锁也无法实现。**所以ReentrantReadWriteLock不支持锁升级。**  
 不支持锁升级：  
 在持有读锁的时候，获取写锁：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c8d46996b6e2b48f4456669eb5cd9e47.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c8d46996b6e2b48f4456669eb5cd9e47.png)
 
 **在锁降级中，当前线程是锁持有线程就能获取锁。  
 在锁升级中，锁持有线程是空的。**
@@ -722,20 +722,20 @@ ReentrantReadWriteLock的写锁可以降级为读锁，不能读锁升级为写�
 ReentrantReadWriteLock的锁降级是独占锁转为共享锁。  
 ReentrantReadWriteLock内部也有FairSync和NonfairSync实现公平和不公平方式获取锁。  
 对于读锁，是否是公平的？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0c337034b8b5341d09802e42515e1755.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/069c03a3bfe1f2ee26e5d0f2e3ae5596.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0b018184ae2f808fb57b04e9cc180a50.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c337034b8b5341d09802e42515e1755.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/069c03a3bfe1f2ee26e5d0f2e3ae5596.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0b018184ae2f808fb57b04e9cc180a50.png)  
 对于公平锁，只要当前线程前面还存在等待读的线程，那么就需要阻塞。  
 **换句话说，公平模式下的读锁不允许插队。**  
 不公平模式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/89b4efbf60bc2a8c6bc2aed96a1b3d0f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/89b4efbf60bc2a8c6bc2aed96a1b3d0f.png)  
 **只要锁是共享锁，那么就不需要阻塞，也就是可以插队。**
 
 对于写锁：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6f62bfaca0fb06949fa21de8f72d0465.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6f62bfaca0fb06949fa21de8f72d0465.png)  
 公平模式：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3282163b98d983794b6cdeb8862cabc9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3282163b98d983794b6cdeb8862cabc9.png)  
 **写锁公平模式下不允许插队。**  
 不公平模式：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/02a036ba152df601a64d01304905d2e6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/02a036ba152df601a64d01304905d2e6.png)  
 **写锁不公平模式下一直允许插队。**

@@ -59,7 +59,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：插入后，list的元素数量。
 
-![image-20200715185948780](https://i-blog.csdnimg.cn/blog_migrate/2a0468869e62a919af56ef087a5d3a11.png)
+![image-20200715185948780](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2a0468869e62a919af56ef087a5d3a11.png)
 
 ### 2.2 尾部增加
 
@@ -69,7 +69,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：插入后，list的元素数量。
 
-![image-20200715190436688](https://i-blog.csdnimg.cn/blog_migrate/e2568224ee407d2beecbb1a370b30c30.png)
+![image-20200715190436688](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e2568224ee407d2beecbb1a370b30c30.png)
 
 ### 2.3 头部存在增加
 
@@ -79,7 +79,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：插入后，listy的元素的数量。
 
-![image-20200715190848652](https://i-blog.csdnimg.cn/blog_migrate/bf6f143017f49f4e598445db5bc61f80.png)
+![image-20200715190848652](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bf6f143017f49f4e598445db5bc61f80.png)
 
 ### 2.4 尾部存在增加
 
@@ -89,7 +89,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：插入后，list的元素的数量。
 
-![image-20200715191119763](https://i-blog.csdnimg.cn/blog_migrate/ffc93600296df79d7a5ad75832008971.png)
+![image-20200715191119763](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ffc93600296df79d7a5ad75832008971.png)
 
 ### 2.5 头部获取
 
@@ -99,7 +99,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：key对应的list的头部元素。
 
-![image-20200715192721698](https://i-blog.csdnimg.cn/blog_migrate/387ef8e6d15bb464411a0cd53ffe8055.png)
+![image-20200715192721698](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/387ef8e6d15bb464411a0cd53ffe8055.png)
 
 ### 2.6 尾部获取
 
@@ -109,7 +109,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：key对应的list的尾部元素。
 
-![image-20200715192743699](https://i-blog.csdnimg.cn/blog_migrate/52dec9e7afb0f27d474c3f480b03d1cd.png)
+![image-20200715192743699](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/52dec9e7afb0f27d474c3f480b03d1cd.png)
 
 ### 2.7 统计元素个数
 
@@ -119,7 +119,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：key对应的list的元素个数。
 
-![image-20200715193628321](https://i-blog.csdnimg.cn/blog_migrate/bf8543c457d4038ea6b7b6b6d32afea2.png)
+![image-20200715193628321](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bf8543c457d4038ea6b7b6b6d32afea2.png)
 
 ### 2.8 获取指定范围的元素
 
@@ -129,7 +129,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：符合要求的元素组成的list.
 
-![image-20200715194335132](https://i-blog.csdnimg.cn/blog_migrate/6129ac787dc1794afe5a98f0d22bdef1.png)
+![image-20200715194335132](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6129ac787dc1794afe5a98f0d22bdef1.png)
 
 ### 2.9 移除指定值
 
@@ -139,7 +139,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：返回移除的元素的数量。如果key不存在，返回0.
 
-![image-20200715195106901](https://i-blog.csdnimg.cn/blog_migrate/98286c5044e5000be1671593f4d38d1f.png)
+![image-20200715195106901](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/98286c5044e5000be1671593f4d38d1f.png)
 
 ### 2.10 设置指定索引的值
 
@@ -149,7 +149,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：OK
 
-![image-20200715195613850](https://i-blog.csdnimg.cn/blog_migrate/161be37289853796a168321ea3186e6d.png)![image-20200715195723722](https://i-blog.csdnimg.cn/blog_migrate/d89f433d64950ed84d4c524821bc997d.png)![image-20200715195839494](https://i-blog.csdnimg.cn/blog_migrate/fb40a4c898ad18c2c0a7684b826e007e.png)
+![image-20200715195613850](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/161be37289853796a168321ea3186e6d.png)![image-20200715195723722](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d89f433d64950ed84d4c524821bc997d.png)![image-20200715195839494](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fb40a4c898ad18c2c0a7684b826e007e.png)
 
 ### 2.11 获取指定索引的值
 
@@ -159,7 +159,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：指定key的list的指定的元素，或者Nil(key不存在)
 
-![image-20200715202038961](https://i-blog.csdnimg.cn/blog_migrate/9d9508476aee95c5bc8292544e1f9c4a.png)
+![image-20200715202038961](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9d9508476aee95c5bc8292544e1f9c4a.png)
 
 ### 2.12 保留指定范围的元素
 
@@ -169,9 +169,9 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：OK
 
-![image-20200715200743345](https://i-blog.csdnimg.cn/blog_migrate/8e909bbc5d4e06c7d0ddea5979e8c56f.png)![image-20200715200839556](https://i-blog.csdnimg.cn/blog_migrate/46483148c21db9e76717f99288b2c73c.png)
+![image-20200715200743345](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8e909bbc5d4e06c7d0ddea5979e8c56f.png)![image-20200715200839556](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/46483148c21db9e76717f99288b2c73c.png)
 
-![image-20200715200951901](https://i-blog.csdnimg.cn/blog_migrate/e96fc72d8ad9bbc54d7a1bc4ad6fa32a.png)
+![image-20200715200951901](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e96fc72d8ad9bbc54d7a1bc4ad6fa32a.png)
 
 ### 2.13 插入
 
@@ -181,7 +181,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：成功：插入后key对应的list的元素数量；没找到pivot：返回-1；key不存在：返回0.
 
-![image-20200715202702709](https://i-blog.csdnimg.cn/blog_migrate/10ed58cec2307883f4e959032e9fc9ed.png)
+![image-20200715202702709](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/10ed58cec2307883f4e959032e9fc9ed.png)
 
 ### 2.14 元素转移
 
@@ -191,7 +191,7 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 返回值：操作的元素。
 
-![image-20200715203406466](https://i-blog.csdnimg.cn/blog_migrate/d69b6120604e31574e170774efbc621c.png)
+![image-20200715203406466](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d69b6120604e31574e170774efbc621c.png)
 
 ## 3\. 示例
 
@@ -205,10 +205,10 @@ keywords: Redis的List, Redis的链表操作, Redis用作消息队列, Redis的�
 
 创建list，生产者从头部增加，消费者从尾部取出并放到临时队列中，消费者完全消费后，在将消息从临时队列中取出。(使用移除指定值，移除1次，从头开始)
 
-![image-20200715204242446](https://i-blog.csdnimg.cn/blog_migrate/d0f0be0c3f1da8a172563d63dcda73a8.png)
+![image-20200715204242446](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d0f0be0c3f1da8a172563d63dcda73a8.png)
 
 ### 3.3 消息队列–最大长度
 
 创建list，使用保留指定范围的元素，可以保证list的长度恒定。
 
-![image-20200715204632146](https://i-blog.csdnimg.cn/blog_migrate/1eb6d8ce62ee7aa088f87a2d25078528.png)
+![image-20200715204632146](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1eb6d8ce62ee7aa088f87a2d25078528.png)

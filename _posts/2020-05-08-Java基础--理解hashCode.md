@@ -31,7 +31,7 @@ keywords: java核心, hashCode, 哈希, 对象比较, Java的哈希
 ## 1.hashCode
 
 什么是hashCode?  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/42aa6cf993a4a0317a477b259cf71026.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/42aa6cf993a4a0317a477b259cf71026.png)  
 根据jdkapi文档，可以很明确的得知hashCode的特点：
 
   *     1. 在一次运行期间，同一对象的equal比较信息没有被修改hashCode一定相同
@@ -39,7 +39,7 @@ keywords: java核心, hashCode, 哈希, 对象比较, Java的哈希
   *     3. 可以存在equals不等，但是hashCode相等的数据
 
 接下来看看hashCode方法的定义：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d9bdc2af8aa5f0840248b1fcfdf28c02.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d9bdc2af8aa5f0840248b1fcfdf28c02.png)  
 因为Object是Java所有类的父类，所以，Java所有类的默认的hashCode的方法就是Object的hashCode方法。Object的hashCode方法是一个native方法，即用平台相关语言实现的，由Java调用的方法。Object的hashCode方法是返回其内存地址经过计算后的数据。  
 hashCode返回的是一个int型的值。  
 内存地址计算过程（网上找到的资料，不保证一定正确）：  
@@ -49,7 +49,7 @@ int型的数据长度是4个字节即32位，一个内存地址是64位。
 ## 2.equals
 
 equals方法是Java中判断一个对象是否相等的重要的方法。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/06251cd395ce8aed92ff32d2bfeded76.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/06251cd395ce8aed92ff32d2bfeded76.png)  
 equals方法需要满足一下特性：
 
   * 自反性：非空X，X对自己的equals一定是true
@@ -182,8 +182,8 @@ equals可以自定义比较的属性
     
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ffef41edf3cab00cbc90a12f5cce3c8e.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dc5e7a59b852d3faea176c87c4b4e68f.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ffef41edf3cab00cbc90a12f5cce3c8e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dc5e7a59b852d3faea176c87c4b4e68f.png)
 
 ## 5\. 总结
 

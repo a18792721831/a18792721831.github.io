@@ -101,7 +101,7 @@ spring batch是一个批处理应用框架，不是调度框架，但需要和�
 
 spring batch核心架构分为三层：应用层、核心层、基础架构层。
 
-![image-20201105135630995](https://i-blog.csdnimg.cn/blog_migrate/43a88c1f03d9aa5c98df42357289f4a2.png)
+![image-20201105135630995](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/43a88c1f03d9aa5c98df42357289f4a2.png)
 
   * 应用层：包含所有的批处理作业，通过spring框架管理程序员的代码
   * 核心层：spring batch启动和控制所需要的核心类
@@ -172,37 +172,37 @@ spring batch框架提供多种Adapter能力，使得企业现有的服务可以�
 
   * 非顺序的Step支持
 
-![image-20201105144857231](https://i-blog.csdnimg.cn/blog_migrate/ca9c6e9a6d6770d6460d7640d4c0b825.png)
+![image-20201105144857231](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ca9c6e9a6d6770d6460d7640d4c0b825.png)
 
   * 面向Chunk处理
 
 spring batch 1.X的执行时序图
 
-![image-20201105144909922](https://i-blog.csdnimg.cn/blog_migrate/2e26761422476183f429f804d56f84cc.png)
+![image-20201105144909922](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2e26761422476183f429f804d56f84cc.png)
 
 spring batch 2.X的执行时序图
 
-![image-20201105145006169](https://i-blog.csdnimg.cn/blog_migrate/f50bd03667dd01f69d072067b5f661f4.png)
+![image-20201105145006169](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f50bd03667dd01f69d072067b5f661f4.png)
 
   * 逻辑结构优化
 
 spring batch 1.X的逻辑结构
 
-![image-20201105145141636](https://i-blog.csdnimg.cn/blog_migrate/5354491226546e96fc8fb7e0faeb6b0c.png)
+![image-20201105145141636](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5354491226546e96fc8fb7e0faeb6b0c.png)
 
 spring batch 1.X的代码组织结构
 
-![image-20201105145234891](https://i-blog.csdnimg.cn/blog_migrate/3673f257762d16605225b55890a9549d.png)
+![image-20201105145234891](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3673f257762d16605225b55890a9549d.png)
 
 spring batch 2.X的逻辑结构和代码结构
 
-![image-20201105145306025](https://i-blog.csdnimg.cn/blog_migrate/73ca58e47a4d9962a77bb8d1d3688e73.png)
+![image-20201105145306025](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/73ca58e47a4d9962a77bb8d1d3688e73.png)
 
   * 强化元数据访问
 
 spring batch 2.X中，新增了JobExplorer和JobOperator，整体的关系图
 
-![image-20201105145403447](https://i-blog.csdnimg.cn/blog_migrate/7819ac29b3df474fd4edbeaedc7bc80e.png)
+![image-20201105145403447](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7819ac29b3df474fd4edbeaedc7bc80e.png)
 
   * 增强扩展性
 
@@ -275,15 +275,15 @@ spring batch 2.X增加了批处理的命名空间，简化了配置(对应的是
 
 选择gradle项目，jdk11
 
-![image-20201105153527740](https://i-blog.csdnimg.cn/blog_migrate/634fbf85c02a8a898b8ad2ca74d8c06c.png)
+![image-20201105153527740](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/634fbf85c02a8a898b8ad2ca74d8c06c.png)
 
 选中spring batch
 
-![image-20201105153544670](https://i-blog.csdnimg.cn/blog_migrate/93fcb495714e8426e82ae88d3fdbba53.png)
+![image-20201105153544670](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/93fcb495714e8426e82ae88d3fdbba53.png)
 
 因为spring batch还需要存储元数据，所以，还需要一个数据库
 
-![image-20201105153640539](https://i-blog.csdnimg.cn/blog_migrate/6e9593792a5f8b3265482d3196a5aa65.png)
+![image-20201105153640539](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6e9593792a5f8b3265482d3196a5aa65.png)
 
 ### 创建job
 
@@ -291,49 +291,49 @@ spring batch 2.X增加了批处理的命名空间，简化了配置(对应的是
 
 然后创建job
 
-![image-20201105153801308](https://i-blog.csdnimg.cn/blog_migrate/f48312a845d92c9934a7e6a7cc5b1663.png)
+![image-20201105153801308](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f48312a845d92c9934a7e6a7cc5b1663.png)
 
 在HelloJobConf上需要加上注解，并且注入操作spring batch元数据的接口
 
-![image-20201105153845446](https://i-blog.csdnimg.cn/blog_migrate/6a9403b938f6260b477b7035d73f6db5.png)
+![image-20201105153845446](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a9403b938f6260b477b7035d73f6db5.png)
 
 创建ItemReader,因为批处理，如果一直有数据，会一直执行下去，所以，我们需要一个变量来标识退出批处理的时机
 
-![image-20201105154412813](https://i-blog.csdnimg.cn/blog_migrate/1277584c9a67a6f53b1ae13a53e0265b.png)
+![image-20201105154412813](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1277584c9a67a6f53b1ae13a53e0265b.png)
 
-![image-20201105154242396](https://i-blog.csdnimg.cn/blog_migrate/0093cce49e40e26c85695b73b53213b8.png)
+![image-20201105154242396](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0093cce49e40e26c85695b73b53213b8.png)
 
 可以看到，我们只想批处理20次，reader读取的是字符串。
 
 创建ItemProcess，process里面我们什么都不做，打印reader的字符串。
 
-![image-20201105154357374](https://i-blog.csdnimg.cn/blog_migrate/997138c0f0b2885a196860ae1362b29a.png)
+![image-20201105154357374](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/997138c0f0b2885a196860ae1362b29a.png)
 
 创建ItemWriter,writer里面也只是打印
 
-![image-20201105154447218](https://i-blog.csdnimg.cn/blog_migrate/8b57830f8222067196ee724c49a3ba8b.png)
+![image-20201105154447218](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8b57830f8222067196ee724c49a3ba8b.png)
 
 创建执行步step
 
-![image-20201105154616045](https://i-blog.csdnimg.cn/blog_migrate/f233b8b903c65ddfdc214f31996e8a08.png)
+![image-20201105154616045](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f233b8b903c65ddfdc214f31996e8a08.png)
 
 创建job
 
-![image-20201105154707623](https://i-blog.csdnimg.cn/blog_migrate/a3837e8d8374c073cfbb42f50cbd73e4.png)
+![image-20201105154707623](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a3837e8d8374c073cfbb42f50cbd73e4.png)
 
 ### 启动
 
 直接启动spring boot main类即可
 
-![image-20201105154802391](https://i-blog.csdnimg.cn/blog_migrate/ebc525c66b992d10687f81a446d5392f.png)
+![image-20201105154802391](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ebc525c66b992d10687f81a446d5392f.png)
 
 可以看出来，10个一批，和我们在chunk中定义的一样。
 
-![image-20201105154820053](https://i-blog.csdnimg.cn/blog_migrate/19cc201701ea2c234bc7f369618d1a83.png)
+![image-20201105154820053](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/19cc201701ea2c234bc7f369618d1a83.png)
 
 第21个结束，共3批
 
-![image-20201105154918264](https://i-blog.csdnimg.cn/blog_migrate/af443306234bda61eb36ed59aa4cf845.png)
+![image-20201105154918264](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/af443306234bda61eb36ed59aa4cf845.png)
 
 怎么区分批？
 

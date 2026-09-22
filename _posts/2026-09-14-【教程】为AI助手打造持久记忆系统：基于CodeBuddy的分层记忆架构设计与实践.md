@@ -20,7 +20,7 @@ keywords: ["智能体", "agent", "ai", "MCP", "Agent"]
 
 本文详细介绍如何为AI编程助手构建一套完整的持久化记忆系统。通过分层记忆模型、即时写入策略和自动化提炼机制，让AI助手在跨会话场景下真正"记住你"。文章包含完整的架构设计、文件结构、提炼脚本和踩坑经验，适合对AI工具链定制感兴趣的开发者阅读。
 
-![思维导图](https://i-blog.csdnimg.cn/img_convert/0259a25fad142bf513660fb68a689aab.png)
+![思维导图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/mindmap/%E4%B8%BAAI%E5%8A%A9%E6%89%8B%E6%89%93%E9%80%A0%E6%8C%81%E4%B9%85%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F_20260228160542.png)
 
 ### 1\. 为什么AI助手需要记忆系统
 

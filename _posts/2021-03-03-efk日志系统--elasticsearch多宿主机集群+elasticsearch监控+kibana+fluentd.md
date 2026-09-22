@@ -82,43 +82,43 @@ elasticsearch我们选择使用6.8.13版本，使用docker方式部署。（flue
 
 首先在[docker-hub](<https://hub.docker.com/>)上找到官方的镜像
 
-![image-20210225192722855](https://i-blog.csdnimg.cn/blog_migrate/f3be5fd34658cd77596e275c4e81c115.png)
+![image-20210225192722855](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f3be5fd34658cd77596e275c4e81c115.png)
 
 对于6.x系列，最新的就是6.8.13
 
-![image-20210225192803296](https://i-blog.csdnimg.cn/blog_migrate/6d0fc91c37244f884ebaea317dfa5d89.png)
+![image-20210225192803296](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6d0fc91c37244f884ebaea317dfa5d89.png)
 
 我默认你已经安装好了docker和docker-compose并且可以访问docker-io。
 
 OK，现在镜像找到了，但是如何使用这个镜像呢？
 
-![image-20210225193217411](https://i-blog.csdnimg.cn/blog_migrate/8694591899517901abd7a6cbe21cd719.png)
+![image-20210225193217411](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8694591899517901abd7a6cbe21cd719.png)
 
 继续往下拉，能找到`How to use`小节，但是仅仅给出了单机启动的方式。
 
 在`How to use`中，也直接给出了elasticsearch的文档的地址[elasticsearch-doc](<https://www.elastic.co/guide/en/elasticsearch/reference/index.html>)
 
-![image-20210225193353342](https://i-blog.csdnimg.cn/blog_migrate/48a5fd47448714322bdcba3986c64803.png)
+![image-20210225193353342](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/48a5fd47448714322bdcba3986c64803.png)
 
 我们找到6.8版本的文档
 
-![image-20210225193425104](https://i-blog.csdnimg.cn/blog_migrate/8b438a789b078ede28a34e1fb10c704a.png)
+![image-20210225193425104](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8b438a789b078ede28a34e1fb10c704a.png)
 
 请记住，当我们有不知道的内容的时候，从这里找要比在网上找更快，更准确。
 
 我们打开全部的目录
 
-![image-20210225193930079](https://i-blog.csdnimg.cn/blog_migrate/ff8eea1714e88905951a7b5bfec28fec.png)
+![image-20210225193930079](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ff8eea1714e88905951a7b5bfec28fec.png)
 
 然后搜索docker
 
-![image-20210225194006201](https://i-blog.csdnimg.cn/blog_migrate/092694c8b23b7900c74fe8181648890f.png)
+![image-20210225194006201](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/092694c8b23b7900c74fe8181648890f.png)
 
 就能找到如何docker启动elasticsearch了(这里和在docker-hub中找到的结果相同)
 
 区别在于，在线文档其实还给出了docker-compose的例子，我们要的就是docker-compose文件。
 
-![image-20210225194146888](https://i-blog.csdnimg.cn/blog_migrate/28eeeeab190312cb3098527f3a34694d.png)
+![image-20210225194146888](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/28eeeeab190312cb3098527f3a34694d.png)
 
 docker-compose例子中是如何在1台宿主机中启动集群模式的elasticsearch.
 
@@ -185,7 +185,7 @@ docker-compose例子中是如何在1台宿主机中启动集群模式的elastics
 
 我们打开在线文档目录直接搜索其中的`cluster-name`环境变量（这个环境变量是示例中的环境变量）
 
-![image-20210225195757916](https://i-blog.csdnimg.cn/blog_migrate/ca10823604bcf14a87f2be42ba86aad5.png)
+![image-20210225195757916](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ca10823604bcf14a87f2be42ba86aad5.png)
 
 在线文档中给出的重要的环境变量只有几个，不是完整的。
 
@@ -193,21 +193,21 @@ docker-compose例子中是如何在1台宿主机中启动集群模式的elastics
 
 在在线文档的任意一个界面，基本上都有一个放大镜的图标
 
-![image-20210225203523796](https://i-blog.csdnimg.cn/blog_migrate/223c59173a6d4c7876b1ee7819c9b546.png)
+![image-20210225203523796](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/223c59173a6d4c7876b1ee7819c9b546.png)
 
 点击后输入我们想要搜索的内容即可
 
-![image-20210225203553928](https://i-blog.csdnimg.cn/blog_migrate/0566704681d73e36f61dad3b634b62af.png)
+![image-20210225203553928](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0566704681d73e36f61dad3b634b62af.png)
 
 这样你就能搜索到全部的文档了
 
-![image-20210225203629355](https://i-blog.csdnimg.cn/blog_migrate/c7a73944061fb8e0992beefa0034ab22.png)
+![image-20210225203629355](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c7a73944061fb8e0992beefa0034ab22.png)
 
 比如找`node.name`这个属性  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/56da2a144ad86fc5d8a90091cf683bd8.gif)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/56da2a144ad86fc5d8a90091cf683bd8.gif)  
 在文档中，有这几个配置比较重要
 
-![image-20210301150906117](https://i-blog.csdnimg.cn/blog_migrate/499701098a1a27db2decbf9da11d24c9.png)
+![image-20210301150906117](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/499701098a1a27db2decbf9da11d24c9.png)
 
 这里的配置基本上就够了。
 
@@ -237,39 +237,39 @@ elasticsearch会自己发现本网段中其他的elasticsearch实例，然后会
 
 `docker network remove efk;docker network create efk --subnet 172.254.0.0/16;`
 
-![image-20210301155047564](https://i-blog.csdnimg.cn/blog_migrate/e40a75ea66124143ea34de6755490a86.png)
+![image-20210301155047564](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e40a75ea66124143ea34de6755490a86.png)
 
 接着使用`docker-compose up -d`启动即可。
 
-![image-20210301154906704](https://i-blog.csdnimg.cn/blog_migrate/eae1e07ba5dfc08f534a895304e627a2.png)
+![image-20210301154906704](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eae1e07ba5dfc08f534a895304e627a2.png)
 
 发现启动失败，使用`docker-compose logs -f elasticsearch0`查看日志
 
-![image-20210301155007183](https://i-blog.csdnimg.cn/blog_migrate/c2b8def83e19dc63ac0825bced95fae7.png)
+![image-20210301155007183](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c2b8def83e19dc63ac0825bced95fae7.png)
 
 发现是权限问题使用`chmod -R 777 ~/efk/elasticsearch*`给与权限。因为在`docker-compose.yaml`中配置是自动重启的，所以等等就会启动成功了。
 
-![image-20210301155230791](https://i-blog.csdnimg.cn/blog_migrate/1bf68009e98e3a32e831879b733051b3.png)
+![image-20210301155230791](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1bf68009e98e3a32e831879b733051b3.png)
 
 接着我们使用rest-api查看集群状态,发现还是不能访问。等下elasticsearch节点又会重启。
 
 查看日志发现是内存的问题
 
-![image-20210301155735493](https://i-blog.csdnimg.cn/blog_migrate/6e172e7e32fc2a6ac54585dd898ac5aa.png)
+![image-20210301155735493](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6e172e7e32fc2a6ac54585dd898ac5aa.png)
 
 使用`sysctl --write vm.max_map_count=262144;`设置，然后等会即可。
 
 查看日志，发现已经启动了
 
-![image-20210301155902633](https://i-blog.csdnimg.cn/blog_migrate/dd20db0e38125b5423e758a94302f693.png)
+![image-20210301155902633](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dd20db0e38125b5423e758a94302f693.png)
 
 访问elasticsearch0的9200
 
-![image-20210301155935348](https://i-blog.csdnimg.cn/blog_migrate/f535f3fc794e558b77a711bb8177dd55.png)
+![image-20210301155935348](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f535f3fc794e558b77a711bb8177dd55.png)
 
 查看集群信息
 
-![image-20210301162045531](https://i-blog.csdnimg.cn/blog_migrate/390373a66ec11158f01b5148239b5135.png)
+![image-20210301162045531](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/390373a66ec11158f01b5148239b5135.png)
 
 ### 1.2 elasticsearch 配置
 
@@ -309,7 +309,7 @@ elasticsearch会自己发现本网段中其他的elasticsearch实例，然后会
 
 network.host为0.0.0.0表示任意的网络
 
-![image-20210301173040730](https://i-blog.csdnimg.cn/blog_migrate/9137f794c1ade1ec42e820b8978973d4.png)
+![image-20210301173040730](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9137f794c1ade1ec42e820b8978973d4.png)
 
 network.host特殊值
 
@@ -504,7 +504,7 @@ elasticsearch绑定网段。
 
 通过设置`discovery.type=single-node`。
 
-![image-20210301190131769](https://i-blog.csdnimg.cn/blog_migrate/fe5d01f7ba55a35b00a881e75a004446.png)
+![image-20210301190131769](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fe5d01f7ba55a35b00a881e75a004446.png)
 
 #### 1.3.2 主节点–node.master
 
@@ -627,7 +627,7 @@ elasticsearch是一个分词数据库，当我们将一个字符串交给elastic
 
 在多个宿主机上启动之后，访问主节点集群信息
 
-![image-20210301192922113](https://i-blog.csdnimg.cn/blog_migrate/d983d043f9c76c149ff263061da8c9af.png)
+![image-20210301192922113](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d983d043f9c76c149ff263061da8c9af.png)
 
 ### 1.5 宿主机启动的坑
 
@@ -654,13 +654,13 @@ elasticsearch是一个分词数据库，当我们将一个字符串交给elastic
 因此我们在docker-hub上找到这个镜像。
 
 [docker-hub搜索elasticsearch-head结果](<https://hub.docker.com/search?q=elasticsearch-head&type=image>)  
-![image-20210302185457001](https://i-blog.csdnimg.cn/blog_migrate/791e1f64e10ae69ddc218b54710af7e1.png)
+![image-20210302185457001](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/791e1f64e10ae69ddc218b54710af7e1.png)
 
 需要注意的是，这个镜像没有latest标签，这就意味着，我们必须制定标签下载。
 
 我们使用其中的5这个标签即可
 
-![image-20210302185608022](https://i-blog.csdnimg.cn/blog_migrate/cabaf50bd51207598df4f105f81e95b3.png)
+![image-20210302185608022](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cabaf50bd51207598df4f105f81e95b3.png)
 
 我们将其作为docker-compose中的服务
     
@@ -690,23 +690,23 @@ elasticsearch是一个分词数据库，当我们将一个字符串交给elastic
 
 我们点击这个5，就能查看这个镜像的dockerfile了
 
-![image-20210302190127046](https://i-blog.csdnimg.cn/blog_migrate/d0c4acfab67a92f26019ef81a343a1d8.png)
+![image-20210302190127046](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d0c4acfab67a92f26019ef81a343a1d8.png)
 
 接着通过`EXPOSE`的关键词就能找到容器内的端口
 
-![image-20210302190211254](https://i-blog.csdnimg.cn/blog_migrate/8925de8a1c1d6cc2d5de760d07826c3d.png)
+![image-20210302190211254](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8925de8a1c1d6cc2d5de760d07826c3d.png)
 
 当我们启动之后，就可以通过9100访问了
 
-![image-20210302190635147](https://i-blog.csdnimg.cn/blog_migrate/7a366d9c54ba778e5a39a7d27c579c9c.png)
+![image-20210302190635147](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7a366d9c54ba778e5a39a7d27c579c9c.png)
 
 访问是这样的
 
-![image-20210302190702964](https://i-blog.csdnimg.cn/blog_migrate/201dbee166b840a820eb920a70b43039.png)
+![image-20210302190702964](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/201dbee166b840a820eb920a70b43039.png)
 
 我们填入elasticsearch的地址和端口
 
-![image-20210302191101391](https://i-blog.csdnimg.cn/blog_migrate/ea9d97366ca4e26a48f0194424252bd7.png)
+![image-20210302191101391](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea9d97366ca4e26a48f0194424252bd7.png)
 
 这个监控还可以管理节点。但是因为没有权限管理和角色管理，最好不要让外网可以访问监控。
 
@@ -714,15 +714,15 @@ elasticsearch是一个分词数据库，当我们将一个字符串交给elastic
 
 同样的操作，在[docker-hub中搜索kibana](<https://hub.docker.com/search?q=kibana&type=image>)
 
-![image-20210302191301125](https://i-blog.csdnimg.cn/blog_migrate/8b21ac79fe77370fbbd38ae07bd7eecb.png)
+![image-20210302191301125](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8b21ac79fe77370fbbd38ae07bd7eecb.png)
 
 kibana的版本一定要和elasticsearch的版本保持一致
 
-![image-20210302191437024](https://i-blog.csdnimg.cn/blog_migrate/d986b4c26b43bd50cdc27bfb2f62325c.png)
+![image-20210302191437024](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d986b4c26b43bd50cdc27bfb2f62325c.png)
 
 如何使用kibana
 
-![image-20210302191518051](https://i-blog.csdnimg.cn/blog_migrate/82b51ede9019511f35da9a982f0d90ba.png)
+![image-20210302191518051](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/82b51ede9019511f35da9a982f0d90ba.png)
 
 基于此，我们可以编写出kibana的docker-compose文件
     
@@ -768,29 +768,29 @@ kibana也是elastic公司的开源产品，因此，类似与elasticsearch一样
 
 就能找到[kibana的文档](<https://www.elastic.co/guide/en/kibana/6.8/index.html>)
 
-![image-20210302192138391](https://i-blog.csdnimg.cn/blog_migrate/22b3ac643124c6427eedde302dd93004.png)
+![image-20210302192138391](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/22b3ac643124c6427eedde302dd93004.png)
 
 我们找到`running kibana on docker`小节，就可以知道配置一个最简单的kibana需要有哪些配置了
 
-![image-20210302192223748](https://i-blog.csdnimg.cn/blog_migrate/53c56d83e8e0ca7af0b1f655d46d1fc6.png)
+![image-20210302192223748](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/53c56d83e8e0ca7af0b1f655d46d1fc6.png)
 
-![image-20210302192247402](https://i-blog.csdnimg.cn/blog_migrate/abdd74664a542b379c96462c4b3e744c.png)
+![image-20210302192247402](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/abdd74664a542b379c96462c4b3e744c.png)
 
 [kibana完整的配置说明](<https://www.elastic.co/guide/en/kibana/6.8/settings.html>)
 
-![image-20210302195704953](https://i-blog.csdnimg.cn/blog_migrate/f48aed649c5cfc10400df5c10149cf41.png)
+![image-20210302195704953](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f48aed649c5cfc10400df5c10149cf41.png)
 
 kibana全部的配置都可以用环境变量传入。也可以用配置文件挂载。
 
 启动后立刻访问会提示kibana还未准备完成
 
-![image-20210302202400211](https://i-blog.csdnimg.cn/blog_migrate/96cfa2d83bc28d60423a23cc2e1f6683.png)
+![image-20210302202400211](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/96cfa2d83bc28d60423a23cc2e1f6683.png)
 
 启动成功后，kibana会将自己的数据交给elasticsearch保存。
 
 kibana在elasticsearch中保存数据的数据库索引是我们指定的`.kibana`开头的
 
-![image-20210302202554538](https://i-blog.csdnimg.cn/blog_migrate/fb1b2791acb6aa4ea3c0045a67b69574.png)
+![image-20210302202554538](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fb1b2791acb6aa4ea3c0045a67b69574.png)
 
 此时没有任何数据。
 
@@ -798,17 +798,17 @@ kibana在elasticsearch中保存数据的数据库索引是我们指定的`.kiban
 
 我们在[docker-hub中搜索fluentd](<https://hub.docker.com/search?q=fluentd&type=image>)
 
-![image-20210303090133956](https://i-blog.csdnimg.cn/blog_migrate/9c82141bc79aaeb3e783690049edae74.png)
+![image-20210303090133956](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9c82141bc79aaeb3e783690049edae74.png)
 
 需要注意的是，这个镜像只是纯镜像，没有任何插件。
 
 我们选择这个版本
 
-![image-20210303090431900](https://i-blog.csdnimg.cn/blog_migrate/e62df8fc7cc1b35eb9f8d8a7605eca57.png)
+![image-20210303090431900](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e62df8fc7cc1b35eb9f8d8a7605eca57.png)
 
 通过查看`how to run images`我们可以知道fluentd需要对外开放24224端口，并且对tcp和udp协议都开放。
 
-![image-20210303090630659](https://i-blog.csdnimg.cn/blog_migrate/1d1d12aa390e3ca975e6f86737725482.png)
+![image-20210303090630659](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d1d12aa390e3ca975e6f86737725482.png)
 
 看到这里，我们已经能够成功的启动一个fluentd的镜像了，但是，还有一个问题需要解决？fluentd如何与elasticsearch集成？
 
@@ -816,23 +816,23 @@ kibana在elasticsearch中保存数据的数据库索引是我们指定的`.kiban
 
 我们通过docker-hub的界面链接到fluentd的github地址
 
-![image-20210303091055008](https://i-blog.csdnimg.cn/blog_migrate/97505d0ac3a646124653d7120126910b.png)
+![image-20210303091055008](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/97505d0ac3a646124653d7120126910b.png)
 
 在github的readme中的第三小节，我们可以找到fluentd的插件市场
 
-![image-20210303091143378](https://i-blog.csdnimg.cn/blog_migrate/29c4f5daab2e7d9b464676a504d70b3f.png)
+![image-20210303091143378](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/29c4f5daab2e7d9b464676a504d70b3f.png)
 
 而且给出的例子就是fluentd安装elasticsearch插件
 
-![image-20210303091236906](https://i-blog.csdnimg.cn/blog_migrate/5ce5bbff58bb8c6e2af8497be05a5847.png)
+![image-20210303091236906](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5ce5bbff58bb8c6e2af8497be05a5847.png)
 
 我们在[fluentd的插件市场](<https://www.fluentd.org/plugins>)中搜索elasticsearch就可以找到elasticsearch的插件了
 
-![image-20210303091431087](https://i-blog.csdnimg.cn/blog_migrate/09479111a2d3281c59578978d8a6e677.png)
+![image-20210303091431087](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/09479111a2d3281c59578978d8a6e677.png)
 
 点击就进入[elasticsearch插件的github](<https://github.com/uken/fluent-plugin-elasticsearch>)中了,在readme中找到安装小节
 
-![image-20210303091828691](https://i-blog.csdnimg.cn/blog_migrate/b6c8df3837803b7b7fd44a7b612f5573.png)
+![image-20210303091828691](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6c8df3837803b7b7fd44a7b612f5573.png)
 
 通过这里，我们拿到了插件名称和下载方式。
 
@@ -852,19 +852,19 @@ kibana在elasticsearch中保存数据的数据库索引是我们指定的`.kiban
 
 在宿主机上使用`docker build -f fluentd-elasticsearch --tag=fluentd-elasticsearch:latest .`进行构建。(别忘记了`.`)
 
-![image-20210303092433534](https://i-blog.csdnimg.cn/blog_migrate/9650e39f70e610ed7cdfcfff6d07aa64.png)
+![image-20210303092433534](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9650e39f70e610ed7cdfcfff6d07aa64.png)
 
 查看镜像，会发现多了一个
 
-![image-20210303092513312](https://i-blog.csdnimg.cn/blog_migrate/262e0e072ade6bf52ecc722576360541.png)
+![image-20210303092513312](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/262e0e072ade6bf52ecc722576360541.png)
 
 如果需要上传私服，需要使用`docker login http://your-harbor.com`登录docker私服，然后使用`docker commit -m "message"`提交修改
 
-![image-20210303092709829](https://i-blog.csdnimg.cn/blog_migrate/34ef218ec841fe4efa7bbff19b08166e.png)
+![image-20210303092709829](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34ef218ec841fe4efa7bbff19b08166e.png)
 
 最终使用`docker push fluentd-elasticsearch`推送即可
 
-![image-20210303092847235](https://i-blog.csdnimg.cn/blog_migrate/cf5dbeb59f258681313c3d7f5b66b941.png)
+![image-20210303092847235](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf5dbeb59f258681313c3d7f5b66b941.png)
 
 到了这里就需要编写`docker-compose`文件了
     
@@ -902,7 +902,7 @@ kibana在elasticsearch中保存数据的数据库索引是我们指定的`.kiban
 
 在[fluentd的github的readme](<https://github.com/fluent/fluentd-docker-image>)中有自定义配置小节
 
-![image-20210303093658701](https://i-blog.csdnimg.cn/blog_migrate/3bb2b8c171f3bc0ef61424c9b3ea7c19.png)
+![image-20210303093658701](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3bb2b8c171f3bc0ef61424c9b3ea7c19.png)
 
 而且，我们在文件挂载中，将配置文件挂载到了`/fluentd/etc/`目录下。
 
@@ -912,7 +912,7 @@ kibana在elasticsearch中保存数据的数据库索引是我们指定的`.kiban
 
 [fluentd最新镜像的dockerfile文件](<https://github.com/fluent/fluentd-docker-image/blob/master/v1.10/alpine/Dockerfile>)
 
-![image-20210303093925344](https://i-blog.csdnimg.cn/blog_migrate/9759f93bc7f6313974fdb3070c80804a.png)
+![image-20210303093925344](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9759f93bc7f6313974fdb3070c80804a.png)
 
   2. 为什么需要extra_hosts？
 
@@ -954,15 +954,15 @@ kibana在elasticsearch中保存数据的数据库索引是我们指定的`.kiban
 
 在[fluentd的github](<https://github.com/fluent/fluentd-docker-image>)的第二小节
 
-![image-20210303101808433](https://i-blog.csdnimg.cn/blog_migrate/dc96deaab025ecd19edb0a003432eaf0.png)
+![image-20210303101808433](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dc96deaab025ecd19edb0a003432eaf0.png)
 
 告诉了我们fluentd的配置文件的文档位置
 
 我们主要看的是input和output小节。
 
-![image-20210303102001026](https://i-blog.csdnimg.cn/blog_migrate/56d480d8bd3280ec9cf40af65ea17803.png)
+![image-20210303102001026](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/56d480d8bd3280ec9cf40af65ea17803.png)
 
-![image-20210303102041829](https://i-blog.csdnimg.cn/blog_migrate/82c21de89d0b7c384eb3f6c5a16024c9.png)
+![image-20210303102041829](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/82c21de89d0b7c384eb3f6c5a16024c9.png)
 
 OK，目前为止，`docker-compose`和`fluentd.conf`都有了，可以启动了。
 
@@ -1096,7 +1096,7 @@ logback中配置的tag需要与fluentd.conf中的match进行匹配。
 
 在logback中配置的tag是study.test，在fluentd.conf中match是study.*。因为在fluentd.conf中match是输出，只有匹配才会到对应的输出。
 
-![image-20210303111103290](https://i-blog.csdnimg.cn/blog_migrate/ba72dfbee8c5ac880471ccd16575d1d1.png)
+![image-20210303111103290](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ba72dfbee8c5ac880471ccd16575d1d1.png)
 
 这里需要注意。
 
@@ -1108,20 +1108,20 @@ elasticsearch中存储了数据之后，kibana就能通过9200端口查询数据
 
 elasticsearch中存储了fluentd的数据后
 
-![image-20210303111611834](https://i-blog.csdnimg.cn/blog_migrate/ccd66a936a39efae63fa03885dab8143.png)
+![image-20210303111611834](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ccd66a936a39efae63fa03885dab8143.png)
 
 最后就能在kibana中查看日志了
 
-![image-20210303111823935](https://i-blog.csdnimg.cn/blog_migrate/00e8482c1c71f4fc9d3950a4b0807c83.png)
+![image-20210303111823935](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/00e8482c1c71f4fc9d3950a4b0807c83.png)
 
 第一次进入kibana还不能直接查看日志，需要在Management中创建fluentd的索引模式。
 
-![image-20210303112056856](https://i-blog.csdnimg.cn/blog_migrate/efcb9e2b1f056dbc6b625c0553353160.png)
+![image-20210303112056856](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/efcb9e2b1f056dbc6b625c0553353160.png)
 
 创建索引模式成功后，就可以在Discover中看到统计图了
 
-![image-20210303112207421](https://i-blog.csdnimg.cn/blog_migrate/b5ee7df4318b297ac08384dea52ba186.png)
+![image-20210303112207421](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b5ee7df4318b297ac08384dea52ba186.png)
 
 想看到统计图，需要在创建索引模式的第二步中选中时间属性，否则不会出现统计图
 
-![image-20210303112304555](https://i-blog.csdnimg.cn/blog_migrate/256c4ba12557c201038c313e7666cdc4.png)
+![image-20210303112304555](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/256c4ba12557c201038c313e7666cdc4.png)

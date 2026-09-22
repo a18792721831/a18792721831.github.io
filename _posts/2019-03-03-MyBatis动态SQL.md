@@ -360,8 +360,8 @@ bindMapper.xml
 
 ### 3.1创建一个MyBatis的工程：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/79071da486787b18441e42ca90c194ad.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3dd9db72a956c831d1ff17c3d75f23f4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/79071da486787b18441e42ca90c194ad.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3dd9db72a956c831d1ff17c3d75f23f4.png)
 
 ### 3.2Java文件
     
@@ -1148,7 +1148,7 @@ testUpdateSetName
     
 
 testUpdateSetNull  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/232a40ff4195009d2ddbf82a45e4ef03.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/232a40ff4195009d2ddbf82a45e4ef03.png)  
 testUpdateTrim
     
     

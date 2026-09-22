@@ -39,7 +39,7 @@ spring容器可以管理singleton作用域的Bean的生命周期，当Bean的作
 
 ## 2.bean的生命周期
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cf9c487507546f70269f1564b4ce11f3.jpeg)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf9c487507546f70269f1564b4ce11f3.jpeg)
 
 ## 3.Bean的生命周期的描述
 
@@ -59,11 +59,11 @@ spring容器可以管理singleton作用域的Bean的生命周期，当Bean的作
 
 ### 4.1创建一个spring的空工程
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b086318e08ba23c344a09e9cea33fd5d.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b086318e08ba23c344a09e9cea33fd5d.png)
 
 ### 4.2创建Java文件
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/63998d67b75571a49c49e431f5a54888.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/63998d67b75571a49c49e431f5a54888.png)
     
     
     package bean;

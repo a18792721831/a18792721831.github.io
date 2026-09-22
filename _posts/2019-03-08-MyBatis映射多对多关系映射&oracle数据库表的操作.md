@@ -223,27 +223,27 @@ keywords: MyBatis最全例子, MyBatis多对多关系, Oracle创建表、序列�
      WHERE UCC.TABLE_NAME = UPPER('service');--查看说明
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dd496d24cf27dd7d845c078033c6a822.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dd496d24cf27dd7d845c078033c6a822.png)
     
     
     SELECT * FROM USER_COL_COMMENTS UCC WHERE UCC.TABLE_NAME = UPPER('people')
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ad944cf24a0fcd5f41f729628bf2913f.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ad944cf24a0fcd5f41f729628bf2913f.png)
 
 ### 3.2数据准备
 
 #### 3.2.1创建一个MyBatis工程
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c3884fddef26abeaa70194ebfe1a1059.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c3884fddef26abeaa70194ebfe1a1059.png)
 
 #### 3.2.2导入jar包
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7a10c32701b05056df8a2333cd0e1790.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7a10c32701b05056df8a2333cd0e1790.png)
 
 #### 3.2.3创建实体
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/defda3e5ed4b0dbc80a3ef9010ca22f9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/defda3e5ed4b0dbc80a3ef9010ca22f9.png)
     
     
     package domain;
@@ -421,7 +421,7 @@ keywords: MyBatis最全例子, MyBatis多对多关系, Oracle创建表、序列�
 
 #### 3.2.4创建工具类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/25c73615da9502d865e16a81441928af.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/25c73615da9502d865e16a81441928af.png)
     
     
     package util;
@@ -457,7 +457,7 @@ keywords: MyBatis最全例子, MyBatis多对多关系, Oracle创建表、序列�
 
 #### 3.2.5创建properties
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8fcf086da520338502845727103042eb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8fcf086da520338502845727103042eb.png)  
 log4j.properties
     
     
@@ -483,7 +483,7 @@ ojdbc.properties
 
 #### 3.2.6创建resource
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/419092d91b5f694d974ab9a44a872dc3.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/419092d91b5f694d974ab9a44a872dc3.png)
     
     
     <?xml version="1.0" encoding="UTF-8" ?>
@@ -702,7 +702,7 @@ mybatis.xml中加入新增加的mapper文件
     
 
 运行结果:  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4c58443d00442c0b908e96053bd12020.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4c58443d00442c0b908e96053bd12020.png)
 
 #### 3.2.8增加service数据
 
@@ -846,7 +846,7 @@ selectServiceMapper.xml
     
 
 运行测试结果  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c9962afe2d57cfb566d25d2f16699c17.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c9962afe2d57cfb566d25d2f16699c17.png)
 
 #### 3.2.9增加中间表数据
 
@@ -896,10 +896,10 @@ insertPeopleServiceMapper.xml
 
 添加到mybatis.xml中  
 执行测试方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/06eb0730dc77d5e5650e6f1123442d94.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/01fdefbaeb37286524de1c5dd3121a69.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/06eb0730dc77d5e5650e6f1123442d94.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/01fdefbaeb37286524de1c5dd3121a69.png)  
 402*201=80802  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/884509f91bf6329dd6aec3d1b3d22737.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/884509f91bf6329dd6aec3d1b3d22737.png)  
 所以，多对多的关系非常的复杂，想要完全描述多对多的关系也是一个数据量庞大的操作。  
 编写查询中间表  
 selectPeopleServiceMapper.xml
@@ -943,8 +943,8 @@ selectPeopleServiceMapper.xml
     
 
 运行结果  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e5a87e9fde5132cac305905e098706be.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d658223776136d3c2b7954c5cbdff630.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e5a87e9fde5132cac305905e098706be.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d658223776136d3c2b7954c5cbdff630.png)  
 到此数据准备完成。
 
 ### 3.3按照id查询数据

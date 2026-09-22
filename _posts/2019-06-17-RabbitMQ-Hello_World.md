@@ -49,7 +49,7 @@ keywords: Hello World RabbitMQ, RabbitMQ, 入门RabbitMQ, RabbitMQ的三种交�
 ## 2.RabbitMQ的基本概念
 
 RabbitMQ是AMQP协议的一个开源实现。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4e6b8552f5695f9aa2b156b8ee04b599.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4e6b8552f5695f9aa2b156b8ee04b599.png)
 
   * Message:消息
   * Publisher:消息生产者
@@ -65,7 +65,7 @@ RabbitMQ是AMQP协议的一个开源实现。
 ## 3.重点核心
 
   1. AMQP中的消息路由  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d8c4c40cea91b29a127cf4153eaf8ff1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d8c4c40cea91b29a127cf4153eaf8ff1.png)  
 生产者需要把消息发布到Exchange上，消息最终到达队列并被消费者接收，而Binding决定交换器上的消息应该被送到哪个队列中。
   2. 交换器类型
 
@@ -80,7 +80,7 @@ Topic交换器通过模式匹配分配消息的路由键属性，将路由键和
 
 ### 4.1创建一个model
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b16b68a464ecb9911c16873f41257a96.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b16b68a464ecb9911c16873f41257a96.png)  
 并创建目录。
 
 ### 4.2jar包下载
@@ -90,7 +90,7 @@ Topic交换器通过模式匹配分配消息的路由键属性，将路由键和
 <https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar>  
 <https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.26/slf4j-simple-1.7.26.jar>  
 导入到工程  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eec46f7b8fbb72b5f327c749c6f5b1ce.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eec46f7b8fbb72b5f327c749c6f5b1ce.png)
 
 ### 4.3生产者
     
@@ -184,26 +184,26 @@ Topic交换器通过模式匹配分配消息的路由键属性，将路由键和
 
 ### 4.5生产一个消息
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7163b546bfdf8f48df7139102a07eded.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ed4a79a52f26c10f011daa4fe449421f.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7163b546bfdf8f48df7139102a07eded.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ed4a79a52f26c10f011daa4fe449421f.png)
 
 ### 4.6消费一个消息
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/62230155699530eb45d4b2688e010c31.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7addabe44628ef4a3462de0f4332a3f4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/62230155699530eb45d4b2688e010c31.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7addabe44628ef4a3462de0f4332a3f4.png)
 
 ### 4.7消费者一直消费
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f4d80bb612538052543c1ae183ce727e.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1ecb70a540afbc35df4d93f62c698df5.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/273c7e2abc47605670a8597b869afaaa.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f4d80bb612538052543c1ae183ce727e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1ecb70a540afbc35df4d93f62c698df5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/273c7e2abc47605670a8597b869afaaa.png)  
 生产一个消息  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/89f10815a4b31c6b9dc55a68d63e78d8.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0a93aa1df412eb0c3fde8ff7ff3a8c8e.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2779986ee9c521d26a67a94d2031c141.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/89f10815a4b31c6b9dc55a68d63e78d8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0a93aa1df412eb0c3fde8ff7ff3a8c8e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2779986ee9c521d26a67a94d2031c141.png)  
 多生产几个消息  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0c3a4e3b6169db48fad55d647b33a3d5.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/db8b5737a7f77a1c9c92b6a3958eeb65.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c3a4e3b6169db48fad55d647b33a3d5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/db8b5737a7f77a1c9c92b6a3958eeb65.png)
 
 git仓库地址  
 <https://github.com/a18792721831/MQ.git>

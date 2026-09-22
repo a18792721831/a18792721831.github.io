@@ -31,7 +31,7 @@ keywords: ["agent", "智能体", "ai", "token", "deepseek"]
 
 所以预测"？“后面是什么，就用”？"的行向量。把 6×4096 的输出矩阵只取最后一行，得到 v——1×4096 的行向量（演示 1×4），如图 10-1 所示。
 
-![取最后一行](https://i-blog.csdnimg.cn/img_convert/9dece33fdaacea98f9cc28ef62b5b93a.png)
+![取最后一行](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig101_last_row.png)
 
 **图10-1 只取最后一行：「？」行是全句信息的汇集点**
 
@@ -43,7 +43,7 @@ keywords: ["agent", "智能体", "ai", "token", "deepseek"]
 
 演示用 8 个候选 token 的小词表（今、晴、雨、多、阴、雪、风、很），lm_head 就是 4×8 的小矩阵。v 乘它，得到 8 个分数（logits），如图 10-2 所示。
 
-![lm_head 计算](https://i-blog.csdnimg.cn/img_convert/a0e2d8e926dbfd2cd2f9d14848c2ab81.png)
+![lm_head 计算](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig102_lmhead-v3.png)
 
 **图10-2 lm_head：最后一次「一行乘一列」——4096 维翻译成词表分数**
 
@@ -77,13 +77,13 @@ P i = e z i ∑ j e z j P_i = \frac{e^{z_i}}{\sum_j e^{z_j}} Pi​=∑j​ezj​
 
 整个过程动图演示如图 10-3 所示（4 帧循环，每帧追加一步推导）。
 
-![Softmax 手算动图](https://i-blog.csdnimg.cn/img_convert/eb270e4c481e07d6740ce1ebf3babce7.gif)
+![Softmax 手算动图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/softmax_process-v5.gif)
 
 **图10-3 Softmax 手算全过程：logits → e^z → 求和 → 概率（4 帧追加式动图）**
 
 8 个候选的最终概率（热力图）如图 10-4 所示。
 
-![Softmax 概率热力图](https://i-blog.csdnimg.cn/img_convert/e2659c373f7adfbe7f0ca9f4bfa30217.png)
+![Softmax 概率热力图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig103_softmax-v2.png)
 
 **图10-4 Softmax 后的概率：颜色越深概率越高（左：热力图；右：温度对比）**
 
@@ -102,7 +102,7 @@ P i = e z i ∑ j e z j P_i = \frac{e^{z_i}}{\sum_j e^{z_j}} Pi​=∑j​ezj​
 
 概率有了，怎么选出那个 token？三种主流策略，如图 10-5 所示。
 
-![选token策略](https://i-blog.csdnimg.cn/img_convert/255fb66bcb363c8d34eeb3b9e1679279.png)
+![选token策略](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig104_sampling.png)
 
 **图10-5 拿到概率之后怎么选：三种策略**
 
@@ -135,7 +135,7 @@ P i = e z i ∑ j e z j P_i = \frac{e^{z_i}}{\sum_j e^{z_j}} Pi​=∑j​ezj​
 
 一个 token 显然不够——用户要的是完整的天气播报。**自回归（autoregressive）** ：把刚生成的「晴」拼回输入句尾，输入从 6 个 token 变成 7 个，再完整走一遍前向（32 层 → 取最后一行 → lm_head → Softmax → 选 token），得到第二个 token「天」。循环往复，像多米诺骨牌，如图 10-6 所示。
 
-![自回归循环](https://i-blog.csdnimg.cn/img_convert/5909d07cb761827209ccbe7c2581b2ae.png)
+![自回归循环](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig105_autoregressive.png)
 
 **图10-6 自回归：首 token 拼回句尾，生成第二个字**
 
@@ -170,13 +170,13 @@ while 未遇到 EOS and 长度未超限:
 
 KV-Cache 的做法：把每一层算出的 K、V 缓存下来；下一步只算**新 token 一个** 的 Q、K、V——新 K/V 追加进缓存，新 Q 和全部缓存 K 算注意力。对比效果如图 10-7 所示。
 
-![KV-Cache](https://i-blog.csdnimg.cn/img_convert/4ff9c4abdd69f263586b983320bc7026.png)
+![KV-Cache](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig106_kvcache.png)
 
 **图10-7 KV-Cache：缓存每层的 K/V，新 token 只算自己的 Q/K/V**
 
 从矩阵视角看缓存扩充：生成「晴」之前，K 缓存是 6×4；「晴」拼进来后，只新算它那一行，追加成 7×4——前 6 行原封不动，如图 10-8 所示。
 
-![KV缓存扩充热力图](https://i-blog.csdnimg.cn/img_convert/f105b516b76896990baf98dee329b8ac.png)
+![KV缓存扩充热力图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig106b_kvcache_heat.png)
 
 **图10-8 KV 缓存的扩充：从 6×4 到 7×4——旧的逐格不动，新的整行追加（颜色深浅 = 数值大小）**
 
@@ -197,7 +197,7 @@ for 每一步:
 
 把图 10-6 和图 10-7 的机制合起来，如图 10-9 所示（4 帧循环动图）：
 
-![自回归+KV-Cache 动图](https://i-blog.csdnimg.cn/img_convert/10d3eb7a06e0d3fcec36be6f921002bd.gif)
+![自回归+KV-Cache 动图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/autoreg_kvcache-v2.gif)
 
 **图10-9 自回归生成 + KV-Cache 全过程动图**
 
@@ -240,7 +240,7 @@ MLA| 潜在压缩| ≈ 576 + 64| **≈1/14（减 93%）**|  DeepSeek-V3 / R1
 
 把 10 篇串成一条线，如图 10-10 所示。
 
-![系列收官全景](https://i-blog.csdnimg.cn/img_convert/5332d9c1e89b7587c0d3d6886c3efb24.png)
+![系列收官全景](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig107_series_final-v2.png)
 
 **图10-10 从一条直线到一个 token：10 篇的完整旅程**
 
@@ -297,7 +297,7 @@ MoE 的"230B 总参数、23B 激活"，翻译过来就是：**模型记得多（
 
 把这 17 个问题全部列出，按"懂你 / 有据 / 看见更多 / 变强"分成四组，如图 10-11 所示。
 
-![下一系列主题地图](https://i-blog.csdnimg.cn/img_convert/44e978f61d6113bb26d41bb1167a9694.png)
+![下一系列主题地图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig108_next_series-v2.png)
 
 **图10-11 下一系列候选主题：17 个问题分四组（顺序和内容都可能调整，欢迎留言点单）**
 

@@ -71,27 +71,27 @@ Semaphore 通常用于限制可以访问某些资源（物理或逻辑的）的�
 
 ### 1.1 Semaphore 的 UML 结构
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b2bb91d5551e21645c981ad511da3615.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b2bb91d5551e21645c981ad511da3615.png)  
 Semaphore和ReentrantLock的结构相同。  
 都是内部的Sync继承了AQS，内部还有FairSync和NonfairSync继承了Sync。
 
 ### 1.2 Semaphore的属性和方法
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/10203af0059056b543bf0e79e2ef871e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/10203af0059056b543bf0e79e2ef871e.png)
 
 ## 2\. Semaphore 的构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c66f5222a664a040907dd2aaea2f5d66.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c66f5222a664a040907dd2aaea2f5d66.png)
 
 ### 2.1 Samephore(int)
 
 创建指定信号量的，不公平的信号量锁。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/150aa5c277a8a0762fac9a971e24e16b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/150aa5c277a8a0762fac9a971e24e16b.png)  
 根据传入的值，调用不公平的信号量同步锁。
 
 ### 2.2 Samephore(int,boolean)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/68c77fed3dcd4794f60d0cbe47411742.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/68c77fed3dcd4794f60d0cbe47411742.png)  
 根据传入的boolean值，选择是否是公平的处理方式。  
 然后调用FairSync或者是NonfaireSync类的构造。
 
@@ -101,29 +101,29 @@ Semaphore和ReentrantLock的结构相同。
 
 ### 3.1 acquire
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f363ec35bbe6dc7e53334cde5fb20125.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f363ec35bbe6dc7e53334cde5fb20125.png)  
 直接调用AQS的accquireSharedInterruptibly,传入1.  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fd7686ac3486b920d7ae171739b4a394.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fd7686ac3486b920d7ae171739b4a394.png)  
 AQS的acquireSharedInterruptibly方法会调用AQS子类实现的tryAcquireShared方法。
 
 ### 3.2 acquire(int)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/537c89e198da2cfb02b5f7b55642dd1b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/537c89e198da2cfb02b5f7b55642dd1b.png)  
 如果请求的数量小于0，那么抛出参数异常。  
 否则调用AQS的acquireSharedInterruptibly方法。  
 最终还是调用Sync的nonfairTryAcquireShared和FairSync的tryAcquireShared方法。
 
 ### 3.3 acquireUninterruptibly
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/56a5c248344e6adff2833478d8c9afad.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/56a5c248344e6adff2833478d8c9afad.png)  
 调用AQS的acquireShared方法。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a1497928f79985769854b1f597b11639.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a1497928f79985769854b1f597b11639.png)  
 AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。  
 最终调用的还是Sync的nonfairTryAcquireShared和FairSync的tryAcquireShared方法。
 
 ### 3.4 acquireUninterruptibly(int)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5cd26b8802a61f9a4c44352777f0c23d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5cd26b8802a61f9a4c44352777f0c23d.png)  
 尝试获取共享锁，不响应中断。获取请求的资源。  
 如果请求的资源数量小于0，那么抛出参数异常。  
 如果参数校验通过，调用就AQS的acquireShared方法。  
@@ -132,64 +132,64 @@ AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。
 ### 3.5 availablePermits
 
 返回此信号量中当前可用的许可数。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/287675151e0b4d44812e839f225b7380.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/287675151e0b4d44812e839f225b7380.png)  
 调用Sync的getPermits方法。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a4e94b15382d7a7e2fddc80a0b162f53.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a4e94b15382d7a7e2fddc80a0b162f53.png)  
 直接返回锁状态(资源现在空闲的数量)
 
 ### 3.6 drainPermits
 
 获取并返回立即可用的所有许可。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8dbe315659d250552415f7de52757360.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8dbe315659d250552415f7de52757360.png)  
 调用Sync的drainPermits方法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/23682e4c8a1d9ed19263ee6e308cd3c7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/23682e4c8a1d9ed19263ee6e308cd3c7.png)  
 强制将锁状态设置为0.即可用资源数量为0.
 
 ### 3.7 getQueuedThreads
 
 返回一个 collection，包含可能等待获取的线程。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f55139c9b65cb57db0ca33bdf16a450a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f55139c9b65cb57db0ca33bdf16a450a.png)  
 调用AQS的getQueuedThreads方法
 
 ### 3.8 getQueueLength
 
 返回正在等待获取的线程的估计数目。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/18c3ef2e910eb9eb49fe361e0068c321.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18c3ef2e910eb9eb49fe361e0068c321.png)
 
 ### 3.9 hasQueuedThreads
 
 查询是否有线程正在等待获取。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/11534853713e59d3801fbd6e5de817df.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/11534853713e59d3801fbd6e5de817df.png)  
 调用的是AQS的hasQueuedThreads方法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/13101ba8a59ad567353ba66e49f5b79f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13101ba8a59ad567353ba66e49f5b79f.png)  
 直接判断等待竞争队列是否为空。
 
 ### 3.10 isFair
 
 如果此信号量的公平设置为 true，则返回 true。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/119fc4a261b9455fdf706699de7edf53.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/119fc4a261b9455fdf706699de7edf53.png)  
 根据全局的Sync的对象，判断sync对象是否是FairSync的实例对象。
 
 ### 3.11 reducePermits
 
 根据指定的缩减量减小可用许可的数目。(减少可用资源数量)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b56cd7e2220bdedc40f4b1a38b598297.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b56cd7e2220bdedc40f4b1a38b598297.png)  
 如果传入的指定的缩减量小于0，那么抛出参数异常。  
 通过参数校验后，调用Sync的reducePermits方法
 
 ### 3.12 release
 
 释放一个许可，将其返回给信号量。(释放资源，将可用的资源数量增加)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2fc370e548abee72807e3a862b459996.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2fc370e548abee72807e3a862b459996.png)  
 调用AQS的releaseShared方法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/14f568d1516cd49245e1184aa4f4b01c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/14f568d1516cd49245e1184aa4f4b01c.png)  
 调用的是AQS的子类实现的tryReleaseShared方法。  
 也就是Semaphore的Sync的tryReleaseShared方法。
 
 ### 3.13 release(int)
 
 释放指定个许可，将其返回给信号量。(释放资源，将可用的资源数量增加)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/60e52d09351d360c9dadbbc93e9949be.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/60e52d09351d360c9dadbbc93e9949be.png)  
 先进行参数校验，如果释放的资源个数小于0，那么抛出参数异常。(你不能打着还钱的幌子借钱)  
 然后调用的是AQS的realeaseShared方法。  
 和3.12相同，最终调用的是Semaphore的Sync的tryReleaseShared方法。
@@ -197,7 +197,7 @@ AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。
 ### 3.14 tryAcquire
 
 从此信号量获取一个许可，在提供这些许可前一直将线程阻塞，或者线程已被中断。 （简单来说就是借钱）  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/03489b6ccb6739e4522640dcb329909b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/03489b6ccb6739e4522640dcb329909b.png)  
 调用的是Semaphore的Sync的nonfairTryAcquireShared方法。  
 如果调用Sync的nonfairTryAcquireShared方法成功后，返回目前可用的资源数量，大于0表示获取成功。  
 (你向地主借钱，不能把地主借的地主负债了，地主也不会自己借钱然后在借给你)
@@ -205,7 +205,7 @@ AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。
 ### 3.15 tryAcquire(int)
 
 从此信号量获取给定数目的许可，在提供这些许可前一直将线程阻塞，或者线程已被中断。 （简单来说就是借钱）  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fdc4a42807d1d453ad2296919c0f1307.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fdc4a42807d1d453ad2296919c0f1307.png)  
 先会进行参数校验，如果请求的资源数量小于0，那么抛出参数异常。  
 （没有会打着借钱的幌子给你钱）  
 调用的也是Sync的nonfairTryAcquireShared方法。
@@ -213,7 +213,7 @@ AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。
 ### 3.16 tryAcquire(int,long,TimeUnit)
 
 如果在给定的等待时间内此信号量有可用的所有许可，并且当前线程未被中断，则从此信号量获取给定数目的许可。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/11d70980db8d799787b1fc794cb23162.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/11d70980db8d799787b1fc794cb23162.png)  
 第一个一定是参数校验，参数都不合法，后面也没有继续的必要了。  
 调用的是AQS的tryAcquireSharedNanos方法。  
 最终调用的也是FairSync或者NonfairSync的tryAcquireShared方法
@@ -221,13 +221,13 @@ AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。
 ### 3.17 tryAcquire(long,TimeUnit)
 
 如果在给定的等待时间内此信号量有可用的所有许可，并且当前线程未被中断，则从此信号量获取给定数目的许可。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f6c781b813bcdaeb999d90308e6bc741.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f6c781b813bcdaeb999d90308e6bc741.png)
 
 ## 4\. Semaphore 的Sync
 
 ### 4.1 Sync的构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/33b7dcef270fab5883f0aa3d03ce9245.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/33b7dcef270fab5883f0aa3d03ce9245.png)  
 设置锁状态为传入的值。
 
 ### 4.2 nonfairTryAcquireShared
@@ -299,7 +299,7 @@ AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。
 
 ### 5.1 FairSync 构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6a05f6d4557b4fde079ebb36d9239dfd.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a05f6d4557b4fde079ebb36d9239dfd.png)  
 调用父类的构造方法，传入permits.
 
 ### 5.2 tryAcquireShared
@@ -326,7 +326,7 @@ AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。
 
 获取当前线程在等待竞争队列中有没有前继节点。  
 简单来说，就是获取当前线程前面还有没有等待线程。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/639f89047979d8a69dd7dd2fea2d8724.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/639f89047979d8a69dd7dd2fea2d8724.png)  
 如果等待竞争队列不为空，那么头结点的后继节点为空或者等待线程不是当前现场，那么就表示当前线程前面还有等待的线程。  
 (不会存在head != tail && head.next == null)
 
@@ -334,12 +334,12 @@ AQS的acquireShared方法会调用子类实现的tryAcquireShared方法。
 
 ### 6.1 NonfairSync的构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dea7a17281d0cd62d8c525b03239aebf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dea7a17281d0cd62d8c525b03239aebf.png)  
 调用父类的构造方法，传入permits.
 
 ### 6.2 tryAcquireShared
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3d570a2dac26e9eed0ea1686e946678a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d570a2dac26e9eed0ea1686e946678a.png)  
 直接调用Sync的nonfairTryAcquireShared方法。
 
 ## 7\. AQS实现的方法
@@ -449,13 +449,13 @@ doAcquireSharedNanos请看
     
 
 执行结果  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ece666e893c9d471363df876872aceeb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ece666e893c9d471363df876872aceeb.png)  
 从执行结果中可以看出村名5和村名1是一起去借钱的。因为借完钱后，剩余的钱相同。  
 同理，村名3和村名2也是一起去的。  
 如果我们将每个村民的需要的钱数设置为10以内。  
 也就是地主完全有钱。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7a678b973406a4b3b56e75dd94dc7ebc.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/adb623fd218f2278ffe210d96c8b59a6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7a678b973406a4b3b56e75dd94dc7ebc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/adb623fd218f2278ffe210d96c8b59a6.png)  
 因为每个村名借钱的钱数都满足，所以不存在线程等待的问题，所以看起来就很顺滑。
 
 ## 9\. 总结

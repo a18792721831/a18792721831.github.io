@@ -50,7 +50,7 @@ keywords: spark镜像二次开发, 官网镜像本地化, 官网镜像定制化,
 
 因为我们是docker环境，所以必须有docker环境。  
 基于官网镜像，所以，必须本地有官网镜像。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f4c0a5eac4e3ff0aa51856123038e439.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f4c0a5eac4e3ff0aa51856123038e439.png)  
 以2.2.1为例
 
 ## 2.编写dockerfiel
@@ -80,13 +80,13 @@ from mattf/spark-worker:2.2.1
 ENV LANG=en_US.utf8
 
 所以，完整的dockerfiel如下  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/be208bac522ae047d1b25b4c2fdfbd2c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be208bac522ae047d1b25b4c2fdfbd2c.png)
 
 ## 3.启动
 
 spark的启动参数在docker-hub的use里介绍的很清楚  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f00d8ec9d90582bf2f4e50e82102b0b2.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e2b9ca41a304fb540113b9775d795439.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f00d8ec9d90582bf2f4e50e82102b0b2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e2b9ca41a304fb540113b9775d795439.png)
 
 ## 4.异常排查
 

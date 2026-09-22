@@ -71,21 +71,21 @@ CPU执行指令，需要进行这几步(不同的指令集可能不同，一般�
   * 执行或计算
   * 存储器访问
   * 写回  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a800ee659db54dffe523f3a0dac4d9eb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a800ee659db54dffe523f3a0dac4d9eb.png)  
 CPU执行是一个一个的周期进行的，CPU组成中需要有晶振，晶振产生固定频率的脉冲，每一次脉冲就是一次时钟周期。CPU的一个时钟周期内只能进行一个操作。  
 那么完成一次指令需要5个时钟周期。  
 仔细观察这5个操作，分别都是CPU不同的区域。所以，在一个时钟周期内，可以进行多个不同的操作。  
 比如：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f25f7c16cc251343287c30561cd89036.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f25f7c16cc251343287c30561cd89036.png)  
 在上图中执行了3条指令，如果是串行的，那么需要15个时钟周期才能执行完成。  
 这就是CPU执行指令流水线执行，指令的执行效率高。  
 CPU流水线执行指令，虽然效率高，但是依然存在问题。  
 假设蓝色的指令计算的数据，依赖绿色指令的计算结果，在第5个时钟周期进行计算时，绿色的计算结果，还没有写到寄存器，此时就需要蓝色指令等待绿色指令的计算结果写入寄存器才能继续进行。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ec779e069d38959449f1086ab4d363f5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ec779e069d38959449f1086ab4d363f5.png)  
 发现因为蓝色需要等待绿色指令执行完毕，才能执行蓝色指令。  
 但是在代码逻辑中，绿色后面就是蓝色，而蓝色后面是橙色。  
 如果橙色和蓝色没有强烈的先后关系，那么可以调整指令执行顺序。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5a30dff6b419aae957ed9d6cacfb529f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5a30dff6b419aae957ed9d6cacfb529f.png)  
 就可以避免CPU指令执行的中断停顿。  
 指令重排提高了CPU执行效率，但是也带来了指令乱序的问题。  
 相比之下，指令乱序的问题是可以接受的。
@@ -152,19 +152,19 @@ Happen-Before原则是不进行指令重排的规则：
     
 
 执行结果：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2b6e9e7ed4a8a55af3884e8e7813a91e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2b6e9e7ed4a8a55af3884e8e7813a91e.png)  
 并发：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/355e85abc2b51bddf9fc597c30443d0b.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f6accd0713d3bf2565d36cb77a1e9d41.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8d79f1497b9ac105992513f880c533de.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/355e85abc2b51bddf9fc597c30443d0b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f6accd0713d3bf2565d36cb77a1e9d41.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8d79f1497b9ac105992513f880c533de.png)  
 每次执行的结果都是不确定的。  
 所以，在并发情况下，对同一个变量的操作，会出现语义不一致的并发问题。  
 那么，如何解决这个问题呢？  
 加锁。  
 一般来说，Java中锁的实现有两种方式：synchronized和Lock.  
 我们先用synchronized修改  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bd371a587898f23a17e7f3e90dfac111.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1f0f54af89b630006c25dd2f2c3ccb2c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bd371a587898f23a17e7f3e90dfac111.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1f0f54af89b630006c25dd2f2c3ccb2c.png)  
 接下来使用Lock进行修改：
     
     
@@ -217,7 +217,7 @@ Happen-Before原则是不进行指令重排的规则：
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/67ec3b09f82c660943af3a5810879534.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/67ec3b09f82c660943af3a5810879534.png)  
 我们增加了一个全局变量，这个全局变量就是sum的锁，只有获取到了锁的线程，才能进行累加操作。如果没有获取锁，那么就线程sleep200毫秒。然后重新获取锁，直到获取了锁，否则就一直循环。
 
 ### 2.2 锁存在的意义
@@ -242,19 +242,19 @@ Happen-Before原则是不进行指令重排的规则：
 ### 3.2 synchronized原理
 
 首先我们将2.1中的synchronized实现的代码进行编译`javac Main.java`,然后使用`javap -v`进行反编译  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c8308ed9832bc0d0fb3cc8fa5411cece.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c8308ed9832bc0d0fb3cc8fa5411cece.png)  
 这里比较好找，先找递增操作，ladd的指令，在ladd的指令前后有monitorenter指令。
 
 #### 3.2.1 Java对象在JVM中的结构
 
-> ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7f2c61061ffb1821f04a7518ab1b4b65.png)  
->  ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ad4bdc340fa949ef4535e1af6c535c20.png)
+> ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7f2c61061ffb1821f04a7518ab1b4b65.png)  
+>  ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ad4bdc340fa949ef4535e1af6c535c20.png)
 
 来源：<https://blog.csdn.net/z_ssyy/article/details/103737553>
 
 通过上面两张图片，可以很直观的知道，对象在jvm中分为三块区域：对象头，对象实际数据，填充数据。
 
-> ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a732605e5ae6724e70eeed87ea9f3053.png)![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9728e857d6e37f3ebbb67dc639e03b41.png)
+> ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a732605e5ae6724e70eeed87ea9f3053.png)![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9728e857d6e37f3ebbb67dc639e03b41.png)
 
 来自：<https://blog.csdn.net/javazejian/article/details/72828483>
 
@@ -262,8 +262,8 @@ Happen-Before原则是不进行指令重排的规则：
 
 monitor指令分为两个：monitorenter和monitorexit。  
 分别代码开始同步和结束同步。或者开始加锁，结束加锁。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eb7572b8784254576c5f520d653ce2f9.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/27729c7255c6aee576ac6834e56f56ac.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eb7572b8784254576c5f520d653ce2f9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/27729c7255c6aee576ac6834e56f56ac.png)  
 可以理解为：在遇到monitorenter指令的时候，进行加锁，进入同步代码后，每次进行操作前后，都需要获取最新的数据，执行完毕，及时的写回。(这是个人理解)  
 在执行过程中，遇到monitorenter指令，设置对象的锁标志以及线程id（重入锁的核心实现）。  
 因为第一个争夺到锁的线程已经将锁标志置1了，其他线程就无法获取锁了（无法在增加了）。  
@@ -275,7 +275,7 @@ monitor指令分为两个：monitorenter和monitorexit。
 在2.3.2.2小节中知道，每一个对象都有自己的对象头，而在对象头中有一个锁标志，只有线程修改锁标志成功，才是获取到了锁，其他线程只能等待。  
 所以，如果有若干线程同时获取一个对象的锁，其中某一个线程得到锁之后，执行线程的任务，而其他锁则会进入同步队列，线程也会进入BLOCKED的状态。
 
-> ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7dc0e32d0b7ba957e5cc202119fe2925.png)
+> ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7dc0e32d0b7ba957e5cc202119fe2925.png)
 
 图片来自<https://www.jianshu.com/p/d53bf830fa09>
 
@@ -293,7 +293,7 @@ monitor指令分为两个：monitorenter和monitorexit。
 因为类对象在内存中只会存储一个。  
 还记得前面说的JVM中对象的结构吗，在对象头中，就会存储类元数据：
 
-> ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6d88fa8b86eb64b205705cf03619a4cc.png)
+> ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6d88fa8b86eb64b205705cf03619a4cc.png)
 
 来自：<https://blog.csdn.net/z_ssyy/article/details/103737553>  
 实例对象的对象头中存储的这个类元数据就是类对象的地址。  
@@ -367,18 +367,18 @@ monitor指令分为两个：monitorenter和monitorexit。
     
 
 执行结果：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/502979b83c55a24eb258225e7b4feaac.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/502979b83c55a24eb258225e7b4feaac.png)  
 即使第一次调用的线程现在在方法内阻塞，但是，因为方法不是同步方法，所以，后面创建的线程依然可以访问，依然可以进入。  
 那么，把方法修改成需要同步的呢？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/571d6e6e2dbe5aeecf9c2c3fd8869f6a.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2725be5ed55b81f4648090c1ffc58af5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/571d6e6e2dbe5aeecf9c2c3fd8869f6a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2725be5ed55b81f4648090c1ffc58af5.png)  
 这个时候，实例同步方法可以进入，但是类同步方法不可以进入。  
 从这里也进一步说明，类对象，类方法在内存中是一份的。而实例方法是每new一次，就会产生一个的。  
 然后实例对象的类元信息就是类对象的地址。
 
 ### 4.2 synchronized 不同使用场景
 
-这个时候，我们返回去看下2.3.1的使用场景![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fccb25adbe01c1041eb5c5e24d2567a3.png)  
+这个时候，我们返回去看下2.3.1的使用场景![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fccb25adbe01c1041eb5c5e24d2567a3.png)  
 其实就是可以分为2类，一种是实例对象锁，一种是类对象锁。
 
 ### 4.3 不使用synchronized 同步
@@ -450,7 +450,7 @@ monitor指令分为两个：monitorenter和monitorexit。
 
 在主线程中，我们一个线程将People的属性值增加1W，那么，10个线程就是10W。  
 我们预期的目标是all和sum都是10W。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/be6f9b3625aa56bd55a522e177ac24ea.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be6f9b3625aa56bd55a522e177ac24ea.png)
 
 ### 4.4 synchronized 同步代码块–类对象
 
@@ -458,16 +458,16 @@ monitor指令分为两个：monitorenter和monitorexit。
 在这里只考虑同步的实现方式。  
 你可能注意到了，我们的People中的两个属性，一个是类属性，一个是实例属性。  
 首先，我们使用代码块同步类的方式，进行同步：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/962d374bb78a302c13de03333b91b7bd.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/962d374bb78a302c13de03333b91b7bd.png)  
 运行结果：  
 预期分析：因为使用的是类同步，对于每一个实例对象来说，对应的都是同一个类对象。所以当这10个线程的其中某一个线程获取了类同步的锁，其他线程就无法获取类同步的锁了，其他线程就会被阻塞了。  
 这样就保证了同一时间只会有一个线程操作类变量和实例变量。就不存在并发问题了。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fca0e9afa7566f908e65368e4dc3b112.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fca0e9afa7566f908e65368e4dc3b112.png)
 
 ### 4.5 synchronized 同步代码块–实例对象
 
 接下来，我们使用对象同步呢？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/02336c66aa2492fb3f77bf93de9e1cab.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/02336c66aa2492fb3f77bf93de9e1cab.png)  
 预期分析：经过上面的例子，这个可以很轻松的分析出来，这个例子也能达到我们的目的。  
 因为这10个线程使用的是同一个实例对象，所以使用实例对象，也就是10个线程在竞争一个实例对象的同步锁。  
 也能够保证同一时间内，只有一个线程操作类变量和实例变量。
@@ -476,41 +476,41 @@ monitor指令分为两个：monitorenter和monitorexit。
 
 上面两个小例子是synchronized同步对象的例子，在同步代码块的场景中，还有一种，同步任意实例对象。  
 其实同步任意实例对象和同步某一个实例对象的原理是一样的：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7ad6c45ab9a47a9edb9c6131efff0326.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7ad6c45ab9a47a9edb9c6131efff0326.png)  
 在这种写法下，10个线程竞争同一个实例对象的同步锁，当然可以保证同一时间内只有一个线程进行操作。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1d9ad7448fb3c914b41f3534d2ff3cf7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d9ad7448fb3c914b41f3534d2ff3cf7.png)  
 可是，如果每一个线程使用的都是自己线程内创建的实例对象呢？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0a42a78363277fded96bfe4eff68f77c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0a42a78363277fded96bfe4eff68f77c.png)  
 预期分析：因为我们将实例对象放到了线程内，那么首先这个10个线程对应的是10个实例对象，每一个线程同步的都是自己线程内创建的对象，这当然每一个线程都能够获取到实例对象锁了，也就是每一个线程在任意时间都可以操作类变量和实例变量。  
 也就无法达到预期目标了。  
 换个角度想，当我们将实例对象的创建移到线程内的时候，对于每一个单个的线程来说，其同步的都是自己线程内的局部变量。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1670736a16eac0a876db85d2cf6a1cb6.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1670736a16eac0a876db85d2cf6a1cb6.png)
 
 ### 4.7 synchronized 同步方法–类方法
 
 我们看完了synchronized同步代码块，接下来看看synchronized同步方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1d03e14119e27b04001aed13978559c6.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7efe05ff1f4881f2edde7ece6407b56e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d03e14119e27b04001aed13978559c6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7efe05ff1f4881f2edde7ece6407b56e.png)  
 预期分析：  
 因为方法是类方法，在整个内存中只有一个，所以，可以保证同一时间只有一个线程能够获取锁。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c3c71212c2ea135cdfe797516b51b1ee.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c3c71212c2ea135cdfe797516b51b1ee.png)  
 这个可能不太好对比：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7c330d68586dbeef4f736ee70e38ffa6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7c330d68586dbeef4f736ee70e38ffa6.png)  
 我们新增了两个方法，一个是类方法，一个是实例方法。  
 因为我们在类方法上进行同步，所以类变量符合预期结果，而实例方法因为没有进行同步，所以，实例变量不符合预期结果：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/019b0bee519c21b5f97579bd2e5f854b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/019b0bee519c21b5f97579bd2e5f854b.png)
 
 ### 4.8 synchronized 同步方法–实例方法
 
 接下来我们根据上面的例子，同步实例方法，然后不同步类方法，以作对比：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/258f7e6c7e0c6c78407e3641fd015ecb.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/413fcf27412e6771558293cee2ee425b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/258f7e6c7e0c6c78407e3641fd015ecb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/413fcf27412e6771558293cee2ee425b.png)  
 预期分析：因为类方法没有进行同步，所以类方法应该不符合预期结果。  
 而实例方法进行同步，那么同步方法应该是符合预期的。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a0b8906dd00102f9f71448bd0994a1a8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a0b8906dd00102f9f71448bd0994a1a8.png)  
 即使这样调用，类方法也不同步的：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f31657548e6d5a778cf6b9d0a5f35a66.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9c17718c8123327b9ca481286a0ad048.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f31657548e6d5a778cf6b9d0a5f35a66.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9c17718c8123327b9ca481286a0ad048.png)
 
 ## 5\. synchronized 的缺陷
 
@@ -539,7 +539,7 @@ monitor指令分为两个：monitorenter和monitorexit。
 
 在jdk5之后，jvm对synchronized进行了优化。  
 在jdk5之后，线程使用synchronized进行同步，首先会使用偏向锁，如果有第二个线程竞争锁，此时锁会升级为轻量级锁，多个线程竞争轻量级锁，未竞争到锁的线程进行自旋等待。如果自旋超过10次还未获取到锁，那么锁就会升级为重量级锁。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9728e857d6e37f3ebbb67dc639e03b41.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9728e857d6e37f3ebbb67dc639e03b41.png)
 
 偏向锁的机制也比较简单，在对象的对象头中写入了一个线程的id，那么此时，如果这个线程再次获取锁，jvm将对象的对象头中的线程id与竞争锁的线程id进行对比，如果是一样的，那么这个线程就直接获取锁。  
 如果有多于1个线程进行竞争锁，此时偏向锁只能记录一个线程id，就不合适了，此时会升级为轻量级锁。
@@ -550,7 +550,7 @@ monitor指令分为两个：monitorenter和monitorexit。
 
 ## 7\. synchronized 处理过程
 
-> ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0d8f74d79169897525c66b0485c0f934.png)  
+> ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0d8f74d79169897525c66b0485c0f934.png)  
 >  当有多个线程一起访问某个对象的monitor对象的时候，对象监视器会将这些线程存储在不同的容器中：
 > 
 >   1. Contention List：竞争队列，所有请求锁的线程首先被放在这个竞争队列中；

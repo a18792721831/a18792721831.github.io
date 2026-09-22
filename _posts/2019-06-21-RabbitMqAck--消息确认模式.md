@@ -116,11 +116,11 @@ basicQos方法。
 
 ### 5.1创建项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8d886301722e52a84419ededfeb8879a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8d886301722e52a84419ededfeb8879a.png)
 
 ### 5.2添加依赖
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/570dbc3024f72dbf543dcd05090d4da1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/570dbc3024f72dbf543dcd05090d4da1.png)
     
     
     dependencies {
@@ -494,38 +494,38 @@ basicQos方法。
 ### 5.8生产消息
 
 默认模式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d42fab6418b0644d9fab582bacdc5cce.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d42fab6418b0644d9fab582bacdc5cce.png)  
 事务模式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b3fa25bf8b8d64a66ad012718cd844ff.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b3fa25bf8b8d64a66ad012718cd844ff.png)  
 确认模式–普通确认模式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5f12a7e75eff2ad2b05373c7e828b15e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5f12a7e75eff2ad2b05373c7e828b15e.png)  
 确认模式–批量确认模式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6b60034b3ab82cb45e9f21119bcf430f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6b60034b3ab82cb45e9f21119bcf430f.png)  
 确认模式–异步确认模式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dd98768eddfe0cfdd28adfca1561a8fd.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dd98768eddfe0cfdd28adfca1561a8fd.png)
 
 ### 5.9消息消费
 
 自动应答模式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ed81ae67cca0090b995919ac68ac551f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ed81ae67cca0090b995919ac68ac551f.png)  
 手动应答模式  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/15117910935e6566eb57f5381dbc988c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/15117910935e6566eb57f5381dbc988c.png)
 
 ### 5.10拒绝消息的消费者
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/18a631c96612cb3e99583b0362674c84.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18a631c96612cb3e99583b0362674c84.png)  
 生产一个消息  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7996c37de96e9f3ab5d995e945e9def4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7996c37de96e9f3ab5d995e945e9def4.png)  
 此时生产者和拒绝消息的消费者同时启动  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f8f317b6550736e97a0fd1fc9dd33976.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f8f317b6550736e97a0fd1fc9dd33976.png)  
 生产了一个消息  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/23b16e4d5b03aa29ac219a109fce904c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/23b16e4d5b03aa29ac219a109fce904c.png)  
 拒绝消息的消费者受到了消息，但是拒绝处理，并要求重传。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6bf954e053bfe1587ebd9db9edda1481.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6bf954e053bfe1587ebd9db9edda1481.png)  
 在启动一个消费者  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bced1ebae8e945253d66568ba3a49e6c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bced1ebae8e945253d66568ba3a49e6c.png)  
 被正常消费  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/14a0db1b2679421fb1adf5369871750e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/14a0db1b2679421fb1adf5369871750e.png)
 
 git仓库：  
 <https://github.com/a18792721831/MQ.git>

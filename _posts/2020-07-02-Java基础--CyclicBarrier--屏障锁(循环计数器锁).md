@@ -62,66 +62,66 @@ keywords: CyclicBarrier源码, CyclicBarrier使用, CyclicBarrier原理, 栅格�
 
 ### 1.1 CyclicBarrier 的UML图
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a27b89117286de2cd59998b45f5e5105.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a27b89117286de2cd59998b45f5e5105.png)
 
 ## 2\. CyclicBarrier 构造
 
 CyclicBarrier有两个构造方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/77dc55674c33d4ac3d6b55dbfec42653.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/77dc55674c33d4ac3d6b55dbfec42653.png)
 
 ### 2.1 CyclicBarrier(int)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/42aeebba89aee08026d2d68550e3f7ec.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/42aeebba89aee08026d2d68550e3f7ec.png)  
 根据传入的值，创建一个parties的线程组屏障。  
 换句话说，就是循环计数器锁的值是parties.
 
 ### 2.2 CyclicBarrier(int,Runnable)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/54a4de656cdb7e894456ef5c947dbfc9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/54a4de656cdb7e894456ef5c947dbfc9.png)  
 设置线程数量是parites个，同时设置线程到达屏障点后，执行Runnable的操作。
 
 ## 3\. CyclicBarrier 的属性
 
 ### 3.1 lock
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/229e13781c08ebd1fd4260e864adf5fe.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/229e13781c08ebd1fd4260e864adf5fe.png)  
 持有一个重入锁，使用的是不公平的重入锁。  
 一次只能有一个运动员向裁判示意。
 
 ### 3.2 trip
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4a9daa72f68d32a8a4dd5a057689a31e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a9daa72f68d32a8a4dd5a057689a31e.png)  
 持有不公平的重入锁的Condition对象。  
 示意准备完成的运动员需要等待。
 
 ### 3.3 parties
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/aba21d019407326b10d9ce004d043436.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/aba21d019407326b10d9ce004d043436.png)  
 需要等待的线程数量。  
 一次有10个运动员比赛。
 
 ### 3.4 count
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b7c5cb16938549fd184733f91c9bd473.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b7c5cb16938549fd184733f91c9bd473.png)  
 还未达成条件的线程数量。还需要继续等待的线程数量。  
 当前还有多少个运动员没有准备完成。
 
 ### 3.5 barrierCommand
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/76a3d18d7a54a594b00da33bdeb38051.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/76a3d18d7a54a594b00da33bdeb38051.png)  
 线程到达屏障点后执行的操作，可空。  
 当所有运动员准备完成后，裁判需要向指令员发信号。  
 有些小型比赛，可能裁判自己发令。
 
 ### 3.6 generation
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/44c7c8f482bbdb00a26f92b6c3d9e35a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/44c7c8f482bbdb00a26f92b6c3d9e35a.png)  
 当前运行的线程。(还未到达屏障处)  
 当前正在示意的运动员。
 
 ## 4\. Generation
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b630e090a62b624025dfb9c85fbc16ec.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b630e090a62b624025dfb9c85fbc16ec.png)  
 是否全部等待的线程到达屏障点。默认没有到达。  
 默认全部运动员都没有准备好。
 
@@ -130,51 +130,51 @@ CyclicBarrier有两个构造方法：
 ### 5.1 await
 
 等待全部线程到达屏障点。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ed2701ae3dfbe43acbc3f9e9fce0541c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ed2701ae3dfbe43acbc3f9e9fce0541c.png)  
 直接调用dowait方法。
 
 ### 5.2 await(long, TimeUnit)
 
 带有超时时间的等待全部线程到达屏障点。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0d15d7101ae10a9ea1ee8b83b89bf5ca.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0d15d7101ae10a9ea1ee8b83b89bf5ca.png)  
 也是调用doawait方法
 
 ### 5.3 getNumberWaiting
 
 获取已经到达屏障点的线程数量  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4c96a80d3481e2d6f9a559ba75221a2c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4c96a80d3481e2d6f9a559ba75221a2c.png)  
 先获取锁，然后上锁，获取全部数量，获取还需要等待的线程数量。这两个的差就是已经到达的数量。  
 最后释放锁。
 
 ### 5.4 getParties
 
 获取屏障内线程总数  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/26b994b24dfec9b01e0fe93cb3e7752b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/26b994b24dfec9b01e0fe93cb3e7752b.png)
 
 ### 5.5 isBroken
 
 获取是否全部的线程到达屏障点。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8803eb939f2444b7518d263c8d404231.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8803eb939f2444b7518d263c8d404231.png)  
 先上锁，然后获取全部线程到达屏障点的状态。  
 最后释放锁。
 
 ### 5.6 reset
 
 重置所有信息。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3453ae102c10bd0349e7318150f6c09a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3453ae102c10bd0349e7318150f6c09a.png)  
 先上锁，然后唤醒已经到达屏障点的线程，重置需要等待的线程为线程总数，最后重置是否全部线程到达屏障点的状态。  
 最后释放锁。
 
 ### 5.7 nextGeneration
 
 唤醒已经到达屏障点的全部线程，然后设置需要等待到达屏障点的线程为线程总数，最后重置是否全部线程到达屏障点的状态。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/718d26fb0f4edcb97d9c5987033ed5bf.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/718d26fb0f4edcb97d9c5987033ed5bf.png)
 
 ### 5.8 breakBarrier
 
 是否异常。  
 设置全局的异常状态为true，然后设置需要等待线程数量为线程总数，然后唤醒所有已经到达屏障点的线程。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/414019d9f5bcf470786427927bb75420.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/414019d9f5bcf470786427927bb75420.png)
 
 ### 5.9 dowait(boolean, long)
 

@@ -26,5 +26,5 @@ idea运行报错：
     
 
 解决方式:  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/60c0c4cc5dd1b3890ee22dcac54b6bbc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/60c0c4cc5dd1b3890ee22dcac54b6bbc.png)  
 在`.idea`文件夹下的`workspace.xml`中，找到 `PropertiesComponent`的`component`，增加一行`<property name="dynamic.classpath" value="true" />`

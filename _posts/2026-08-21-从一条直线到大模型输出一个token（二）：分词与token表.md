@@ -45,7 +45,7 @@ keywords: ["agent", "智能体", "ai", "BBPE", "deepseek"]
 
 最直观的三种传统方案，如图 2-1 所示。
 
-![三种传统分词方式对比](https://i-blog.csdnimg.cn/img_convert/110c122092e5e16ffc74abf01af2a984.png)
+![三种传统分词方式对比](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig21_seg_compare.png)
 
 **图2-1 同一句话的三种传统拆法**
 
@@ -105,7 +105,7 @@ BPE（Byte Pair Encoding，字节对编码）的核心思想一句话就能说�
 
 第一轮：统计所有相邻单元对的频率，取最高频的合并。过程如图 2-2 所示。
 
-![BPE手算第一轮](https://i-blog.csdnimg.cn/img_convert/6fe8b4f9781ba99c2ecabe07282a2afa.png)
+![BPE手算第一轮](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig22_bpe_step-v2.png)
 
 **图2-2 BPE第一步：统计相邻对频率，合并最高频的(今, 天)**
 
@@ -130,7 +130,7 @@ BPE（Byte Pair Encoding，字节对编码）的核心思想一句话就能说�
   
 注意一个精妙之处：合并"今天"之后，第二轮里 (今天, 天) 这样的新组合也会参与统计——每次合并都会产生新的相邻关系，雪球越滚越大。整个训练过程就是一个循环，如图 2-3 所示。
 
-![BPE迭代构建流程](https://i-blog.csdnimg.cn/img_convert/abec78e8bc545cd442b5336a969fcf0b.png)
+![BPE迭代构建流程](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig23_bpe_flow-v2.png)
 
 **图2-3 BPE词表构建：一个循环往复的统计游戏**
 
@@ -195,7 +195,7 @@ BPE 的 OOV 问题，解法简单得让人拍大腿：**把地基从"字符"换�
 
 而字节一共只有 256 种。把初始词表设成 256 个字节，任何字符都能被表示——OOV 从物理上被消灭了。这就是 BBPE（Byte-level BPE），对比如图 2-4 所示。
 
-![BBPE字节级](https://i-blog.csdnimg.cn/img_convert/03ad168b8021167f573f3c6af11f7632.png)
+![BBPE字节级](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig24_bbpe.png)
 
 **图2-4 从BPE到BBPE：把地基从「字符」换成「字节」**
 
@@ -239,7 +239,7 @@ token 表（也叫词表，Vocabulary）就是把这些最小单元编号的对�
 
 各主流大模型的词表大小如图 2-5 所示。
 
-![各厂商词表大小](https://i-blog.csdnimg.cn/img_convert/8c5bc40770ceceec1638d4f01d0ada57.png)
+![各厂商词表大小](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig27_vocab_size-v2.png)
 
 **图2-5 主流大模型词表大小：3万~25万**
 
@@ -311,13 +311,13 @@ GPT-4o (o200k)| 7| [今天 47256][西 13781][安 7837][的 1616][天气 167823][
   
 国产 3 款都只拆 **6** 个 token，比 GPT-4 少了一半还多——同样的中文文本，训练语料以中文为主的模型，压缩率就是高。最直观的对比是图 2-6。
 
-![同一句话各模型拆分对比](https://i-blog.csdnimg.cn/img_convert/7ed6e0b481118d9271c9d3ed42b42e4b.png)
+![同一句话各模型拆分对比](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig28_zh_en-v2.png)
 
 **图2-6 同一句话，5款主流模型的 token 数对比**
 
 再看两代 GPT 词表的字节级细节对比（cl100k vs o200k），如图 2-7 所示。
 
-![真实拆分对比](https://i-blog.csdnimg.cn/img_convert/e6836e56bfbd1d94ae9f5aec8b416af3.png)
+![真实拆分对比](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig25_real_split-v3.png)
 
 **图2-7 cl100k vs o200k 字节碎片对比**
 
@@ -329,7 +329,7 @@ GPT-4 的 cl100k 把"气"和"怎"拆成字节碎片（红框行），13 个 toke
 
 最后一步，查 token 表，把 6 个 token 换成 6 个整数（以 DeepSeek-V3 词表为例），如图 2-8 所示。
 
-![token表查表](https://i-blog.csdnimg.cn/img_convert/3dc69e63a4b4d26504e373ae897e983c.png)
+![token表查表](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/llm-series/fig26_lookup-v2.png)
 
 **图2-8 token表 = 字符串和整数的一一映射表**
 

@@ -37,7 +37,7 @@ https://hub.docker.com/_/postgres
 
 创建数据存储目录
 
-![image-20251016113049187](https://i-blog.csdnimg.cn/img_convert/4b1420b0fa32f12542e5a1c0ef97a5d1.png)
+![image-20251016113049187](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251016113049187.png)
 
 使用如下命令启动
     
@@ -53,23 +53,23 @@ https://hub.docker.com/_/postgres
 
 > 挂载目录使用 `docker imspect postgres` 查看
 > 
-> ![image-20251017154054005](https://i-blog.csdnimg.cn/img_convert/23faa7568ebd5d7e1cddf0fbec2e2fa8.png)
+> ![image-20251017154054005](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017154054005.png)
 
 启动报错
 
-![image-20251016113148936](https://i-blog.csdnimg.cn/img_convert/6ddb4b15656d301d28d0aa5b45e2b9c6.png)
+![image-20251016113148936](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251016113148936.png)
 
 应该是挂载目录的版本问题
 
-![Clipboard_Screenshot_1760686896](https://i-blog.csdnimg.cn/img_convert/964fe2c789e272c1f0c6a580d4cb19d1.png)
+![Clipboard_Screenshot_1760686896](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760686896.png)
 
 postgres 17及之前的，挂载 `/var/lib/postgresql/data`目录，之后的挂载`/var/lib/postgresql`目录
 
-![image-20251017154245268](https://i-blog.csdnimg.cn/img_convert/ffd8ed9072294283447773e4c8116388.png)
+![image-20251017154245268](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017154245268.png)
 
 使用 dbever 连接测试
 
-![Clipboard_Screenshot_1760687380](https://i-blog.csdnimg.cn/img_convert/a3acbc7a5f45046291b92ed3f500afa4.png)
+![Clipboard_Screenshot_1760687380](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760687380.png)
 
 ## n8n使用postgres 数据库
 
@@ -112,13 +112,13 @@ postgres 17及之前的，挂载 `/var/lib/postgresql/data`目录，之后的挂
 
 首先在 pg 数据库中创建 n8n 的 database
 
-![image-20251017171529960](https://i-blog.csdnimg.cn/img_convert/93aa3551bd514f2808148479496857a8.png)
+![image-20251017171529960](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017171529960.png)
 
 选择展示所有的数据库
 
-![Clipboard_Screenshot_1760693081](https://i-blog.csdnimg.cn/img_convert/c3239c6ed469b5bef9ff88165bab3d59.png)
+![Clipboard_Screenshot_1760693081](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760693081.png)
 
-![Clipboard_Screenshot_1760693044](https://i-blog.csdnimg.cn/img_convert/6226cb042a490183a34e3a04928ee4f0.png)
+![Clipboard_Screenshot_1760693044](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760693044.png)
 
 按照需要进行修改
     
@@ -143,34 +143,34 @@ postgres 17及之前的，挂载 `/var/lib/postgresql/data`目录，之后的挂
 
 启动成功
 
-![image-20251017172747210](https://i-blog.csdnimg.cn/img_convert/0a982647dd6f7ce927492054da425329.png)
+![image-20251017172747210](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017172747210.png)
 
 登录验证
 
 登录后，创建一个n8n 的流程
 
-![Clipboard_Screenshot_1760693795](https://i-blog.csdnimg.cn/img_convert/14e5f5ea5ef45292bdde579264253e43.png)
+![Clipboard_Screenshot_1760693795](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760693795.png)
 
 包括创建一些凭证之类的
 
 我使用的是腾讯云的 deepseek 能力
 
-![Clipboard_Screenshot_1760693914](https://i-blog.csdnimg.cn/img_convert/75c99bfff19972b5b5ace915df2fa9f7.png)
+![Clipboard_Screenshot_1760693914](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760693914.png)
 
-![Clipboard_Screenshot_1760694006](https://i-blog.csdnimg.cn/img_convert/6f05bd18f9a1a1ee8fe3811778e61e52.png)
+![Clipboard_Screenshot_1760694006](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760694006.png)
 
 尝试触发请求 ai
 
-![Clipboard_Screenshot_1760694060](https://i-blog.csdnimg.cn/img_convert/2d25634126565e2fd6a4b9096454856f.png)
+![Clipboard_Screenshot_1760694060](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760694060.png)
 
 尝试执行一下
 
-![Clipboard_Screenshot_1760695278](https://i-blog.csdnimg.cn/img_convert/30fe8f6a79ce65b177e308e3faeb155a.png)
+![Clipboard_Screenshot_1760695278](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1760695278.png)
 
 在postgres 中验证
 
-![image-20251017180155449](https://i-blog.csdnimg.cn/img_convert/3956a2667bd0757a53c506aa57227b16.png)
+![image-20251017180155449](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017180155449.png)
 
 数据库中已经有数据了
 
-![image-20251017180231087](https://i-blog.csdnimg.cn/img_convert/d3758665b8b34c60d761d9b4a0aae699.png)
+![image-20251017180231087](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20251017180231087.png)

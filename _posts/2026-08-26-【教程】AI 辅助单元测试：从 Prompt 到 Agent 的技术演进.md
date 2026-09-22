@@ -18,7 +18,7 @@ keywords: ["ai", "智能体", "agent", "SubAgent", "Skills"]
 
 本文以某 Go 后端项目的 `gen-ut` 和 `run-ut` Skills 为例，探讨 AI 辅助开发工具的技术演进历程。适合已使用过 AI 编程助手的进阶开发者阅读。
 
-![思维导图](https://i-blog.csdnimg.cn/img_convert/5f8378eaad917d674e913f0602c6a70f.png)
+![思维导图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/mindmap/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91AI%20%E8%BE%85%E5%8A%A9%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%9A%E4%BB%8E%20Prompt%20%E5%88%B0%20Agent%20%E7%9A%84%E6%8A%80%E6%9C%AF%E6%BC%94%E8%BF%9B_20260121190608.png)
 
 * * *
 

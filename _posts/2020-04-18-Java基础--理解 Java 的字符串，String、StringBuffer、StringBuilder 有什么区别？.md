@@ -31,12 +31,12 @@ keywords: Java字符串, StringBuilder, StringBuffer, String.intern, 字符串�
 ## 1.定义
 
 String 是 Java 语言非常基础和重要的类，提供了构造和管理字符串的各种基本逻辑。它是典型的 Immutable 类，被声明成为 final class，所有属性也都是 final 的。也由于它的不可变性，类似拼接、裁剪字符串等动作，都会产生新的 String 对象。由于字符串操作的普遍性，所以相关操作的效率往往对应用性能有明显影响。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2d8024e6ac31c1aa4c41eee3bc2a484f.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2d8024e6ac31c1aa4c41eee3bc2a484f.png)
 
 StringBuffer 是为解决上面提到拼接产生太多中间对象的问题而提供的一个类，我们可以用 append 或者 add 方法，把字符串添加到已有序列的末尾或者指定位置。StringBuffer 本质是一个线程安全的可修改字符序列，它保证了线程安全，也随之带来了额外的性能开销，所以除非有线程安全的需要，不然还是推荐使用它的后继者，也就是 StringBuilder。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1a4a4284ab44791eabf7ec0740d8b693.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1a4a4284ab44791eabf7ec0740d8b693.png)  
 StringBuilder 是 Java 1.5 中新增的，在能力上和 StringBuffer 没有本质区别，但是它去掉了线程安全的部分，有效减小了开销，是绝大部分情况下进行字符串拼接的首选。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5a9e36304043c4a7adaab2dac9e228ac.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5a9e36304043c4a7adaab2dac9e228ac.png)
 
 ## 2\. 字符串设计和实现考量
 
@@ -45,14 +45,14 @@ String 是 Immutable 类的典型实现，原生的保证了基础线程安全�
 再来看看 StringBuffer 实现的一些细节，它的线程安全是通过把各种修改数据的方法都加上 synchronized 关键字实现的，非常直白。其实，这种简单粗暴的实现方式，非常适合我们常见的线程安全类实现，不必纠结于 synchronized 性能之类的，有人说“过早优化是万恶之源”，考虑可靠性、正确性和代码可读性才是大多数应用开发最重要的因素。
 
 为了实现修改字符序列的目的，StringBuffer 和 StringBuilder 底层都是利用可修改的（char，JDK 9 以后是 byte）数组，二者都继承了 AbstractStringBuilder，里面包含了基本操作，区别仅在于最终的方法是否加了 synchronized。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0815f521b051c8cfebb13a7f16d1effe.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0815f521b051c8cfebb13a7f16d1effe.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/23137dd445491d8d5ec07dcfe793ddc9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/23137dd445491d8d5ec07dcfe793ddc9.png)
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/de0b0ca2c4cd13190c1d50ffe80818e2.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3f57e98e80d3265deb4f2f7c55ef0191.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/de0b0ca2c4cd13190c1d50ffe80818e2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3f57e98e80d3265deb4f2f7c55ef0191.png)  
 这个内部数组应该创建成多大的呢？如果太小，拼接的时候可能要重新创建足够大的数组；如果太大，又会浪费空间。目前的实现是，构建时初始字符串长度加 16（这意味着，如果没有构建对象时输入最初的字符串，那么初始值就是 16）。我们如果确定拼接会发生非常多次，而且大概是可预计的，那么就可以指定合适的大小，避免很多次扩容的开销。扩容会产生多重开销，因为要抛弃原有数组，创建新的（可以简单认为是倍数）数组，还要进行 arraycopy。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3ccb68df9ceae5588835c40a8066b6f7.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3ccb68df9ceae5588835c40a8066b6f7.png)
 
 **在没有线程安全问题的情况下，全部拼接操作是应该都用 StringBuilder 实现吗？**
     

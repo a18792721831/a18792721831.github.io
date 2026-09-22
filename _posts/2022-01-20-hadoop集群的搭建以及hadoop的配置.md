@@ -309,11 +309,11 @@ hdfs://hadoop01:8020
 
 存储在`/tmp`目录下，而且hdfs的界面不允许访问
 
-![image-20220120224326377](https://i-blog.csdnimg.cn/blog_migrate/dee027cd0b3d8c28a2ef8058c0cbe396.png)
+![image-20220120224326377](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dee027cd0b3d8c28a2ef8058c0cbe396.png)
 
 可以使用命令行查看
 
-![image-20220120224428909](https://i-blog.csdnimg.cn/blog_migrate/266d08b6354455e1384b019c2e59c061.png)
+![image-20220120224428909](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/266d08b6354455e1384b019c2e59c061.png)
 
 ### log4j.properties
     
@@ -353,7 +353,7 @@ hdfs://hadoop01:8020
 
 初始化没有异常，则会初始化成功。
 
-![image-20220120153856890](https://i-blog.csdnimg.cn/blog_migrate/af00e0efd73fe376f50d24eea1e1d14c.png)
+![image-20220120153856890](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/af00e0efd73fe376f50d24eea1e1d14c.png)
 
 注意日志中是否有打印成功的日志。
 
@@ -361,11 +361,11 @@ hdfs://hadoop01:8020
 
 在启动的时候，hadoop的启动脚本会使用免密的方式，到hadoop02和hadoop03上启动服务，但是因为此时hadoop02和hadoop03我们还没有分发，没有创建相关的文件，所以在启动的时候，会提示目录找不到，脚本找不到等异常
 
-![image-20220120154212636](https://i-blog.csdnimg.cn/blog_migrate/99230110931d841fb08e3bf3d6338849.png)
+![image-20220120154212636](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99230110931d841fb08e3bf3d6338849.png)
 
 此时使用`jps`查看启动的服务
 
-![image-20220120155245647](https://i-blog.csdnimg.cn/blog_migrate/4c1d1d57264f6dfd227a19327c451bba.png)
+![image-20220120155245647](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4c1d1d57264f6dfd227a19327c451bba.png)
 
 符合我们的预期，只启动了`ResourceManager`
 
@@ -375,11 +375,11 @@ hdfs://hadoop01:8020
 
 接着使用`scp -r /hadoop hadoop02:/hadoop`将hadoop01上的hadoop目录拷贝到hadoop02的hadoop目录下
 
-![image-20220120155935926](https://i-blog.csdnimg.cn/blog_migrate/55c0a0b9eebbdfeec4889a96914499bc.png)
+![image-20220120155935926](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/55c0a0b9eebbdfeec4889a96914499bc.png)
 
 传输完成就可以在hadoop02上查看了
 
-![image-20220120155928551](https://i-blog.csdnimg.cn/blog_migrate/496cbebaa0781e366e8a13b22ac094f9.png)
+![image-20220120155928551](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/496cbebaa0781e366e8a13b22ac094f9.png)
 
 解压后的hadoop文件比较多，需要一定的时间传输。
 
@@ -393,15 +393,15 @@ hdfs://hadoop01:8020
 
 接着在hadoop01的hadoop/sbin目录下启动`./start-all.sh`
 
-![image-20220120161057252](https://i-blog.csdnimg.cn/blog_migrate/c7009bb10799ac0595c801985467f3b5.png)
+![image-20220120161057252](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c7009bb10799ac0595c801985467f3b5.png)
 
 查看和日志输出一致
 
-![image-20220120161414150](https://i-blog.csdnimg.cn/blog_migrate/eb96758c227aca2607ea4ae68e75d9c1.png)
+![image-20220120161414150](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eb96758c227aca2607ea4ae68e75d9c1.png)
 
 主节点
 
-![image-20220120170432033](https://i-blog.csdnimg.cn/blog_migrate/1db25e635b8aff8843d42950c2aebdbc.png)
+![image-20220120170432033](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1db25e635b8aff8843d42950c2aebdbc.png)
 
 执行`./satrt-all.sh`后一段时间，nameNode服务终止
 
@@ -415,25 +415,25 @@ hdfs://hadoop01:8020
 
 hdfs
 
-![image-20220120224636829](https://i-blog.csdnimg.cn/blog_migrate/0b10b62a1c80dd2e0f7fa43b69c384d7.png)
+![image-20220120224636829](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0b10b62a1c80dd2e0f7fa43b69c384d7.png)
 
 yarn
 
-![image-20220120224652655](https://i-blog.csdnimg.cn/blog_migrate/34b946a531645d8b7e28e360059ae62e.png)
+![image-20220120224652655](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34b946a531645d8b7e28e360059ae62e.png)
 
 ### 任务历史
 
 在`/hadoop/sbin`目录下，执行`./mr-jobhistory-daemon.sh start historyserver`启动任务历史
 
-![image-20220120224807396](https://i-blog.csdnimg.cn/blog_migrate/acd274c07d0717210ec8d46e09e22821.png)
+![image-20220120224807396](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/acd274c07d0717210ec8d46e09e22821.png)
 
 接着在`mapred-site.xml`中配置的地址中就可以访问任务执行历史了
 
-![image-20220120224837482](https://i-blog.csdnimg.cn/blog_migrate/a7a9e1fdacfec333b6fa8422300b7076.png)
+![image-20220120224837482](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a7a9e1fdacfec333b6fa8422300b7076.png)
 
 同时也会生成`hdfs:/tmp`目录
 
-![image-20220120224917596](https://i-blog.csdnimg.cn/blog_migrate/801e7aab0d31ce6cece4ef4924eb3f04.png)
+![image-20220120224917596](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/801e7aab0d31ce6cece4ef4924eb3f04.png)
 
 ### 任务提交
 
@@ -443,11 +443,11 @@ yarn
 
 然后使用`hadoop fs -put /test/test.log /input/test.log`将test.log上传到hdfs中
 
-![image-20220120225359238](https://i-blog.csdnimg.cn/blog_migrate/3057bdf4e73a91baa1a8e5cb2b08991e.png)
+![image-20220120225359238](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3057bdf4e73a91baa1a8e5cb2b08991e.png)
 
 查看
 
-![image-20220120225537058](https://i-blog.csdnimg.cn/blog_migrate/3fc9e955414c9d4edb5f207ca47b3de4.png)
+![image-20220120225537058](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3fc9e955414c9d4edb5f207ca47b3de4.png)
 
 还记得wordcount吗
 
@@ -455,27 +455,27 @@ yarn
 
 执行`hadoop jar /hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.9.2.jar wordcount /input/test.log /output`提交作业
 
-![image-20220120230449745](https://i-blog.csdnimg.cn/blog_migrate/6186da6704881018735a7bb7f02efe84.png)
+![image-20220120230449745](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6186da6704881018735a7bb7f02efe84.png)
 
 在执行历史中也能看到了
 
-![image-20220120230550283](https://i-blog.csdnimg.cn/blog_migrate/35ebd15da4b840674ba091c2ac28d945.png)
+![image-20220120230550283](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/35ebd15da4b840674ba091c2ac28d945.png)
 
 在资源信息界面也能看到了
 
-![image-20220120230627061](https://i-blog.csdnimg.cn/blog_migrate/3ac81891a8130b03956aaa3b96284077.png)
+![image-20220120230627061](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3ac81891a8130b03956aaa3b96284077.png)
 
 我们的任务也执行完成了
 
-![image-20220120230708148](https://i-blog.csdnimg.cn/blog_migrate/f21932c452ecb619e2557bb9fc476618.png)
+![image-20220120230708148](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f21932c452ecb619e2557bb9fc476618.png)
 
 同时在hdfs的界面上也可以查看结果了
 
-![image-20220120230835465](https://i-blog.csdnimg.cn/blog_migrate/8580059c0d9729234b9ae93caa4e1b67.png)
+![image-20220120230835465](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8580059c0d9729234b9ae93caa4e1b67.png)
 
 还记得吗，我们的test.log是在hadoop03节点上的
 
-![image-20220120230926704](https://i-blog.csdnimg.cn/blog_migrate/f19fdbde8844392a0eed29735e61f992.png)
+![image-20220120230926704](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f19fdbde8844392a0eed29735e61f992.png)
 
 ## 总结
 

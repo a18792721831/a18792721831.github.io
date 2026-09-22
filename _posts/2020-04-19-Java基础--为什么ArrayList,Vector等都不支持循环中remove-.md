@@ -41,10 +41,10 @@ JDK中有很多的数据结构，可以让我们操作数据。
 
 ## 1 Vector 直接删除
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d479b52a1e9c020b616ddb5d7b3a0398.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/904385b6ebdff2047efdefc267831485.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d479b52a1e9c020b616ddb5d7b3a0398.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/904385b6ebdff2047efdefc267831485.png)  
 直接删除首先调用indexOf方法，得到目标元素的第一个序列，然后调用删除指定序列元素的方法进行删除。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9079ae8f6f8d4e63e4f2efe31267cad1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9079ae8f6f8d4e63e4f2efe31267cad1.png)  
 在删除指定序列元素的方法中，实际也是使用了System.arraycopy方法，将指定元素后面的所有元素，前移。  
 这样就实现了指定序列元素删除的目的。
 
@@ -84,23 +84,23 @@ for循环遍历有三种写法：普通for循环和增强for循环以及流的fo
 而对于基本类型的包装类以及字符串，因为其内部维护有常量表，通过get方法返回的可能是其具体的值，而不是引用，所以，使用普通for循环处理基本包装类以及字符串的Vector可能存在修改失败的问题。不过这个不在我们思考的范围内.
 
 对于增强for循环，其实现比普通for循环要复杂。Vector在其类内有一个私有内部类：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/da8e6ee5a582993f5c50c306d6f15c84.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/da8e6ee5a582993f5c50c306d6f15c84.png)  
 它实现了Iterator接口，实现了这个接口中的方法，就能实现增强for循环以及迭代器循环。  
 所以，严格意义来讲，增强for循环是使用迭代器实现的。  
 流的for循环，是使用了jdk8的默认方法进行调度，然后调用的还是迭代器里面的真正执行的方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5b2ff0f86082ca6bba5fe1deda83e1a5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5b2ff0f86082ca6bba5fe1deda83e1a5.png)  
 首先获取Collection中默认的stream方法，得到非并行的spliterator(分割器)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1e1d3006451f1a799c407187b77d19e3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1e1d3006451f1a799c407187b77d19e3.png)  
 然后调用分割器的forearch方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f0cfdee5fa2df6e9930b8306328b1d7d.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4520c4d5208a6ddd1672e4e48f1646b5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f0cfdee5fa2df6e9930b8306328b1d7d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4520c4d5208a6ddd1672e4e48f1646b5.png)  
 真正调用的是分割器的forEachRemaining方法。  
 在Vector中，也有一个私有类，实现了分割器接口：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8830504644cea98c9b506f460c61c5dc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8830504644cea98c9b506f460c61c5dc.png)  
 分割器的的方法中就有foreach调用的实现。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ff6889b3439667c1f82b61d8c284788c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ff6889b3439667c1f82b61d8c284788c.png)  
 我们可以在里面打断点验证。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/18fb2d273b463293208ec096e197062e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18fb2d273b463293208ec096e197062e.png)  
 从其调用堆栈，我们可以和清楚的验证我们的分析是正确的。
 
 ### 2.2 迭代器循环
@@ -127,15 +127,15 @@ for循环遍历有三种写法：普通for循环和增强for循环以及流的fo
 那么，增强for循环是怎么实现的呢？  
 我们知道，迭代器肯定需要调用hasNext方法确定是否进行下一次遍历，以及使用next方法进行获取遍历元素以及偏移迭代器。  
 所以，我们在Vector的迭代器实现的hasNext方法与next方法打上断点，查看其调用堆栈：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/65f866071973fe05f2888002eb77a91f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/65f866071973fe05f2888002eb77a91f.png)  
 发现其toString方法也调用了hasNext  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3e337b9cdd2d6387d2051006be0c1a0c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3e337b9cdd2d6387d2051006be0c1a0c.png)  
 那么，我们去掉toString方法的调用。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/acb5e452510c705f5c7a48fdc42628f3.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0a582bc13a3d5ee539ef938f7ea8215c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/acb5e452510c705f5c7a48fdc42628f3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0a582bc13a3d5ee539ef938f7ea8215c.png)  
 与我们猜想的一样，在增强for循环中调用了hasNext方法确定是否可以进行下一次循环。  
 如果hasNext返回true，那么调用next方法，获取到元素  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bda4daf4bc33ba155e394dbb4fac9f6d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bda4daf4bc33ba155e394dbb4fac9f6d.png)  
 他这个应该是语法糖封装，所以没有显示调用。
 
 ### 2.3 任意方向遍历
@@ -163,7 +163,7 @@ for循环遍历有三种写法：普通for循环和增强for循环以及流的fo
             }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3bdd8ce5cb14c0834a9e15c80d238c70.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3bdd8ce5cb14c0834a9e15c80d238c70.png)  
 我们可以看到，它遍历了前面7个元素，而且将操作后值等于7的元素进行删除。  
 而且是从后往前进行遍历的。  
 其从前往后遍历：
@@ -176,18 +176,18 @@ for循环遍历有三种写法：普通for循环和增强for循环以及流的fo
             }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a14e8841ca1e750a380f6c69f7789f9e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a14e8841ca1e750a380f6c69f7789f9e.png)
 
 ### 2.4 Vector的foreach
 
 当然，如果你仅仅想遍历元素，那么Vector也提供了foreachar方法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4fb5ea91b80c57ba5206793ad6d08996.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4fb5ea91b80c57ba5206793ad6d08996.png)
     
     
     vector.forEach(x -> x.setAge(x.getAge() + 5));
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/65fe8cde86dae2e88a05714e15854176.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/65fe8cde86dae2e88a05714e15854176.png)  
 所以，总体来说，想要遍历元素，并进行修改，选择还是很多的。  
 但是如果你要涉及到元素数量的改变，那么，能使用迭代器或者说流操作，还是尽可能使用这些安全的操作，避免出现ConcurrentModificationException。
 
@@ -195,23 +195,23 @@ for循环遍历有三种写法：普通for循环和增强for循环以及流的fo
 
 我们前面讲了，迭代器遍历，使用到了next方法获取元素以及偏移。  
 但是在next方法中会进行一个检测：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1e99a9e06019d237188abd334097fc62.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/46ed0543212c62ae5635c33ad13b3273.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1e99a9e06019d237188abd334097fc62.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/46ed0543212c62ae5635c33ad13b3273.png)  
 这个方法会判断modCount和expectedModCount是否一致，只有一致的条件下，集合数组才会进行循环，否则因其fast-fail机制，会通过抛出异常，进行快速失败。  
 expectedModCount是在创建迭代器对象时进行初始化的，值等于modCount  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d6ddfce80811c0a20f7e4d493f53f20c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d6ddfce80811c0a20f7e4d493f53f20c.png)  
 而我们的add，set，remove等方法，都会修改modCount的值。  
 请注意，Vector自己的方法时不会进行expectedModCount的修改，只有迭代器才会维护这个expectedModCount的值。  
 那么，在循环中，进行add，可以吗？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/11bd36f463a0f9e2db48396421f95e48.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/11bd36f463a0f9e2db48396421f95e48.png)  
 答案也是不行的，在循环遍历中，无法进行造成数组元素数量变化的操作，迭代器提供的删除方法除外。  
 为什么迭代器提供的删除方法可以实现删除呢？  
 其核心原因是，迭代器没有提供add方法，所以Vector进行add只能调用自己实现的add方法，而自己实现的add方法又不会去维护expectedModCount的值。  
 在循环中每次都会调用next方法进行获取本次遍历的元素，以及偏移到下一次遍历的元素的位置，但是在next方法中会调用check方法，如果modCount与expectedModCount不相等，就会进行快速失败。这就是为什么在循环时，不能进行增加的原因，删除也只能调用迭代器实现的删除方法。  
 因为expectedModCount就是迭代器自己维护的变量。为了保证迭代器自己的删除操作成功，且能够进行下一次循环，每次删除都会强制将expectedModCount的值设置为modCount的值：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/748c4905eb69d53c8f7992d916ec1b76.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/748c4905eb69d53c8f7992d916ec1b76.png)  
 而且迭代器调用的是Vector自己实现的remove方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/132c8b5bf721e76fff721a5463773955.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/132c8b5bf721e76fff721a5463773955.png)  
 这样也维护了数组有效长度的可靠。
 
 ## 4\. Vector不使用迭代器删除元素
@@ -228,7 +228,7 @@ expectedModCount是在创建迭代器对象时进行初始化的，值等于modC
             }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9a84e0edea306bef7df39a52d05d5872.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9a84e0edea306bef7df39a52d05d5872.png)  
 答案是可以的。  
 那么删除呢？
     
@@ -242,7 +242,7 @@ expectedModCount是在创建迭代器对象时进行初始化的，值等于modC
             }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/16ed36dcd1ffa482353735207244a2df.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/16ed36dcd1ffa482353735207244a2df.png)  
 答案是可以的，但是请注意，在删除掉元素后，需要将我们的序列值缩小。
 
 ## 5\. Vector流删除元素
@@ -254,7 +254,7 @@ expectedModCount是在创建迭代器对象时进行初始化的，值等于modC
                     collect(Vector::new,Vector::add,(left,right)->left.addAll(right));
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/87d01921208fc754a9a4f35e58a5ce46.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/87d01921208fc754a9a4f35e58a5ce46.png)  
 但是，通过这种流操作，涉及到重新构建，收集的问题，在不考虑多线程流操作的情况下，性能应该是比4中的方法的性能要差。
 
 ArrayList与Vector大同小异。  

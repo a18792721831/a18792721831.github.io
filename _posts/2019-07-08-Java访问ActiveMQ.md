@@ -36,15 +36,15 @@ ActiveMQ
 
 ## 1.创建gradle项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a49ba00deebe925cbeda6f50c9d69d92.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a49ba00deebe925cbeda6f50c9d69d92.png)
 
 ## 2.增加依赖
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/340cf9a3095998b2073314608d98a447.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/340cf9a3095998b2073314608d98a447.png)
 
 ## 3.创建类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8cd11226e2b5f4341a3a26d2f2ab00b5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8cd11226e2b5f4341a3a26d2f2ab00b5.png)
     
     
     package com.study.config;
@@ -186,22 +186,22 @@ ActiveMQ
 
 ## 4.启动服务器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7ed0adb086d2bbf45e8d39d7dfda0db0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7ed0adb086d2bbf45e8d39d7dfda0db0.png)
 
 ## 5.生产
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bed85789e7b54e098f18682df3a4735d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bed85789e7b54e098f18682df3a4735d.png)  
 在图形化界面查看  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4a45f414fd609fe795791404f9eba8f6.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f96c5f54a3e0a61c2a198c6f4a6fb36d.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/32714489eae5917e6480842abd5ccee4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a45f414fd609fe795791404f9eba8f6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f96c5f54a3e0a61c2a198c6f4a6fb36d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/32714489eae5917e6480842abd5ccee4.png)
 
 ## 6.消费
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7b160c536d9f310dfa855f5c9f1fb719.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0a351560b619a828c7c1e6c465383d49.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/58dd873cd3fd3efba1bda5acb877635c.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/86ad0cbad01b1b81ebdd79a200bac0fb.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7b160c536d9f310dfa855f5c9f1fb719.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0a351560b619a828c7c1e6c465383d49.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/58dd873cd3fd3efba1bda5acb877635c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/86ad0cbad01b1b81ebdd79a200bac0fb.png)
 
 ## 7.git仓库地址
 

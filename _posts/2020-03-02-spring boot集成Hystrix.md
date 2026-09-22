@@ -103,47 +103,47 @@ https://github.com/a18792721831/studySpringCloud.git
 
 ### 5.1 创建项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9769dfe56a46f1b75e7d11732af02d46.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9769dfe56a46f1b75e7d11732af02d46.png)
 
 ### 5.2 配置
 
 配置服务名称，eureka server，日志等  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8ea677e58d8d71952515f979613dba0b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8ea677e58d8d71952515f979613dba0b.png)  
 配置eureka client服务提供者的连接名称  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6444559db9a0fd781ab0b3b389dd5783.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6444559db9a0fd781ab0b3b389dd5783.png)
 
 ### 5.3 添加注解
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c25416908d9f70cb51c9c74e7fc3340c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c25416908d9f70cb51c9c74e7fc3340c.png)
 
 ### 5.4 创建Ribbon配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/84f55e9392b5bcc7f99f35135e469f49.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/84f55e9392b5bcc7f99f35135e469f49.png)
 
 ### 5.5 创建Ribbon Service
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ce88e8609c94cca5e5c8e7b74175d06f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ce88e8609c94cca5e5c8e7b74175d06f.png)  
 当Hystrix认为eureka client的服务提供者提供的服务不可用时，就会访问fallbackMethod的方法
 
 ### 5.6 创建controller
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2a47db7e814860affed226ee5190d9e9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2a47db7e814860affed226ee5190d9e9.png)
 
 ### 5.7 验证
 
 首先启动eureka server  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/11a3dd530e39850c6d2c2ff613b13878.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/11a3dd530e39850c6d2c2ff613b13878.png)  
 然后启动本项目  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b6b928437956851aa2630008be6e9a4d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6b928437956851aa2630008be6e9a4d.png)  
 注意，此时没有启动eureka client服务提供者，那么服务是不可用的。  
 访问Hystrix的接口，会调用service里面的fallbackMethod的方法。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/49e08451a27dec876c96afcdce5af0a3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/49e08451a27dec876c96afcdce5af0a3.png)  
 接下来启动eureka client 服务提供者。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a60cbcd2252da789e335e707cdf793be.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a60cbcd2252da789e335e707cdf793be.png)  
 此时服务可达，所以，此时应该能够正确的访问的  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d989976c98c829fd283cf4df32793d25.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d989976c98c829fd283cf4df32793d25.png)  
 当然，需要多试试，才能成功。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eedcd8a90bb98910f20e29deec22e50b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eedcd8a90bb98910f20e29deec22e50b.png)  
 这就是Hystrix的自我修复。  
 将熔断器设置为半开状态，尝试请求，成功就将服务设置可用，否则继续熔断。
 
@@ -151,35 +151,35 @@ https://github.com/a18792721831/studySpringCloud.git
 
 ### 6.1 创建项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fd0e5c884c921ab60c3f2785c5e95e89.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fd0e5c884c921ab60c3f2785c5e95e89.png)
 
 ### 6.2 配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2004d8069f38ccad75d27ea5d766e5bb.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2004d8069f38ccad75d27ea5d766e5bb.png)
 
 ### 6.3 添加注解
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/443844e34a2259ebe83e8d39955aa46b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/443844e34a2259ebe83e8d39955aa46b.png)
 
 ### 6.4 feign配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a9fb5ea61a4c06900b1734701d9a9c14.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a9fb5ea61a4c06900b1734701d9a9c14.png)
 
 ### 6.5 feign调用
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/15b8a5ba1ad567c011bb345af3384c96.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/15b8a5ba1ad567c011bb345af3384c96.png)
 
 ### 6.6 feign的hystrix处理
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/94511a24286e9813eff3e36c1b4eebcd.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/94511a24286e9813eff3e36c1b4eebcd.png)
 
 ### 6.7 service
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bcdfd247f81c790047a2ab8ec78f4a04.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bcdfd247f81c790047a2ab8ec78f4a04.png)
 
 ### 6.8 controller
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8ede1fb653ba8359f5d8fb5b7cd286ef.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8ede1fb653ba8359f5d8fb5b7cd286ef.png)
 
 开启eureka client和feign  
 因为feign已经引入了hystrix的依赖，所以我们这里开启就行。  
@@ -192,9 +192,9 @@ https://github.com/a18792721831/studySpringCloud.git
 启动，首先需要启动eureka-server和eureka client服务提供者  
 接着启动feign-hystrix(也就是feign)  
 访问：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cd98735f295efd2583176235453e57e7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cd98735f295efd2583176235453e57e7.png)  
 关闭eureka client服务提供者  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/976706c7fdabdaf3281fe5f17f0ce383.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/976706c7fdabdaf3281fe5f17f0ce383.png)  
 就去调用熔断处理的方法了。
 
 ## 7\. RestTemplate和Feign对比
@@ -211,119 +211,119 @@ https://github.com/a18792721831/studySpringCloud.git
 
 ### 8.1 创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f0e05b751c91fa092b0e96c463572f12.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f0e05b751c91fa092b0e96c463572f12.png)
 
 ### 8.2 配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a174acf34eee18d1ff12fcdd81c1b9c5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a174acf34eee18d1ff12fcdd81c1b9c5.png)
 
 ### 8.3 配置hystrix dashboard
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2dab796437de34a2a9c8734fe284aede.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2dab796437de34a2a9c8734fe284aede.png)  
 注意：  
 这里的urlMapping就是熔断器的元数据访问地址，如果不配置，会无法访问导致异常。  
 当然也可以添加多个，比如  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eba45ec6009231e459735e9c72fbd2ee.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eba45ec6009231e459735e9c72fbd2ee.png)  
 因为内部是一个list，不存在覆盖的问题  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4563faecccd89ecf280cd0c6e5501591.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/530ddf7850c9f71e67b9b5eba1a1cbe3.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4563faecccd89ecf280cd0c6e5501591.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/530ddf7850c9f71e67b9b5eba1a1cbe3.png)
 
 ### 8.4 配置ribbon
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/79314bf83a7d9d611567eada7673e272.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/79314bf83a7d9d611567eada7673e272.png)
 
 ### 8.5 service
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dfd537664f368f26949a2dd7b12a0814.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dfd537664f368f26949a2dd7b12a0814.png)
 
 ### 8.6 controller
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c0a930601a814d7017fd00d48b9a6aff.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c0a930601a814d7017fd00d48b9a6aff.png)
 
 ### 8.7 注解
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ff3536233e094cede4987f4237a6455f.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ff3536233e094cede4987f4237a6455f.png)
 
 ### 8.8 启动
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a6f0076d931479ea6df93a031ba905b9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a6f0076d931479ea6df93a031ba905b9.png)  
 注意，需要先启动eureka server以及eureka client服务提供者。  
 刚开始没有访问任何服务，此时eureka client还未获取eureka server 服务列表。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f255543ac0e71b5f0d82e4f3749660f8.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7b9bf88e86680f326328d1025e8bd25f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f255543ac0e71b5f0d82e4f3749660f8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7b9bf88e86680f326328d1025e8bd25f.png)  
 接着访问hystrix dashboard的主界面  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c995b4c5245478faec5c88156ae14721.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/26133fd4c2c53dd5f190f59e602ecdbf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c995b4c5245478faec5c88156ae14721.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/26133fd4c2c53dd5f190f59e602ecdbf.png)  
 接着访问：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d0551eb619e3a68cf1ada306120b0d78.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d0551eb619e3a68cf1ada306120b0d78.png)  
 其实就是配置的url实际上是等价的。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/73c0ef886db43043934401e42319b2a8.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/73c0ef886db43043934401e42319b2a8.png)
 
 ## 9\. Hystrix Dashboard & Feign
 
 ### 9.1 创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/58478112c01895e5bae375c16b13f22c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/58478112c01895e5bae375c16b13f22c.png)
 
 ### 9.2 配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5dba75ec1324489f8c99a80a8d3a4db1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5dba75ec1324489f8c99a80a8d3a4db1.png)
 
 ### 9.3 配置hystrix dashboard
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f60be8e32c55ec379f7d382427a8e3f9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f60be8e32c55ec379f7d382427a8e3f9.png)
 
 ### 9.4 配置feign
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ae50b23dd39e48b62592003db9a891fa.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ae50b23dd39e48b62592003db9a891fa.png)
 
 ### 9.5 dao.feign
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0dd4e0cefaf941d5278e262234d22f5a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0dd4e0cefaf941d5278e262234d22f5a.png)
 
 ### 9.6 hystrix.feign
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b10c5ed97933927125dac4fbc8036e1c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b10c5ed97933927125dac4fbc8036e1c.png)
 
 ### 9.7 service
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b6abf354f93d932b712a920a02929513.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6abf354f93d932b712a920a02929513.png)
 
 ### 9.8 controller
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5bc5a8106eab95dc410a54377769a4a4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5bc5a8106eab95dc410a54377769a4a4.png)
 
 ### 9.9 注解
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3255dea8924a188879c2d2365e2d450b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3255dea8924a188879c2d2365e2d450b.png)
 
 ### 9.10 启动
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c2a5e20b7e37c7ee6306100ab48bde54.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4ed7bcb92ca379de8e673eb3c5cbf19b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c2a5e20b7e37c7ee6306100ab48bde54.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4ed7bcb92ca379de8e673eb3c5cbf19b.png)  
 访问  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0ba1e2a2868d93972d7f4777cc53f053.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/20dc795cc96e3d3a20eb335eaaf19e23.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ec1db1cdaadd3a8886ad2d1e0886b13a.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6c6a604983e27837c910c3ffee60ef57.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0ba1e2a2868d93972d7f4777cc53f053.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/20dc795cc96e3d3a20eb335eaaf19e23.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ec1db1cdaadd3a8886ad2d1e0886b13a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6c6a604983e27837c910c3ffee60ef57.png)  
 这个就是元数据访问不到。
 
 ## 10\. Turbine聚合监控
 
 ### 10.1 创建
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ca26d223905e4e99c2dbeb1840cae747.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ca26d223905e4e99c2dbeb1840cae747.png)
 
 ### 10.2 配置
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3d7bc17289e649228aab362277f228de.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0484441e33414d38d8098a01c35b4c38.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3d7bc17289e649228aab362277f228de.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0484441e33414d38d8098a01c35b4c38.png)
 
 ### 10.3 启动
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e2a353ddcb0da1db0a65e67568e56420.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/84b3478cc7db4e2a9a8e163e8178db45.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e2a353ddcb0da1db0a65e67568e56420.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/84b3478cc7db4e2a9a8e163e8178db45.png)  
 访问  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6685f7aaefeed908f002e7dce90d6e89.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6289260365694521bb3bd57d1060aead.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6685f7aaefeed908f002e7dce90d6e89.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6289260365694521bb3bd57d1060aead.png)  
 将hystrix dashboard需要两页的监控图像放到了一个页面上。

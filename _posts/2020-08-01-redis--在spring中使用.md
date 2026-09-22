@@ -40,7 +40,7 @@ redis连接驱动，使用的最多的目前应该是Jedis。
 
 在maven中央仓库搜索[jedis](<https://search.maven.org/artifact/redis.clients/jedis/3.3.0/jar>)
 
-![image-20200801153453181](https://i-blog.csdnimg.cn/blog_migrate/00832406b4a318ee4b935bac4d6dc729.png)
+![image-20200801153453181](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/00832406b4a318ee4b935bac4d6dc729.png)
 
 最新是3.3.0。
 
@@ -50,11 +50,11 @@ spring提供了一个RedisConnectionFactory的接口，通过它可以生成一�
 
 这是RedisConnection相关的结构图
 
-![RedisConnectionFactory](https://i-blog.csdnimg.cn/blog_migrate/450028f0eec5c565e3ab93787def9a35.png)
+![RedisConnectionFactory](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/450028f0eec5c565e3ab93787def9a35.png)
 
 简化下：
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/18e2dd0771b3035f7e3b1056158ce647.png)
+![img](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18e2dd0771b3035f7e3b1056158ce647.png)
 
 在spring中是通过RedisConnection接口操作Redis的，而RedisConnection则对原生的Jedis进行封装。要获取RedisConnection接口对象，是通过RedisConnectionFactory接口去生成的，所以第一步需要配置RedisConnectionFactory。
 
@@ -126,15 +126,15 @@ spring提供了一个RedisConnectionFactory的接口，通过它可以生成一�
 
 我们在test方法中尝试用下：
 
-![image-20200801165515369](https://i-blog.csdnimg.cn/blog_migrate/893953fa45221d4ff38c3cbca4ee1936.png)
+![image-20200801165515369](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/893953fa45221d4ff38c3cbca4ee1936.png)
 
 执行testFactory方法
 
-![image-20200801165538898](https://i-blog.csdnimg.cn/blog_migrate/c2bfe30a6cbd64061b04aa87c51f5f00.png)
+![image-20200801165538898](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c2bfe30a6cbd64061b04aa87c51f5f00.png)
 
 然后使用客户端连接查看
 
-![image-20200801165605846](https://i-blog.csdnimg.cn/blog_migrate/ccbe9a7d450814664ff54c3b72943747.png)
+![image-20200801165605846](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ccbe9a7d450814664ff54c3b72943747.png)
 
 ## RedisTemplate
 
@@ -142,7 +142,7 @@ spring提供了一个RedisConnectionFactory的接口，通过它可以生成一�
 
 所以，spring提供了[RedisTemplate](<https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:template>)
 
-![image-20200801165844883](https://i-blog.csdnimg.cn/blog_migrate/8d86a3c25c135e24ad500ca1b09d927d.png)
+![image-20200801165844883](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8d86a3c25c135e24ad500ca1b09d927d.png)
 
 ok,我们继续尝试，首先是创建RedisTemplate
     
@@ -155,19 +155,19 @@ ok,我们继续尝试，首先是创建RedisTemplate
         }
     
 
-![image-20200801171509642](https://i-blog.csdnimg.cn/blog_migrate/be756477a69f87ab2858bc309afd184a.png)
+![image-20200801171509642](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be756477a69f87ab2858bc309afd184a.png)
 
 然后在test中尝试使用：
 
-![image-20200801171528957](https://i-blog.csdnimg.cn/blog_migrate/45de01d1adcad73f979157faff2b3ed7.png)
+![image-20200801171528957](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/45de01d1adcad73f979157faff2b3ed7.png)
 
 执行结果：
 
-![image-20200801171550565](https://i-blog.csdnimg.cn/blog_migrate/1d7b235c8b2dd5a671fbf25061af4ac0.png)
+![image-20200801171550565](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d7b235c8b2dd5a671fbf25061af4ac0.png)
 
 发现并没有输出，我们使用客户端查看
 
-![image-20200801171618201](https://i-blog.csdnimg.cn/blog_migrate/cac96e5698c6a01f5775a3d9dfa1d191.png)
+![image-20200801171618201](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cac96e5698c6a01f5775a3d9dfa1d191.png)
 
 咦，我们给的key是test，为什么存储后是xxxxtest呢？
 
@@ -175,13 +175,13 @@ ok,我们继续尝试，首先是创建RedisTemplate
 
 Redis是给予字符串存储的NoSql，而Java是基于帝乡的语言，对象是无法存储到Redis中的，不过Java提供了序列化机制，只要类实现了Serializable接口，就代表能够进行序列化。通过将类对象进行序列化就能得到二进制字符串，然后Redis就可以将类对象以字符串的方式进行存储。java也可以将二进制字符串，进行反序列化转为对象。Spring提供了序列化器的机制，并实现了几个序列化器。
 
-![xxxx](https://i-blog.csdnimg.cn/blog_migrate/fb02315ae8c8a18cb2faa1dcece6f7ce.png)
+![xxxx](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fb02315ae8c8a18cb2faa1dcece6f7ce.png)
 
 这是spring实现的序列化器
 
-![image-20200801173129749](https://i-blog.csdnimg.cn/blog_migrate/a7dc7a5df221cd9005b233a6d6ba4837.png)
+![image-20200801173129749](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a7dc7a5df221cd9005b233a6d6ba4837.png)
 
-![image-20200801173429114](https://i-blog.csdnimg.cn/blog_migrate/add603da2981208e15a2b4c9a9c585ac.png)
+![image-20200801173429114](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/add603da2981208e15a2b4c9a9c585ac.png)
 
 RedisTemplate中可以配置的序列化器
 
@@ -200,19 +200,19 @@ RedisTemplate中可以配置的序列化器
 
 我们将RedisTemplate的序列化器指定为stringSerializer.
 
-![image-20200801181159768](https://i-blog.csdnimg.cn/blog_migrate/5be40b81a2ff6e2ba63177b0861db3ff.png)
+![image-20200801181159768](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5be40b81a2ff6e2ba63177b0861db3ff.png)
 
 然后重新执行
 
-![image-20200801181304624](https://i-blog.csdnimg.cn/blog_migrate/d391c9b5c40bb8aa647ec9d7c17a0c20.png)
+![image-20200801181304624](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d391c9b5c40bb8aa647ec9d7c17a0c20.png)
 
 然后查看redis：
 
-![image-20200801181322843](https://i-blog.csdnimg.cn/blog_migrate/9530a33055003341471e0a28d2126122.png)
+![image-20200801181322843](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9530a33055003341471e0a28d2126122.png)
 
 忘记设置valueSerializer了
 
-![image-20200801181421361](https://i-blog.csdnimg.cn/blog_migrate/9817f00ebf7bd4cdfb86fa24976f2db5.png)
+![image-20200801181421361](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9817f00ebf7bd4cdfb86fa24976f2db5.png)
 
 ## Spring 对Redis数据类型操作的封装
 
@@ -242,9 +242,9 @@ redisTemplate对批量操作的支持：
 | set        | redisTemplate.boundSetOps(“key”)   |
 | sorted set | redisTemplate.boundZSetOps(“key”)  |
 
-![image-20200801182856400](https://i-blog.csdnimg.cn/blog_migrate/8af99addfa7f5d8ba64d0f4e91b6a4de.png)
+![image-20200801182856400](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8af99addfa7f5d8ba64d0f4e91b6a4de.png)
 
-![image-20200801182907972](https://i-blog.csdnimg.cn/blog_migrate/5f9c523dd1dfb45f14f927622ea58d92.png)
+![image-20200801182907972](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5f9c523dd1dfb45f14f927622ea58d92.png)
 
 ## SessionCallback和RedisCallback
 
@@ -267,7 +267,7 @@ SessionCallback
         }
     
 
-![image-20200801184913178](https://i-blog.csdnimg.cn/blog_migrate/60c11e554addcd015a0db7dc27bc9b10.png)
+![image-20200801184913178](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/60c11e554addcd015a0db7dc27bc9b10.png)
 
 RedisCallback
     
@@ -282,4 +282,4 @@ RedisCallback
         }
     
 
-![image-20200801185815374](https://i-blog.csdnimg.cn/blog_migrate/5084e750a55d305afe6746db5b8513d1.png)
+![image-20200801185815374](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5084e750a55d305afe6746db5b8513d1.png)

@@ -16,7 +16,7 @@ keywords: ["ai", "智能体", "agent", "专业", "提效"]
 
 ## Skills详解：AI Agent 的模块化能力扩展系统
 
-![思维导图](https://i-blog.csdnimg.cn/img_convert/e8dd3ea46b4c639ebc6415daa675e81b.png)
+![思维导图](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/mindmap/Skills%E8%AF%A6%E8%A7%A3_20260109154034.png)
 
 ## 介绍
 

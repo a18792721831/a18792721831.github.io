@@ -84,19 +84,19 @@ spring batch框架为保证job的可靠性、稳定性，在读数据阶段提�
 
 ItemReader是Step中对资源的读处理，spring batch框架已经提供了各种类型的读实现。
 
-![image-20201126192023685](https://i-blog.csdnimg.cn/blog_migrate/d4d493f7b7ab6b9fe8bc3a012197e5d3.png)
+![image-20201126192023685](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d4d493f7b7ab6b9fe8bc3a012197e5d3.png)
 
 ### ItemReader
 
 所有的读操作需要实现ItemReader接口。
 
-![image-20201126192352496](https://i-blog.csdnimg.cn/blog_migrate/5587b74c8a375804aa81f749b65442e8.png)
+![image-20201126192352496](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5587b74c8a375804aa81f749b65442e8.png)
 
 ### ItemStream
 
 spring batch框架同时提供了另外一个接口ItemStream。ItemStream接口定义了读操作与执行上下文ExecutionContext交互的能力。可以将已经读的条数通过该接口存放在执行上下文ExecutionContext中(ExecutionContext中的数据在批处理comiit的时候会通过JobRepository持久化到数据库)。这样当Job发生异常，重新启动的时候，读操作可以跳过已经成功读过的数据，继续从上次出错的地方开始读。
 
-![image-20201126193145118](https://i-blog.csdnimg.cn/blog_migrate/ce35f8efba413a8bd0098cbe0fb39040.png)
+![image-20201126193145118](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ce35f8efba413a8bd0098cbe0fb39040.png)
 
   * open:根据参数executionContext打开需要读取资源的stream，可以根据持久化在上下文executionContext中的数据重新定位需要重新读取的记录处。
   * update:将需要持久化的数据存放在执行上下文executionContext中
@@ -136,7 +136,7 @@ spring batch框架提供的读组件都实现了ItemStream接口。
 
 spring batch框架提供了对Jdbc读取支持的组件JdbcCursorItemReader。核心作用是将数据库中的记录转换为Java对象。通过引用PreparedStatement、RowMapper、PreparedStatementSetter等关键接口实现。在JdbcCursorItemReader将数据库记录转换为Java对象时，主要有两个过程：1.首先根据PreparedStatement从数据库中获取结果集ResultSet；其次使用RowMapper将结果集ResultSet转换为Java对象。
 
-![image-20201127185633985](https://i-blog.csdnimg.cn/blog_migrate/968652419056ba33e68e1f76fcce8ace.png)
+![image-20201127185633985](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/968652419056ba33e68e1f76fcce8ace.png)
 
 jdbcCursorItemReader的关键属性
 
@@ -159,83 +159,83 @@ jdbcCursorItemReader的关键属性
 
 使用JdbcCursorItemReader至少需要配置dataSource、sql、rowMapper三个属性。因为我自己使用的是多数据源，其中mysql是spring batch元数据的存储数据库，真正读取数据使用的是oracle数据库。所以引入alibaba的durid数据库连接池，用于方便的配置多数据源。
 
-![image-20201128143343160](https://i-blog.csdnimg.cn/blog_migrate/02c76e38bb1aa0ed70bbdba4bfe43196.png)
+![image-20201128143343160](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/02c76e38bb1aa0ed70bbdba4bfe43196.png)
 
 这里有一个问题，oracle数据源，如果没有引入i18n的jar，会提示空指针异常。断点调试，会给出正确的提示，数据库编码不正确，需要引入i18n。
 
 接着需要配置多个配置
 
-![image-20201128144733211](https://i-blog.csdnimg.cn/blog_migrate/54d5fb9cc896417f2acc604cb91f0381.png)
+![image-20201128144733211](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/54d5fb9cc896417f2acc604cb91f0381.png)
 
 在配置类中，将数据源交给spring容器
 
-![image-20201128144811154](https://i-blog.csdnimg.cn/blog_migrate/0be2e017c53194e3746f460c6a7b680d.png)
+![image-20201128144811154](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0be2e017c53194e3746f460c6a7b680d.png)
 
 这样，我们就能愉快的使用多数据源了
 
 在配置jobRepository的时候，需要指定mysql数据库
 
-![image-20201128144920491](https://i-blog.csdnimg.cn/blog_migrate/bb345c51f6abaa087493c3d1450014d6.png)
+![image-20201128144920491](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bb345c51f6abaa087493c3d1450014d6.png)
 
 在创建ItemReader的时候，需要指定oracle数据库
 
-![image-20201128145905867](https://i-blog.csdnimg.cn/blog_migrate/acbc70ea5d142f74d4c46d0be9bf0a68.png)
+![image-20201128145905867](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/acbc70ea5d142f74d4c46d0be9bf0a68.png)
 
 接下来就用一个小例子，体验下。
 
 首先创建实体，我们引入lombok插件。
 
-![image-20201128151742111](https://i-blog.csdnimg.cn/blog_migrate/54598eafecec3fa0598db679f344540c.png)
+![image-20201128151742111](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/54598eafecec3fa0598db679f344540c.png)
 
 创建实体
 
-![image-20201128145800432](https://i-blog.csdnimg.cn/blog_migrate/d40f50e8f2082c3a526bad9816c0e0f4.png)
+![image-20201128145800432](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d40f50e8f2082c3a526bad9816c0e0f4.png)
 
 创建读取器
 
-![image-20201128150041628](https://i-blog.csdnimg.cn/blog_migrate/975e65be586e0a0ee06a78a2fa3abf20.png)
+![image-20201128150041628](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/975e65be586e0a0ee06a78a2fa3abf20.png)
 
 处理器非常的简单
 
-![image-20201128150103843](https://i-blog.csdnimg.cn/blog_migrate/e880952421465d5b20d8dbca684a6517.png)
+![image-20201128150103843](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e880952421465d5b20d8dbca684a6517.png)
 
 写入器也很简单
 
-![image-20201128150121129](https://i-blog.csdnimg.cn/blog_migrate/9cf792d0e3fdc926b8cbbf0de46d9ecc.png)
+![image-20201128150121129](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9cf792d0e3fdc926b8cbbf0de46d9ecc.png)
 
 创建好job就可以运行了
 
-![image-20201128150143574](https://i-blog.csdnimg.cn/blog_migrate/690cc411c9aa9636359400b3fca723d7.png)
+![image-20201128150143574](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/690cc411c9aa9636359400b3fca723d7.png)
 
 执行结果
 
-![image-20201128151818455](https://i-blog.csdnimg.cn/blog_migrate/94b65c703867086d59712a13f320fadc.png)
+![image-20201128151818455](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/94b65c703867086d59712a13f320fadc.png)
 
 jdbc三大核心特点，我们只用了两个，分别是SQL、rowmapper。还有一个是statement.
 
 我们修改刚才的SQL，只需要指定状态的。刚才SQL中，状态是写死的。状态通过jobParameter传入。
 
-![image-20201128152559953](https://i-blog.csdnimg.cn/blog_migrate/0c531fdc20ae27706549f671284a9837.png)
+![image-20201128152559953](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c531fdc20ae27706549f671284a9837.png)
 
-![image-20201128152642329](https://i-blog.csdnimg.cn/blog_migrate/99eb146c1a09a76270f00d3dab627beb.png)
+![image-20201128152642329](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99eb146c1a09a76270f00d3dab627beb.png)
 
 启动
 
-![image-20201128152806033](https://i-blog.csdnimg.cn/blog_migrate/4163b91107c11fbf9d328334e62b2c60.png)
+![image-20201128152806033](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4163b91107c11fbf9d328334e62b2c60.png)
 
 我们换个状态试试
 
-![image-20201128152749294](https://i-blog.csdnimg.cn/blog_migrate/509007b147c16e197c65ac85f6a24665.png)
+![image-20201128152749294](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/509007b147c16e197c65ac85f6a24665.png)
 
 刚好35个
 
-![image-20201128152917686](https://i-blog.csdnimg.cn/blog_migrate/39e5a0bda343724e678e1efb660c7b57.png)
+![image-20201128152917686](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/39e5a0bda343724e678e1efb660c7b57.png)
 
 ### JdbcPagingItemReader
 
 spring batch框架提供了对jdbc分页读取支持的组件JdbcPagingItemReader。JdbcPagingItemReader实现ItemReader接口，核心作用是将数据库中的记录通过分页的方式转换为Java对象。在JdbcPagingItemReader将数据库记录转换为Java对象时主要有两步工作：首先根据SimpleJdbcTemplate与PagingQueryProvider从数据库中根据分页的大小获取结果集ResultSet；其次使用RowMapper将结果集Result转换为Java对象。
 
-![image-20201128161152542](https://i-blog.csdnimg.cn/blog_migrate/a037fb9dc51297e41c186db42b215856.png)
+![image-20201128161152542](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a037fb9dc51297e41c186db42b215856.png)
 
 JdbcPagingItemReader关键接口
 
@@ -277,19 +277,19 @@ dataSource指定访问的数据源，queryProvider用于定义分页查询的SQL
 
 创建一个jdbcPagingItemReader
 
-![image-20201130192527156](https://i-blog.csdnimg.cn/blog_migrate/fcc439e7ff28617b323cf931d4cc34a3.png)
+![image-20201130192527156](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fcc439e7ff28617b323cf931d4cc34a3.png)
 
 创建step和job
 
-![image-20201130192545833](https://i-blog.csdnimg.cn/blog_migrate/80deafdcf0b6d4864d5338ecf64b5830.png)
+![image-20201130192545833](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/80deafdcf0b6d4864d5338ecf64b5830.png)
 
 启动
 
-![image-20201130192557532](https://i-blog.csdnimg.cn/blog_migrate/cf1a43a7134111ef4cd9845a78ec55f1.png)
+![image-20201130192557532](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf1a43a7134111ef4cd9845a78ec55f1.png)
 
 执行结果
 
-![image-20201130192617357](https://i-blog.csdnimg.cn/blog_migrate/39098d43d0c03e7a7158649ce54bc456.png)
+![image-20201130192617357](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/39098d43d0c03e7a7158649ce54bc456.png)
 
 完整代码如下
     
@@ -370,19 +370,19 @@ entityManagerFactory负责创建EntityManager，后者负责完成对实体的�
 
 在上述例子的基础上，首先增加Jpa的starter.
 
-![image-20201130194029631](https://i-blog.csdnimg.cn/blog_migrate/4214600f03ef9f8018820e9739d8591f.png)
+![image-20201130194029631](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4214600f03ef9f8018820e9739d8591f.png)
 
 接着修改实体
 
-![image-20201201182959625](https://i-blog.csdnimg.cn/blog_migrate/9a87899e8903646832a9a820097e8a94.png)
+![image-20201201182959625](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9a87899e8903646832a9a820097e8a94.png)
 
 配置Jpa的EntityManageFactory
 
-![image-20201201182810202](https://i-blog.csdnimg.cn/blog_migrate/bc1a8ec4ad92f09fa8e5f53403b7b712.png)
+![image-20201201182810202](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bc1a8ec4ad92f09fa8e5f53403b7b712.png)
 
 配置reader
 
-![image-20201201183039126](https://i-blog.csdnimg.cn/blog_migrate/72d612c2f9ac1358e542a8c4d728fde9.png)
+![image-20201201183039126](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/72d612c2f9ac1358e542a8c4d728fde9.png)
 
 全部代码
     
@@ -450,11 +450,11 @@ entityManagerFactory负责创建EntityManager，后者负责完成对实体的�
 
 执行结果
 
-![image-20201201183125413](https://i-blog.csdnimg.cn/blog_migrate/99f5c3292e1b32cc71b74c09c10a58d5.png)
+![image-20201201183125413](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99f5c3292e1b32cc71b74c09c10a58d5.png)
 
 修改参数，重新执行
 
-![image-20201201183322575](https://i-blog.csdnimg.cn/blog_migrate/6c18a16b7f4d5ec8db0a4ad97983e780.png)
+![image-20201201183322575](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6c18a16b7f4d5ec8db0a4ad97983e780.png)
 
 和上面的执行结果没有任何相同的记录。
 
@@ -526,7 +526,7 @@ entityManagerFactory负责创建EntityManager，后者负责完成对实体的�
 
 执行结果
 
-![image-20201201190415765](https://i-blog.csdnimg.cn/blog_migrate/21e22dbb17e68a4ffa564af4c444333b.png)
+![image-20201201190415765](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/21e22dbb17e68a4ffa564af4c444333b.png)
 
 ### MyBatisCursorItemReader
 
@@ -534,15 +534,15 @@ entityManagerFactory负责创建EntityManager，后者负责完成对实体的�
 
 MyBatisCursorItemReader和前面的JpaCursorItemReader类似，也需要指定数据源和SQL。在MyBatis中配置的是SqlSessionFactory.
 
-![image-20201203091919015](https://i-blog.csdnimg.cn/blog_migrate/4da6d4aaf52b8fd4d5d9e63c6f0ddb68.png)
+![image-20201203091919015](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4da6d4aaf52b8fd4d5d9e63c6f0ddb68.png)
 
 这里我们创建了MyBatis的创建信息类，接着创建SqlSessionFactory即可。
 
-![image-20201203092012673](https://i-blog.csdnimg.cn/blog_migrate/89d6aa3bf2e121141ab0e7f28f663e4b.png)
+![image-20201203092012673](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/89d6aa3bf2e121141ab0e7f28f663e4b.png)
 
 这里面需要指定queryId,这个queryId就是mybatis中指定的id
 
-![image-20201203092104182](https://i-blog.csdnimg.cn/blog_migrate/1bf3e4a205afdc38d566bbbe0fca70c5.png)
+![image-20201203092104182](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1bf3e4a205afdc38d566bbbe0fca70c5.png)
 
 这里的id支持长名字，也支持短名字。
 
@@ -550,7 +550,7 @@ MyBatisCursorItemReader和前面的JpaCursorItemReader类似，也需要指定�
 
 [Mapped Statements collection does not contain value for](<https://blog.csdn.net/a18792721831/article/details/110518974>)
 
-![image-20201203092533485](https://i-blog.csdnimg.cn/blog_migrate/dc26519b4b58e5fc51edcd3ec8e44fac.png)
+![image-20201203092533485](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dc26519b4b58e5fc51edcd3ec8e44fac.png)
 
 完整的代码:
     
@@ -644,11 +644,11 @@ MyBatisCursorItemReader和前面的JpaCursorItemReader类似，也需要指定�
 
 别忘记了MapperScan
 
-![image-20201203113430002](https://i-blog.csdnimg.cn/blog_migrate/74b9fd6b6bb816a5a5db7e33ad9d3af2.png)
+![image-20201203113430002](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/74b9fd6b6bb816a5a5db7e33ad9d3af2.png)
 
 执行结果
 
-![image-20201203113447357](https://i-blog.csdnimg.cn/blog_migrate/c1a612d0747e8a43fb8afb1f19101823.png)
+![image-20201203113447357](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c1a612d0747e8a43fb8afb1f19101823.png)
 
 ### MyBatisPagingItemReader
 
@@ -664,15 +664,15 @@ MyBatisPagingItemReader和MyBatisCursorItemReader非常类似，区别在spring 
 
 配置SqlSessionFactoryBean
 
-![image-20201203183759563](https://i-blog.csdnimg.cn/blog_migrate/7e6edd48831338f78b2dbb949efc490a.png)
+![image-20201203183759563](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7e6edd48831338f78b2dbb949efc490a.png)
 
 指定查询SQL的queryId,这里使用短名字
 
-![image-20201203183843461](https://i-blog.csdnimg.cn/blog_migrate/9f758a6f725eeed9f36ebe80c7e24eb5.png)
+![image-20201203183843461](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9f758a6f725eeed9f36ebe80c7e24eb5.png)
 
 接着就是相同的配置Step和Job并启动，需要注意的是，启动之前需要保证Mapper已经被解析
 
-![image-20201203183945590](https://i-blog.csdnimg.cn/blog_migrate/abf8a8dd638b4a19715d801cea6ba32a.png)
+![image-20201203183945590](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/abf8a8dd638b4a19715d801cea6ba32a.png)
 
 完整的代码
     
@@ -735,11 +735,11 @@ MyBatisPagingItemReader和MyBatisCursorItemReader非常类似，区别在spring 
 
 执行结果
 
-![image-20201203184023813](https://i-blog.csdnimg.cn/blog_migrate/a8b9e7c05075da331289deaa235e9220.png)
+![image-20201203184023813](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a8b9e7c05075da331289deaa235e9220.png)
 
 ### ItemReader类图
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4bb086a474e489d5fcdc9d5c7b6accc2.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4bb086a474e489d5fcdc9d5c7b6accc2.png)
 
 ## 服务复用
 
@@ -748,7 +748,7 @@ MyBatisPagingItemReader和MyBatisCursorItemReader非常类似，区别在spring 
 **ItemReaderAdapter结构**
 
 ItemReaderApapter持有服务对象，并调用指定的操作来完成ItemReader中定义的read功能。需要注意的是：ItemReader的read操作需要每次返回一条对象，当没有数据可以读取时，需要返回null。但是现有的服务通常返回一个对象的数组或者List列表；因此现有的服务通常不能直接被ItemReaderApapter直接使用，需要在ItemReaderAdapter和现有的服务之间在增加一个ServiceAdapter来完成适配工作。  
-![image-20201203193350755](https://i-blog.csdnimg.cn/blog_migrate/c3181f323ae044892b29b45f80f7a0bd.png)
+![image-20201203193350755](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c3181f323ae044892b29b45f80f7a0bd.png)
 
 在配置ItemReaderApapter时，只需要指定三个属性即可：targetObject，targetMethod和Arguments。其中Arguments可选，其他必选。
 
@@ -820,7 +820,7 @@ ItemReaderApapter持有服务对象，并调用指定的操作来完成ItemReade
 
 接着就是创建reader了
 
-![image-20201203200933835](https://i-blog.csdnimg.cn/blog_migrate/e714fc2de6e70d3a18bc6bcaa36d1a9d.png)
+![image-20201203200933835](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e714fc2de6e70d3a18bc6bcaa36d1a9d.png)
 
 因为我们的Adapter方法中没有参数，所以，就不设置参数，只需要设置目标对象和目标方法就行了。
 
@@ -872,7 +872,7 @@ ItemReaderApapter持有服务对象，并调用指定的操作来完成ItemReade
 
 执行结果
 
-![image-20201203201111066](https://i-blog.csdnimg.cn/blog_migrate/a31acb21727c30b7604946b1292e3845.png)
+![image-20201203201111066](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a31acb21727c30b7604946b1292e3845.png)
 
 ## 自定义ItemReader
 
@@ -941,7 +941,7 @@ spring batch框架提供丰富的ItemReader组件，当这些默认的系统组�
 
 执行就会出现异常
 
-![image-20201203203443548](https://i-blog.csdnimg.cn/blog_migrate/d08d41257409d4a6335cc8dbb581ea78.png)
+![image-20201203203443548](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d08d41257409d4a6335cc8dbb581ea78.png)
 
 接着重启
 
@@ -949,7 +949,7 @@ spring batch框架提供丰富的ItemReader组件，当这些默认的系统组�
 
 换句话说，只实现了ItemReader接口，是不会将当前的数据记录到数据库，如果Job存在异常，导致失败，下次重新执行会从上次失败的记录继续执行。
 
-![image-20201203203549572](https://i-blog.csdnimg.cn/blog_migrate/23579f783d545f83679dd193022e470c.png)
+![image-20201203203549572](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/23579f783d545f83679dd193022e470c.png)
 
 ### 可重启ItemReader
 
@@ -1034,11 +1034,11 @@ spring batch框架对job提供了可重启的能力，所有spring batch框架�
 
 第一次启动，当读取到21的时候，reader会抛出异常，此时整个Job失败。
 
-![image-20201204110547115](https://i-blog.csdnimg.cn/blog_migrate/576932f2a5a834207e88febef5226d00.png)
+![image-20201204110547115](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/576932f2a5a834207e88febef5226d00.png)
 
 在不修改任何参数的情况下，重启。此时reader从Context中读取到上次已经读取到20了，重启后，会继续从21开始。
 
-![image-20201204111232411](https://i-blog.csdnimg.cn/blog_migrate/80a7a1a101ee252d3c9eb3c011c6690c.png)
+![image-20201204111232411](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/80a7a1a101ee252d3c9eb3c011c6690c.png)
 
 ## 拦截器
 
@@ -1046,7 +1046,7 @@ spring batch框架在ItemReader执行阶段提供了烂机器，使得在ItemRea
 
 ### 接口
 
-![image-20201204114745376](https://i-blog.csdnimg.cn/blog_migrate/e995ed5881e50d6fa726d1ea0969f72a.png)
+![image-20201204114745376](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e995ed5881e50d6fa726d1ea0969f72a.png)
 
 实现接口即可
     
@@ -1115,7 +1115,7 @@ spring batch框架在ItemReader执行阶段提供了烂机器，使得在ItemRea
 
 执行结果
 
-![image-20201204133136238](https://i-blog.csdnimg.cn/blog_migrate/cf488f87aee2a11571c200bec6448e93.png)
+![image-20201204133136238](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf488f87aee2a11571c200bec6448e93.png)
 
 ### 异常
 
@@ -1123,19 +1123,19 @@ spring batch框架在ItemReader执行阶段提供了烂机器，使得在ItemRea
 
 比如在上面的例子中，我们将id为11的记录抛出异常。
 
-![image-20201204133905617](https://i-blog.csdnimg.cn/blog_migrate/3fa991d019711dd157a3657a4c3c6ee5.png)
+![image-20201204133905617](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3fa991d019711dd157a3657a4c3c6ee5.png)
 
 然后启动
 
-![image-20201204134153551](https://i-blog.csdnimg.cn/blog_migrate/f83e7df90382df83bd79a842c530759a.png)
+![image-20201204134153551](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f83e7df90382df83bd79a842c530759a.png)
 
 异常是我们主动抛出的
 
-![image-20201204134210844](https://i-blog.csdnimg.cn/blog_migrate/f985bd1573c3472a4ceb4d621cbb95e0.png)
+![image-20201204134210844](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f985bd1573c3472a4ceb4d621cbb95e0.png)
 
 整个Job是FAILED的了
 
-![image-20201204134235478](https://i-blog.csdnimg.cn/blog_migrate/504416f17c49ec58232efa7b9cdb7649.png)
+![image-20201204134235478](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/504416f17c49ec58232efa7b9cdb7649.png)
 
 ### 执行顺序
 
@@ -1170,11 +1170,11 @@ before是配置的顺序，after是配置的倒序。
 
 在step中增加Listener
 
-![image-20201204134853689](https://i-blog.csdnimg.cn/blog_migrate/4a30e925330357a27368aa14eec3ae69.png)
+![image-20201204134853689](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a30e925330357a27368aa14eec3ae69.png)
 
 执行
 
-![image-20201204135012980](https://i-blog.csdnimg.cn/blog_migrate/5bf436fedc34462dd1988453af38460b.png)
+![image-20201204135012980](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5bf436fedc34462dd1988453af38460b.png)
 
 ### Annotation
 
@@ -1213,15 +1213,15 @@ ItemReadListener提供的注解有：
 
 然后使用
 
-![image-20201204135621564](https://i-blog.csdnimg.cn/blog_migrate/a6e2731a33e1e21f00b248b141ed585f.png)
+![image-20201204135621564](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a6e2731a33e1e21f00b248b141ed585f.png)
 
 启动
 
-![image-20201204135721693](https://i-blog.csdnimg.cn/blog_migrate/ad70f330836dee458a0f5cdb593a482c.png)
+![image-20201204135721693](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ad70f330836dee458a0f5cdb593a482c.png)
 
 异常也有
 
-![image-20201204135739600](https://i-blog.csdnimg.cn/blog_migrate/75a81fc2d65798521f729c022bc59b2d.png)
+![image-20201204135739600](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/75a81fc2d65798521f729c022bc59b2d.png)
 
 ### 属性Merge
 

@@ -91,18 +91,18 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 
 ### 1.1 StampedLock 的 UML
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e556bf4f3c7fb569a589e1b00e669812.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e556bf4f3c7fb569a589e1b00e669812.png)  
 这是StampedLock的引用关系图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d09ad9e27a8de5996009656ebbecfec2.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d09ad9e27a8de5996009656ebbecfec2.png)
 
 ### 1.2 StamptedLock 的 方法和属性
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a1b3235196cdbca0d8675fe5b0a7cbcc.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a1b3235196cdbca0d8675fe5b0a7cbcc.png)
 
 ## 2\. StampedLock 的构造
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8bf343340240e0115796f36ea77e164f.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f7f851c290b073ec3699b4a94bd9389b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8bf343340240e0115796f36ea77e164f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f7f851c290b073ec3699b4a94bd9389b.png)  
 初始化锁状态为ORIGIN `1 0000 0000`
 
 ## 3\. StampedLock 的方法
@@ -111,7 +111,7 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 
 尝试获取读锁  
 这是尝试获取读锁的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3936e1db151377cfa8b88d99dfdb5e34.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3936e1db151377cfa8b88d99dfdb5e34.png)
     
     
     // 尝试获取读锁
@@ -148,7 +148,7 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 
 尝试获取读锁，带有超时时间。  
 这是尝试获取读锁，带有超时时间的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/634a24c5405d48f239fc08154246038e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/634a24c5405d48f239fc08154246038e.png)  
 真心恐怖
     
     
@@ -540,7 +540,7 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 
 查询为此锁持有的读取锁的数量。  
 获取读锁持有线程数量，实际上是获取锁状态的低7位+读锁溢出数  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2d917131ddcae55c40c1e6329722d56e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2d917131ddcae55c40c1e6329722d56e.png)
     
     
     // 获取读锁持有线程数量
@@ -560,14 +560,14 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 ### 3.17 isReadLocked
 
 获取是否是读锁(共享锁)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9743348aab46c0ffaadd3a6080d252d0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9743348aab46c0ffaadd3a6080d252d0.png)  
 获取锁状态的低7位，如果锁状态的低7位的值不为0，表示现在锁是读锁，值是读锁线程持有数量。  
 锁空闲返回false
 
 ### 3.18 isWriteLocked
 
 获取是否是写锁(独占锁)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c5812eff3ba5af6b9899bebb6d784733.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c5812eff3ba5af6b9899bebb6d784733.png)  
 获取锁状态的第8位，如果锁状态的第8位为1表示现在是写锁，否则不是写锁。  
 锁空闲返回false
 
@@ -775,14 +775,14 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 线程在某个时间点，记录下锁状态，得到锁状态的凭证。  
 后面根据记录的锁状态，尝试获取写锁，读锁，释放锁。  
 在后续进行锁的获取、释放，都需要验证凭证，看看期间锁有没有被其他线程修改。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/85c7ca219d8060e991534f5b35194f31.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/85c7ca219d8060e991534f5b35194f31.png)  
 写锁返回0
 
 ### 3.23 validate
 
 验证凭证是否有效。  
 使用3.22的方法可以获取凭证，在使用凭证之前应该使用validate验证凭证，凭证有效在调用其他的方法进行获取或者释放锁。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/41df4440b45ba5e2b8cb4d6c6dbd7a99.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/41df4440b45ba5e2b8cb4d6c6dbd7a99.png)  
 判断从调用获取凭证到调用验证方法期间，锁状态有没有发生变化。
 
 ## 4\. StampedLock 的属性
@@ -864,7 +864,7 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 
 自旋获取读锁  
 这是自旋获取读锁的时序图  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c595ad4f434b968f289df434299e0a1b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c595ad4f434b968f289df434299e0a1b.png)  
 好恐怖啊。
     
     
@@ -1168,7 +1168,7 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 
 #### 4.2.3 cancelWaiter
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/68031e743c844c3856769d22786d76ef.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/68031e743c844c3856769d22786d76ef.png)
     
     
     // 
@@ -1320,7 +1320,7 @@ StampedLock的调度策略不一致优先于读者，反之亦然。 所有“�
 #### 4.2.5 acquireWrite
 
 自旋获取写锁。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c68335f055fa8bd5f6de4e38785913b8.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c68335f055fa8bd5f6de4e38785913b8.png)
     
     
     // 自旋获取写锁
@@ -1731,7 +1731,7 @@ readLockView
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/25073af1267289afe1c13d699c15110d.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/25073af1267289afe1c13d699c15110d.png)
 
 ### 9.2 写锁
     
@@ -1788,7 +1788,7 @@ readLockView
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0f39f3bed51766c9d1147fad0339b1b1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0f39f3bed51766c9d1147fad0339b1b1.png)
 
 ### 9.3 写锁 => 读锁–锁降级
     
@@ -1872,7 +1872,7 @@ readLockView
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5d09b7b0fda82bb9ad28bbf9e9a96af2.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5d09b7b0fda82bb9ad28bbf9e9a96af2.png)
 
 ### 9.4 读锁 => 写锁–锁升级
     
@@ -1981,7 +1981,7 @@ readLockView
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5d5f8062acc200dca3b5680516f9c09a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5d5f8062acc200dca3b5680516f9c09a.png)
 
 ### 9.5 ReadLock
     

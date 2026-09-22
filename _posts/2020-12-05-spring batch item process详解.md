@@ -82,7 +82,7 @@ ItemProcessor是step中对资源的处理阶段，spring batch框架已经提供
 
 需要注意的是处理阶段是可选的，也就是说可以只有读、写操作而没有中间的处理数据的阶段，这种情况下读的数据会直接交给写阶段处理。
 
-![image-20201204185859006](https://i-blog.csdnimg.cn/blog_migrate/559c27848cd0554d08df165bef23ce0a.png)
+![image-20201204185859006](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/559c27848cd0554d08df165bef23ce0a.png)
 
 对于较为简单的处理，也可以使用jdk8支持的lambda表达式写。
     
@@ -123,7 +123,7 @@ ItemProcessor是step中对资源的处理阶段，spring batch框架已经提供
 
 执行结果
 
-![image-20201204192434684](https://i-blog.csdnimg.cn/blog_migrate/3cea384dba4e83916fda7d3e91519134.png)
+![image-20201204192434684](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3cea384dba4e83916fda7d3e91519134.png)
 
 ### 系统处理组件
 
@@ -148,7 +148,7 @@ ItemProcessor的一个核心作用是对读阶段的数据进行转换，其中�
 
 首先创建实体
 
-![image-20201204193647791](https://i-blog.csdnimg.cn/blog_migrate/dd9cb3f9ab1b394ced5af7725b6a099a.png)
+![image-20201204193647791](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dd9cb3f9ab1b394ced5af7725b6a099a.png)
 
 接着使用实体：
     
@@ -190,7 +190,7 @@ ItemProcessor的一个核心作用是对读阶段的数据进行转换，其中�
 
 执行结果
 
-![image-20201204195129698](https://i-blog.csdnimg.cn/blog_migrate/3ba61154cf7e9b0abd196aaa64c30235.png)
+![image-20201204195129698](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3ba61154cf7e9b0abd196aaa64c30235.png)
 
 ### 数据类型转换
 
@@ -235,7 +235,7 @@ ItemProcessor的一个核心作用是对读阶段的数据进行转换，其中�
 
 执行结果
 
-![image-20201204193440106](https://i-blog.csdnimg.cn/blog_migrate/16e284b6d55a7947da1df2b03cd386f0.png)
+![image-20201204193440106](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/16e284b6d55a7947da1df2b03cd386f0.png)
 
 ## 数据过滤
 
@@ -288,7 +288,7 @@ ItemProcessor的一个核心作用是对读阶段的数据进行转换，其中�
 
 可以看到，读入的时候是有id为3和3的倍数的，但是在写入的时候就没有了
 
-![image-20201204195753799](https://i-blog.csdnimg.cn/blog_migrate/53ca8c163ef6e57a4ea438cabc1f79c5.png)
+![image-20201204195753799](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/53ca8c163ef6e57a4ea438cabc1f79c5.png)
 
 **数据过滤和异常跳过的区别**
 
@@ -312,11 +312,11 @@ StepExecution.getSkipCount()可以获取异常跳过的记录总数。
 
 我们在processor中，将%3的抛出异常，%2的过滤。
 
-![image-20201205122122670](https://i-blog.csdnimg.cn/blog_migrate/26c59937df2d1788af817bb0b8ecfa7c.png)
+![image-20201205122122670](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/26c59937df2d1788af817bb0b8ecfa7c.png)
 
 然后允许跳过
 
-![image-20201205122418273](https://i-blog.csdnimg.cn/blog_migrate/7100b3c0d322b0ef8b419b614ac6b9d2.png)
+![image-20201205122418273](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7100b3c0d322b0ef8b419b614ac6b9d2.png)
 
 完整代码：
     
@@ -377,7 +377,7 @@ StepExecution.getSkipCount()可以获取异常跳过的记录总数。
 
 执行结果
 
-![image-20201205122451031](https://i-blog.csdnimg.cn/blog_migrate/a778030710c5a8785ea010a698235640.png)
+![image-20201205122451031](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a778030710c5a8785ea010a698235640.png)
 
 ## 数据校验
 
@@ -389,11 +389,11 @@ spring 框架提供的校验接口为Validator，只有一个操作validate，�
 
 接口定义
 
-![image-20201205125137537](https://i-blog.csdnimg.cn/blog_migrate/33d34d55b1f59165d2f00c2e4f722343.png)
+![image-20201205125137537](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/33d34d55b1f59165d2f00c2e4f722343.png)
 
 我们创建一个自己的校验器
 
-![image-20201205125741768](https://i-blog.csdnimg.cn/blog_migrate/431be15c5854fc78df33f8a4554f6c7d.png)
+![image-20201205125741768](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/431be15c5854fc78df33f8a4554f6c7d.png)
 
 创建好了校验器在什么地方使用呢
 
@@ -403,11 +403,11 @@ spring 框架提供的校验接口为Validator，只有一个操作validate，�
 
 ValidatingItemProcessor实现了接口ItemProcess，通过引用接口Validator进行数据校验功能，根据业务需要自定义实现符合业务需求的校验器。ValidatingItemProcessor支持过滤的功能和跳过两种能力，通过属性filter进行表示。true表示校验不通过的时候直接返回null,用于过滤；而设置为false则表示校验不通过，则抛出异常。通过配置step的异常跳过策略，也可以实现跳过。
 
-![image-20201205130200030](https://i-blog.csdnimg.cn/blog_migrate/fc63e041b9bb74ba9fb6ba6786afc1e6.png)
+![image-20201205130200030](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fc63e041b9bb74ba9fb6ba6786afc1e6.png)
 
 我们使用上面创建的校验器
 
-![image-20201205130240437](https://i-blog.csdnimg.cn/blog_migrate/07c24ad932d39840d052f072c0c700d2.png)
+![image-20201205130240437](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/07c24ad932d39840d052f072c0c700d2.png)
 
 完整代码
     
@@ -499,7 +499,7 @@ ValidatingItemProcessor实现了接口ItemProcess，通过引用接口Validator�
 
 接着启动
 
-![image-20201205130312440](https://i-blog.csdnimg.cn/blog_migrate/ff803a2fbd88d985fda2d5736d66d144.png)
+![image-20201205130312440](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ff803a2fbd88d985fda2d5736d66d144.png)
 
 可以看到将%5==0的数据全部过滤了。
 
@@ -507,15 +507,15 @@ ValidatingItemProcessor实现了接口ItemProcess，通过引用接口Validator�
 
 在spring batch框架中对于chunk智能配置一个ItemProcessor，但是在有些业务场景中需要将一个item同时执行多个不同的处理器，spring batch框架提供了组合ItemProcessor的模式满足这个需求。
 
-![image-20201205130608893](https://i-blog.csdnimg.cn/blog_migrate/b7c25e2ec77f6cacf10c7771d3d6975b.png)
+![image-20201205130608893](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b7c25e2ec77f6cacf10c7771d3d6975b.png)
 
 我们首先创建两个处理器
 
-![image-20201205131133483](https://i-blog.csdnimg.cn/blog_migrate/6204d03a13dc8fbe61391281928a908f.png)
+![image-20201205131133483](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6204d03a13dc8fbe61391281928a908f.png)
 
 接着使用这两个处理器，将这两个处理器设置到组合处理器中，然后将组合处理器设置给step
 
-![image-20201205131220653](https://i-blog.csdnimg.cn/blog_migrate/173cd584d6ce0bb6758ebd4015b6d4ae.png)
+![image-20201205131220653](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/173cd584d6ce0bb6758ebd4015b6d4ae.png)
 
 完整代码
     
@@ -583,7 +583,7 @@ ValidatingItemProcessor实现了接口ItemProcess，通过引用接口Validator�
 
 执行结果
 
-![image-20201205131300768](https://i-blog.csdnimg.cn/blog_migrate/d3732a7b852b8d95a297d410ab8390b4.png)
+![image-20201205131300768](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d3732a7b852b8d95a297d410ab8390b4.png)
 
 ## 服务复用
 
@@ -591,7 +591,7 @@ ValidatingItemProcessor实现了接口ItemProcess，通过引用接口Validator�
 
 ItemProcessorAdapter持有服务对象，并调用指定的操作来完成ItemProcessor中定义的process功能。需要注意的是:已经存在的服务需要能够直接处理提供的Item对象，即参数必须是读输出的Item的具体类型；返回值类型必须是ItemWriter阶段输入的参数类型
 
-![image-20201205131652188](https://i-blog.csdnimg.cn/blog_migrate/a3d9d1e3e803ef0773630a705530ea36.png)
+![image-20201205131652188](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a3d9d1e3e803ef0773630a705530ea36.png)
 
 ItemProcessorAdapter的关键属性
 
@@ -603,11 +603,11 @@ ItemProcessorAdapter的关键属性
 
 首先创建一个服务，作为系统现有服务
 
-![image-20201205132041416](https://i-blog.csdnimg.cn/blog_migrate/fb69d131672911c90debfc6b60867b27.png)
+![image-20201205132041416](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fb69d131672911c90debfc6b60867b27.png)
 
 接着创建并使用ItemProcessorAdapter
 
-![image-20201205132350805](https://i-blog.csdnimg.cn/blog_migrate/05a358bea36f8ebc647943b233ecfd42.png)
+![image-20201205132350805](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/05a358bea36f8ebc647943b233ecfd42.png)
 
 完整代码
     
@@ -657,7 +657,7 @@ ItemProcessorAdapter的关键属性
 
 执行结果
 
-![image-20201205132430066](https://i-blog.csdnimg.cn/blog_migrate/82781caeebda1c5774ef3b773b9b67ff.png)
+![image-20201205132430066](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/82781caeebda1c5774ef3b773b9b67ff.png)
 
 ## 拦截器
 
@@ -667,19 +667,19 @@ spring batch框架在ItemProcessor执行阶段提供了拦截器，使得在Item
 
 接口定义
 
-![image-20201205132622832](https://i-blog.csdnimg.cn/blog_migrate/43f24c181a756b6df672639e26166913.png)
+![image-20201205132622832](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/43f24c181a756b6df672639e26166913.png)
 
 我们基于实现接口，创建一个拦截器
 
-![image-20201205132926452](https://i-blog.csdnimg.cn/blog_migrate/d266809cb61aac9998c82cf5af131f0e.png)
+![image-20201205132926452](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d266809cb61aac9998c82cf5af131f0e.png)
 
 然后使用
 
-![image-20201205133133133](https://i-blog.csdnimg.cn/blog_migrate/f3abb655a61b05295341565540418dae.png)
+![image-20201205133133133](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f3abb655a61b05295341565540418dae.png)
 
 执行结果
 
-![image-20201205133219771](https://i-blog.csdnimg.cn/blog_migrate/3ef7f3f0424fd0120ab32af417598aa8.png)
+![image-20201205133219771](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3ef7f3f0424fd0120ab32af417598aa8.png)
 
 ### 异常
 
@@ -687,39 +687,39 @@ spring batch框架在ItemProcessor执行阶段提供了拦截器，使得在Item
 
 我们在原来的例子中，主动抛出异常
 
-![image-20201205141743432](https://i-blog.csdnimg.cn/blog_migrate/d6d60cdd783bece097886f576fa95a87.png)
+![image-20201205141743432](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d6d60cdd783bece097886f576fa95a87.png)
 
 启动执行
 
-![image-20201205141921368](https://i-blog.csdnimg.cn/blog_migrate/2f744a19c792270dfc0ce4a61d1a30ba.png)
+![image-20201205141921368](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2f744a19c792270dfc0ce4a61d1a30ba.png)
 
 Job失败
 
-![image-20201205141938648](https://i-blog.csdnimg.cn/blog_migrate/c4f446423911a8877ac5757609c93dbb.png)
+![image-20201205141938648](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c4f446423911a8877ac5757609c93dbb.png)
 
 ### 执行顺序
 
 根据配置的顺序。before和配置的顺序相同，after和配置的顺序相反。
 
-![image-20201205141837462](https://i-blog.csdnimg.cn/blog_migrate/7e0dc68ebd9a63332eb92e6205a0ed4c.png)
+![image-20201205141837462](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7e0dc68ebd9a63332eb92e6205a0ed4c.png)
 
 error和配置的顺序相反
 
-![image-20201205141900796](https://i-blog.csdnimg.cn/blog_migrate/9d26920730f43da7f3bc97aba49b3615.png)
+![image-20201205141900796](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9d26920730f43da7f3bc97aba49b3615.png)
 
 ### Annotation
 
 除了实现接口，也可以使用注解
 
-![image-20201205133342163](https://i-blog.csdnimg.cn/blog_migrate/d476c32941e85f3226be944664a7a3eb.png)
+![image-20201205133342163](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d476c32941e85f3226be944664a7a3eb.png)
 
 加入到拦截器列表中
 
-![image-20201205133416052](https://i-blog.csdnimg.cn/blog_migrate/ce643916387992c6750ecc4ac1c9ae29.png)
+![image-20201205133416052](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ce643916387992c6750ecc4ac1c9ae29.png)
 
 执行结果
 
-![image-20201205133449416](https://i-blog.csdnimg.cn/blog_migrate/c7d19d246a98dc25cd83ad579dd8fdaf.png)
+![image-20201205133449416](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c7d19d246a98dc25cd83ad579dd8fdaf.png)
 
 ### Merge
 

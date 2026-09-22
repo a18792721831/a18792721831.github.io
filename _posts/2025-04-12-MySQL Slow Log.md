@@ -42,7 +42,7 @@ Slow Log 可以用于查找执行时间比较长的查询，当优化数据库�
 
 查看Slow Log 的状态 `show session varibales like 'slow_query_log';`或者 `show global varibales like 'slow_query_log';`
 
-![image-20250412150225866](https://i-blog.csdnimg.cn/img_convert/cb423ba17dbd9cbe79f05e9b51bb60e2.png)
+![image-20250412150225866](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412150225866.png)
 
 开启Slow Log 需要使用`set global slow_query_log=1;`开启
 
@@ -50,55 +50,55 @@ Slow Log 可以用于查找执行时间比较长的查询，当优化数据库�
 
 使用`set global long_query_time=1;`设置执行时间超过1s的sql是慢查询sql
 
-![image-20250412150603534](https://i-blog.csdnimg.cn/img_convert/e7d426172f27f7abbbcb56c0d4f8c7c7.png)
+![image-20250412150603534](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412150603534.png)
 
 验证Slow Log 的开启状态
 
-![image-20250412150626557](https://i-blog.csdnimg.cn/img_convert/089defad866bf6aa33612025ea7083a6.png)
+![image-20250412150626557](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412150626557.png)
 
 设置存储目录
 
-![image-20250412150707973](https://i-blog.csdnimg.cn/img_convert/6a1c01df0eafc7c917a3117df6eb9faf.png)
+![image-20250412150707973](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412150707973.png)
 
 验证
 
-![image-20250412150753252](https://i-blog.csdnimg.cn/img_convert/57fcd6665d83270c2d2a1c5d671a7814.png)
+![image-20250412150753252](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412150753252.png)
 
 设置慢日志时间
 
-![image-20250412150831264](https://i-blog.csdnimg.cn/img_convert/17e68d513f109cf8c0f902e43899c9c8.png)
+![image-20250412150831264](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412150831264.png)
 
 设置为500ms
 
-![image-20250412150905400](https://i-blog.csdnimg.cn/img_convert/7ad478394252522a31af66b689b76fa3.png)
+![image-20250412150905400](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412150905400.png)
 
-![image-20250412150914876](https://i-blog.csdnimg.cn/img_convert/0e7516d26bf38dbb4d4e2e58e1195b67.png)
+![image-20250412150914876](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412150914876.png)
 
 执行一条sql:`select 'test_slow_log',sleep(0.6);` 触发慢日志
 
-![image-20250412151015614](https://i-blog.csdnimg.cn/img_convert/e1a84fc30a27306ad5c5405dc813fe14.png)
+![image-20250412151015614](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412151015614.png)
 
 接着查看是否有慢日志生成
 
-![image-20250412151112164](https://i-blog.csdnimg.cn/img_convert/f63571046e6c33833b4a681b5cb09757.png)
+![image-20250412151112164](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412151112164.png)
 
-![image-20250412151153626](https://i-blog.csdnimg.cn/img_convert/ed4bec513a97d19095fc900235785eae.png)
+![image-20250412151153626](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412151153626.png)
 
 为何没有呢？因为慢日志相关的配置是动态配置，需要重新开个终端连接才能生效
 
-![image-20250412152358314](https://i-blog.csdnimg.cn/img_convert/7c151c41f69eef4c6709c497baee882e.png)
+![image-20250412152358314](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412152358314.png)
 
 查看文件
 
-![image-20250412152439138](https://i-blog.csdnimg.cn/img_convert/11b70b98ae2d8935298206776ea8ea10.png)
+![image-20250412152439138](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412152439138.png)
 
 因为在`log_output`中设置了`FILE,TABLE`
 
-![image-20250412152546318](https://i-blog.csdnimg.cn/img_convert/3949c959ba6b3ea00a5e346a1637e09e.png)
+![image-20250412152546318](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412152546318.png)
 
 所以在 `mysql.slow_log` 中也有
 
-![image-20250412152529798](https://i-blog.csdnimg.cn/img_convert/365862f045af2d07f3dd6ff40aba916c.png)
+![image-20250412152529798](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412152529798.png)
 
 ## Slow Log 解析
 
@@ -123,15 +123,15 @@ Slow Log 可以用于查找执行时间比较长的查询，当优化数据库�
 
 使用`set global log_slow_extra=on;`开启`log_slow_extra`参数
 
-![image-20250412153224068](https://i-blog.csdnimg.cn/img_convert/bec437bcbbfe1af6458d708c87402597.png)
+![image-20250412153224068](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412153224068.png)
 
 然后使用新的链接触发
 
-![image-20250412153259478](https://i-blog.csdnimg.cn/img_convert/04925ff7156ae8d00c25f0046fd1fcce.png)
+![image-20250412153259478](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412153259478.png)
 
 查看日志
 
-![image-20250412153451197](https://i-blog.csdnimg.cn/img_convert/7aa0a9bc9b452eb53858e11c817cc984.png)
+![image-20250412153451197](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412153451197.png)
     
     
     # Time: 2025-04-12T07:33:46.914007Z

@@ -61,13 +61,13 @@ Redo Log 由两部分组成: Redo Log 缓冲区和 Redo Log 文件。
 
 Redo Log 缓冲区的大小通过 `innodb_log_buffer_size` 参数来设置。通过 `show global variables like 'innodb_log_buffer_size';`查看
 
-![image-20250412170026934](https://i-blog.csdnimg.cn/img_convert/755315d5ef83ab9fe8dce309055b8de2.png)
+![image-20250412170026934](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412170026934.png)
 
 16777216B=16384K=16M
 
 当事务更新时，一般先写入Redo Log 缓冲区，在写入 Redo Log 文件。而具体的写入频率由`innodb_flush_log_at_trx_commit`参数控制。查看 `show global variables like 'innodb_flush_log_at_trx_commit';`
 
-![image-20250412170324262](https://i-blog.csdnimg.cn/img_convert/43caffe637a374c44c1ebae1e585a722.png)
+![image-20250412170324262](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412170324262.png)
 
 `innodb_flush_log_at_trx_commit`参数有3个有效值：
 
@@ -105,23 +105,23 @@ Redo Log 缓冲区的大小通过 `innodb_log_buffer_size` 参数来设置。通
 
 执行
 
-![image-20250412172229332](https://i-blog.csdnimg.cn/img_convert/d1bf6b6423df352e46fc0d1d1d3508a1.png)
+![image-20250412172229332](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412172229332.png)
 
 执行**`set global innodb_flush_log_at_trx_commit=0`**后，调用 `test_insert`插入10万的数据
 
-![image-20250412172936711](https://i-blog.csdnimg.cn/img_convert/b56cd0f8aacbc5f8e16d6914b73519e1.png)
+![image-20250412172936711](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412172936711.png)
 
 花费了3分27秒5，也就是207.5秒。
 
 执行**`set global innodb_flush_log_at_trx_commit=1`**,调用`test_insert`插入10万数据
 
-![image-20250412173943934](https://i-blog.csdnimg.cn/img_convert/20e52b4c5e82cc0ecc93af85326d236f.png)
+![image-20250412173943934](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412173943934.png)
 
 花费了6分55秒4，也就是415.4秒，是等于0的2倍
 
 执行**`set global innodb_flush_log_at_trx_commit=2`**，调用`test_insert`插入10万数据
 
-![image-20250412174656848](https://i-blog.csdnimg.cn/img_convert/47e7534eca3440b6c4980714ffe6bc40.png)
+![image-20250412174656848](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250412174656848.png)
 
 和等于0差不多。
 
@@ -139,9 +139,9 @@ MySQL启动后，Redo Log 的大小和个数就是固定的，比如可以配置
 
 > https://dev.mysql.com/doc/refman/8.0/en/innodb-redo-log.html
 > 
-> ![Clipboard_Screenshot_1745236922](https://i-blog.csdnimg.cn/img_convert/b40581b842fa9f5acaf263995179b81d.png)
+> ![Clipboard_Screenshot_1745236922](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/Clipboard_Screenshot_1745236922.png)
 
-![image-20250421200242503](https://i-blog.csdnimg.cn/img_convert/e062a38f22cde0ebd44117c9f2887848.png)
+![image-20250421200242503](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250421200242503.png)
 
 > 带有 `_tmp`是备用redo_log。因为在 mysql 8.0 中增加了动态调整 redo_log大小的能力，在调整过程中，会使用备用redo_log，直到调整完成。
 > 
@@ -155,9 +155,9 @@ MySQL启动后，Redo Log 的大小和个数就是固定的，比如可以配置
 | `innodb_redo_log_capacity`  | `104857600` (100MB) | 总 redo log 容量（动态调整，单位：字节）  |
 | `innodb_redo_log_files`     | 32                  | 最大 redo log 文件数（自动管理实际使用数） |
 
-![image-20250421200404372](https://i-blog.csdnimg.cn/img_convert/dab638572e5ffda520b2aacaf4af7591.png)
+![image-20250421200404372](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250421200404372.png)
 
-![image-20250528173259715](https://i-blog.csdnimg.cn/img_convert/0035279c967ca404a986636bf962caac.png)
+![image-20250528173259715](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250528173259715.png)
 
 从第一个文件开始写，当redo_log0写满了，在写redo_log1,直到最后一个redo_log也写满了，继续从第一个文件开始写。其中 `write pos`是当前记录的位置，一边写一边移动；CheckPoint是当前要擦除的位置，也是向后推移的。擦除记录前会确保记录已经更新到数据文件中。
 
@@ -165,15 +165,15 @@ RodoLog 几个重要的参数：
 
   * Innodb_log_group_home_dir:控制 Redo Log 的存放路径，如果没有配置，默认在数据目录下
 
-![image-20250802144856927](https://i-blog.csdnimg.cn/img_convert/afa54a6c29316b9d728dd1c7905aad1f.png)
+![image-20250802144856927](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802144856927.png)
 
-![image-20250802144948081](https://i-blog.csdnimg.cn/img_convert/cd0fda39ee0e6d5aaa04d6e67cd0f8ce.png)
+![image-20250802144948081](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802144948081.png)
 
 如果要修改，需要修改 mysql.cnf文件
 
 先在mysql目录下创建redolog目录,记得修改权限
 
-![image-20250802160718676](https://i-blog.csdnimg.cn/img_convert/e093fdf0ad1e3c97a833b69b42083f28.png)
+![image-20250802160718676](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802160718676.png)
 
 接着在redolog目录下创建`'#innodb_redo'`目录，记得修改目录权限为 750 ，文件权限为 640 ，并且修改权限组为 ‘999:999’
 
@@ -209,7 +209,7 @@ RodoLog 几个重要的参数：
 
 启动后mysql会在新的redolog目录下创建redofile
 
-![image-20250802165310731](https://i-blog.csdnimg.cn/img_convert/25cd82e67b879460b1ac89fd56f5ecb5.png)
+![image-20250802165310731](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802165310731.png)
 
   * innodb_log_file_size:控制Redo Log的大小，默认值为 48Mb,但是不能超过 512GB除以 innodb_log_files_in_group 参数配置的值，如果 innodb_log_files_in_group 参数的值为2，那么 innodb_log_file_size 参数的最大值为256G.
 
@@ -367,11 +367,11 @@ Redo Log 的归档由`innodb_redo_log_archive_dirs`参数控制。
 
 首先创建一个Redo Log 的归档文件夹：
 
-![image-20250802171922474](https://i-blog.csdnimg.cn/img_convert/c557eea9281849de00530e89a1ea6058.png)
+![image-20250802171922474](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802171922474.png)
 
 设置参数
 
-![image-20250802172022591](https://i-blog.csdnimg.cn/img_convert/dc3b51f25fc8997be0651198ef7f7566.png)
+![image-20250802172022591](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802172022591.png)
 
 因为是docker 启动的MySQL，因此需要先关闭MySQL，在将 Redo Log 挂载进去
     
@@ -390,7 +390,7 @@ Redo Log 的归档由`innodb_redo_log_archive_dirs`参数控制。
     mysql:8.0 
     
 
-![image-20250802172233975](https://i-blog.csdnimg.cn/img_convert/6a6ffd66787a0153e8dc1c356c5ad7dc.png)
+![image-20250802172233975](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802172233975.png)
 
 设置Redo Log 的归档目录
     
@@ -400,11 +400,11 @@ Redo Log 的归档由`innodb_redo_log_archive_dirs`参数控制。
 
 > redolog-archiving 表示归档目录的标识符，冒号后面的才是归档目录
 
-![image-20250802172432785](https://i-blog.csdnimg.cn/img_convert/97705e8c5c6c7fd7bb116b58a362a247.png)
+![image-20250802172432785](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802172432785.png)
 
 注意此时仅仅是设置了Redo Log 的归档目录，mysql不会自动开始归档
 
-![image-20250802172549315](https://i-blog.csdnimg.cn/img_convert/11696f1b924b52c9d0635eaa4c343704.png)
+![image-20250802172549315](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802172549315.png)
 
 还需要启动归档
     
@@ -420,17 +420,17 @@ Redo Log 的归档由`innodb_redo_log_archive_dirs`参数控制。
 
 使用`show global status like 'innodb_redo_log_enabled'`查看是否禁用
 
-![image-20250802172940570](https://i-blog.csdnimg.cn/img_convert/26c2b9a07050338dda956dc9bc0d9568.png)
+![image-20250802172940570](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802172940570.png)
 
 使用`alter instance enable innodb redo_log;`启用Redo Log
 
-![image-20250802173022662](https://i-blog.csdnimg.cn/img_convert/48be5e12e6c55183da2be3aaa6f7566c.png)
+![image-20250802173022662](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802173022662.png)
 
 需要注意的是如果需要使用子目录，比如 `redo-0001`，此时需要自己创建
 
 > Error executing DO statement. Redo log archive directory ‘/var/lib/mysql-redolog-archive/redo-0001’ does not exist or is not a directory - Connection: master: 311ms
 
-![image-20250802173219230](https://i-blog.csdnimg.cn/img_convert/d193ef75d7a88a555428de7fa1c4a903.png)
+![image-20250802173219230](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802173219230.png)
 
 创建了目录，并且正确的设置了权限后，就会成功启动
 
@@ -438,7 +438,7 @@ Redo Log 的归档由`innodb_redo_log_archive_dirs`参数控制。
 
 接着查看归档目录
 
-![image-20250802173307100](https://i-blog.csdnimg.cn/img_convert/d777179391c217d258ccd79513d9929f.png)
+![image-20250802173307100](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802173307100.png)
 
 此时会在Redo Log的归档目录下创建对应的Sql文件
 
@@ -451,9 +451,9 @@ Redo Log 的归档由`innodb_redo_log_archive_dirs`参数控制。
     insert into t values(1, 'test');
     
 
-![image-20250802173622901](https://i-blog.csdnimg.cn/img_convert/5b0301c81a5eb97c1c66439d16313459.png)
+![image-20250802173622901](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802173622901.png)
 
-![image-20250802174138833](https://i-blog.csdnimg.cn/img_convert/b17996623f4df77fbd5352b947bcdf7e.png)
+![image-20250802174138833](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802174138833.png)
 
 停止归档
     
@@ -461,7 +461,7 @@ Redo Log 的归档由`innodb_redo_log_archive_dirs`参数控制。
     do innodb_redo_log_archive_stop();
     
 
-![image-20250802174350757](https://i-blog.csdnimg.cn/img_convert/aa041d3116abce597784381825337a3b.png)
+![image-20250802174350757](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/image-20250802174350757.png)
 
 ## Mysql 8.0 中的 Redo Log 禁用
 

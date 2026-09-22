@@ -48,11 +48,11 @@ keywords: springBean作用域, 单例作用域, 原型作用域, Bean的全部�
 
 ### 3.1新建一个空的spring项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f567c031de8267da5c923773d9313247.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f567c031de8267da5c923773d9313247.png)
 
 ### 3.2创建java文件
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8d53e5bdcb273549a649e8dbadb9d712.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8d53e5bdcb273549a649e8dbadb9d712.png)
     
     
     package bean;

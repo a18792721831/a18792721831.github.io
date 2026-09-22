@@ -36,10 +36,10 @@ keywords: spring+springmvc+mybatis, ssm集成, ssm集成需要哪些操作, ssm�
 
 ## 1.准备的jar包
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0315412986567d5ae59f76a7c172eb2b.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/670d54b4a1663a568fce1e634ef2696f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0315412986567d5ae59f76a7c172eb2b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/670d54b4a1663a568fce1e634ef2696f.png)  
 注意：实际使用时，必须放在WEB-INF/llib文件夹下，不能用其他文件夹包起来，否则不会自动加载jar  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/34492eb90675969ec37eba6af394e3f4.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34492eb90675969ec37eba6af394e3f4.png)
 
 ## 2.配置web.xml文件
 
@@ -324,23 +324,23 @@ springmvc.xml
 
 ## 8.导入js类库
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/79de1f9c411c36eaee70339db867cc82.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/79de1f9c411c36eaee70339db867cc82.png)
 
 ## 9.编写Java文件
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3beda196251c5c0ab024eed99b0b0896.png)  
-注意：![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cc2684b53512d039bf9fdecfacc24ea9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3beda196251c5c0ab024eed99b0b0896.png)  
+注意：![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cc2684b53512d039bf9fdecfacc24ea9.png)  
 dao实现用注解注册bean时，不能指定bean的id，注解扫描会自动生成小写第一个字母的dao实现类名的bean  
 service同样不可指定。
 
 ## 10.发布测试(暂时只测试springmvc)
 
 一般springmvc能通过浏览器访问，那么剩下的就很少会出现问题。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fbfee02021924bc9830afde834a3a757.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c11d26cb8958d6c163e99ef6ba99ac76.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b5530e24490e55acf20a49ecd5f86ec7.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/09502bbb06ace59d191f64dfc110a62b.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bfd590e5a7764cbb8c5053c7f09faa4e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fbfee02021924bc9830afde834a3a757.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c11d26cb8958d6c163e99ef6ba99ac76.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b5530e24490e55acf20a49ecd5f86ec7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/09502bbb06ace59d191f64dfc110a62b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bfd590e5a7764cbb8c5053c7f09faa4e.png)
 
 ## 11.总结
 

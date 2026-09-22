@@ -82,12 +82,12 @@ Service有四种类型：
     kubectl apply -f testtomcat.yaml
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ba2ccdfeec6aef99607b8db76228ab17.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4cc95e4064ef168cda61e772423808c3.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8ebb7be5aeba03b4291afb5151018c23.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ba2ccdfeec6aef99607b8db76228ab17.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4cc95e4064ef168cda61e772423808c3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8ebb7be5aeba03b4291afb5151018c23.png)  
 接下来在浏览器访问：  
 http://master:30081  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c7907c621908a4f61b96fcf79cba73a1.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c7907c621908a4f61b96fcf79cba73a1.png)
 
 ## 4.总结
 
@@ -102,15 +102,15 @@ k8s是基于docker的，docker是因为虚拟机的解决方案太过臃肿，�
 10.0.228.117:node  
 10.244.1.4:pod  
 10.98.148.75:service  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c446e2aaddea83756afb504ae23d559b.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d2946a7fa9503fafacfe4cfe60216913.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/786ce81392a40bdbbd93c96889ba4516.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/04530538804db32e0d662460431819a2.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/015bf8194471b8246f23a9fc17bad730.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c446e2aaddea83756afb504ae23d559b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d2946a7fa9503fafacfe4cfe60216913.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/786ce81392a40bdbbd93c96889ba4516.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/04530538804db32e0d662460431819a2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/015bf8194471b8246f23a9fc17bad730.png)  
 pod对外开放18080端口，tomcat容器本身是8080端口  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7db8ff107c0982d2c09ec9d40659e8b6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7db8ff107c0982d2c09ec9d40659e8b6.png)  
 service 监听8080对外30080，物理机映射30081  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bdf38d73e5eebd76919a4cc0adffa844.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bdf38d73e5eebd76919a4cc0adffa844.png)
 
 所以，我们现在要访问到tomcat容器的8080端口。
 
@@ -136,11 +136,11 @@ service 监听8080对外30080，物理机映射30081
     iptables-save|grep 10.98.148.75
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dd37975df4d1dbec8466878d99c777b5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dd37975df4d1dbec8466878d99c777b5.png)  
 第一条表示10.244的都可以访问，即pod可以访问service
 
 第二条是转到KUBE-SVC-AOO2BEF3XRFSYLKH  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/50c2157adfebcf5ca0af5673a03afc13.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/50c2157adfebcf5ca0af5673a03afc13.png)  
 第一条是30081的端口。  
 即：  
 内网访问30080，外网30081

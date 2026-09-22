@@ -24,27 +24,27 @@ keywords: springboot坑, ClassPathResour, SAXReader解析xml, 读取xml并解析
 
 代码：
 
-![image-20200807115640657](https://i-blog.csdnimg.cn/blog_migrate/930c514c520e71d48f938b2cf145ffe4.png)
+![image-20200807115640657](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/930c514c520e71d48f938b2cf145ffe4.png)
 
 里面使用了`classPathResource.getFile().listFiles()`获取一个目录下全部的文件，然后返回的是file数组。
 
 文件放在了resource下的一个目录中
 
-![image-20200807115906279](https://i-blog.csdnimg.cn/blog_migrate/3c558f8cb0cddac0f0eaa45173c9d4da.png)
+![image-20200807115906279](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3c558f8cb0cddac0f0eaa45173c9d4da.png)
 
 在本地正常使用，但是打成jar包，部署到服务器，使用`java -jar`启动后，出现异常：
 
-![image-20200807120051836](https://i-blog.csdnimg.cn/blog_migrate/f34b186b6b5752950d88be2b56e30746.png)
+![image-20200807120051836](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f34b186b6b5752950d88be2b56e30746.png)
 
 从异常中来看，大概是说：目标目录在一个jar包里面，我们使用的是`ClassPathResource`的getFile方法获取了目录的file对象，然后通过listFiles获取目录下全部的文件。
 
 问题就在这里：
 
-![image-20200807120335622](https://i-blog.csdnimg.cn/blog_migrate/3cd54ca98d3d7a48ec8cf9f23a6f769f.png)
+![image-20200807120335622](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3cd54ca98d3d7a48ec8cf9f23a6f769f.png)
 
 通过转换绝对路径，然后直接读取
 
-![image-20200807120447052](https://i-blog.csdnimg.cn/blog_migrate/5c0f1304b1240aa242f9daaf132b078e.png)
+![image-20200807120447052](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5c0f1304b1240aa242f9daaf132b078e.png)
 
 File类需要的路径是一个独立的文件的路径，但是我们给的是jar内的一个路径，就无法读取了。
 
@@ -56,7 +56,7 @@ File类需要的路径是一个独立的文件的路径，但是我们给的是j
 
 这是解析的代码
 
-![image-20200807120749108](https://i-blog.csdnimg.cn/blog_migrate/9a6b97ba66642ed0139ca8fb8de33e40.png)
+![image-20200807120749108](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9a6b97ba66642ed0139ca8fb8de33e40.png)
 
 我直接给reader.read传入一个文件对象，就行了。
 
@@ -68,7 +68,7 @@ File类需要的路径是一个独立的文件的路径，但是我们给的是j
 
 这个编译到是也没有问题，但是在运行的时候，出现了异常：
 
-![image-20200807121137010](https://i-blog.csdnimg.cn/blog_migrate/da97a445fa17cd00bdd43ada460110fd.png)
+![image-20200807121137010](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/da97a445fa17cd00bdd43ada460110fd.png)
 
 后来想了想，应该是xml中配置的dtd是相对路径，但是解析的时候变成绝对路径的时候出错了
 

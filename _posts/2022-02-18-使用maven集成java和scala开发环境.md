@@ -43,11 +43,11 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 我们首先创建一个普通的maven项目
 
-![image-20220217205350430](https://i-blog.csdnimg.cn/blog_migrate/28f94b45003d52c609dd4279700eaee8.png)
+![image-20220217205350430](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/28f94b45003d52c609dd4279700eaee8.png)
 
 创建项目后接着创建一个hello的模块
 
-![image-20220217212046739](https://i-blog.csdnimg.cn/blog_migrate/4ef32bd7650b667a2f1dbe29497dcb12.png)
+![image-20220217212046739](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4ef32bd7650b667a2f1dbe29497dcb12.png)
 
 也是普通的maven模块
 
@@ -57,7 +57,7 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 我们在父项目的pom.xml中增加依赖
 
-![image-20220217212546275](https://i-blog.csdnimg.cn/blog_migrate/ea5ae992aa59f4bf87e16ce1fe00f7cc.png)
+![image-20220217212546275](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea5ae992aa59f4bf87e16ce1fe00f7cc.png)
 
 如下
     
@@ -110,35 +110,35 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 接着在hello模块的pom.xml中将scala相关的依赖引入
 
-![image-20220217212703355](https://i-blog.csdnimg.cn/blog_migrate/873cccf0ec978b5bd51b35bcb0222003.png)
+![image-20220217212703355](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/873cccf0ec978b5bd51b35bcb0222003.png)
 
 ## 创建目录
 
 我们需要在src目录下创建我们的源码目录和资源目录
 
-![image-20220217212809726](https://i-blog.csdnimg.cn/blog_migrate/1477a864cd99838575fd2600cc13f2cf.png)
+![image-20220217212809726](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1477a864cd99838575fd2600cc13f2cf.png)
 
 并使用右键标注为源码和资源
 
-![image-20220217212837463](https://i-blog.csdnimg.cn/blog_migrate/898539bdfa0c84eecdaabeb11bea2344.png)
+![image-20220217212837463](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/898539bdfa0c84eecdaabeb11bea2344.png)
 
 标注完成后如下
 
-![image-20220217212910013](https://i-blog.csdnimg.cn/blog_migrate/cd2b06b41a154dd392f87c254c6558e5.png)
+![image-20220217212910013](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cd2b06b41a154dd392f87c254c6558e5.png)
 
 接着创建我们的包目录
 
-![image-20220217212952030](https://i-blog.csdnimg.cn/blog_migrate/1806ccfc2a8204b72d701fa72292c62e.png)
+![image-20220217212952030](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1806ccfc2a8204b72d701fa72292c62e.png)
 
 ## 安装scala插件
 
 首先打开设置
 
-![image-20220217213448727](https://i-blog.csdnimg.cn/blog_migrate/ad38c56455e0a2c7cb120fcf95c7412c.png)
+![image-20220217213448727](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ad38c56455e0a2c7cb120fcf95c7412c.png)
 
 在插件处查询scala插件并安装，可能需要多试几次
 
-![image-20220217213710554](https://i-blog.csdnimg.cn/blog_migrate/af804e295343fa13b1c40114e3e0c9ab.png)
+![image-20220217213710554](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/af804e295343fa13b1c40114e3e0c9ab.png)
 
 而且scala插件比较大的，下载不一定能一次成功。如果确实无法下载，可以去idea的插件市场中离线下载，然后离线安装。
 
@@ -148,41 +148,41 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 此时在新建文件的时候，是找不到scala的选项的
 
-![image-20220217213051612](https://i-blog.csdnimg.cn/blog_migrate/91b6fdcb883d127428dfff5acc06583d.png)
+![image-20220217213051612](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/91b6fdcb883d127428dfff5acc06583d.png)
 
 我们刷新整个maven项目，让maven下载依赖
 
-![image-20220217213135498](https://i-blog.csdnimg.cn/blog_migrate/432545e47b027f913f484cd67ba64542.png)
+![image-20220217213135498](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/432545e47b027f913f484cd67ba64542.png)
 
 当然，刷新完还是无法创建scala的项目
 
-![image-20220217213201116](https://i-blog.csdnimg.cn/blog_migrate/34462bb46179e274d5258bdd55273de0.png)
+![image-20220217213201116](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34462bb46179e274d5258bdd55273de0.png)
 
 我们需要告诉idea，我们的项目需要支持scala，所以我们需要把scala的sdk加入
 
-![image-20220217213234951](https://i-blog.csdnimg.cn/blog_migrate/22dabd9ce41747f01992494920be1ccb.png)
+![image-20220217213234951](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/22dabd9ce41747f01992494920be1ccb.png)
 
 首先保证你的全局的sdk有scala，如果没有需要点击+增加
 
-![image-20220217213318784](https://i-blog.csdnimg.cn/blog_migrate/1ab3136a8f42266d5093e54b156edc11.png)
+![image-20220217213318784](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1ab3136a8f42266d5093e54b156edc11.png)
 
 比如
 
-![image-20220217213338109](https://i-blog.csdnimg.cn/blog_migrate/9577108808050dae5ad486ff68878aae.png)
+![image-20220217213338109](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9577108808050dae5ad486ff68878aae.png)
 
 当然，最最前提是你需要安装scala的插件，只有安装了scala的插件，才能开发与scala有关的内容。
 
 我们在模块设置将scala加入
 
-![image-20220217213907139](https://i-blog.csdnimg.cn/blog_migrate/1c7df198fd54fe92ab59665c1db9d54d.png)
+![image-20220217213907139](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1c7df198fd54fe92ab59665c1db9d54d.png)
 
 选择我们的scala版本的sdk,如果你有多个版本的scala的sdk，一定注意版本
 
-![image-20220217213937037](https://i-blog.csdnimg.cn/blog_migrate/caec43a0410e6065614c0dcffaf4119e.png)
+![image-20220217213937037](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/caec43a0410e6065614c0dcffaf4119e.png)
 
 我们也可以把scala的sdk加入到根项目中
 
-![image-20220217214058338](https://i-blog.csdnimg.cn/blog_migrate/6932b4989a63936ae71e37a20a26c8ac.png)
+![image-20220217214058338](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6932b4989a63936ae71e37a20a26c8ac.png)
 
 当然，你在加入到根项目中后，在子项目中还是需要增加一次
 
@@ -190,7 +190,7 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 我们在这里增加依赖，只是告诉idea，在我们的项目中需要用到scala的一些功能而已
 
-![image-20220217214243988](https://i-blog.csdnimg.cn/blog_migrate/0bec2b2ddb97048ade7f97fe79d6207e.png)
+![image-20220217214243988](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0bec2b2ddb97048ade7f97fe79d6207e.png)
 
 我们选择增加一个object，写如下内容
     
@@ -208,11 +208,11 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 然后点击运行
 
-![image-20220217214356937](https://i-blog.csdnimg.cn/blog_migrate/e5af3803a36ec7a2758a30161a698d9c.png)
+![image-20220217214356937](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e5af3803a36ec7a2758a30161a698d9c.png)
 
 如下
 
-![image-20220217214432952](https://i-blog.csdnimg.cn/blog_migrate/c3153d37546540aedf1075394287bd8d.png)
+![image-20220217214432952](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c3153d37546540aedf1075394287bd8d.png)
 
 ## maven 插件
 
@@ -295,17 +295,17 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 或许你可能会比较疑惑，我们怎么知道我可以使用哪些插件，以及这些插件的版本是什么呢？  
 你可以在[Maven – Available Plugins (apache.org)](<https://maven.apache.org/plugins/index.html>)查询所有可用的插件，点击插件名字可以进入到插件的文档界面，里面会有详细的版本号，以及如何使用等信息
 
-![image-20220217222140540](https://i-blog.csdnimg.cn/blog_migrate/f52eef9cefd2f9a9722f16c6867e9826.png)
+![image-20220217222140540](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f52eef9cefd2f9a9722f16c6867e9826.png)
 
 详细信息
 
-![image-20220217222242540](https://i-blog.csdnimg.cn/blog_migrate/3241723c4884679c2bd594b2dbb44936.png)
+![image-20220217222242540](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3241723c4884679c2bd594b2dbb44936.png)
 
 千万记得，我们在父项目中配置插件后，还需要在子项目中引入
 
 我们在hello项目的pom.xml中引入
 
-![image-20220217222706562](https://i-blog.csdnimg.cn/blog_migrate/542890aebd4baf51c58f3548ba476c29.png)
+![image-20220217222706562](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/542890aebd4baf51c58f3548ba476c29.png)
 
 这样做的好处是在一个pom.xml中统一管理项目中的插件的版本等信息。一些通用的配置也可以在父项目的pom.xml中配置。
 
@@ -386,13 +386,13 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 如果一切正常，此时会有scala的一些操作
 
-![image-20220217223657750](https://i-blog.csdnimg.cn/blog_migrate/d2c677fcbd912854830c58e407df87b8.png)
+![image-20220217223657750](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d2c677fcbd912854830c58e407df87b8.png)
 
 因为我们只配置了一个scala的执行，所以可以直接使用这个run，在只有一个执行的时候，是不需要指定执行的id，如果有多个，不指定执行id，也是会取第一个。
 
 我们双击运行`scala:run`
 
-![image-20220217223846885](https://i-blog.csdnimg.cn/blog_migrate/fe97fb253d55be010f8dda49a0d2af1f.png)
+![image-20220217223846885](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fe97fb253d55be010f8dda49a0d2af1f.png)
 
 第一次会比较慢，因为需要下载依赖。
 
@@ -400,7 +400,7 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 会提示我们没有配置主类
 
-![image-20220217224255908](https://i-blog.csdnimg.cn/blog_migrate/b83069077fbd3769f709def8af150dae.png)
+![image-20220217224255908](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b83069077fbd3769f709def8af150dae.png)
 
 ### maven-jar-plugin
 
@@ -461,15 +461,15 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 我们刷新项目，并clean后执行package
 
-![image-20220217225039204](https://i-blog.csdnimg.cn/blog_migrate/e1f889e69c020c2c5d59cb82535c0e1f.png)
+![image-20220217225039204](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e1f889e69c020c2c5d59cb82535c0e1f.png)
 
 执行后会生成两个jar包
 
-![image-20220217225111633](https://i-blog.csdnimg.cn/blog_migrate/bc83a45852995cc3a9711760cb2d03b0.png)
+![image-20220217225111633](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bc83a45852995cc3a9711760cb2d03b0.png)
 
 第二个jar包就是插件生成的，尝试执行
 
-![image-20220217225201350](https://i-blog.csdnimg.cn/blog_migrate/842f514c5aa6f187148e7402e5bef41b.png)
+![image-20220217225201350](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/842f514c5aa6f187148e7402e5bef41b.png)
 
 我们依次执行两个jar包，发现还是无法执行，但是至少不是找不到主类的错误了，而是找不到scala的相关库。
 
@@ -536,11 +536,11 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 刷新maven,先后执行clean和package
 
-![image-20220217230255368](https://i-blog.csdnimg.cn/blog_migrate/001b61238dcd9e8c8fcab8e8067f4403.png)
+![image-20220217230255368](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/001b61238dcd9e8c8fcab8e8067f4403.png)
 
 接着尝试执行jar包
 
-![image-20220217230335843](https://i-blog.csdnimg.cn/blog_migrate/f9ce0dfd97afc00c905788952c3b5aca.png)
+![image-20220217230335843](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f9ce0dfd97afc00c905788952c3b5aca.png)
 
 ### maven-assembly-plugin
 
@@ -630,11 +630,11 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 刷新项目并执行clean和package
 
-![image-20220217231510243](https://i-blog.csdnimg.cn/blog_migrate/e33313ba3ac79f9fa875e700bec12fa1.png)
+![image-20220217231510243](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e33313ba3ac79f9fa875e700bec12fa1.png)
 
 我们尝试执行
 
-![image-20220217231554880](https://i-blog.csdnimg.cn/blog_migrate/1a1ece4791fe1738d8828696c3fadb9f.png)
+![image-20220217231554880](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1a1ece4791fe1738d8828696c3fadb9f.png)
 
 因为我们注释了`maven-jar-plugin`的配置，所以打包的默认的包是找不到主类的。
 
@@ -644,23 +644,23 @@ git地址：https://gitee.com/jyq_18792721831/sparkmaven.git
 
 我们创建一个空的maven项目
 
-![image-20220217231813445](https://i-blog.csdnimg.cn/blog_migrate/26892c820eb5486859ae39523280aaf2.png)
+![image-20220217231813445](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/26892c820eb5486859ae39523280aaf2.png)
 
 别忘记告诉idea我们需要scala环境
 
-![image-20220217231923767](https://i-blog.csdnimg.cn/blog_migrate/acb7153d870ba93cc0bab0eab7e40e58.png)
+![image-20220217231923767](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/acb7153d870ba93cc0bab0eab7e40e58.png)
 
 创建目录
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/acb7153d870ba93cc0bab0eab7e40e58.png)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/acb7153d870ba93cc0bab0eab7e40e58.png)
 
 包目录
 
-![image-20220217232046096](https://i-blog.csdnimg.cn/blog_migrate/6cd928ac86dd5115a3d3f74d2c1732b9.png)
+![image-20220217232046096](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6cd928ac86dd5115a3d3f74d2c1732b9.png)
 
 主类
 
-![image-20220217232114062](https://i-blog.csdnimg.cn/blog_migrate/c826929dda606f16684a341489cb90c3.png)
+![image-20220217232114062](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c826929dda606f16684a341489cb90c3.png)
 
 加入spark依赖和scala依赖，以及相关的插件
 
@@ -733,11 +733,11 @@ spark的版本
 
 如果你在开发代码的时候，发现scala的相关关键词无法识别，请重新刷新idea的缓存
 
-![image-20220217234125971](https://i-blog.csdnimg.cn/blog_migrate/395972f236c04bba2b779c472b8d6e96.png)
+![image-20220217234125971](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/395972f236c04bba2b779c472b8d6e96.png)
 
 选择这个重启idea即可
 
-![image-20220217234147243](https://i-blog.csdnimg.cn/blog_migrate/5e6ad6e80d580b34c47eba8f200e5c99.png)
+![image-20220217234147243](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5e6ad6e80d580b34c47eba8f200e5c99.png)
 
 wordcount的代码如下
     
@@ -762,47 +762,47 @@ wordcount的代码如下
     }
     
 
-![image-20220217234415892](https://i-blog.csdnimg.cn/blog_migrate/d91844569093a65a18487532b5e5cc9a.png)
+![image-20220217234415892](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d91844569093a65a18487532b5e5cc9a.png)
 
 我们首先直接点击运行
 
-![image-20220217234509876](https://i-blog.csdnimg.cn/blog_migrate/13de136f88e48781c639aaaaf49f6225.png)
+![image-20220217234509876](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13de136f88e48781c639aaaaf49f6225.png)
 
 接着使用`scala:run`执行
 
-![image-20220217234610989](https://i-blog.csdnimg.cn/blog_migrate/38b0b2f48770957cd4ab90c38798d47c.png)
+![image-20220217234610989](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/38b0b2f48770957cd4ab90c38798d47c.png)
 
 接着放开spark-core的scope注释，进行打包
 
 第一次运行会比较慢，而且我们基本上都是用的最新的spark的依赖，镜像库可能还没有同步，所以更慢。
 
-![image-20220217234930157](https://i-blog.csdnimg.cn/blog_migrate/5f8e9c877c96ac55645d086a0fbe29f9.png)
+![image-20220217234930157](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5f8e9c877c96ac55645d086a0fbe29f9.png)
 
 30多分钟，我是楞是等它结束了
 
-![image-20220218003602429](https://i-blog.csdnimg.cn/blog_migrate/ac68c63fcda16abdf10058e3af705a66.png)
+![image-20220218003602429](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac68c63fcda16abdf10058e3af705a66.png)
 
 看看打的包能不能运行
 
-![image-20220218003653251](https://i-blog.csdnimg.cn/blog_migrate/67f8905562572be0f5919db65c61c532.png)
+![image-20220218003653251](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/67f8905562572be0f5919db65c61c532.png)
 
 也是可以运行的
 
-![image-20220218003711076](https://i-blog.csdnimg.cn/blog_migrate/28b5e0f1467d268e32e8139902ab4636.png)
+![image-20220218003711076](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/28b5e0f1467d268e32e8139902ab4636.png)
 
 maven-assembly-plugin活生生的把spark打包打进去了
 
 如果我们不需要将spark打包，那么应该会快很多的
 
-![image-20220218003859906](https://i-blog.csdnimg.cn/blog_migrate/d61c4df4c7d40c87d0aafd87bbe19d28.png)
+![image-20220218003859906](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d61c4df4c7d40c87d0aafd87bbe19d28.png)
 
 不过会提示找不到spark的类
 
-![image-20220218003932269](https://i-blog.csdnimg.cn/blog_migrate/3e30680cf6e3d985d2ac1a72f06285be.png)
+![image-20220218003932269](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3e30680cf6e3d985d2ac1a72f06285be.png)
 
 不过第二次打包就会快很多了
 
-![image-20220218004105583](https://i-blog.csdnimg.cn/blog_migrate/31a637b04f81a9486372f5fd4a9f9322.png)
+![image-20220218004105583](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/31a637b04f81a9486372f5fd4a9f9322.png)
 
 而且不管我们有没有把spark的依赖打包，提交给spark执行一般不会有问题。
 
@@ -812,23 +812,23 @@ maven-assembly-plugin活生生的把spark打包打进去了
 
 首先启动集群环境
 
-![image-20220218004345596](https://i-blog.csdnimg.cn/blog_migrate/29512e7180996d28640dc789adc591a3.png)
+![image-20220218004345596](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/29512e7180996d28640dc789adc591a3.png)
 
 然后使用xshell链接(家庭版免费)
 
-![image-20220218004413432](https://i-blog.csdnimg.cn/blog_migrate/e9f42bcc8528307acbb6b7ce93277027.png)
+![image-20220218004413432](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e9f42bcc8528307acbb6b7ce93277027.png)
 
 启动hdfs集群
 
-![image-20220218004529294](https://i-blog.csdnimg.cn/blog_migrate/3c607b3137fb4eb8683f39456cc306a3.png)
+![image-20220218004529294](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3c607b3137fb4eb8683f39456cc306a3.png)
 
 接着启动spark集群
 
-![image-20220218004640701](https://i-blog.csdnimg.cn/blog_migrate/418a74f7675b5d7b3a076894ea4484a3.png)
+![image-20220218004640701](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/418a74f7675b5d7b3a076894ea4484a3.png)
 
 启动spark历史记录服务
 
-![image-20220218004724261](https://i-blog.csdnimg.cn/blog_migrate/136f42360fd9e5fa2d2de812bc56a7e4.png)
+![image-20220218004724261](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/136f42360fd9e5fa2d2de812bc56a7e4.png)
 
 这个wordcount是在sbt构建中执行的，详见[spark源码编译和集群部署以及idea中sbt开发环境集成_a18792721831的博客-CSDN博客](<https://blog.csdn.net/a18792721831/article/details/122914322>)
 
@@ -860,7 +860,7 @@ maven-assembly-plugin活生生的把spark打包打进去了
 
 打包并将jar包上传到服务器，我们不需要spark的依赖
 
-![image-20220218005149986](https://i-blog.csdnimg.cn/blog_migrate/9e57eeeb4ac91b7bf302e9da7f8fa0c1.png)
+![image-20220218005149986](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9e57eeeb4ac91b7bf302e9da7f8fa0c1.png)
 
 使用如下命令提交
     
@@ -870,13 +870,13 @@ maven-assembly-plugin活生生的把spark打包打进去了
 
 成功执行
 
-![image-20220218005338444](https://i-blog.csdnimg.cn/blog_migrate/5fc170a719fd5c3f226669bb1385a950.png)
+![image-20220218005338444](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5fc170a719fd5c3f226669bb1385a950.png)
 
 从spark历史记录中也能查看
 
-![image-20220218005408277](https://i-blog.csdnimg.cn/blog_migrate/bded2d4245ccbab36d39c0460ea5cda2.png)
+![image-20220218005408277](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bded2d4245ccbab36d39c0460ea5cda2.png)
 
-![image-20220218005438370](https://i-blog.csdnimg.cn/blog_migrate/824efcbbe85b31f11f59fc019e051574.png)
+![image-20220218005438370](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/824efcbbe85b31f11f59fc019e051574.png)
 
 其实我也有个疑问，如果我们把spark的依赖打包了，还能执行吗？
 
@@ -884,15 +884,15 @@ maven-assembly-plugin活生生的把spark打包打进去了
 
 含有spark依赖的包，128M，😆
 
-![image-20220218005652010](https://i-blog.csdnimg.cn/blog_migrate/7446f364ea6e623de2ecb959a70e5eee.png)
+![image-20220218005652010](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7446f364ea6e623de2ecb959a70e5eee.png)
 
 执行：
 
-![image-20220218005804370](https://i-blog.csdnimg.cn/blog_migrate/7b02880c4716c66555093acea107a617.png)
+![image-20220218005804370](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7b02880c4716c66555093acea107a617.png)
 
 没啥区别
 
-![image-20220218005837909](https://i-blog.csdnimg.cn/blog_migrate/73217e61d779a79fb53b1341f5a3e5fa.png)
+![image-20220218005837909](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/73217e61d779a79fb53b1341f5a3e5fa.png)
 
 这是因为我服务器也是3.2.0版本，而且是使用最新的源码编译的，详见[spark源码编译和集群部署以及idea中sbt开发环境集成_a18792721831的博客-CSDN博客](<https://blog.csdn.net/a18792721831/article/details/122914322>)，本地的依赖也是3.2.0，所以jar包中有没有spark依赖都是可以的。
 

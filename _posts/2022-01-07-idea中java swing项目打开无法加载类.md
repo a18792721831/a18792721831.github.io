@@ -24,10 +24,10 @@ idea中java swing项目打开无法加载类
 
 如果你使用Idea开发Java swing项目，而且使用了可视化界面开发，那么当你再次打开项目，就会发现Java类无法识别了，到处报红。
 
-![image-20220107204136253](https://i-blog.csdnimg.cn/blog_migrate/0f2f91e719d6e605148ad64da8385483.png)
+![image-20220107204136253](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0f2f91e719d6e605148ad64da8385483.png)
 
 问题原因：个人猜测是可视化界面开发的`form`文件导致ide解析java类异常。
 
 解决方案：先把`form`文件从项目中剪切出来，然后清除缓存，重启idea刷新整个项目，接着在把`form`文件拷贝回原来的位置。
 
-![image-20220107204635038](https://i-blog.csdnimg.cn/blog_migrate/7f8db74a96bae22d12dc22ce9a80bc0f.png)
+![image-20220107204635038](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7f8db74a96bae22d12dc22ce9a80bc0f.png)

@@ -113,10 +113,10 @@ Vector使用了泛型。
 
 ### 2.1 使用new创建，默认大小是10
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d5c60410005cdc5587762cce29a694d0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d5c60410005cdc5587762cce29a694d0.png)  
 Vector是对象数组，所以，里面只能存放Object及其子类  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/82581f0bb9c43e2f40875e0bc5a41f8e.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8e3b7429ad439e097765db3fe1f16a3c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/82581f0bb9c43e2f40875e0bc5a41f8e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8e3b7429ad439e097765db3fe1f16a3c.png)  
 Vector里面所有的方法都是用了synchronized关键字，所以是线程安全的。(jdk8)  
 因为其有modCount，所以也不能直接remove.  
 需要使用迭代器进行删除。  
@@ -125,14 +125,14 @@ Vector里面所有的方法都是用了synchronized关键字，所以是线程�
 ### 2.2 扩容
 
 查看其addAll方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2024daa5314640be4d171f841c149bb2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2024daa5314640be4d171f841c149bb2.png)  
 ensureCapacityHelper是扩容的关键;  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8b4053b8cc49316ade2ba630ddd98df5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8b4053b8cc49316ade2ba630ddd98df5.png)  
 这里注意这一行：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a7e677ae3f0577bdd4aaa3254d87b025.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a7e677ae3f0577bdd4aaa3254d87b025.png)  
 这个newCapacity就是决定到底扩容到多大的值。  
 我们在搜索的时候发现，这个变量在初始化的时候会被初始化为0：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7a44f85f541cbefefa04e9353d35cea2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7a44f85f541cbefefa04e9353d35cea2.png)  
 然后在没有任何地方会去修改这个值。  
 那么：
     
@@ -149,20 +149,20 @@ ensureCapacityHelper是扩容的关键;
 
 即，2倍扩容。  
 但是也存在一些类似数组的操作，比如删除某一个元素  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8587f554fece86ab37c016b50d611995.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8587f554fece86ab37c016b50d611995.png)
 
 ### 2.3 删除
 
 我们 看下 其删除的源码：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f491d61d14d4a8c783fcb1d546f074f0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f491d61d14d4a8c783fcb1d546f074f0.png)  
 remove有两个方法，一个是序列，一个是对象。  
 那么，如果我要删除对象，但是这个数组又存储的是Integer的包装类的时候，因为没有进行自动装箱，导致，你传入的Integer对象 被认为是index，存在ArrayIndexOutOfBoundsException异常  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/963a57d4656e88c46b57b87d609ddcd3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/963a57d4656e88c46b57b87d609ddcd3.png)  
 那么，如果手动装箱呢？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3bebd63cf1d0c85899893b9d2d19bd46.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3bebd63cf1d0c85899893b9d2d19bd46.png)  
 可以看到其只调用了一次，但是我实际上可能是想清楚掉2个10。  
 而在编程的时候，其实并不知道需要调用几次，所以，有了一个类似流的过滤的方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f93e26468c382a0bd4f691d584d3551e.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f93e26468c382a0bd4f691d584d3551e.png)
 
 ## 3\. LinkedList
 
@@ -174,16 +174,16 @@ remove有两个方法，一个是序列，一个是对象。
 ### 3.1 初始化
 
 链表在初始化的长度是0，即空链表  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9be9a03e08869846b85e4cb7be5aa11f.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9be9a03e08869846b85e4cb7be5aa11f.png)
 
 ### 3.2 add方法
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f7fd2857803ebe5433c2afab6ec87644.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f7fd2857803ebe5433c2afab6ec87644.png)  
 JDK8中，LinkedList默认是尾插法  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b49f3b85d5aae189e9e56f59c4f91215.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b49f3b85d5aae189e9e56f59c4f91215.png)  
 如果链表为空，就讲这个元素放到头结点，否则放到尾节点。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cbb9a20da66672efb598220d7a1a60d7.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/830465af5b30d1cbdf56f3713a1e3708.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cbb9a20da66672efb598220d7a1a60d7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/830465af5b30d1cbdf56f3713a1e3708.png)  
 这实现的还是双向链表。
 
 ### 3.3 扩容
@@ -192,17 +192,17 @@ JDK8中，LinkedList默认是尾插法
 所以，不仅仅有尾插法，还有头插法。  
 可以选择将元素放到链表的头或者尾。  
 LinkedList有一个set方法，我们知道，链表随即方法性能比较差劲，那么其set方法可以将指定元素放到指定位置，怎么实现性能最大化呢？  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/482c7c5776b07f679d8ca3dd2759d3c7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/482c7c5776b07f679d8ca3dd2759d3c7.png)  
 这个方法实现了，将原来index位置上的元素取出来，然后将新元素放进去，最后返回原来index位置上的元素。  
 那么，这就存在一个问题，怎么找index位置。  
 作为链表，它是无法随即访问的，只能从头部或者尾部(需要保存头结点和尾节点，有些链表可能只保存了头结点或者尾节点)进行寻找。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f570d25309a62477c510f0e153c93dfe.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f570d25309a62477c510f0e153c93dfe.png)  
 它是将index与size/2进行比较，如果在前半段，就从头结点开始查找，否则从尾节点开始查找。
 
 ### 3.4 LinkedList查找元素：
 
 ListedList有一个查找指定元素位置的方法：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dc8ecb7bd7bfa64733bdd940fa74880b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dc8ecb7bd7bfa64733bdd940fa74880b.png)  
 发现LinkedList可以存放null元素。  
 如果找不到这个元素，就返回-1
 
@@ -210,7 +210,7 @@ ListedList有一个查找指定元素位置的方法：
 
 LinkedList也有pop与push，也是，双向链表，且保存了头结点与尾节点，实现pop与push非常正常  
 不过，LinkedList的pop与push是对头结点进行操作的：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fb11da52228b72c8f72654a7e22b41a8.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fb11da52228b72c8f72654a7e22b41a8.png)
 
 ## 4\. ArrayList
 
@@ -218,33 +218,33 @@ ArrayList应该是我们经常使用的数组的一个结构了，虽然他不�
 
 ### 4.1 初始化
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/86c2ddeede73e4572684a6c18aecc427.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/86c2ddeede73e4572684a6c18aecc427.png)  
 ArrayList在初始化时，会创建一个空数组。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e1bf8794c3ef5b0bc58653c50761df62.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e1bf8794c3ef5b0bc58653c50761df62.png)  
 这个数组也是存储Object的数组，意味着，我们在存储基本类型时，会涉及到自动拆箱和自动装箱。  
 如果你仔细看这个空数组，一定看到了它是使用final修饰的，final修饰，意味着不可变，那么，它是如何增加元素的呢？
 
 ### 4.2 增加元素
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0e71f9b13896d60dca1c57ef04ee1067.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1376a28b4c245c2316d7269b30fbaeb7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0e71f9b13896d60dca1c57ef04ee1067.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1376a28b4c245c2316d7269b30fbaeb7.png)  
 发现它在add的时候，会将当前size+1进行计算，在计算方法里面会进行判断，如果是空数组，那么取默认大小和size+1的数值大的。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e761cd539236d5e445e4cd81bfe90e7b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e761cd539236d5e445e4cd81bfe90e7b.png)  
 默认大小是10；  
 也就是说，ArrayList在使用new创建之后，并不会立即开辟数组空间，而是使用空数组代替。只有当第一个元素被加入的时候，才会真正的开辟数组空间，空间大小是10.也就是说，ArrayList是一个懒开辟。
 
 ### 4.3 扩容
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/13b5eea4895da5ba9feb9540d18c65a2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13b5eea4895da5ba9feb9540d18c65a2.png)  
 在加入元素时，如果size+1大于数组长度，就需要进行扩容了，扩容的方法如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c348604a03ca3c0bba7c149d1a4e994d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c348604a03ca3c0bba7c149d1a4e994d.png)  
 其newCapacity是扩容之后数组的真实长度，扩容的机制是  
 newCapacity=oldCapacity + oldCapacity/2  
 即50%扩容。
 
 ### 4.4 查找元素
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/34a272094bfb51e1aa172ea989628990.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/34a272094bfb51e1aa172ea989628990.png)  
 查找元素使用indexOf方法进行调用。  
 从查找的方法可以得到，ArrayList支持null。  
 而且，其查找策略是从前到后正向查找。  
@@ -252,7 +252,7 @@ newCapacity=oldCapacity + oldCapacity/2
 
 ### 4.5 删除元素
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/864f3d03e6becd082088d2412557adc6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/864f3d03e6becd082088d2412557adc6.png)  
 删除元素方法，调用一次，只会删除1个目标元素，不会删除所有的目标元素。  
 这个删除是指直接删除，不是循环删除，这里非常注意。
 

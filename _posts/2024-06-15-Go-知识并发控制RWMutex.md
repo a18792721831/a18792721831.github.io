@@ -115,7 +115,7 @@ RWMutex 提供了这几个接口用于操作锁：
 需要注意一点，在 Lock() 操作里面 readerCount 因为溢出，现在是负值
 
 > 最开始的时候， readerCount 是 0 , 当 Lock 后，是 负的 max  
->  ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c7b75749596ca7a1bf01a1bfb3d9fca7.png#pic_center)
+>  ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9c580f996d86d9f2bf036dc291993465.png)
 
 ### 2.4 Unlock() 写锁定解锁 原理
 
@@ -154,7 +154,7 @@ RWMutex 提供了这几个接口用于操作锁：
 > 这里引申出来一个思考，假设在读操作中，不断的派生，导致读操作占用一直无法结束，那么就会导致写操作加锁也无法加锁  
 >  写锁定解除的时候，将 readerCount + max ,获取到真正的 reader waiter  
 >  然后释放 reader waiter 个信号量，唤醒全部等待的读锁定  
->  ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e622d75e31711331a5b11e1c2dab094f.png#pic_center)
+>  ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac87c77e3a35192ca53a216b1e88afc7.png)
 
 ### 2.5 RLock() 读锁定 原理
 
@@ -194,7 +194,7 @@ RWMutex 提供了这几个接口用于操作锁：
 > 
 >   1. RWMutex 无锁定，那么 readerCount > 0 ，就是读锁定个数
 >   2. RWMutex 有写锁定，那么 readerCount < 0 , 读锁定个数 = readerCount + max  
->  ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c7f98a7af57f623afecd47cb8122f2a1.png#pic_center)
+>  ![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/88efe74f5125db8a872be790a150d40e.png)
 > 
 
 ### 2.6 RUnlock() 读锁定解锁 原理
@@ -243,7 +243,7 @@ RWMutex 提供了这几个接口用于操作锁：
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/75e8519c60fd495c4e5269e75154a110.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/09fbe0eb3c2f69ddfc22419699d7a14a.png)
 
 ## 3\. 场景分析
 

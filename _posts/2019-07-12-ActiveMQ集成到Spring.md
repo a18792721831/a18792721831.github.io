@@ -55,7 +55,7 @@ keywords: spring集成ActiveMQ, 如何简化ActiveMQ的访问流程, ActiveMQ集
 
 ### 2.1创建一个gradle项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cf4e2cc13c7ccd7d8c340ea4ec69480b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf4e2cc13c7ccd7d8c340ea4ec69480b.png)
 
 ### 2.2 增加依赖
 
@@ -63,9 +63,9 @@ keywords: spring集成ActiveMQ, 如何简化ActiveMQ的访问流程, ActiveMQ集
 就是使用的什么仓库中心，那么就在这个仓库中心搜索使用的版本号等等。  
 比如之前我使用的是阿里云的仓库中心，但是在maven的仓库中搜索的jar，然后增加了依赖，导致在阿里的仓库中无法下载jar.  
 为了解决上述问题，最好把两种仓库中心都配置：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/537fda8c0ada2c57f1bb84186481fc0d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/537fda8c0ada2c57f1bb84186481fc0d.png)  
 然后增加依赖  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c0763cf3feb69bf85a5bd2881d07f9a9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c0763cf3feb69bf85a5bd2881d07f9a9.png)
 
 ### 2.3创建spring依赖
     
@@ -143,7 +143,7 @@ keywords: spring集成ActiveMQ, 如何简化ActiveMQ的访问流程, ActiveMQ集
 
 ### 2.4 创建消费者消息监听
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6845509fdd497a9e1f8d14616c0ba37a.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6845509fdd497a9e1f8d14616c0ba37a.png)
     
     
     package com.study.consume;
@@ -240,7 +240,7 @@ keywords: spring集成ActiveMQ, 如何简化ActiveMQ的访问流程, ActiveMQ集
 
 ### 2.5 生产者服务
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3c5d3790549de9dcaf497e3ae4d8fd48.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3c5d3790549de9dcaf497e3ae4d8fd48.png)
     
     
     package com.study.product;
@@ -281,11 +281,11 @@ keywords: spring集成ActiveMQ, 如何简化ActiveMQ的访问流程, ActiveMQ集
 
 ### 2.6 启动ActiveMQ服务器
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e643e83cb89ed2a171c074c540308d91.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e643e83cb89ed2a171c074c540308d91.png)
 
 ### 2.7创建启动main方法
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/67276ea8dcf244b93dbcdeb14849b7ed.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/67276ea8dcf244b93dbcdeb14849b7ed.png)
     
     
     package com.study.client;
@@ -316,8 +316,8 @@ keywords: spring集成ActiveMQ, 如何简化ActiveMQ的访问流程, ActiveMQ集
 
 ### 2.8启动
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eca2ceb58735db8ae8375fd84e9112f3.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/51b4b48bba3e2f2d096fc46a99b94aff.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eca2ceb58735db8ae8375fd84e9112f3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/51b4b48bba3e2f2d096fc46a99b94aff.png)
 
 ## 3.总结
 

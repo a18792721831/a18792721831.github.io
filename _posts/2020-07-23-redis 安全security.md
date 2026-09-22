@@ -46,7 +46,7 @@ redis被设计成仅有可信环境下的可信用户才可以访问。这意味
 
 ## 3\. 轻量认证
 
-![image-20200723150834768](https://i-blog.csdnimg.cn/blog_migrate/707e882d25688d26c3a810d18cb90cd8.png)
+![image-20200723150834768](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/707e882d25688d26c3a810d18cb90cd8.png)
 
 在redis的配置文件中可以配置
 
@@ -54,7 +54,7 @@ redis被设计成仅有可信环境下的可信用户才可以访问。这意味
 
 当配置了验证密码后，在开始执行其他命令之前需要执行`auth <password>`来验证。
 
-![image-20200723151336634](https://i-blog.csdnimg.cn/blog_migrate/17a3de1662c0b031e90fe102e76b9849.png)
+![image-20200723151336634](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/17a3de1662c0b031e90fe102e76b9849.png)
 
 使用`config get requ*`获取配置信息
 
@@ -64,11 +64,11 @@ redis被设计成仅有可信环境下的可信用户才可以访问。这意味
 
 然后我们退出客户端，然后重新登录
 
-![image-20200723151646686](https://i-blog.csdnimg.cn/blog_migrate/ef5683a1c1a461448a855e2eb27d8310.png)
+![image-20200723151646686](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ef5683a1c1a461448a855e2eb27d8310.png)
 
 连接是没有问题的，但是却无法执行任何命令。
 
-![image-20200723151728006](https://i-blog.csdnimg.cn/blog_migrate/665977cde560605cd8db849ee091f764.png)
+![image-20200723151728006](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/665977cde560605cd8db849ee091f764.png)
 
 使用auth验证通过后，才能执行redis的命令。
 
@@ -77,13 +77,13 @@ redis被设计成仅有可信环境下的可信用户才可以访问。这意味
   * 密码在配置文件中是明文的。
   * redis的查询速度非常快，所以，使用暴力破解是可能的
 
-![image-20200723151941808](https://i-blog.csdnimg.cn/blog_migrate/16aab946de69d19000b215a9ed304b22.png)
+![image-20200723151941808](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/16aab946de69d19000b215a9ed304b22.png)
 
 redis每秒可以尝试15W的密码，所以如果密码长度比较短的话，很短时间就会被暴力破解。
 
 > 假设密码是6位，那么全部的密码组合共有(26+26+10+33)^6, 每一位密码的可能性：大小写字符，数字，可打印符号。总共6位。所以6位密码总共有95^6种。
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/489afc6502bc402454f8c2300efbba2e.png)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/489afc6502bc402454f8c2300efbba2e.png)
 
 735 091 890 625 / 150000 = 4 900 612.6 秒 = 81 676.88 分 = 1361.28时 = 56.72天
 
@@ -117,4 +117,4 @@ redis是通过命令重命名来实现命令禁用的
 
 如果`dest-command`设置为空，表示任何人都无法使用`source-command`了。
 
-![image-20200723155001756](https://i-blog.csdnimg.cn/blog_migrate/4ca007dad0a3d943f2bd910301be17f5.png)
+![image-20200723155001756](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4ca007dad0a3d943f2bd910301be17f5.png)

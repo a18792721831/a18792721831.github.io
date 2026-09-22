@@ -66,15 +66,15 @@ Client 向服务注册中心 Eureka Server注册，将自己的信息（比如�
 
 ### 2.1 创建Eureka Server
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9e5b0facc230a918e4d42663dffc4867.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/db6945df35533c790272c5525de4f511.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9e5b0facc230a918e4d42663dffc4867.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/db6945df35533c790272c5525de4f511.png)
 
 ### 2.2 配置gradle
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e9b83c2640b361783283b52039f841d9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e9b83c2640b361783283b52039f841d9.png)  
 其项目结构如上图，.gradle和build的文件夹不需要进行手动创建。  
 我们使用gradle warpper  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8d4a1a2fc18086ee82c7c7db01a61d74.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8d4a1a2fc18086ee82c7c7db01a61d74.png)  
 然后修改maven仓库地址
     
     
@@ -92,13 +92,13 @@ Client 向服务注册中心 Eureka Server注册，将自己的信息（比如�
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cf1587d6e3b24ebb587fadfdf5e8fad3.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf1587d6e3b24ebb587fadfdf5e8fad3.png)  
 然后等待重新构建(刚创建成功，gradle会从maven的默认仓库下载依赖，此时下载非常慢，可以手动终止，等待我们添加了其他的仓库后重新刷新下载依赖。效果很明显，使用默认仓库下载一个jar在十几几十秒，但是使用国内的仓库，下载一个jar包只需要不到1秒)
 
 ### 2.3 配置Eureka
 
 创建配置文件application.yml,在resources下  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e1123d3dc9bea8428da8890eb40f5a69.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e1123d3dc9bea8428da8890eb40f5a69.png)
     
     
     server:
@@ -141,27 +141,27 @@ Client 向服务注册中心 Eureka Server注册，将自己的信息（比如�
   * feemarker是重中之重，因为eureka刚创建成功时，去访问主面板是无法访问的，从官网的issues看，是认为gradle的缓存问题。不过网上有人说增加这些配置，可以解决这一问题。我没有深入，只是配置这个之后，重新刷新gradle构建，确实可以访问了。  
 接下来在启动类增加eureka server的注解  
 @EnableEurekaServer  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/04e6269602241ac6d7eb6cabcf708d85.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/04e6269602241ac6d7eb6cabcf708d85.png)
 
 ### 2.4 启动eureka server
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3cdabdbb946cebc67b71909ff0004c7d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3cdabdbb946cebc67b71909ff0004c7d.png)  
 然后在浏览器验证  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a41c9a552af0599cce8753b7e2ac3ade.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a41c9a552af0599cce8753b7e2ac3ade.png)  
 提示没有开启自我保护机制，而且，其注册的eureka client也是空的。
 
 ## 3\. Eureka Client
 
 ### 3.1 创建 Eureka Client
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6dbf5da679ebd06cd66272e784a89aae.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4f71b7c6eede48bf23dfaca364329235.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/39190aebae5779616c9c9207d108f41d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6dbf5da679ebd06cd66272e784a89aae.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4f71b7c6eede48bf23dfaca364329235.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/39190aebae5779616c9c9207d108f41d.png)  
 然后与2.2同样进行配置gradle(这里其实可以将仓库配置到root的gradle中，但是貌似不生效，不知道为什么，存疑，后续研究gradle时解决。)
 
 ### 3.2 配置Eureka
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b0de7143f4ea7f43db4834fb8723017b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b0de7143f4ea7f43db4834fb8723017b.png)
     
     
     server:
@@ -199,15 +199,15 @@ Client 向服务注册中心 Eureka Server注册，将自己的信息（比如�
   * application:name是eureka client在eureka server面板中展示的名称  
 其余配置与eureka server配置相同。  
 当然，其注解是client  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7a3de2fdc313eb2a726c81996abab094.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7a3de2fdc313eb2a726c81996abab094.png)
 
 ### 3.3 启动eureka client
 
 请注意，如果需要同时启动多个tomcat容器在一个idea中，需要在run dash board面板中。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7d85cf941e6ad56eb2aa8c0004921ce6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7d85cf941e6ad56eb2aa8c0004921ce6.png)  
 正常情况下，会自动弹出提示，配置是否展示run dashboard。如果没有弹出，请百度。  
 此时刷新eureka面板  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2a5a818646e0d20cdd257f96b24a8ddb.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2a5a818646e0d20cdd257f96b24a8ddb.png)
 
 ### 3.4 eureka client 服务发布者
 
@@ -218,12 +218,12 @@ eureka client 服务消费则（服务调用者）
 
 我们创建了eureka server和一个eureka client，并且需要将这个eureka client作为服务提供者，对外提供接口。  
 所以，我们需要创建controller  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dc12a68514cc5911b3b9393bd7996623.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/dc12a68514cc5911b3b9393bd7996623.png)  
 controller提供了两个接口，分别是hi和hello接口，返回String，并且get访问  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3a500ad91bbbfc4bc0cb6383add76823.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3a500ad91bbbfc4bc0cb6383add76823.png)  
 接口自测  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2cdc6996284a0ffa4964f38b2e36255d.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1c62290520b5cb209020857aa5fd8ff5.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2cdc6996284a0ffa4964f38b2e36255d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1c62290520b5cb209020857aa5fd8ff5.png)
 
 ## 4\. eureka的一点思考
 

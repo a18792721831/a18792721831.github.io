@@ -81,7 +81,7 @@ keywords: tomcat设置, htpps和http, https双向认证, ca根证书签名, 浏�
     
 
 结果(密码最少6位)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ec0c3ebcf09b674056da551b7f123902.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ec0c3ebcf09b674056da551b7f123902.png)  
 解释一下：  
 各位把keystore当做数据库，basic当做表就比较容易理解了。上面的命令使用类比数据库的方式来解释：  
 keytool表示使用java_home中的bin中的keytool.exe这个程序  
@@ -109,7 +109,7 @@ H:\basic.keystore(路径和文件名字，其实文件的后缀隐士的给出�
     
 
 结果：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8c1b94862a0eafc711dbad431e852ec9.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8c1b94862a0eafc711dbad431e852ec9.png)  
 说明：  
 -importstore 使用导入证书库功能  
 -srckeystore源证书库  
@@ -128,7 +128,7 @@ H:\basic.keystore(路径和文件名字，其实文件的后缀隐士的给出�
     
 
 结果：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e47fc8b45728a97f97649ea8c35de81c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e47fc8b45728a97f97649ea8c35de81c.png)  
 说明：  
 -v详细输出  
 -list查看  
@@ -247,25 +247,25 @@ H:\basic.keystore(路径和文件名字，其实文件的后缀隐士的给出�
 ## 7.证书安装
 
 上述命令正确执行后生成的文件  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b4de25c40bc062a11883bbc8a130895c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b4de25c40bc062a11883bbc8a130895c.png)  
 安装根证书  
 basic.cer  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/44791a8eb8b2b2b5ccb1e28c34459f30.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e1578253f7f8a419222ca67d6488c161.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/76666b40a76c57d34263a6f344ef1cdf.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c7091305c8cc0ea4c813ad3581a693ea.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/44791a8eb8b2b2b5ccb1e28c34459f30.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e1578253f7f8a419222ca67d6488c161.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/76666b40a76c57d34263a6f344ef1cdf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c7091305c8cc0ea4c813ad3581a693ea.png)  
 安装client.cer  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3a690315d364efc12b09da1d2fddc65f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3a690315d364efc12b09da1d2fddc65f.png)  
 但是如果卸载掉之前装的basic.cer  
 使用win+R运行certmgr.msc  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f8321ec75fcdca9eee801f764d57e474.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f8321ec75fcdca9eee801f764d57e474.png)  
 第二个basic就是之前安装的，第一个是我自己测试的时候安装的。右键删除basic证书。  
 此时安装client.cer  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/bd7d2c537aef5a9365a2441be6f56e48.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bd7d2c537aef5a9365a2441be6f56e48.png)  
 很明显，有警告提示了。如果你能把自己basic.cer直接在操作系统层面，从计算机出厂就默认安装，那么，你就有和ca同样的权利，使用basic进行签名的证书，都不会有警告。这也是正规证书和野证书的区别。正规证书是我们一开始安装client.cer的情况，野证书会有提示。  
 这也是我们为什么要大费周折的创建一个basic证书库，因为把basic证书库自己添加到可信任机构，那么由basic签名的证书都不会提示。  
 接下来安装p12文件（未安装basic）  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e9a51a4c0872f769c7acfcd6a4a0c95f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e9a51a4c0872f769c7acfcd6a4a0c95f.png)  
 提示输入密码，这个密码是哪里设置的？
     
     
@@ -282,9 +282,9 @@ basic.cer
     //查看
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/86944b37de4226f1d0d2a9c109114cda.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ea871374e192f4f43c30300b23683843.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a8cb94de77273df3a6892b5c75bebced.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/86944b37de4226f1d0d2a9c109114cda.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea871374e192f4f43c30300b23683843.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a8cb94de77273df3a6892b5c75bebced.png)  
 总结一下：  
 basic:----------key_basic------所有者basic------发布者basic-----链长度1  
 server:----key_basic-------所有者basic------发布者basic  
@@ -324,7 +324,7 @@ Tomcat安装目录下的conf文件夹中的server.xml文件中加入
 然后启动  
 注意：这里有一个坑----  
 先不要用bin目录下的startup,先使用configtest，测试一下，会发现报错：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5eacd299b0a7aa91d9fa57d7bd5f6725.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5eacd299b0a7aa91d9fa57d7bd5f6725.png)  
 原因：我们数据库有一个密码，数据库表还有一个密码。  
 对应：我们证书库有一个密码，而每一个条目还有对应的密码。  
 但是tomcat配置中只有一个密码参数，所以要求证书库的密码和条目的密码需要一致。  
@@ -338,16 +338,16 @@ Tomcat安装目录下的conf文件夹中的server.xml文件中加入
 
 第二个坑:使用keytool -help 没有-keypasswd这个参数。导致刚开始只要发现需要改条目密码就需要重新创建。=。。=很坑。  
 再次运行测试：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/08e438a1dbf7af86e5204ca935571b54.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/08e438a1dbf7af86e5204ca935571b54.png)  
 然后使用startup启动  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e041f862dfc59a14b4ce9b196059fbc6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e041f862dfc59a14b4ce9b196059fbc6.png)  
 使用浏览器访问：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f77483d536c590656e2ff55d79e8f55d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f77483d536c590656e2ff55d79e8f55d.png)  
 浏览器导入p12文件：客户端的  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ac40e376aa4e94f5006a0e0ee7d1a27c.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac40e376aa4e94f5006a0e0ee7d1a27c.png)
 
 安装basic.cer  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/62321227ff8101cecb587a9fea244e90.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/62321227ff8101cecb587a9fea244e90.png)
 
 ----------------------------------------------2021-01-08---------更新
 
@@ -444,11 +444,11 @@ A拦截到了B的请求，因为A拿的也是公钥，无法解密，也就无�
 
 在互联网中，非对称加密的公钥一般存储在数字证书中。  
 在win系统中，使用win+r运行certmgr.msc打开证书管理界面  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f6e76e594ee02002f2cd1204746da099.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f6e76e594ee02002f2cd1204746da099.png)  
 比如这种  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/956321a5af3606c007a898af000f89d8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/956321a5af3606c007a898af000f89d8.png)  
 证书分为很多种，有些证书中不仅仅可以有公钥，还可以有私钥  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9cce5c70e0f76793047c9fcb6d099593.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9cce5c70e0f76793047c9fcb6d099593.png)
 
 ### 3.2 数字证书的生成
 
@@ -456,17 +456,17 @@ A拦截到了B的请求，因为A拿的也是公钥，无法解密，也就无�
 常见来说，我们将公钥和私钥在一起存储使用keystore，也就是证书库的方式存储。  
 只要公钥则使用cer存储，也就是证书。  
 确保jdk安装成功，且版本最好和我的一致。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/97077eed63be3824ac53d8c8559ed64f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/97077eed63be3824ac53d8c8559ed64f.png)  
 首先我们创建一个证书库
     
     
     keytool -genkey -alias userDataKey -keyalg rsa -validity 365 -keystore userDataKey.keystore -storepass userkey -keypass userkey
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0bd6c39e37a6628c887a60e41f75b747.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0bd6c39e37a6628c887a60e41f75b747.png)  
 要求输入一些信息。  
 接着会生成指定的证书库  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/63189b14ad5aa7e2a2d829441e573142.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/63189b14ad5aa7e2a2d829441e573142.png)
 
 我们查看证书库
     
@@ -474,16 +474,16 @@ A拦截到了B的请求，因为A拿的也是公钥，无法解密，也就无�
     keytool -v -list -keystore userDataKey.keystore -storepass userkey
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/aee723165dd94c68e1b9d60ec443edcf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/aee723165dd94c68e1b9d60ec443edcf.png)  
 从这里看出我们真正加密算法是SHA256和RSA
 
 ### 3.3 tomcat配置
 
 我们使用8.5.32版本的tomcat.  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/75ebd76ba60ffe1e05ddf9000368d298.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/75ebd76ba60ffe1e05ddf9000368d298.png)
 
 首先打开server.xml,在里面找到实例配置  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cf7b43052ab3da51f21b077ad49e1bd8.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf7b43052ab3da51f21b077ad49e1bd8.png)  
 将这个注释放开
     
     
@@ -497,25 +497,25 @@ A拦截到了B的请求，因为A拿的也是公钥，无法解密，也就无�
     
 
 然后将证书库修改为我们刚才生成的证书库。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/df102f82928f78efed95d9abf67f6b25.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/df102f82928f78efed95d9abf67f6b25.png)
 
 然后启动  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f0819d29d2dd1d29dbc5ea0142ac00bb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f0819d29d2dd1d29dbc5ea0142ac00bb.png)  
 访问，会提示不是专用链接  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eb332ba3e5eca172367e02b505e9661e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eb332ba3e5eca172367e02b505e9661e.png)  
 点击高级，选择继续访问  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c04ac4cbebc2165f5d226772d6da652c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c04ac4cbebc2165f5d226772d6da652c.png)  
 最终我们可以访问到需要的界面  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4ed1766172af8997763b2dd9440dc939.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4ed1766172af8997763b2dd9440dc939.png)  
 点击不安全几个字
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/848b0009a3490bb4d26b9432b22f3fdd.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/848b0009a3490bb4d26b9432b22f3fdd.png)  
 会提示证书无效  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/aee268583e0120ca70bb15cb3c6ca5fd.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/aee268583e0120ca70bb15cb3c6ca5fd.png)  
 查看证书，正好是我们刚才生成的  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/693f8470a1883c759ef4b60aae37a4da.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/693f8470a1883c759ef4b60aae37a4da.png)  
 证书状态是不受信任的  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e52bf878d5754aef7bd717216e7c4430.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e52bf878d5754aef7bd717216e7c4430.png)
 
 ## 4. 证书信任
 
@@ -594,20 +594,20 @@ DNS访问的优先级
 第一级：hosts文件。  
 在hosts文件中会存储一些域名和IP的映射关系。  
 hosts文件在`C:\Windows\System32\drivers\etc`目录下  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/de29c8f64ec349986a49db4fd06a4f01.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/de29c8f64ec349986a49db4fd06a4f01.png)  
 里面的内容也很简单，每一行就是一个映射关系，前面是ip地址，中间使用空格分隔，然后是域名。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3749db53acf1a0cc224cbc9893f6f1f0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3749db53acf1a0cc224cbc9893f6f1f0.png)  
 比如我们增加一个DNS关系  
 baia.com -> baidu.com  
 首先我们通过cmd的ping命令得到baidu.com的ip地址  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8ad038d50697cad7c4e4e5e79e7d56ad.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8ad038d50697cad7c4e4e5e79e7d56ad.png)  
 接着增加baia.com的映射  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/23ca979daa7165dea4bc081cc6984dcf.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/23ca979daa7165dea4bc081cc6984dcf.png)  
 接着访问baia.com  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4341384180bf4a09a15a3a87dba416b5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4341384180bf4a09a15a3a87dba416b5.png)  
 请注意，这里访问我们劫持的baia.com必须使用https的方式请求。  
 因为baidu做了全站https支持。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c1cc355cd81107229062906003c7f8e5.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c1cc355cd81107229062906003c7f8e5.png)  
 点击高级，就会提示，我们收到的证书是baidu的证书，但是访问的域名却不是baidu的域名。  
 从这里也就能证明，我们确实做了dns劫持，将baia劫持到了baidu上。
 
@@ -617,11 +617,11 @@ baia.com -> baidu.com
 #### 4.2.2 本地DNS
 
 打开我们的服务管理  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/14d2faf3e1989e27757e957c39145c55.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/14d2faf3e1989e27757e957c39145c55.png)  
 选择管理哦，不是属性。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d450804df467b6dc2cccd3161cd3a09e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d450804df467b6dc2cccd3161cd3a09e.png)  
 找到DNS Clinet服务  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f077ead3bd640fd8a40887edf383966f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f077ead3bd640fd8a40887edf383966f.png)  
 里面的说明
 
 > DNS 客户端服务(dnscache)缓存域名系统(DNS)名称并注册该计算机的完整计算机名。如果该服务被停止，将继续解析 DNS 名称。然而，将不缓存 DNS 名称的查询结果，且不注册计算机名。如果该服务被禁用，则任何明确依赖于它的服务都将无法启动。
@@ -633,7 +633,7 @@ baia.com -> baidu.com
 #### 4.2.3 远程DNS
 
 我们打开cmd,使用`ipconfig/all`，查看远程DNS  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b9a2f0f6227f1ef37b0cee8450a0926d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b9a2f0f6227f1ef37b0cee8450a0926d.png)  
 这个就是我自己的远程dns，一般你在公司，使用的是公司的dns服务器，在家里，则是使用运营商的dns服务器。  
 在dns服务器中会对一些特殊的域名，做过滤。比如涩情、暴力、血腥的网站的域名，做个过滤，那么使用这些dns服务器的用户，就不能访问这些被过滤的网站，起到一个保护的功能。
 
@@ -654,9 +654,9 @@ baia.com -> baidu.com
 就像我们生活中一样，A和B借钱，但是A和B还不太熟悉，B不敢直接把钱借给A。于是A和B找了一个他们都信任，都熟悉的C，在C的担保下，B将前借给了A。  
 C作为担保人，就需要督促B将出借金交给A，同时在还款日期时，督促A将本金和利息归还B。  
 数字证书也是一样的，我们访问京东，就会收到京东的数字证书，浏览器会检查证书是否是可信的。(还记得我们3中，自己给tomcat配置单项加密的时候，证书状态是不可信的)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/93368a30c5dc31d657c9ddfec682534d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/93368a30c5dc31d657c9ddfec682534d.png)  
 证书上记录了担保人，也就是颁发者。以及有效期。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cdc1be727306095dcbeaf58ce5a94585.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cdc1be727306095dcbeaf58ce5a94585.png)  
 同时证书的状态也是可信的。
 
 #### 4.3.1 创建签名证书
@@ -664,17 +664,17 @@ C作为担保人，就需要督促B将出借金交给A，同时在还款日期�
 我们之前用借贷的方式，解释了可信证书。  
 在借贷场景中，我们需要找一个担保人。  
 同时我们在查看京东的证书的时候，我们知道了颁发者是  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3431e586ba35596673dbc58a78217f71.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3431e586ba35596673dbc58a78217f71.png)  
 接着，我们打开证书管理器，在其中找找这个证书  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ae87daef7039c2c3033c78307ee2e963.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ae87daef7039c2c3033c78307ee2e963.png)  
 我们发现这个证书在中间证书颁发机构的目录下。  
 请注意两个关键点：
 
   1. 中间机构
   2. 颁发机构  
-所以，我们看到这个中间证书的颁发者是![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1953d4d88849ed49ef946a994225e805.png)  
+所以，我们看到这个中间证书的颁发者是![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1953d4d88849ed49ef946a994225e805.png)  
 再找  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c21567555e11cbaa9985f72092d6473c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c21567555e11cbaa9985f72092d6473c.png)  
 找到了。  
 所以，类比这个过程，我们首先创建一个担保证书。  
 这个担保证书是服务器和客户端都信任的证书。  
@@ -693,22 +693,22 @@ C作为担保人，就需要督促B将出借金交给A，同时在还款日期�
     
 
 查看证书库。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/43e3accb808ccdd2679c1e2bc06955f6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/43e3accb808ccdd2679c1e2bc06955f6.png)  
 接着将证书库中的证书导出来(公钥)
     
     
     keytool -export -v -alias basic -keystore basic.keystore -file basic.cer -storepass basic1
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7c6d089b26772bfa428a0e322e753e07.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7c6d089b26772bfa428a0e322e753e07.png)  
 接着我们安装签名证书(也就是公钥)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a92746c76f94288f179bbcc6a9dbdb2f.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a92746c76f94288f179bbcc6a9dbdb2f.png)  
 我们安装到信任的根证书办法机构目录下  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cc295a63ed5ffb527ec4fbc5fb930dbb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cc295a63ed5ffb527ec4fbc5fb930dbb.png)  
 我们选择是  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/86db0840446c8ee35462f927f6a354bd.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/86db0840446c8ee35462f927f6a354bd.png)  
 此时在证书管理界面中就能看到我们安装的证书了  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/355afd2c64719a9224ef607befff5fcf.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/355afd2c64719a9224ef607befff5fcf.png)
 
 #### 4.3.2 签名请求
 
@@ -729,14 +729,14 @@ C作为担保人，就需要督促B将出借金交给A，同时在还款日期�
     
 
 查看  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/37eab4b22426887811a21867283b64dc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/37eab4b22426887811a21867283b64dc.png)  
 此时如果我们生成clienta证书的公钥cer文件，然后安装cer公钥文件，会不受信任的。
     
     
     keytool -export -v -alias clienta -keystore clienta.keystore -file clienta.cer -storepass client -keypass client
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1868cda60c1636a4bd8882fbcc1ba64b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1868cda60c1636a4bd8882fbcc1ba64b.png)
 
 对于clienta生成签名请求
     
@@ -750,7 +750,7 @@ C作为担保人，就需要督促B将出借金交给A，同时在还款日期�
     keytool -printcertreq -v -rfc -file clienta_req.cer
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/491e17a4f9be1e2e7ec7389fa085fc23.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/491e17a4f9be1e2e7ec7389fa085fc23.png)
 
 #### 4.3.3 签名回复
 
@@ -761,9 +761,9 @@ C作为担保人，就需要督促B将出借金交给A，同时在还款日期�
     keytool -gencert -v -alias basic -infile clienta_req.cer -outfile res_clienta.cer -keystore basic.keystore -storepass basic1 -keypass basic1
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1a6ac9975ad9371b2ade2687c7ddd0be.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1a6ac9975ad9371b2ade2687c7ddd0be.png)  
 查看签名回复  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9d7c8252b85ef4ecf27181cab7e7e294.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9d7c8252b85ef4ecf27181cab7e7e294.png)  
 怎么说呢，这个结合我们的例子，主要就是这样的。  
 服务器直接将自己的证书进行分发，容易出现被篡改。  
 所以。服务器分发的是经过担保机构加密的证书。  
@@ -782,9 +782,9 @@ C作为担保人，就需要督促B将出借金交给A，同时在还款日期�
     keytool -importcert -v -alias clenta -file basic.cer -keystore clienta.keystore -storepass client -keypass client
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5afe87a97a2eee54dbcc339a60db0045.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5afe87a97a2eee54dbcc339a60db0045.png)  
 此时查看clienta证书库  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/498967ef9bd58b7f3a33e3aff1a8e375.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/498967ef9bd58b7f3a33e3aff1a8e375.png)  
 虽然别名相同，但是类型不同哦。  
 然后将签名回复导入
     
@@ -793,7 +793,7 @@ C作为担保人，就需要督促B将出借金交给A，同时在还款日期�
     
 
 因为我们已经信任了basic，所以，basic的回复，直接就会信任，并不会在给出提示，询问是否信任。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d122388bf26e2f4a0cad5b16acc9b960.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d122388bf26e2f4a0cad5b16acc9b960.png)  
 我们查看clienta证书库
 
 接着导出clienta证书库的公钥证书
@@ -803,35 +803,35 @@ C作为担保人，就需要督促B将出借金交给A，同时在还款日期�
     
 
 此时查看  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d73e07d5cdd94984b4b0c888bc87ab4c.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d73e07d5cdd94984b4b0c888bc87ab4c.png)  
 发现证书链的长度已经变成了2，证书1是clienta的证书，证书2就是信任证书basic的公钥  
 请注意证书2的指纹尾数是88  
 而clienta证书中信任basic的证书的指纹尾数也是88  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/099631d90dd9c6eed8eb27c5f6ca3a69.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/099631d90dd9c6eed8eb27c5f6ca3a69.png)  
 将接受了签名回复的证书库导出证书(公钥)
     
     
     keytool -export -v -alias clienta -keystore clienta.keystore -file clienta.cer -storepass client
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/044c3c0a1c4dfd8bb9714ee5e6fe0f86.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/044c3c0a1c4dfd8bb9714ee5e6fe0f86.png)  
 然后安装证书  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fed4d1053a6d88c6d63abb2acfd258c4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fed4d1053a6d88c6d63abb2acfd258c4.png)  
 此时，颁发者就是信任证书了。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/93a24bfc53368b2629fe8952944d1e69.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/93a24bfc53368b2629fe8952944d1e69.png)  
 证书的状态和证书链也都是完整的。
 
 ## 5. tomcat https加密(证书安全)
 
 我们在4中生成了安全的，经过信任的证书。  
 接着我们将信任的证书库，配置到tomcat中。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4ef062dd665e38b57edc99c034f8acb6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4ef062dd665e38b57edc99c034f8acb6.png)  
 然后重启tomcat,然后访问  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3842b8f5a8d24eb36f4ff622efccc052.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3842b8f5a8d24eb36f4ff622efccc052.png)  
 虽然还是报红(这是没办法的，我们的根证书basic是野证书，真正的ca证书签名要花钱的)  
 但是，当我们查看证书的时候，证书是有效的。  
 还有一点，请注意，我们给tomcat配置了证书库和密码，tomcat生成了只有90天的证书，然后将这个证书分发给了浏览器。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d60d7739a4838bdd3e8f7d6c852df790.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d60d7739a4838bdd3e8f7d6c852df790.png)  
 keytool导出证书，有效期无法修改，只能是90天。  
 如果有浏览器和tomcat中间有代理服务器，拦截了tomcat分发的证书，那么，只要我们没有用basic对代理服务器的证书进行签名，那么这里证书就是有问题的(类似之前看到的baia和百度的证书)
 
@@ -839,14 +839,14 @@ keytool导出证书，有效期无法修改，只能是90天。
 
 因为既有服务器端证书，也有客户端证书。  
 所以，我们先卸载全部的自己安装的证书,留下信任证书basic.  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/31f12bd5998f56e245480483a3f3e8e4.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/31f12bd5998f56e245480483a3f3e8e4.png)  
 然后删除目前我们生成的clienta的证书。(不删除也行，重新生成也行)  
 这部分就和原来写的6完全相同了。(只操作6就行了，不需要8)  
 这里不再重新赘述。  
 你生成的证书应该有这些：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2813554303f374e814cdf85cc377a7f1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2813554303f374e814cdf85cc377a7f1.png)  
 然后我们打开tomcat的server.xml，进行配置  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2e71509dcdeee209986de4fa991e2324.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2e71509dcdeee209986de4fa991e2324.png)
     
     
       <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
@@ -864,23 +864,23 @@ keytool导出证书，有效期无法修改，只能是90天。
     
 
 可以在tomcat的webapps目录下的doc目录下，查看tomcat的文档  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/99a5b0c304a0ad488a8df9e8830bd8a0.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99a5b0c304a0ad488a8df9e8830bd8a0.png)  
 找到ssl相关的html  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/91358514c3de9f6a7419bd81d14e15ed.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/91358514c3de9f6a7419bd81d14e15ed.png)  
 浏览器中会展示这样的  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f2c76628ec6c8fe2a2fa83914ab14a98.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f2c76628ec6c8fe2a2fa83914ab14a98.png)  
 找到Connector  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/86c1278a23e767f09741c84f57ed009a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/86c1278a23e767f09741c84f57ed009a.png)  
 找到SSLHostConfig  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/76ceb1fc758bed3056347fbbda8465e6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/76ceb1fc758bed3056347fbbda8465e6.png)  
 然后就能找到配置项和说明了  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/672eca179b13b876332ed3358a86bddc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/672eca179b13b876332ed3358a86bddc.png)  
 这里需要注意protocol的版本哦  
 接着我们启动tomcat，然后用浏览器访问  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/40119f488406cdb0151ddc922ed83316.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/40119f488406cdb0151ddc922ed83316.png)  
 会提示没有提供登录证书  
 可以看到，服务器端的证书是有了，但是客户端的证书还没有  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0876240fe577698740ebd336f96590dc.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0876240fe577698740ebd336f96590dc.png)  
 我们使用keytool将keystore转为p12类型的证书。  
 用于安装
     
@@ -888,16 +888,16 @@ keytool导出证书，有效期无法修改，只能是90天。
     keytool -importkeystore -srckeystore clienta.keystore -srcstoretype jks -destkeystore clienta.p12 -deststoretype pkcs12 -storepass client -srcstorepass client
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b8b769cf112f39173da8ec401d293194.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b8b769cf112f39173da8ec401d293194.png)  
 此时生成了clienta.p12的安装证书库。  
 我们双击安装  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/811fa8260ac8f917a7fe93d9462c739e.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/811fa8260ac8f917a7fe93d9462c739e.png)  
 自动选择证书存储位置就行  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ea3b4431dc8f0cf20331f048aeed6fb6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ea3b4431dc8f0cf20331f048aeed6fb6.png)  
 接着刷新浏览器，浏览器就会提示我们选择用于身份验证的证书  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/caff9f12b859eed04f740f2a991a947a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/caff9f12b859eed04f740f2a991a947a.png)  
 我们点击确定，就可以访问了  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8332f643938f210c66e06d64950719ad.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8332f643938f210c66e06d64950719ad.png)
 
 **注意点：细心。双向认证，我从头开始做了不下8遍。不细心，导致各种各样的问题。特别是协议不支持的问题。**
 
@@ -909,7 +909,7 @@ keytool导出证书，有效期无法修改，只能是90天。
 但是我们可以做端口转发。  
 比如我按照7中的例子，生成了clientb的证书。以及serverb的证书。  
 接着我们在tomcat的server.xml中配置  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/439355ca32607731a7bdd047b1912ec7.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/439355ca32607731a7bdd047b1912ec7.png)
 
 里面主要注意两个点：首先是端口不能存在冲突，其次是做端口转发。
     
@@ -930,22 +930,22 @@ keytool导出证书，有效期无法修改，只能是90天。
     
 
 接着启动，并访问8442端口  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fe958f84f3f702823567b21b49b28936.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fe958f84f3f702823567b21b49b28936.png)  
 此时客户端的证书都是安装的  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6f949b245e65bab2ec62b5cbcafbc132.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6f949b245e65bab2ec62b5cbcafbc132.png)  
 客户端认证证书，需要带有私钥的  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/cb2df3f3dcfa46f0cf48e51864ad7429.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cb2df3f3dcfa46f0cf48e51864ad7429.png)  
 我们删除clienta证书，此时8443无法访问。  
 右键删除就行  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/314554dc31e8e42cefcd0bfd82ce3c48.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/697d1d6af2660c367b3df1e1e4df337b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/314554dc31e8e42cefcd0bfd82ce3c48.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/697d1d6af2660c367b3df1e1e4df337b.png)  
 重启浏览器此时访问8443  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/15f1e0650416d2f966d42f7623aa0095.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/15f1e0650416d2f966d42f7623aa0095.png)  
 会要我们选择一个证书。  
 也就是说，只要客户端有任意一个证书就行，不管是哪个端口。
 
 如果我们将clienta证书也安装。重启浏览器访问  
-此时选择证书就是两个![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d5b8d5ae78baa2f576e6fb3d1e177168.png)
+此时选择证书就是两个![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d5b8d5ae78baa2f576e6fb3d1e177168.png)
 
 注意点：浏览器每次重启，都需要选择客户端认证的证书。  
 所以，如果修改了tomcat配置，发现证书还是生效。那么可能需要重启浏览器。  

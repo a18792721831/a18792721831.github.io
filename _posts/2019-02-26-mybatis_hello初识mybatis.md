@@ -42,9 +42,9 @@ MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过�
 
 <https://codeload.github.com/mybatis/mybatis-3/zip/mybatis-3.5.0>  
 下载jar包  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e5c93c7fe6ea85195066910f0ad798f1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e5c93c7fe6ea85195066910f0ad798f1.png)  
 解压  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/71e60a44a9bd66bfbe3eed7620d3a2b9.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/71e60a44a9bd66bfbe3eed7620d3a2b9.png)
 
 ## 3.MyBatis工作原理
 
@@ -62,22 +62,22 @@ MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过�
 ### 4.1准备
 
 MyBatis的jar包：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a57f817914d71384122a8ffac469c48b.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a57f817914d71384122a8ffac469c48b.png)  
 ojdbc驱动的jar包  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/fab626c2ffc18872368182058ce21dc2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fab626c2ffc18872368182058ce21dc2.png)  
 注意ojdbc和jdk的对应关系。
 
 ### 4.2创建一个Java工程
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7bace67cab445e0b16be2e78ccecc4cb.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7bace67cab445e0b16be2e78ccecc4cb.png)  
 jdk1.8  
 导入jar包  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/df16e951521d87f9b06863868d8f7ec7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/df16e951521d87f9b06863868d8f7ec7.png)  
 其中除去ojdbc与mybatis的jar包，其余都是下载的mybatis的jar包中的lib中的文件。
 
 ### 4.3创建Java类
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/56a91af7d3130b9f67a31c1e06840fe0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/56a91af7d3130b9f67a31c1e06840fe0.png)
     
     
     package domain;
@@ -179,7 +179,7 @@ jdk1.8
 
 ### 4.4 xml文件
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/73921480cf207ff24f2fcc21d7411aa6.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/73921480cf207ff24f2fcc21d7411aa6.png)  
 PeopleMapper.xml
     
     
@@ -220,7 +220,7 @@ PeopleMapper.xml
 
 ### 4.5 配置文件
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/25c0db0bfcd173163b6e9c550983f3ea.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/25c0db0bfcd173163b6e9c550983f3ea.png)  
 log4j.properties
     
     
@@ -253,13 +253,13 @@ log4j.properties
 4.jdbc的url  
 5.出现bug如何调试  
 log4j配置  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2382643abac95c420f1af3a74ca6fbf1.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2382643abac95c420f1af3a74ca6fbf1.png)  
 红框中是自己需要打印日志的包的路径。  
 优化的点：  
 jdbc的配置应该使用propertis配置，而不是写死:
 
 新增ojdbc.properties文件：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7311849133222329a850709a01de671d.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7311849133222329a850709a01de671d.png)  
 ojdbc.properties
     
     
@@ -295,7 +295,7 @@ ojdbc.properties
     </configuration>
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2dc27540cf0b87f1c30ad1522fb69679.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2dc27540cf0b87f1c30ad1522fb69679.png)  
 第一个框内是读取配置文件；  
 第二个框是引用读取的值，以字符串的方式拼接。
 

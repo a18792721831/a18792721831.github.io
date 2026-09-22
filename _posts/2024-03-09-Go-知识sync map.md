@@ -100,7 +100,7 @@ sync map不需要想map那样，使用make或者使用剪短变量声明赋值�
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3734cedaffa1ba03aaec38c09e06924f.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8c976b9066b84f271bd5e1cf99c65a46.png)
 
 与map不同的是，sync map 不能使用`[]`来指定key，因为map是标准库提供的，编译的时候会做链接。  
 还需要注意一点，sync map 能存储任何类型的key-value，key不在限制为基本类型。  
@@ -173,7 +173,7 @@ sync map内部实现采用了两个原生map实现读写分离，数据读取并
     }
     
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4dd5c03552715beb9336fe6947b44115.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8eea615ee5d80e78ce63fd26954b49f6.png)
 
 虽然在存储的时候，任何类型都能成功的存储，但是也带来了读取的类型困扰，这意味这读取到的key-value的类型无法确定，必须先使用类型断言后才能使用。
 
@@ -238,7 +238,7 @@ entry是map中存放数据的槽位，使用entry的指针可以让read表和dir
 
 ### 3.4 sync map 的结构图
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0b2b4846046144a782fa0f5ed65e1e34.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/155621022e487d99af28cb04452a8329.png)
 
 这是一个空的sync map的结构图。
 
@@ -292,7 +292,7 @@ entry是map中存放数据的槽位，使用entry的指针可以让read表和dir
     
 
 插入数据后的结构图：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/92c6c88596200dff422044b9ecdc5538.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a900e990deee4c11d54874f81e9a6185.png)
 
 ### 3.6 查找数据
 
@@ -332,7 +332,7 @@ entry是map中存放数据的槽位，使用entry的指针可以让read表和dir
     
 
 对于上面的结构图，因为amended=true，那么就会在dirty表中查询，每次查询都会misses++,等遍历完了，或者misses等于dirty表size，那么使用dirty表替换read表。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c1d1e7a329ba7765de18724508bea939.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/af1920447a34ade76b4d25a325da0841.png)
 
 如果使用dirty表替换了read表，dirty表会置空nil:
     
@@ -355,7 +355,7 @@ entry是map中存放数据的槽位，使用entry的指针可以让read表和dir
 因为在查询的时候，已经将dirty给了read表，那么在次插入的时候，如果在read表中找到了，那么使用cas修改read表。  
 如果没有找到，那么将read表同步到dirty表，然后插入数据，amended=true.  
 还记的插入数据里面的这个代码吗：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/99b7201c5a443059b7f6aa89dcb2430b.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3cc5f443ae7719b4ff3b8214fb8b64a5.png)
     
     
     func (m *Map) dirtyLocked() {
@@ -375,7 +375,7 @@ entry是map中存放数据的槽位，使用entry的指针可以让read表和dir
     
 
 所以再次插入后的结构图：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c230ee285c7361d5b5cfce961e32ea65.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/29716f441d630cbd5f1802876e5ae4a1.png)
 
 > 为什么dirty表需要冗余read表的数据，直接存储增量数据不行吗？
 
@@ -428,10 +428,10 @@ dirty表通过冗余read表中的数据从而维护一个全量数据，read表�
 
 因为原生map不支持并发读写，为了避免读写冲突，那么从read表中删除数据时，只是将原生map对应的key的value置空，下次dirty表从read表拉取数据的时候，忽略value的entry为空的key.  
 当删除数据后的结构图如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d42025378f7bafccd161e67c18ebcc32.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fa98d7cf6adf7ed86a3d09d5db285d1d.png)
 
 dirty表从read表拉取数据，跳过value的entry为空的逻辑如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a8fd5f2ae467bc72473ec1341a7d0153.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2abbc1b5ca15247fc7c2799bb348c9ff.png)
 
 使用cas，设置旧值为nil，来判断是否为nil，如果是nil ,返回true,跳过key的拷贝。
 

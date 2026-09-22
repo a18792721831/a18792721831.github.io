@@ -30,7 +30,7 @@ keywords: python, sqlite, 无需安装的数据库, 最简单的数据库, 本�
 
 SQLite，是一款轻型的数据库，是遵守ACID的关系型数据库管理系统，它包含在一个相对小的C库中。它是D.RichardHipp建立的公有领域项目。它的设计目标是嵌入式的，而且目前已经在很多嵌入式产品中使用了它，它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了。  
 不像常见的客户-服务器范例，SQLite引擎不是个程序与之通信的独立进程，而是连接到程序中成为它的一个主要部分。所以主要的通信协议是在编程语言内的直接API调用。这在消耗总量、延迟时间和整体简单性上有积极的作用。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/581b9d7c9de6a3569ebf48e83946c0d2.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/581b9d7c9de6a3569ebf48e83946c0d2.png)  
 以上数据来源于百度百科。  
 sqlite常见于移动设备，小型工具，切入式等。比如很多的安卓程序，某某监控系统基于单片机的那种，pc的工具，比如流量监控等等。  
 sqlite是与客户端在一起的数据存储机制，无需安装，直接集成在软件内。  
@@ -39,7 +39,7 @@ sqlite是与客户端在一起的数据存储机制，无需安装，直接集�
 ## 2.python集成sqlite
 
 sqlite已经在python的标准库中支持，所以使用直接导入模块即可。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4f6ec8b96172d8fab67dca2b6c709391.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4f6ec8b96172d8fab67dca2b6c709391.png)
     
     
     import sqlite3

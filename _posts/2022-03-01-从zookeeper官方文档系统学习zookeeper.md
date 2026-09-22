@@ -82,18 +82,18 @@ ZooKeeper 是一个集中式服务，用于维护配置信息、命名、提供�
 > ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.  
 >  [zookeeper官网](<http://zookeeper.apache.org/>)  
 >  下载zookeeper  
->  ![image-20220228221238058](https://i-blog.csdnimg.cn/blog_migrate/c475b75aa6b4151ea59cf2e23e06330d.png)
+>  ![image-20220228221238058](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c475b75aa6b4151ea59cf2e23e06330d.png)
 > 
-> ![image-20220228221339680](https://i-blog.csdnimg.cn/blog_migrate/bfc49401b15452cfd97af1604cd5474c.png)
+> ![image-20220228221339680](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bfc49401b15452cfd97af1604cd5474c.png)
 > 
 > zookeeper解压的文件目录：
 > 
-> ![image](https://i-blog.csdnimg.cn/blog_migrate/9486b42c94071c9f296b2f18b205212f.png)
+> ![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9486b42c94071c9f296b2f18b205212f.png)
 
 ## 2\. zookeeper 文档
 
 zookeeper文档在下载目录的docs目录下。  
-![image-20220228221851741](https://i-blog.csdnimg.cn/blog_migrate/cf1dc12b45dac007376a2b0417dea83d.png)
+![image-20220228221851741](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf1dc12b45dac007376a2b0417dea83d.png)
 
 下载的二进制包里面的文档，一定是最准确的文档。  
 有时候，比官网文档还准确。  
@@ -129,7 +129,7 @@ tickTime默认就是2000，我们不需要做任何修改。
 
 然后修改zookeeper数据存储路径。  
 我们在zookeeper的主目录下创建`data`目录和`logs`目录  
-![image-20220228222018966](https://i-blog.csdnimg.cn/blog_migrate/3453ba3f235a1cc9288a8862387b7245.png)
+![image-20220228222018966](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3453ba3f235a1cc9288a8862387b7245.png)
 
 然后在**conf/zoo.cfg** 中配置`data`目录
     
@@ -145,10 +145,10 @@ tickTime默认就是2000，我们不需要做任何修改。
 
 OK，到此就配置完成了。
 
-![image-20220228222125300](https://i-blog.csdnimg.cn/blog_migrate/d6ff6638df319490ffecb89267876cc9.png)
+![image-20220228222125300](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d6ff6638df319490ffecb89267876cc9.png)
 
 我们顺手把`ZOOKEEPER_HOME`配置了.  
-![image-20220228222202212](https://i-blog.csdnimg.cn/blog_migrate/4873fe7012efa543395c005ad87ad3bd.png)  
+![image-20220228222202212](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4873fe7012efa543395c005ad87ad3bd.png)  
 别配置的太深入了,配置的目的是我们可以以非常快速的操作，切换到zookeeper相关的目录即可。
 
 ### 3.2 启动
@@ -162,13 +162,13 @@ OK，到此就配置完成了。
     
 
 当日志没有异常时，就启动成功了  
-![image-20220228222251761](https://i-blog.csdnimg.cn/blog_migrate/641fec9dbe6d268411418f1ff1cd41f6.png)
+![image-20220228222251761](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/641fec9dbe6d268411418f1ff1cd41f6.png)
 
 ### 3.3 验证
 
 zookeeper单机版启动成功了，如何验证呢?  
 在zookeeper的文档中，给出了答案  
-![image-20220228222332803](https://i-blog.csdnimg.cn/blog_migrate/cf6b404ee4407a1b6e41d41a2d2710f4.png)
+![image-20220228222332803](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cf6b404ee4407a1b6e41d41a2d2710f4.png)
 
 使用客户端连接zookeeper服务。  
 重新启动一个cmd，切换到zookeeper的bin目录下。
@@ -180,7 +180,7 @@ zookeeper单机版启动成功了，如何验证呢?
     
 
 启动客户端，链接启动的zookeeper服务。  
-![image-20220228222428431](https://i-blog.csdnimg.cn/blog_migrate/b11f3ae96299e8cfe938e357f0f5cfde.png)
+![image-20220228222428431](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b11f3ae96299e8cfe938e357f0f5cfde.png)
 
 zookeeper客户端的命令
     
@@ -228,7 +228,7 @@ zookeeper客户端的命令
 
 记得转义特殊符号。
 
-![image-20220228222609293](https://i-blog.csdnimg.cn/blog_migrate/2ed68fd78a8a9913d049ba1dc5c2266f.png)
+![image-20220228222609293](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2ed68fd78a8a9913d049ba1dc5c2266f.png)
 
 然后删除我们新增的内容
     
@@ -238,7 +238,7 @@ zookeeper客户端的命令
     ls /
     
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/5f9801acb66148bb09ee8084ed2915f9.png)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5f9801acb66148bb09ee8084ed2915f9.png)
 
 至此，我们就搭建了一个单机版的zookeeper.
 
@@ -251,15 +251,15 @@ zookeeper客户端的命令
 
 在文档中也有如何搭建集群版的zookeeper。
 
-![image](https://i-blog.csdnimg.cn/blog_migrate/f7bda83f35f1f4071c299ebedc4c7712.png)
+![image](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f7bda83f35f1f4071c299ebedc4c7712.png)
 
 首先，我们将zookeeper文件拷贝三份出来，并分别修改文件夹名字，加上端口号：
 
-![image-20220228223254238](https://i-blog.csdnimg.cn/blog_migrate/a6641e963fe6b4e997007ac72cb6ba4b.png)
+![image-20220228223254238](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a6641e963fe6b4e997007ac72cb6ba4b.png)
 
 然后修改**conf/zoo.cfg** 文件，增加
 
-![image-20220228223243525](https://i-blog.csdnimg.cn/blog_migrate/13caa1a4982e61aaf4756cc2a32d6797.png)每个文件都是相同的
+![image-20220228223243525](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13caa1a4982e61aaf4756cc2a32d6797.png)每个文件都是相同的
     
     
     server.1=0.0.0.0:2888:3888
@@ -292,11 +292,11 @@ zookeeper客户端的命令
 
 > The entries of the form _server.X_ list the servers that make up the ZooKeeper service. When the server starts up, it knows which server it is by looking for the file _myid_ in the data directory. That file has the contains the server number, in ASCII.
 
-![image-20220228224150681](https://i-blog.csdnimg.cn/blog_migrate/755c9daa12902d61dbdb4dd6b9678ed9.png)
+![image-20220228224150681](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/755c9daa12902d61dbdb4dd6b9678ed9.png)
 
 在data目录下创建一个文件，文件名就是`myid`，这个文件里面的数字会告诉节点自己是哪个服务。
 
-![image-20220228224236055](https://i-blog.csdnimg.cn/blog_migrate/77a8c9ea077dc4d9e437a2cc2839f7e8.png)
+![image-20220228224236055](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/77a8c9ea077dc4d9e437a2cc2839f7e8.png)
 
 千万不要有多余的空格等字符
 
@@ -319,9 +319,9 @@ zookeeper客户端的命令
 
 第一个节点启动后，控制台会打印异常：
 
-![image-20220228224423809](https://i-blog.csdnimg.cn/blog_migrate/49a2e11df92fd1d8646f5048c3596006.png)
+![image-20220228224423809](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/49a2e11df92fd1d8646f5048c3596006.png)
 
-![image-20220228224432920](https://i-blog.csdnimg.cn/blog_migrate/fcf5ce5bd6ba39252c90d933955efdaa.png)
+![image-20220228224432920](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fcf5ce5bd6ba39252c90d933955efdaa.png)
 
 给其他节点发送消息的时候，连接失败(肯定了啦，还没启动呢)。
 
@@ -332,29 +332,29 @@ zookeeper客户端的命令
 还是用`zkCli.cmd`进行验证：
 
 分别用三个客户端连接三个服务器：  
-![image-20220228224832816](https://i-blog.csdnimg.cn/blog_migrate/704afbf2385966fb892c33e42a796176.png)
+![image-20220228224832816](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/704afbf2385966fb892c33e42a796176.png)
 
 然后用一个客户端连接集群：
 
-![image-20220228224933472](https://i-blog.csdnimg.cn/blog_migrate/4f94baf5fe89204711bb17b391d6d5f2.png)
+![image-20220228224933472](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4f94baf5fe89204711bb17b391d6d5f2.png)
 
 现在我有4个客户端。
 
 我在第一个客户端上增加目录
 
-![image-20220228225000337](https://i-blog.csdnimg.cn/blog_migrate/72cc307d9a5d9fafcb2dfe0d328e76cb.png)
+![image-20220228225000337](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/72cc307d9a5d9fafcb2dfe0d328e76cb.png)
 
 在第二个客户端上增加文件，并设置值
 
-![image-20220228225111722](https://i-blog.csdnimg.cn/blog_migrate/8d7774ddbe22a52a8ae733b3927744de.png)
+![image-20220228225111722](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8d7774ddbe22a52a8ae733b3927744de.png)
 
 第三个客户端上查看文件的值(集群)
 
-![image-20220228225135242](https://i-blog.csdnimg.cn/blog_migrate/5242f952b7f122889e8f1ba92dbb72dd.png)
+![image-20220228225135242](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5242f952b7f122889e8f1ba92dbb72dd.png)
 
 在第四个客户端上删除增加的目录和值
 
-![image-20220228225205856](https://i-blog.csdnimg.cn/blog_migrate/816bd899227ecde26f8392813d446305.png)
+![image-20220228225205856](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/816bd899227ecde26f8392813d446305.png)
 
 证明了三个节点之间是联通的。同时也证明连接集群和连接集群内节点是等价的。
 
@@ -362,13 +362,13 @@ zookeeper客户端的命令
 
 在Admin&… 目录下有配置参数说明：
 
-![image-20220228225258745](https://i-blog.csdnimg.cn/blog_migrate/f47503c78252983644bb87b8e89f26f1.png)
+![image-20220228225258745](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f47503c78252983644bb87b8e89f26f1.png)
 
 可以看到，虽然zookeeper是3.7.0的版本，但是文档上面还是3.6.  
 Zookeeper 3.6 Documenttation，看到了吗。  
 或许可以向zookeeper发起pr。  
 这个小节就是全部的zookeeper的配置  
-![image-20220228225327995](https://i-blog.csdnimg.cn/blog_migrate/2b050b0b5e6c8c03927f3c056240bd82.png)
+![image-20220228225327995](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2b050b0b5e6c8c03927f3c056240bd82.png)
 
 ### 5.1 最小配置
 
@@ -385,12 +385,12 @@ Zookeeper 3.6 Documenttation，看到了吗。
 
 配置非常多，但是配置这一块，作为一个字典一样，遇到在这里查就可以了。
 
-![image-20220228225417724](https://i-blog.csdnimg.cn/blog_migrate/e4eca0865cd84c003956addaa49431ed.png)
+![image-20220228225417724](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e4eca0865cd84c003956addaa49431ed.png)
 
 之前配置日志目录是在`log4j.properties`文件中配置的，这样就会导致配置有点分散。  
 好在`zoo.cfg`文件中也能够配置日志路径。
 
-![image-20220228225500890](https://i-blog.csdnimg.cn/blog_migrate/8babd71d18446738b6866b9f48c8c2d4.png)
+![image-20220228225500890](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8babd71d18446738b6866b9f48c8c2d4.png)
 
 ## 6\. zookeeper Leader 选举
 
@@ -524,7 +524,7 @@ zookeeper 的选举非常有意思。
 server1启动，此时server1的状态是LOOKING状态，然后server1进入选举流程。  
 然后server1启动Leader选举流程
 
-![image-20220228225639406](https://i-blog.csdnimg.cn/blog_migrate/206f781f48da10f2aec8f3856eed33fc.png)
+![image-20220228225639406](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/206f781f48da10f2aec8f3856eed33fc.png)
 
 首先server1选举自己作为Leader，同时把自己的状态LOOKING通知给已知节点(配置文件中配置的节点)，并通知其他节点自己的选举事务id(使用选举讨论次数可能会好理解点)
     
@@ -538,7 +538,7 @@ server1启动，此时server1的状态是LOOKING状态，然后server1进入选�
 server2启动后，状态是LOOKING状态，将进入选举流程。  
 server2启动选举
 
-![image-20220228225808145](https://i-blog.csdnimg.cn/blog_migrate/5cd34f66e05305e35d1abb3aa6811c3b.png)
+![image-20220228225808145](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5cd34f66e05305e35d1abb3aa6811c3b.png)
     
     
     Notification: my state:LOOKING; n.sid:2, n.state:LOOKING, n.leader:2, n.round:0x1, n.peerEpoch:0x0, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -549,7 +549,7 @@ server2选举自己作为Leader，同时把自己的状态LOOKING通知给已知
 需要注意的一点是，在server2进行选举的时候，server1也在进行选举。  
 server2启动后，将自己的选举信息通知给server1，期望获取server1的投票。
 
-![image-20220228225856616](https://i-blog.csdnimg.cn/blog_migrate/ac85213c85cb3df38045e953c5faa1f3.png)
+![image-20220228225856616](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ac85213c85cb3df38045e953c5faa1f3.png)
     
     
     Notification: my state:LOOKING; n.sid:2, n.state:LOOKING, n.leader:2, n.round:0x1, n.peerEpoch:0x0, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -560,7 +560,7 @@ server1收到server2的通知后，发现server2除了`n.leader`与server1不同
 但是因为server1的myid小于server2的myid。也就是`n.sid`.所以，server1只能同意server2的选举。  
 于是server1通知其他节点自己的投票
 
-![image-20220228230242370](https://i-blog.csdnimg.cn/blog_migrate/c965ecf28cf29301ca86f5233210b5ef.png)
+![image-20220228230242370](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c965ecf28cf29301ca86f5233210b5ef.png)
     
     
     Notification: my state:LOOKING; n.sid:1, n.state:LOOKING, n.leader:2, n.round:0x1, n.peerEpoch:0x0, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -570,7 +570,7 @@ server1的投票中，`n.leader:2`表示server1选择server2作为leader。
 
 当然，在leader选举出来之前，server1和server2是平等的，server1也会向server2发送通知，期望获取server2的投票
 
-![image-20220228230204562](https://i-blog.csdnimg.cn/blog_migrate/d3b2dde439b034094aebeccd410792b3.png)
+![image-20220228230204562](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d3b2dde439b034094aebeccd410792b3.png)
     
     
     Notification: my state:LOOKING; n.sid:1, n.state:LOOKING, n.leader:1, n.round:0x1, n.peerEpoch:0x0, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -581,7 +581,7 @@ server2在收到server1要求投票的通知后，发现server1和server2的除�
 
 server2收到server1的投票后，会进行统计票数(实际上每一个节点都会统计)
 
-![image-20220228230353041](https://i-blog.csdnimg.cn/blog_migrate/a6208a2d480a7bb4d4d3798139104aad.png)
+![image-20220228230353041](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a6208a2d480a7bb4d4d3798139104aad.png)
     
     
     Notification: my state:LOOKING; n.sid:1, n.state:LOOKING, n.leader:2, n.round:0x1, n.peerEpoch:0x0, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -594,14 +594,14 @@ server2收到server1的投票后，会进行统计票数(实际上每一个节�
 然后集群内的全部节点进行切换。  
 leader节点切换为LEADING状态，其他节点切换为FOLLOWING状态(OBSERVER节点除外)
 
-![image-20220228230445739](https://i-blog.csdnimg.cn/blog_migrate/063deabf40e34914ce11e5cc2448b46c.png)
+![image-20220228230445739](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/063deabf40e34914ce11e5cc2448b46c.png)
 
-![image-20220228230510289](https://i-blog.csdnimg.cn/blog_migrate/2251abfdbc67d4c1b292617233eb89a6.png)
+![image-20220228230510289](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2251abfdbc67d4c1b292617233eb89a6.png)
 
 当server3节点启动后，server3是LOOKING状态，进入leader选举流程。  
 server3选举自己作为leader，将信息通知给已知节点，期望获取其他节点的投票。
 
-![image-20220228230550934](https://i-blog.csdnimg.cn/blog_migrate/a91984219985e98a7519c696aec2eb80.png)
+![image-20220228230550934](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a91984219985e98a7519c696aec2eb80.png)
     
     
     Notification: my state:LOOKING; n.sid:3, n.state:LOOKING, n.leader:3, n.round:0x1, n.peerEpoch:0x0, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -610,7 +610,7 @@ server3选举自己作为leader，将信息通知给已知节点，期望获取�
 server1和server2在收到通知后，将现在的leader信息和自己的状态信息发送给server3  
 server1收到的通知:
 
-![image-20220228230647124](https://i-blog.csdnimg.cn/blog_migrate/3fc9a730c4ea85c96ac174861fe0a917.png)
+![image-20220228230647124](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3fc9a730c4ea85c96ac174861fe0a917.png)
     
     
     Notification: my state:FOLLOWING; n.sid:3, n.state:LOOKING, n.leader:3, n.round:0x1, n.peerEpoch:0x0, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -618,7 +618,7 @@ server1收到的通知:
 
 收到通知后，因为现在的leader是2，所以server1将自己的投票结果通知给server3.
 
-![image-20220228230913274](https://i-blog.csdnimg.cn/blog_migrate/104573444c9bf47f5afee1494dd528a5.png)
+![image-20220228230913274](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/104573444c9bf47f5afee1494dd528a5.png)
     
     
     Notification: my state:LOOKING; n.sid:1, n.state:LOOKING, n.leader:2, n.round:0x1, n.peerEpoch:0x0, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -640,7 +640,7 @@ server2也会将自己的投票结果发送给server3
 
 接着server3收到了server1和server2的状态同步通知
 
-![image-20220228230823691](https://i-blog.csdnimg.cn/blog_migrate/e47da47329b27ff7907efb2e5583d1f4.png)
+![image-20220228230823691](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e47da47329b27ff7907efb2e5583d1f4.png)
     
     
     Notification: my state:LOOKING; n.sid:1, n.state:FOLLOWING, n.leader:2, n.round:0x1, n.peerEpoch:0x1, n.zxid:0x0, message format version:0x2, n.config version:0x0
@@ -652,7 +652,7 @@ server2也会将自己的投票结果发送给server3
 server3修改自己的状态，跟随现有leader。  
 因为目前集群中只有3个节点，server2作为leader得到了2个节点的投票，满足了半数原则(超过一半同意)。
 
-![image-20220228231009528](https://i-blog.csdnimg.cn/blog_migrate/7fd8166ccd261cb195bcf78656f0af2e.png)
+![image-20220228231009528](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7fd8166ccd261cb195bcf78656f0af2e.png)
 
 此时，整个集群已经完全OK了。
 
@@ -667,9 +667,9 @@ server3修改自己的状态，跟随现有leader。
 所以，如果让server2下线，重新选举后，leader应该是server3.  
 试试：
 
-![image-20220228231145333](https://i-blog.csdnimg.cn/blog_migrate/0dfdf234be0a57a3414d394b28d97a85.png)
+![image-20220228231145333](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0dfdf234be0a57a3414d394b28d97a85.png)
 
-![image-20220228231221387](https://i-blog.csdnimg.cn/blog_migrate/5e04b2d14cab0b9656ed99a2021100d2.png)
+![image-20220228231221387](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5e04b2d14cab0b9656ed99a2021100d2.png)
 
 成功证实了的猜测。
 
@@ -713,7 +713,7 @@ OBSERVER节点是观察者节点，观察的对象是LEADING。
 
 官方文档是学习zookeeper的字典。
 
-![image-20220228231313812](https://i-blog.csdnimg.cn/blog_migrate/28ae97d6ae3921e3ad9ae56cbc739499.png)
+![image-20220228231313812](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/28ae97d6ae3921e3ad9ae56cbc739499.png)
 
 ### 7.1 zookeeper 客户端连接
 
@@ -723,7 +723,7 @@ OBSERVER节点是观察者节点，观察的对象是LEADING。
 
 `zkCli.cmd -server host:port`
 
-![image-20220228231335028](https://i-blog.csdnimg.cn/blog_migrate/a0d94e361de9d24551de7ef6053bd438.png)
+![image-20220228231335028](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a0d94e361de9d24551de7ef6053bd438.png)
 
 ### 7.2 create
 
@@ -814,7 +814,7 @@ OBSERVER节点是观察者节点，观察的对象是LEADING。
 
 zookeeper 权限的文档
 
-![image-20220228231418706](https://i-blog.csdnimg.cn/blog_migrate/73143979318337dfc6f0a2fa10cc0a78.png)
+![image-20220228231418706](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/73143979318337dfc6f0a2fa10cc0a78.png)
 
 ### 8.2 ACL命令
 
@@ -850,7 +850,7 @@ addAuth：认证授权信息（配合权限使用，类似登录）
 
 默认任何人拥有全部的权限
 
-![image-20220228231524443](https://i-blog.csdnimg.cn/blog_migrate/2831f7eb5403c6303b60d709b7ce23f7.png)
+![image-20220228231524443](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2831f7eb5403c6303b60d709b7ce23f7.png)
 
   2. auth
 
@@ -858,27 +858,27 @@ addAuth：认证授权信息（配合权限使用，类似登录）
 
 先需要创建用户
 
-![image-20220228231606641](https://i-blog.csdnimg.cn/blog_migrate/886304d7aca8845c59c54b17fecf45d8.png)
+![image-20220228231606641](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/886304d7aca8845c59c54b17fecf45d8.png)
 
 然后进行授权
 
-![image-20220228231717528](https://i-blog.csdnimg.cn/blog_migrate/ef8647c6f72031075494753b0fb6a3a0.png)
+![image-20220228231717528](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ef8647c6f72031075494753b0fb6a3a0.png)
 
 此时设置值
 
-![image-20220228231742130](https://i-blog.csdnimg.cn/blog_migrate/f5a21c07e49974be07c3faf82e18ce93.png)
+![image-20220228231742130](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f5a21c07e49974be07c3faf82e18ce93.png)
 
 在启动一个客户端访问
 
-![image-20220228231829718](https://i-blog.csdnimg.cn/blog_migrate/2fca5a09f56adb20fe691f6939ec1c2f.png)
+![image-20220228231829718](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2fca5a09f56adb20fe691f6939ec1c2f.png)
 
 登录，即可访问
 
-![image-20220228231904543](https://i-blog.csdnimg.cn/blog_migrate/ec68a269e4153bbb1935921b48ffd06c.png)
+![image-20220228231904543](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ec68a269e4153bbb1935921b48ffd06c.png)
 
 auth 仅仅授权给当前认证的用户，也就是说，在未认证用户前，使用auth将会失败：
 
-![image-20220228232243335](https://i-blog.csdnimg.cn/blog_migrate/10120286444479e8c6ef8176f9e847df.png)
+![image-20220228232243335](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/10120286444479e8c6ef8176f9e847df.png)
 
 digest 可以授权给任何用户
 
@@ -890,11 +890,11 @@ digest 可以授权给任何用户
 
 MD5(123456) = 6DY5WhzOfGsWQ1XFuIyzxkpwdPo=
 
-![image-20220228232517249](https://i-blog.csdnimg.cn/blog_migrate/16c1f55690fa8ee06852dc306a053552.png)
+![image-20220228232517249](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/16c1f55690fa8ee06852dc306a053552.png)
 
 然后用其他客户端登录并访问
 
-![image-20220228232609200](https://i-blog.csdnimg.cn/blog_migrate/2e5519dfad380899f5c03a4e44657322.png)
+![image-20220228232609200](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2e5519dfad380899f5c03a4e44657322.png)
 
   4. ip
 
@@ -908,11 +908,11 @@ MD5(123456) = 6DY5WhzOfGsWQ1XFuIyzxkpwdPo=
 
 ### 9.1 zookeeper 监视器 文档
 
-![image-20220228232633980](https://i-blog.csdnimg.cn/blog_migrate/96ac5194275309b755457e78f3e9a1f7.png)
+![image-20220228232633980](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/96ac5194275309b755457e78f3e9a1f7.png)
 
 ### 9.2 zookeeper 客户端命令使用监视器
 
-![image-20220228232724649](https://i-blog.csdnimg.cn/blog_migrate/4deff12b9d1f3235d10fcb3a3f95b607.png)
+![image-20220228232724649](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4deff12b9d1f3235d10fcb3a3f95b607.png)
 
 `addWatch [-m mode] path # optional mode is one of [PERSISTENT, PERSISTENT_RECURSIVE] - default is PERSISTENT_RECURSIVE`
 
@@ -940,11 +940,11 @@ MD5(123456) = 6DY5WhzOfGsWQ1XFuIyzxkpwdPo=
 
 记得开启打印watches
 
-![image-20220301000511865](https://i-blog.csdnimg.cn/blog_migrate/b150b7bdb6868ab793e8e1d0cb122edd.png)
+![image-20220301000511865](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b150b7bdb6868ab793e8e1d0cb122edd.png)
 
-![image-20220301000737861](https://i-blog.csdnimg.cn/blog_migrate/22bb7745f8bf4019b5336f46ea19384b.png)
+![image-20220301000737861](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/22bb7745f8bf4019b5336f46ea19384b.png)
 
-![image-20220301000902364](https://i-blog.csdnimg.cn/blog_migrate/0fbaa08580bca91d38eb6cfac9b73d6b.png)
+![image-20220301000902364](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0fbaa08580bca91d38eb6cfac9b73d6b.png)
 
 ### 9.6 zookeeper 程序使用监视器
     
@@ -998,7 +998,7 @@ MD5(123456) = 6DY5WhzOfGsWQ1XFuIyzxkpwdPo=
     
     
 
-![image-20220301002251044](https://i-blog.csdnimg.cn/blog_migrate/481e030649fb4b53689dc4d564d3dab5.png)
+![image-20220301002251044](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/481e030649fb4b53689dc4d564d3dab5.png)
 
 ## 10\. zookeeper 数据结构
 
@@ -1014,7 +1014,7 @@ MD5(123456) = 6DY5WhzOfGsWQ1XFuIyzxkpwdPo=
 
 使用`ls,get`可以查看一个节点的详细信息
 
-![image-20220301002342774](https://i-blog.csdnimg.cn/blog_migrate/2bf66a25a364697bb91e3359596b875b.png)
+![image-20220301002342774](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2bf66a25a364697bb91e3359596b875b.png)
 
 ### 10.2 zookeeper节点
 
@@ -1072,7 +1072,7 @@ zookeeper 有一个非常重要的功能，就是为分布式应用提供一致�
 
 ### 12.1 ZAB协议
 
-![image-20220301002500359](https://i-blog.csdnimg.cn/blog_migrate/ee0682ce2ddc04961cca1df6c82be060.png)
+![image-20220301002500359](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ee0682ce2ddc04961cca1df6c82be060.png)
 
 ZAB协议全称：Zookeeper Atomic Broadcast(zookeeper原子播送)
 
@@ -1153,11 +1153,11 @@ zxid是一个64位数字，这个64位数字分两部分组成：高32位和低3
 
 客户端发送写请求给zookeeper集群，集群内任意节点收到写请求后，节点会将写请求转发给leader，leader将写请求进行转化为提案，然后将提案广播到集群内每一个节点，因为是写请求提案，每一个节点都会通过。leader收到过半的节点通过后，会创建一个提交事务的提案，然后将提案广播到集群内每一个节点，然后每一个节点就会知道哪些数据应该持久化，哪些数据应该丢弃。
 
-![这里写图片描述](https://i-blog.csdnimg.cn/blog_migrate/162050c5e79e01352fe7109ee6a82179.png)
+![这里写图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/162050c5e79e01352fe7109ee6a82179.png)
 
 当然，zookeeper也给出了一个示意图：
 
-![Two phase commit](https://i-blog.csdnimg.cn/blog_migrate/213954461c96dd4919df51a99e1c084f.png)
+![Two phase commit](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/213954461c96dd4919df51a99e1c084f.png)
 
 ### 12.3 ZAB VS 流言
 
@@ -1177,7 +1177,7 @@ ZAB协议比起流言协议，减少了中间角色，资源利用更好，响�
 
 好在zookeeper也给出了监控方案：
 
-![image-20220301002716309](https://i-blog.csdnimg.cn/blog_migrate/0dd06fc80caed953d2e18a8917296974.png)
+![image-20220301002716309](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0dd06fc80caed953d2e18a8917296974.png)
 
 当然，zookeeper并没有自己开发监控，而是集成了`Prometheus`翻译过来就是大名鼎鼎的 普罗米修斯 。
 
@@ -1189,7 +1189,7 @@ ZAB协议比起流言协议，减少了中间角色，资源利用更好，响�
 
 我下载的是windows版的。
 
-![image-20220301002832026](https://i-blog.csdnimg.cn/blog_migrate/5487b68eddd1af9de1f37d8baa6b3819.png)
+![image-20220301002832026](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5487b68eddd1af9de1f37d8baa6b3819.png)
 
   1. 配置zookeeper的配置文件zoo.cfg
 
@@ -1201,41 +1201,41 @@ ZAB协议比起流言协议，减少了中间角色，资源利用更好，响�
 
 其实就是放开两个配置(注意，如果是一个物理机启动，未使用虚拟机，那么需要注意端口冲突)：
 
-![image-20220301003026138](https://i-blog.csdnimg.cn/blog_migrate/0d8126327fc1fcfe0f7c7c19d9c5458c.png)
+![image-20220301003026138](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0d8126327fc1fcfe0f7c7c19d9c5458c.png)
 
 修改完记得启动集群。
 
   2. 配置Prometheus配置prometheus.ym
 
-![image-20220301003251515](https://i-blog.csdnimg.cn/blog_migrate/fa71246d4695225d038b92517aaf37b5.png)
+![image-20220301003251515](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fa71246d4695225d038b92517aaf37b5.png)
 
-![image-20220301004102572](https://i-blog.csdnimg.cn/blog_migrate/d8201d9bda5e465a7140be6e87f19418.png)
+![image-20220301004102572](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d8201d9bda5e465a7140be6e87f19418.png)
 
 配置名字(scrape_configs.job_name)，配置地址(scrape_configs.static_configs.targets)
 
   3. 启动prometheus.exe
 
-![image-20220301003418600](https://i-blog.csdnimg.cn/blog_migrate/d387382dbfaeaf6413aee6a60945f70c.png)
+![image-20220301003418600](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d387382dbfaeaf6413aee6a60945f70c.png)
 
   4. 访问
 
-![image-20220301004122598](https://i-blog.csdnimg.cn/blog_migrate/e3bdf155586f18cb3fe6f8094070985b.png)
+![image-20220301004122598](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e3bdf155586f18cb3fe6f8094070985b.png)
 
 现在共有39个节点
 
-![image-20220301004219054](https://i-blog.csdnimg.cn/blog_migrate/a966bffdabeac2af9afe593ff3a05400.png)
+![image-20220301004219054](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a966bffdabeac2af9afe593ff3a05400.png)
 
 增加一个试试
 
-![image-20220301004327445](https://i-blog.csdnimg.cn/blog_migrate/21e97f776768cd043ad359a2a88f2161.png)
+![image-20220301004327445](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/21e97f776768cd043ad359a2a88f2161.png)
 
 发现zookeeper-1已经增加了
 
-![image-20220301004345168](https://i-blog.csdnimg.cn/blog_migrate/6c41c3924ed9201b2cdfb213c6433bcd.png)
+![image-20220301004345168](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6c41c3924ed9201b2cdfb213c6433bcd.png)
 
 在执行一次，就会发现其他两个节点也有了
 
-![image-20220301004359981](https://i-blog.csdnimg.cn/blog_migrate/13726a4e1d809b0fe99ebe37464b36c3.png)
+![image-20220301004359981](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13726a4e1d809b0fe99ebe37464b36c3.png)
 
 还不错，就是怎么会用😂
 
@@ -1243,7 +1243,7 @@ ZAB协议比起流言协议，减少了中间角色，资源利用更好，响�
 
 在zookeeper use case 中，可以看到zookeeper如何集成其他语言的应用程序。
 
-![image-20220301004445932](https://i-blog.csdnimg.cn/blog_migrate/f681470f7f4d174d4f5c0f707ff2d9df.png)
+![image-20220301004445932](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f681470f7f4d174d4f5c0f707ff2d9df.png)
 
 zookeeper提供了两套原生的api，分别对应java语言和c语言。只以java为例。
 
@@ -1317,7 +1317,7 @@ zookeeper提供了两套原生的api，分别对应java语言和c语言。只以
     
     
 
-![image-20220301004706630](https://i-blog.csdnimg.cn/blog_migrate/f7be6af44224715fa3d204f51e2c3801.png)
+![image-20220301004706630](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f7be6af44224715fa3d204f51e2c3801.png)
 
 其他比如权限，监视器以及其他操作，和客户端命令相同。
 
@@ -1394,7 +1394,7 @@ zookeeper
     
     
 
-![image-20220301005050645](https://i-blog.csdnimg.cn/blog_migrate/653b8b12692a4a8183fe20fe4068b9a5.png)
+![image-20220301005050645](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/653b8b12692a4a8183fe20fe4068b9a5.png)
 
 除了接口风格不同，其他都差不多的。
 

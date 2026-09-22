@@ -121,7 +121,7 @@ springmvc-config.xml
 
 ## 2.Controller注解
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9250ff4becc75388209b0d89863f2a9a.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9250ff4becc75388209b0d89863f2a9a.png)  
 如何配置  
 springmvc-config.xml
     
@@ -149,7 +149,7 @@ springmvc-config.xml
     
 
 如何使用  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9041eff3c456a26dec547581ee7997aa.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9041eff3c456a26dec547581ee7997aa.png)  
 在类上增加注解
 
 ## 3.RequestMapping注解
@@ -201,11 +201,11 @@ DeferedResult
 
 ### 7.1新建一个Javaweb项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a5b8bbb1941e9cdf87a45d26b4a9e690.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a5b8bbb1941e9cdf87a45d26b4a9e690.png)
 
 ### 7.2导入jar包
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1451d9968aa073fa977e313e942a31fb.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1451d9968aa073fa977e313e942a31fb.png)
 
 ### 7.3写web.xml
 
@@ -239,7 +239,7 @@ web.xml
 
 ### 7.4写页面
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3235b7361e3a8b15e7a76110dcfccdd7.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3235b7361e3a8b15e7a76110dcfccdd7.png)  
 first.jsp
     
     
@@ -319,5 +319,5 @@ springmvc-config.xml
 
 ### 7.7运行，使用postMan测试
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2d62d747f1fb8595b268fd8b41bf9309.png)  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9a394c018dee91fc972e4b9a1f0b88fc.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2d62d747f1fb8595b268fd8b41bf9309.png)  
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9a394c018dee91fc972e4b9a1f0b88fc.png)

@@ -72,15 +72,15 @@ MessageListenerContainer:用来监听容器，为消息入队提供异步处理
 
 ### 7.1创建gradle项目
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f71a5ab037493242acc07758a291204b.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f71a5ab037493242acc07758a291204b.png)
 
 ### 7.2增加依赖
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/efb4edd0b25b97394e09f75df064bb89.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/efb4edd0b25b97394e09f75df064bb89.png)
 
 ### 7.3创建代码目录
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a7425f2f600ba2144eb7b3bb9e4a35e0.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a7425f2f600ba2144eb7b3bb9e4a35e0.png)
 
 ### 7.4创建监听类
     
@@ -177,7 +177,7 @@ MessageListenerContainer:用来监听容器，为消息入队提供异步处理
 
 ### 7.7启动
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8074cdb685af32c7dab5aeca8a521f44.png)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8074cdb685af32c7dab5aeca8a521f44.png)
 
 ### 7.8注意事项
 

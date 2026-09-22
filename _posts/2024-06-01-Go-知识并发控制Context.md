@@ -64,7 +64,7 @@ gitio: https://a18792721831.github.io/
 Go 语言的 context 是应用开发常用的并发控制技术，它与 WaitGroup 最大的不同点是 context  
 对于派生 goroutine 有更强的控制力，可以控制多级的 goroutine 。  
 context 翻译成中文是 上下文 ，即可以控制一组呈树状结构的 goroutine ，每个 goroutine 拥有相同的上下文。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/05be81a2c09dab1022352f2f1b89bd4f.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9ce5a25371d68c1c6a83ff148eaf03eb.png)
 
 上图中由于 goroutine 派生出子 goroutine ，而子 goroutine 又继续派生出新的 goroutine ,  
 这种情况下使用 WaitGroup 就不太容易，因为子 goroutine 的个数不太容易确定，而使用 context 就很容易实现。
@@ -76,7 +76,7 @@ context 实际上只定义了接口，凡是实现该接口的类都可以称为
 ### 2.1 接口定义
 
 源码包中的 `src/context/context.go`定义了接口：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3f9899b8eb02b23b95d666170ec54215.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c1acbe8a45cf8c66681e28165ecc1912.png)
 
 基础的 context 接口只定义了4个方法。
 
@@ -113,12 +113,12 @@ Value() 方法就是用于此种类型的 context ，该方法根据 key 值查�
 
 context 包中定义了一个空的 context ，名为 emptyCtx ，用于 context 的根节点，空 context 只是简单地实现了 Context，  
 本身也不包含任何值，仅用于其他 context 的父节点  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/68364fc5578d84039e1b0b62c1b66c6e.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4c9ad01d7001a23937e576d503db4899.png)
 
 context 包中还定义了一个公用的 emptyCtx 全局变量，名为 background ，可以使用  
 `context.Background()`获取。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b6c7203fb90ca9a1c5839fcaaf259177.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d1f2f49026bbf727ade462f5348271bc.png)
 
 context 包提供了四个方法创建不同类型的 context ，使用这四个方法时，如果没有父 context，  
 则都需要传入 background ，即将 background 作为其父节点：
@@ -132,12 +132,12 @@ context 包中实现了 Context 接口的 struct，除了 emptyCtx ，还有 can
 基于这三种 context 实例，实现了上述四种额理性的 context.  
 context 包中各 context 类型之间的关系：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2c338596ea9377eb7303694d4c1e13e6.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f0e267c9cb6811952be2f0f14dd493a7.png)
 
 ## 4\. cancelCtx
 
 源码包中的 `src/context/context.go:cancelCtx`定义了该类型 context:  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/031c2867a41985eebe6977c843de3490.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/13c3981a37b17b3bf36967f362766664.png)
 
 children 中记录了由此context派生的所有child , 此 context 被 cancel 时，会把其中所有的 child 都 cancel 。  
 cancelCtx 与 deadline 和 value 无关，所以只需要实现 Done() 和 Err() 接口即可。
@@ -170,7 +170,7 @@ cancelCtx 与 deadline 和 value 无关，所以只需要实现 Done() 和 Err()
     
 
 在老版本中 Done 每次都必须加锁，然后获取值，解锁，返回。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2d1a41fc84c37b2f746bca6fdf6baa4e.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e8b84322e8ba9eec13da3e8eaac6e254.png)
 
 在 Done 方法中，只有第一次需要初始化，后面都是直接返回即可，所以只有第一次的加锁是有效的，后面加锁都是无效的(假设 channel 不会被修改)  
 因此在新版本中，done 变量使用 atomic.Value 存储，并发安全，在Done 里面也是乐观获取，如果获取得到为空，那么在加锁初始化。
@@ -199,7 +199,7 @@ Err()也是加锁然后获取值，解锁。
 ### 4.3 cancel()
 
 在 Context 接口定义中并没有 cancel 方法，所以 cancel方法是在接口canceler中定义的。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d514347f0877f2780372dc9588613c9b.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a01e86655a2139c893c8bed40a9cef8b.png)
 
 cancelCtx 和 timerCtx 实现了这个接口。  
 cancelCtx 接口和 Context 接口都定义了 Done() 方法，而且完全相同。  
@@ -252,7 +252,7 @@ cancel 方法是 cancelCtx 的关键方法，作用是关闭自己和其后代�
     
 
 这是 `closedchan`的源码，在初始化的时候就 close 了。  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f3e4e6a8dc2659e7e9ebb9a68ca832ad.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/546caab62fe1fadb4ea3be360ca23619.png)
 
 对于 `removeChild`的实现，这里先留一下，要不不太好理解。
 
@@ -500,7 +500,7 @@ OK，接着看下 `propagateCancel`方法
     
 
 执行如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b305418bfbf5b421d9f704fb4f5a1499.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/898819d15535be5549979698725af8c7.png)
 
 树形传播
     
@@ -551,7 +551,7 @@ OK，接着看下 `propagateCancel`方法
     
 
 执行结果  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5f63775e0ac33387228a15c54f988f2d.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a06307b94226afef92f73c2294c4a154.png)
 
 ### 4.6 总结
 
@@ -685,7 +685,7 @@ timerCtx 在cancelCtx 的基础上增加了 deadline ，用于标识自动 cance
 ### 5.4 WithTimeout
 
 WithTimeout实际上是复用了WithDeadline: deadline = now + timeout  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3f92c0d1af31151fc6f315fa9b4041ea.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/330dd98e62fa239f2d7ba4610e1158e1.png)
 
 ### 5.5 例子
 
@@ -715,7 +715,7 @@ timeout
     
 
 执行如下：  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4247351e7c12f132a66b8f8faadf4f39.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a79dfa0fc7c3675beb8c1cf7de0a884.png)
 
 ### 5.6 总结
 
@@ -731,7 +731,7 @@ timerCtx 的 timeout 复用了 deadline 实现方式： deadline = now + timeout
 ## 6\. valueCtx
 
 源码包`src/context/context.go:valueCtx`定义了valueCtx:  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7d24c7210c1ae5c9bab69657cd623608.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/cdc22ab28c092755c141af65455cf34b.png)
 
 valueCtx 只是在 Context 的基础上增加了一个 key-value 对，用于在各级协程间传递一些数据。  
 由于 valueCtx 即不需要 cancel ,也不需要 deadline ，那么只需要实现 Value 方法即可。
@@ -802,7 +802,7 @@ WithValue也是非常的简单,创建节点，然后设置 key, value 然后将�
     
 
 执行结果  
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/43822bf051b1e35b846d7e79f18b5255.png#pic_center)
+![在这里插入图片描述](https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/75521aef1a0b90ae244893da314654bb.png)
 
 其实更好的用法应该是这样
     
