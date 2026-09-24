@@ -1,0 +1,377 @@
+<!doctype html><html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="spark–键值对操作" /><meta property="og:locale" content="zh_CN" /><meta name="description" content="本文深入探讨了Spark中PairRDD的基本概念、创建方法及多种转换操作，包括reduceByKey、groupByKey、keys、values、sortByKey等，并介绍了PairRDD的行动操作如countByKey和collectAsMap，是Spark开发者不可或缺的指南。" /><meta name="twitter:description" property="og:description" content="本文深入探讨了Spark中PairRDD的基本概念、创建方法及多种转换操作，包括reduceByKey、groupByKey、keys、values、sortByKey等，并介绍了PairRDD的行动操作如countByKey和collectAsMap，是Spark开发者不可或缺的指南。" /><link rel="canonical" href="https://a18792721831.github.io/posts/spark-%E9%94%AE%E5%80%BC%E5%AF%B9%E6%93%8D%E4%BD%9C/" /><meta property="og:url" content="https://a18792721831.github.io/posts/spark-%E9%94%AE%E5%80%BC%E5%AF%B9%E6%93%8D%E4%BD%9C/" /><meta property="og:site_name" content="贾永琪的技术博客" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2020-06-01T20:09:10+08:00" /><meta property="article:modified_time" content="2026-09-22T17:59:12+08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="spark–键值对操作" /><meta name="twitter:site" content="@" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-22T17:59:12+08:00","datePublished":"2020-06-01T20:09:10+08:00","description":"本文深入探讨了Spark中PairRDD的基本概念、创建方法及多种转换操作，包括reduceByKey、groupByKey、keys、values、sortByKey等，并介绍了PairRDD的行动操作如countByKey和collectAsMap，是Spark开发者不可或缺的指南。","headline":"spark–键值对操作","mainEntityOfPage":{"@type":"WebPage","@id":"https://a18792721831.github.io/posts/spark-%E9%94%AE%E5%80%BC%E5%AF%B9%E6%93%8D%E4%BD%9C/"},"url":"https://a18792721831.github.io/posts/spark-%E9%94%AE%E5%80%BC%E5%AF%B9%E6%93%8D%E4%BD%9C/"}</script><title>spark--键值对操作 | 贾永琪的技术博客</title><link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3/dist/js/glightbox.min.js,npm/clipboard@2/dist/clipboard.min.js,npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/zh.js,npm/dayjs@1/plugin/relativeTime.js,npm/dayjs@1/plugin/localizedFormat.js,npm/tocbot@4/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://github.com/a18792721831.png" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">贾永琪的技术博客</a><p class="site-subtitle fst-italic mb-0">记录点点滴滴</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>首页</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>分类</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>标签</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>归档</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>关于</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"><div class="btn-group dropup"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle" data-bs-toggle="dropdown" ><i class="fa-regular fa-sun" data-theme-mode="light"></i><i class="fa-regular fa-moon" data-theme-mode="dark"></i><i class="fa-solid fa-display" data-theme-mode="system"></i></button><ul class="dropdown-menu rounded-3 mb-1 p-1"><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="light"><i class="fa-regular fa-sun" data-theme-mode="light"></i>浅色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="dark"><i class="fa-regular fa-moon" data-theme-mode="dark"></i>深色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="system"><i class="fa-solid fa-display" data-theme-mode="system"></i>跟随系统</button></ul></div><span class="icon-border"></span> <a href="https://github.com/a18792721831" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="javascript:void(location.href = 'mailto:' + ['735809899','qq.com'].join('@'))" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">首页</a> </span> <span>spark--键值对操作</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> 文章</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="搜索..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>spark--键值对操作</h1><p class="post-desc fw-light mb-4">本文深入探讨了Spark中PairRDD的基本概念、创建方法及多种转换操作，包括reduceByKey、groupByKey、keys、values、sortByKey等，并介绍了PairRDD的行动操作如countByKey和collectAsMap，是Spark开发者不可或缺的指南。</p><div class="post-meta text-muted"> <span> 发表于 <time data-ts="1591013350" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2020/06/01 </time> </span> <span> 更新于 <time data-ts="1790071152" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2026/09/22 </time> </span><div class="d-flex justify-content-between"> <span> 作者 <em> <a href="https://github.com/a18792721831">贾永琪</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="2514 字" > <em>13 分钟</em>阅读</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">spark--键值对操作</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">文章内容</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">spark--键值对操作</div><button id="toc-popup-close" type="button" class="btn-close btn-sm mx-3" aria-label="Close"></button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p><strong>文章信息</strong></p><ul><li>原文链接：https://jiayq.blog.csdn.net/article/details/106431272<li>发布时间：2020-06-01 20:09:10<li>阅读量：1<li>分类：scala同时被 3 个专栏收录, 订阅专栏, 大数据, spark<li>标签：#键值对RDD, #pairRDD操作, #键值对RDD聚合连接排序, #键值对RDD转化操作行动操作, #pairRDD如何使用</ul></blockquote><h2 id="摘要"><span class="me-2">摘要</span><a href="#摘要" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>文章浏览阅读1.1k次。本文深入探讨了Spark中PairRDD的基本概念、创建方法及多种转换操作，包括reduceByKey、groupByKey、keys、values、sortByKey等，并介绍了PairRDD的行动操作如countByKey和collectAsMap，是Spark开发者不可或缺的指南。</p><hr /><h4 id="spark键值对操作"><span class="me-2">spark–键值对操作</span><a href="#spark键值对操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><ul><li>1. pair RDD<li>2. pair RDD 创建<li>3. pair RDD 转化操作<li><ul><li>3.1 reduceByKey 根据键聚合<ul><li>3.2 groupByKey 根据键分组<li>3.3 keys 获取键<li>3.4 values 获取值<li>3.5 sortByKey 根据键排序<li>3.6 mapValues 值操作<li>3.7 flatMapValues 合并值流操作<li>3.8 combineByKey 根据键自定义聚合<li>3.9 subtractByKey 差集<li>3.10 join 内连接<li>3.11 rightOuterJoin 右外连接<li>3.12 leftOuterJoin 左外连接<li>3.13 cogroup 并集<li>3.14 转化操作速查表</ul></ul><li>4. pair RDD 转化操作分类<li><ul><li>4.1 元素<ul><li><ul><li>4.1.1 map<ul><li>4.1.2 filter<li>4.1.3 keys<li>4.1.4 values<li>4.1.5 mapValues</ul></ul><li>4.2 聚合操作<li><ul><li>4.2.1 reduceByKey<ul><li>4.2.2 foldByKey<li>4.2.3 aggregateByKey<li>4.2.3 combineByKey</ul></ul><li>4.3 分组操作<li><ul><li>4.3.1 groupBy<ul><li>4.3.2 groupByKey<li>4.3.3 cogroup</ul></ul><li>4.4 连接操作<li><ul><li>4.4.1 join<ul><li>4.4.2 leftOuterJoin<li>4.4.3 rightOuterJoin</ul></ul><li>4.5 排序操作<li><ul><li>4.5.1 sortByKey</ul></ul></ul><li>5. pair RDD 行动操作<li><ul><li>5.1 countByKey<ul><li>5.2 collectAsMap<li>5.3 lookup</ul></ul></ul><h2 id="1-pair-rdd"><span class="me-2">1. pair RDD</span><a href="#1-pair-rdd" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>spark为包含键值对类型的RDD提供了一些专有的操作。这些RDD被称为pair RDD,pair RDD是很多程序的构成要素，因为他们提供了并行操作各个键或跨节点重新进行数据分组的啊哦做接口。比如普通的RDD有countByValue，而pair RDD提供了reduceByKey的操作。</p><h2 id="2-pair-rdd-创建"><span class="me-2">2. pair RDD 创建</span><a href="#2-pair-rdd-创建" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>根据之前了解的普通RDD的一些转化操作和pair RDD的定义，我们知道，pair RDD 可以从普通的RDD使用替换的转化操作得到。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>val nums = sc.parallelize(List(1,2,3,4,5))
+val pairNums = nums map (x =&gt; (x,1))
+println(pairNums.collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9909f19c64e859b566d62eaf9d76fb63.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9909f19c64e859b566d62eaf9d76fb63.png" alt="在这里插入图片描述" loading="lazy"></a></p><h2 id="3-pair-rdd-转化操作"><span class="me-2">3. pair RDD 转化操作</span><a href="#3-pair-rdd-转化操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="31-reducebykey-根据键聚合"><span class="me-2">3.1 reduceByKey 根据键聚合</span><a href="#31-reducebykey-根据键聚合" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD reduceByKey ( =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>val nums = sc.parallelize(List(1,2,3,4,5,6,7,8,9))
+val all = nums sample (true, 100000)
+val pairNums = all map (x =&gt; (x,1))
+val sumNums = pairNums reduceByKey(_+_)
+println(nums.collect.mkString(","))
+println(pairNums.collect.mkString(","))
+println(sumNums.collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c0a1e64fd318406fad312eb7a411c675.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c0a1e64fd318406fad312eb7a411c675.png" alt="在这里插入图片描述" loading="lazy"></a></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>val result = sumNums map (x =&gt; (x._1,x_2/100000.toDouble))
+println(result.collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0d09c5cdd094f46fd2abca7681892d15.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0d09c5cdd094f46fd2abca7681892d15.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 如果将数量设置到100亿呢？<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/74d2bc2e9885caf7c53c8ce8dddcbe7c.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/74d2bc2e9885caf7c53c8ce8dddcbe7c.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/227f5a82a15f9046aca9c9fd46417926.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/227f5a82a15f9046aca9c9fd46417926.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5aa23584a8719d042cf3d0a8a752a0a2.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5aa23584a8719d042cf3d0a8a752a0a2.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/532a4d8f865e2c82797c094dd6bcf97d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/532a4d8f865e2c82797c094dd6bcf97d.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d56076c908978f95fe7b2ea0d8f63a2e.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d56076c908978f95fe7b2ea0d8f63a2e.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d092a12a507b5a7f7cf201ee5639068a.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d092a12a507b5a7f7cf201ee5639068a.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d53cebb7d0e693a20c7e9b9d52f5b953.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d53cebb7d0e693a20c7e9b9d52f5b953.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a9bd43b67e2450ff016fce52559de65.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/4a9bd43b67e2450ff016fce52559de65.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/08b9e4c19a7a37b920e7e0ef299a5708.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/08b9e4c19a7a37b920e7e0ef299a5708.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 不可思议，100亿啊，6.7分钟就完了。</p><h3 id="32-groupbykey-根据键分组"><span class="me-2">3.2 groupByKey 根据键分组</span><a href="#32-groupbykey-根据键分组" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD groupByKey</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val initNums = sc parallelize ( 0 to 9)
+val pairNums= initNums sample(true,20) map (x =&gt; (x, x+"x"))
+println(pairNums.collect.mkString(","))
+println(pairNums.groupByKey.collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6e8bf8f1178222e83c5de80b3b5246c.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b6e8bf8f1178222e83c5de80b3b5246c.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="33-keys-获取键"><span class="me-2">3.3 keys 获取键</span><a href="#33-keys-获取键" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式<br /> pairRDD keys</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val initNums = sc parallelize ( 0 to 9)
+val pairNums = initNums sample(true,20) map (x =&gt; (x, x+1))
+println(pairNums.collect.mkString(","))
+println(pairNums.keys.collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be01ae0ef5b76a9bf391a5b8630ddf7d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be01ae0ef5b76a9bf391a5b8630ddf7d.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="34-values-获取值"><span class="me-2">3.4 values 获取值</span><a href="#34-values-获取值" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式<br /> pairRDD values</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val initNums = sc parallelize ( 0 to 9)
+val pairNums= initNums sample(true,20) map (x =&gt; (x, x+"x"))
+println(pairNums.collect.mkString(","))
+println(pairNums.values.collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5a65e060de783f7a2017cfc2bd94ff4b.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5a65e060de783f7a2017cfc2bd94ff4b.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="35-sortbykey-根据键排序"><span class="me-2">3.5 sortByKey 根据键排序</span><a href="#35-sortbykey-根据键排序" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD sortByKey</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>val nums = sc parallelize ( 0 to 9) map (x =&gt; (10 - x, x))
+println(nums.collect.mkString(","))
+println(nums.sortByKey().collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f70b9a3705b88e29a7ca12f59f869f37.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f70b9a3705b88e29a7ca12f59f869f37.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="36-mapvalues-值操作"><span class="me-2">3.6 mapValues 值操作</span><a href="#36-mapvalues-值操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD mapValues ( =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>val nums = sc parallelize (0 to 9) map (x =&gt; (x%4,x))
+nums collect() foreach print
+nums mapValues ( x =&gt; x * 10 ) collect()  foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7fad9e2f1c62ccb39f46f11988456f4a.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7fad9e2f1c62ccb39f46f11988456f4a.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="37-flatmapvalues-合并值流操作"><span class="me-2">3.7 flatMapValues 合并值流操作</span><a href="#37-flatmapvalues-合并值流操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD flatMapValues( =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>val nums = sc parallelize ( 0 to 9 ) map ( x =&gt; ( x, x ))
+nums collect() foreach print
+nums flatMapValues ( x =&gt; x to 10 ) collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99f1a175cf8ea90b41ef991a314999af.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99f1a175cf8ea90b41ef991a314999af.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="38-combinebykey-根据键自定义聚合"><span class="me-2">3.8 combineByKey 根据键自定义聚合</span><a href="#38-combinebykey-根据键自定义聚合" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD combineByKey( =&gt; , =&gt; , =&gt; )<br /> 第一个 =&gt; ：元素转返回类型<br /> 第一个 =&gt; ：参数 元素<br /> 第二个 =&gt; ：分区内元素聚合<br /> 第二个 =&gt; ：参数 返回类型，元素<br /> 第三个 =&gt; ：分区聚合<br /> 第三个 =&gt; ：参数 返回类型，返回类型</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>val nums = sc parallelize(List(("A",66),("B",56),("C",88),("D",99),("A",33),("B",67858),("C",8987),("D",11231)))
+type Mt = (Int,Int)
+nums.combineByKey(a =&gt; (a,1),(x:Mt,s)=&gt;(x._1+s,x._2 + 1),(c:Mt,d:Mt)=&gt;(c._1+d._1,c._2+d._2)) map{ case (key,value) =&gt; (key, value._1/value._2.toDouble)} collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/00275abcf1e7b845984df0ed7c539487.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/00275abcf1e7b845984df0ed7c539487.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="39-subtractbykey-差集"><span class="me-2">3.9 subtractByKey 差集</span><a href="#39-subtractbykey-差集" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD1 subtractByKey pairRDD2</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val num1 = sc parallelize(List(("A",66),("B",78),("C",77),("D",88)))
+val num2 = sc parallelize(List(("A",66),("C",77)))
+num1 collect() foreach print
+num2 collect() foreach print
+num1 subtract num2 collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e26deb09bcee691c16afbba950c0ba66.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e26deb09bcee691c16afbba950c0ba66.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="310-join-内连接"><span class="me-2">3.10 join 内连接</span><a href="#310-join-内连接" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD1 join pairRDD2</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val num1 = sc parallelize(List(("A",66),("B",78),("C",77),("D",88)))
+val num2 = sc parallelize(List(("A",778),("C",899)))
+num1 collect() foreach print
+num2 collect() foreach print
+num1 join num2 collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6da6a2ddebd7f8a4c62ec61ac8cf1570.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6da6a2ddebd7f8a4c62ec61ac8cf1570.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="311-rightouterjoin-右外连接"><span class="me-2">3.11 rightOuterJoin 右外连接</span><a href="#311-rightouterjoin-右外连接" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD1 rightOuterJoin pairRDD2</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val num1 = sc parallelize(List(("A",66),("B",78),("C",77),("D",88)))
+val num2 = sc parallelize(List(("A",778),("C",899)))
+num1 collect() foreach print
+num2 collect() foreach print
+num1 rightOuterJoin num2 collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/98a3ec18accea013268c1caa1520e1ce.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/98a3ec18accea013268c1caa1520e1ce.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="312-leftouterjoin-左外连接"><span class="me-2">3.12 leftOuterJoin 左外连接</span><a href="#312-leftouterjoin-左外连接" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD1 leftOuterJoin pairRDD2</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val num1 = sc parallelize(List(("A",66),("B",78),("C",77),("D",88)))
+val num2 = sc parallelize(List(("A",778),("C",899)))
+num1 collect() foreach print
+num2 collect() foreach print
+num1 leftOuterJoin num2 collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/180f8b49a4d9aa68beeff6bfb2a3802e.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/180f8b49a4d9aa68beeff6bfb2a3802e.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="313-cogroup-并集"><span class="me-2">3.13 cogroup 并集</span><a href="#313-cogroup-并集" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD1 cogroup pairRDD2</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val num1 = sc parallelize(List(("A",66),("B",78),("C",77),("D",88)))
+val num2 = sc parallelize(List(("A",778),("C",899)))
+num1 collect() foreach print
+num2 collect() foreach print
+num1 cogroup num2 collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b16848b5b4579a8d08552fd78403b54b.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b16848b5b4579a8d08552fd78403b54b.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="314-转化操作速查表"><span class="me-2">3.14 转化操作速查表</span><a href="#314-转化操作速查表" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="table-wrapper"><table><thead><tr><th>操作名<th>方法名<th>格式<tbody><tr><td>根据键聚合<td>reduceByKey<td>pairRDD reduceByKey ( =&gt; )<tr><td>根据键分组<td>groupByKey<td>pairRDD groupByKey<tr><td>获取键<td>keys<td>pairRDD keys<tr><td>获取值<td>values<td>pairRDD values<tr><td>根据键排序<td>sortByKey<td>pairRDD mapValues ( =&gt; )<tr><td>值操作<td>flatMapValues<td>pairRDD mapValues ( =&gt; )<tr><td>合并值流操作<td>combineByKey<td>pairRDD flatMapValues( =&gt; )<tr><td>根据键自定义聚合<td>combineByKey<td>pairRDD combineByKey( =&gt; , =&gt; , =&gt; )<tr><td>差集<td>subtractByKey<td>pairRDD1 subtractByKey pairRDD2<tr><td>内连接<td>join<td>pairRDD1 join pairRDD2<tr><td>右外连接<td>rightOuterJoin<td>pairRDD1 rightOuterJoin pairRDD2<tr><td>左外连接<td>leftOuterJoin<td>pairRDD1 leftOuterJoin pairRDD2<tr><td>交集<td>cogroup<td>pairRDD1 cogroup pairRDD2</table></div><h2 id="4-pair-rdd-转化操作分类"><span class="me-2">4. pair RDD 转化操作分类</span><a href="#4-pair-rdd-转化操作分类" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="41-元素"><span class="me-2">4.1 元素</span><a href="#41-元素" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="411-map"><span class="me-2">4.1.1 map</span><a href="#411-map" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>因为pair RDD 是继承RDD的，所以，RDD的操作，pair RDD都可以使用。<br /> 格式：<br /> pairRDD map {case (key,value) =&gt; (key, value’)}</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>val keys = sc parallelize( 1 to 6)
+val pairs = keys map (x =&gt; (x,x*x))
+pairs map {case  (key,value) =&gt; (key, value * 10 )} collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9b67bf0f596b2ac63b9fad1f71a07046.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9b67bf0f596b2ac63b9fad1f71a07046.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="412-filter"><span class="me-2">4.1.2 filter</span><a href="#412-filter" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD filter {{case (key,value) =&gt; Boolean}</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val keys = sc parallelize( 1 to 6)
+val pairs = keys map (x =&gt; (x,x*x*10))
+pairs collect() foreach print
+pairs filter {case  (key,value) =&gt;  value &lt; 100 } collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5ef5a1d130e8eed87174fd43e838cf72.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5ef5a1d130e8eed87174fd43e838cf72.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="413-keys"><span class="me-2">4.1.3 keys</span><a href="#413-keys" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD keys</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val keys = sc parallelize( 1 to 6)
+val pairs = keys map (x =&gt; (x,x*x*10))
+pairs collect() foreach print
+println(pairs.keys.collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/60f10df39465546db8f331e8aea64f80.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/60f10df39465546db8f331e8aea64f80.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="414-values"><span class="me-2">4.1.4 values</span><a href="#414-values" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD values</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val keys = sc parallelize( 1 to 6)
+val pairs = keys map (x =&gt; (x,x*x*10))
+pairs collect() foreach print
+println(pairs.keys.collect.mkString(","))
+println(pairs.values.collect.mkString(","))
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f462b0bdad59accbbdb3cdf5b7febc59.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f462b0bdad59accbbdb3cdf5b7febc59.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="415-mapvalues"><span class="me-2">4.1.5 mapValues</span><a href="#415-mapvalues" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD mapValues ( =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val keys = sc parallelize( 1 to 6)
+val pairs = keys map (x =&gt; (x,x*x*10))
+pairs collect() foreach print
+pairs mapValues ( x =&gt; x /10 ) collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/49bcf1fa364345b185f208298f841cb8.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/49bcf1fa364345b185f208298f841cb8.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="42-聚合操作"><span class="me-2">4.2 聚合操作</span><a href="#42-聚合操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="421-reducebykey"><span class="me-2">4.2.1 reduceByKey</span><a href="#421-reducebykey" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD reduceByKey ( =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List("A","B","C","D"))
+val values = sc parallelize (List(1,2,3,4))
+val pairs = keys cartesian values
+pairs collect() foreach print
+pairs reduceByKey ((a,b) =&gt; ( if (a &gt; b)  a else b)) collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/da60c0c1f44d7ccb781cf2dce2cdda64.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/da60c0c1f44d7ccb781cf2dce2cdda64.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="422-foldbykey"><span class="me-2">4.2.2 foldByKey</span><a href="#422-foldbykey" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD foldByKey (value)( =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List("A","B","C","D"))
+val values = sc parallelize (List(1,2,3,4))
+val pairs = sc parallelize (keys cartesian values collect,1)
+pairs collect() foreach print
+pairs.foldByKey(3)((a,b) =&gt; (a+b)) collect()
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/840867fbfcff845b5f16caa4c646423b.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/840867fbfcff845b5f16caa4c646423b.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 3 +1+2+3+4 = 13</p><h4 id="423-aggregatebykey"><span class="me-2">4.2.3 aggregateByKey</span><a href="#423-aggregatebykey" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD aggregateByKey(value)( =&gt; , =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List("A","B","C","D"))
+val values = sc parallelize (List(1,2,3,4))
+val pairs = sc parallelize (keys cartesian values collect,1)
+pairs collect() foreach print
+pairs.aggregateByKey("")((a,b)=&gt;(a+""+b),(s,t)=&gt;s+t) collect()
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2b9d0a1ce22bf0a6a5e579db1082c078.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2b9d0a1ce22bf0a6a5e579db1082c078.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="423-combinebykey"><span class="me-2">4.2.3 combineByKey</span><a href="#423-combinebykey" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD combineByKey( =&gt; , =&gt; , =&gt; )<br /> 第一个 =&gt; ：元素转返回类型<br /> 第一个 =&gt; ：参数 元素<br /> 第二个 =&gt; ：分区内元素聚合<br /> 第二个 =&gt; ：参数 返回类型，元素 （参数顺序不可变）<br /> 第三个 =&gt; ：分区聚合<br /> 第三个 =&gt; ：参数 返回类型，返回类型</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List("A","B","C","D"))
+val values = sc parallelize (List(1,2,3,4))
+val pairs = sc parallelize (keys cartesian values collect,1)
+pairs combineByKey(x=&gt;x.toDouble,(a:Double,b:Int)=&gt;(a + b.toDouble),(a:Double,b:Double)=&gt;(a+b)) collect
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3353aed097fa2e9fef11989fd0b1fc52.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/3353aed097fa2e9fef11989fd0b1fc52.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="43-分组操作"><span class="me-2">4.3 分组操作</span><a href="#43-分组操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="431-groupby"><span class="me-2">4.3.1 groupBy</span><a href="#431-groupby" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD groupBy ( =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List("A","B","C","D"))
+val values = sc parallelize (List(1,2,3,4))
+val pairs = sc parallelize (keys cartesian values collect,1)
+pairs groupBy{case(key,value) =&gt; key} map {case(key,value) =&gt; (key, value map (x =&gt; x._2))} collect
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ae0f1278b811f99708207aadf02e507c.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ae0f1278b811f99708207aadf02e507c.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 等价于<br /> groupByKey</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List("A","B","C","D"))
+val values = sc parallelize (List(1,2,3,4))
+val pairs = sc parallelize (keys cartesian values collect,1)
+pairs groupByKey() collect
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18746cce6e4894e745d130c80b9ba07b.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18746cce6e4894e745d130c80b9ba07b.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="432-groupbykey"><span class="me-2">4.3.2 groupByKey</span><a href="#432-groupbykey" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD groupByKey ( =&gt; )</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List("A","B","C","D"))
+val values = sc parallelize (List(1,2,3,4))
+val pairs = sc parallelize (keys cartesian values collect,1)
+pairs groupByKey() collect
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18746cce6e4894e745d130c80b9ba07b.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/18746cce6e4894e745d130c80b9ba07b.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="433-cogroup"><span class="me-2">4.3.3 cogroup</span><a href="#433-cogroup" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD1 cogroup pairRDD2 [cogroup pairRDD3 …]</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List("A","B","C","D"))
+val values = sc parallelize (List(1,2,3,4))
+val pairs1 = sc parallelize (keys cartesian values collect)
+val keys = sc parallelize(List("B","C"))
+val values = sc parallelize(5 to 8)
+val pairs2 = sc parallelize (keys  cartesian values collect)
+pairs1 collect() foreach print
+pairs2 collect() foreach print
+pairs1 cogroup pairs2 collect() foreach print
+</pre></table></code></div></div><h3 id="44-连接操作"><span class="me-2">4.4 连接操作</span><a href="#44-连接操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="441-join"><span class="me-2">4.4.1 join</span><a href="#441-join" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD1 join pairRDD2</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (1 to 3)
+val values = sc parallelize ('A' to 'C')
+val pairs1 = sc parallelize ( keys cartesian values collect)
+keys collect() foreach print
+values collect() foreach print
+pairs1 collect() foreach print
+val keys = sc parallelize (2 to 4)
+val values = sc parallelize ( 'M' to 'O')
+val pairs2 = sc parallelize ( keys cartesian values collect)
+keys collect() foreach print
+values collect() foreach print
+pairs2 collect() foreach print
+pairs1 join pairs2 collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c259568c99b2a21f808df695cef0e3f.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c259568c99b2a21f808df695cef0e3f.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="442-leftouterjoin"><span class="me-2">4.4.2 leftOuterJoin</span><a href="#442-leftouterjoin" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD1 leftOuterJoin pairRDD2</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>val keys = sc parallelize ( 1 to 3)
+val values = sc parallelize( 'A' to 'C')
+keys collect() foreach print
+values collect() foreach print
+val pairs1 = keys cartesian values
+val keys = sc parallelize ( 2 to 3)
+val values = sc parallelize ('A' to 'D')
+keys collect() foreach print
+values collect() foreach print
+val pairs2 = keys cartesian values
+pairs1 collect() foreach print
+pairs2 collect() foreach print
+pairs1 leftOuterJoin pairs2 collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a4e6fd103a399a151f81f910fac38a30.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a4e6fd103a399a151f81f910fac38a30.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="443-rightouterjoin"><span class="me-2">4.4.3 rightOuterJoin</span><a href="#443-rightouterjoin" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD1 rightOuterJoin pairRDD2</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>val keys = sc parallelize ( 1 to 2)
+val values = sc parallelize ( 'A' to 'C')
+val pairs1 = keys cartesian values
+keys collect() foreach print
+values collect() foreach print
+val keys = sc parallelize ( 2 to 4)
+val values = sc parallelize ('B' to 'D')
+val pairs2 = keys cartesian values
+keys collect() foreach print
+values collect() foreach print
+pairs1 collect() foreach print
+pairs2 collect() foreach print
+pairs1 rightOuterJoin pairs2 collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/870c9836de471e07144ab1bf4d5e209e.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/870c9836de471e07144ab1bf4d5e209e.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="45-排序操作"><span class="me-2">4.5 排序操作</span><a href="#45-排序操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="451-sortbykey"><span class="me-2">4.5.1 sortByKey</span><a href="#451-sortbykey" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>格式：<br /> pairRDD sortByKey</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>val keys = sc parallelize (List(3,2,1))
+val values = sc parallelize ( 'M' to 'O')
+val pairs = keys cartesian values
+keys collect() foreach print
+values collect() foreach print
+pairs collect() foreach print
+pairs sortByKey() collect() foreach print
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1bcade1b5bb284d2a67fe2af32130d98.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1bcade1b5bb284d2a67fe2af32130d98.png" alt="在这里插入图片描述" loading="lazy"></a></p><h2 id="5-pair-rdd-行动操作"><span class="me-2">5. pair RDD 行动操作</span><a href="#5-pair-rdd-行动操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="51-countbykey"><span class="me-2">5.1 countByKey</span><a href="#51-countbykey" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD couuntByKey</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>val keys = sc parallelize( 1 to 8)
+val values = sc parallelize ( 'A' to 'E')
+val pairs = keys cartesian values
+keys collect() foreach print
+values collect() foreach print
+pairs collect() foreach print
+pairs countByKey
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1030aa8c94c982cdd7667ce15dcc1f83.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1030aa8c94c982cdd7667ce15dcc1f83.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="52-collectasmap"><span class="me-2">5.2 collectAsMap</span><a href="#52-collectasmap" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD collectAsMap</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>val keys = sc parallelize( 1 to 7)
+val values = sc parallelize( 'E' to 'H')
+val pairs = keys cartesian values 
+keys collect() foreach print
+values collect() foreach print
+pairs collect() foreach print
+pairs collectAsMap 
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2dae9f31a3f6929da3041dc2675936ad.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2dae9f31a3f6929da3041dc2675936ad.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="53-lookup"><span class="me-2">5.3 lookup</span><a href="#53-lookup" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>格式：<br /> pairRDD lookup key</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>val keys = sc parallelize ( 1 to 5)
+val values = sc parallelize ( 'M' to 'Z')
+val pair = keys cartesian values 
+keys collect() foreach print
+values collect() foreach print
+pair collect() foreach print
+pair lookup 2
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/659911e5268dcc37f172db4ca2457848.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/659911e5268dcc37f172db4ca2457848.png" alt="在这里插入图片描述" loading="lazy"></a></p></div><div class="post-tail-wrapper text-muted"><div class="d-flex justify-content-between align-items-center gap-3 mb-3"><div class="post-meta"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/%E9%94%AE%E5%80%BC%E5%AF%B9rdd/">键值对RDD</a>, <a href="/categories/pairrdd%E6%93%8D%E4%BD%9C/">pairRDD操作</a>, <a href="/categories/%E9%94%AE%E5%80%BC%E5%AF%B9rdd%E8%81%9A%E5%90%88%E8%BF%9E%E6%8E%A5%E6%8E%92%E5%BA%8F/">键值对RDD聚合连接排序</a>, <a href="/categories/%E9%94%AE%E5%80%BC%E5%AF%B9rdd%E8%BD%AC%E5%8C%96%E6%93%8D%E4%BD%9C%E8%A1%8C%E5%8A%A8%E6%93%8D%E4%BD%9C/">键值对RDD转化操作行动操作</a>, <a href="/categories/pairrdd%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8/">pairRDD如何使用</a></div></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> 本文由作者按照 <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> 进行授权</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">分享</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=spark--%E9%94%AE%E5%80%BC%E5%AF%B9%E6%93%8D%E4%BD%9C%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2Fspark-%25E9%2594%25AE%25E5%2580%25BC%25E5%25AF%25B9%25E6%2593%258D%25E4%25BD%259C%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=spark--%E9%94%AE%E5%80%BC%E5%AF%B9%E6%93%8D%E4%BD%9C%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&u=https%3A%2F%2Fa18792721831.github.io%2Fposts%2Fspark-%25E9%2594%25AE%25E5%2580%25BC%25E5%25AF%25B9%25E6%2593%258D%25E4%25BD%259C%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2Fspark-%25E9%2594%25AE%25E5%2580%25BC%25E5%25AF%25B9%25E6%2593%258D%25E4%25BD%259C%2F&text=spark--%E9%94%AE%E5%80%BC%E5%AF%B9%E6%93%8D%E4%BD%9C%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="分享链接" data-title-succeed="链接已复制！" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">最近更新</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E7%89%A9%E7%90%86%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（四）数据文件物理迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%89-mydumper-myloader-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（三）mydumper/myloader 多线程迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%BA%8C-%E5%8E%9F%E7%94%9F-mysqldump-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（二）原生 mysqldump 导出导入实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%AF%84-%E4%B8%89%E5%A4%A7%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88/">MySQL 数据迁移（一）为什么迁、怎么迁、怎么评——三大方案总览</a><li class="text-truncate lh-lg"> <a href="/posts/%E6%95%99%E7%A8%8B-%E7%BB%99AI%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E8%A3%85%E4%B8%8A%E4%BB%A3%E7%A0%81%E7%9C%BC%E7%9D%9B-serena%E4%B8%8Ecodebase-memory%E5%8F%8C%E5%BC%95%E6%93%8E%E5%AE%9E%E8%B7%B5/">【教程】给AI编程助手装上代码眼睛:serena 与 codebase-memory 双引擎实践</a></ul></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">文章内容</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/spark-RDD/" class="btn btn-outline-primary" aria-label="上一篇" ><p>spark--RDD</p></a> <a href="/posts/Java%E5%9F%BA%E7%A1%80-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AF%A6%E8%A7%A3/" class="btn btn-outline-primary" aria-label="下一篇" ><p>Java基础--多线程详解</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://github.com/a18792721831">贾永琪</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。" >保留部分权利。</span></p><p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.6.0" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a></p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast w-auto rounded-5 text-nowrap" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="d-flex align-items-center"><div class="toast-body ps-3">发现新内容</div><button type="button" class="btn btn-primary btn-sm rounded-2 py-0" aria-label="Update" >更新</button> <button type="button" class="btn-close mx-3 ms-2" data-bs-dismiss="toast" aria-label="Close" ></button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">搜索结果为空</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>

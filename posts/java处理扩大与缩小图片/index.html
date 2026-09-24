@@ -1,0 +1,151 @@
+<!doctype html><html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="java处理扩大与缩小图片" /><meta property="og:locale" content="zh_CN" /><meta name="description" content="本文介绍了如何使用Java ImageIO API处理图片，包括图片放大缩小操作，创建分层效果，灰度处理，颜色转换如变绿、负片和红化，以及图像锐化。通过实例展示了如何调整图片尺寸和应用色彩变换技术。" /><meta name="twitter:description" property="og:description" content="本文介绍了如何使用Java ImageIO API处理图片，包括图片放大缩小操作，创建分层效果，灰度处理，颜色转换如变绿、负片和红化，以及图像锐化。通过实例展示了如何调整图片尺寸和应用色彩变换技术。" /><link rel="canonical" href="https://a18792721831.github.io/posts/java%E5%A4%84%E7%90%86%E6%89%A9%E5%A4%A7%E4%B8%8E%E7%BC%A9%E5%B0%8F%E5%9B%BE%E7%89%87/" /><meta property="og:url" content="https://a18792721831.github.io/posts/java%E5%A4%84%E7%90%86%E6%89%A9%E5%A4%A7%E4%B8%8E%E7%BC%A9%E5%B0%8F%E5%9B%BE%E7%89%87/" /><meta property="og:site_name" content="贾永琪的技术博客" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2020-09-29T16:45:05+08:00" /><meta property="article:modified_time" content="2026-09-22T17:59:12+08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="java处理扩大与缩小图片" /><meta name="twitter:site" content="@" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-22T17:59:12+08:00","datePublished":"2020-09-29T16:45:05+08:00","description":"本文介绍了如何使用Java ImageIO API处理图片，包括图片放大缩小操作，创建分层效果，灰度处理，颜色转换如变绿、负片和红化，以及图像锐化。通过实例展示了如何调整图片尺寸和应用色彩变换技术。","headline":"java处理扩大与缩小图片","mainEntityOfPage":{"@type":"WebPage","@id":"https://a18792721831.github.io/posts/java%E5%A4%84%E7%90%86%E6%89%A9%E5%A4%A7%E4%B8%8E%E7%BC%A9%E5%B0%8F%E5%9B%BE%E7%89%87/"},"url":"https://a18792721831.github.io/posts/java%E5%A4%84%E7%90%86%E6%89%A9%E5%A4%A7%E4%B8%8E%E7%BC%A9%E5%B0%8F%E5%9B%BE%E7%89%87/"}</script><title>java处理扩大与缩小图片 | 贾永琪的技术博客</title><link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3/dist/js/glightbox.min.js,npm/clipboard@2/dist/clipboard.min.js,npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/zh.js,npm/dayjs@1/plugin/relativeTime.js,npm/dayjs@1/plugin/localizedFormat.js,npm/tocbot@4/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://github.com/a18792721831.png" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">贾永琪的技术博客</a><p class="site-subtitle fst-italic mb-0">记录点点滴滴</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>首页</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>分类</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>标签</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>归档</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>关于</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"><div class="btn-group dropup"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle" data-bs-toggle="dropdown" ><i class="fa-regular fa-sun" data-theme-mode="light"></i><i class="fa-regular fa-moon" data-theme-mode="dark"></i><i class="fa-solid fa-display" data-theme-mode="system"></i></button><ul class="dropdown-menu rounded-3 mb-1 p-1"><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="light"><i class="fa-regular fa-sun" data-theme-mode="light"></i>浅色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="dark"><i class="fa-regular fa-moon" data-theme-mode="dark"></i>深色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="system"><i class="fa-solid fa-display" data-theme-mode="system"></i>跟随系统</button></ul></div><span class="icon-border"></span> <a href="https://github.com/a18792721831" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="javascript:void(location.href = 'mailto:' + ['735809899','qq.com'].join('@'))" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">首页</a> </span> <span>java处理扩大与缩小图片</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> 文章</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="搜索..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>java处理扩大与缩小图片</h1><p class="post-desc fw-light mb-4">本文介绍了如何使用Java ImageIO API处理图片，包括图片放大缩小操作，创建分层效果，灰度处理，颜色转换如变绿、负片和红化，以及图像锐化。通过实例展示了如何调整图片尺寸和应用色彩变换技术。</p><div class="post-meta text-muted"> <span> 发表于 <time data-ts="1601369105" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2020/09/29 </time> </span> <span> 更新于 <time data-ts="1790071152" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2026/09/22 </time> </span><div class="d-flex justify-content-between"> <span> 作者 <em> <a href="https://github.com/a18792721831">贾永琪</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="763 字" > <em>4 分钟</em>阅读</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">java处理扩大与缩小图片</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">文章内容</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">java处理扩大与缩小图片</div><button id="toc-popup-close" type="button" class="btn-close btn-sm mx-3" aria-label="Close"></button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p><strong>文章信息</strong></p><ul><li>原文链接：https://jiayq.blog.csdn.net/article/details/108871252<li>发布时间：2020-09-29 16:45:05<li>阅读量：2<li>分类：java同时被 2 个专栏收录, 订阅专栏, 计算机图形<li>标签：#ImageIO处理图片, #Java操作图片, #Java修改图片的颜色, #Java一键处理图片, #java自定义图片大小</ul></blockquote><h2 id="摘要"><span class="me-2">摘要</span><a href="#摘要" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>文章浏览阅读2.2k次。本文介绍了如何使用Java ImageIO API处理图片，包括图片放大缩小操作，创建分层效果，灰度处理，颜色转换如变绿、负片和红化，以及图像锐化。通过实例展示了如何调整图片尺寸和应用色彩变换技术。</p><hr /><h4 id="java处理扩大与缩小图片"><span class="me-2">java处理扩大与缩小图片</span><a href="#java处理扩大与缩小图片" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><ul><li>图片扩大与缩小<li>图片分层<li>图片灰度处理<li>图片变绿色负片<li>图片红化<li>图片锐化</ul><p>java处理扩大与缩小图片</p><h2 id="图片扩大与缩小"><span class="me-2">图片扩大与缩小</span><a href="#图片扩大与缩小" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>在<code class="language-plaintext highlighter-rouge">java.desktop.javax.imageio</code>包下有操作图片相关的类。</p><p>不过，这些ImageIO只支持一些常见的图片类型:<code class="language-plaintext highlighter-rouge">jpg,png</code>等。</p><p><a href="https://docs.oracle.com/javase/7/docs/api/javax/imageio/ImageIO.html">Java SE ImageIO docs</a></p><p>使用起来也不难：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>    @Test
+    public void testUp1() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("test.png");
+        BufferedImage bufferedImage = ImageIO.read(classPathResource.getInputStream());
+        BufferedImage image = new BufferedImage(2000,1100 , bufferedImage.getType());
+        Graphics2D graphics = image.createGraphics();
+        graphics.drawImage(bufferedImage, 0,0,2000,1100,null);
+        graphics.dispose();
+        OutputStream outputStream = new FileOutputStream("out.jpg");
+        ImageIO.write(image, "jpg", outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+</pre></table></code></div></div><p>我准备的图片是一张1200*800的图片，jpg格式。</p><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/91b77ba8cd47e8ae6221561cee2afbaf.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/91b77ba8cd47e8ae6221561cee2afbaf.png" alt="image-20200929145831878" loading="lazy"></a></p><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d3abd772d7e833c904ae8b42d906353d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d3abd772d7e833c904ae8b42d906353d.png" alt="在这里插入图片描述" loading="lazy"></a></p><p>接着，我们转为2000*1100的图片，格式不变。</p><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/aa8944dc94475cf4f6441fffce57eafe.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/aa8944dc94475cf4f6441fffce57eafe.png" alt="在这里插入图片描述" loading="lazy"></a></p><p>这是放大。</p><p>如果是缩小，就修改目标长度和宽度。比如800*400</p><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/115e1c693931749165070f7ccb264c89.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/115e1c693931749165070f7ccb264c89.png" alt="image-20200929150837248" loading="lazy"></a></p><p>想想，还能做其他的操作吗？</p><h2 id="图片分层"><span class="me-2">图片分层</span><a href="#图片分层" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>比如双层？</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre>    @Test
+    public void testUp1() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("test.jpg");
+        BufferedImage bufferedImage = ImageIO.read(classPathResource.getInputStream());
+        BufferedImage image = new BufferedImage(800,800 , bufferedImage.getType());
+        Graphics2D graphics = image.createGraphics();
+        graphics.drawImage(bufferedImage, 0,0,800,400,null);
+        graphics.drawImage(bufferedImage, 0,400,800,400,null);
+        graphics.dispose();
+        OutputStream outputStream = new FileOutputStream("out.jpg");
+        ImageIO.write(image, "jpg", outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2b24fb251e02284e385aa319c02ac24c.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2b24fb251e02284e385aa319c02ac24c.png" alt="在这里插入图片描述" loading="lazy"></a></p><h2 id="图片灰度处理"><span class="me-2">图片灰度处理</span><a href="#图片灰度处理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>在或者，图片变黑白？</p><p>依然是那张美女图。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>    @Test
+    public void testUp() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("test.jpg");
+        BufferedImage bufferedImage = ImageIO.read(classPathResource.getInputStream());
+        ColorSpace space = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+        ColorConvertOp op = new ColorConvertOp(space, null);
+        BufferedImage image = op.filter(bufferedImage, null);
+        OutputStream outputStream = new FileOutputStream("out.jpg");
+        ImageIO.write(image, "jpg", outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6ef6bad9ae41b6a31af3e462c732f6b2.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6ef6bad9ae41b6a31af3e462c732f6b2.png" alt="image-20200929154921358" loading="lazy"></a></p><h2 id="图片变绿色负片"><span class="me-2">图片变绿色负片</span><a href="#图片变绿色负片" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>说实话，我不太了解图像相关的知识，所以，如果名字不对，请包涵。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>    @Test
+    public void testUp() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("test.jpg");
+        BufferedImage bufferedImage = ImageIO.read(classPathResource.getInputStream());
+        ColorSpace space = ColorSpace.getInstance(ColorSpace.CS_CIEXYZ);
+        ColorConvertOp op = new ColorConvertOp(space, null);
+        BufferedImage image = op.filter(bufferedImage, null);
+        OutputStream outputStream = new FileOutputStream("out.jpg");
+        ImageIO.write(image, "jpg", outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eaccbaaf410b95f709341bb9f4fa7650.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eaccbaaf410b95f709341bb9f4fa7650.png" alt="image-20200929155221892" loading="lazy"></a></p><h2 id="图片红化"><span class="me-2">图片红化</span><a href="#图片红化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>    @Test
+    public void testUp() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("test.jpg");
+        BufferedImage bufferedImage = ImageIO.read(classPathResource.getInputStream());
+        ColorSpace space = ColorSpace.getInstance(ColorSpace.CS_PYCC);
+        ColorConvertOp op = new ColorConvertOp(space, null);
+        BufferedImage image = op.filter(bufferedImage, null);
+        OutputStream outputStream = new FileOutputStream("out.jpg");
+        ImageIO.write(image, "jpg", outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6bde9ace1708f6ffbdfa2d0a47914f2d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6bde9ace1708f6ffbdfa2d0a47914f2d.png" alt="在这里插入图片描述" loading="lazy"></a></p><h2 id="图片锐化"><span class="me-2">图片锐化</span><a href="#图片锐化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>    @Test
+    public void testUp() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("test.jpg");
+        BufferedImage bufferedImage = ImageIO.read(classPathResource.getInputStream());
+        ColorSpace space = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
+        ColorConvertOp op = new ColorConvertOp(space, null);
+        BufferedImage image = op.filter(bufferedImage, null);
+        OutputStream outputStream = new FileOutputStream("out.jpg");
+        ImageIO.write(image, "jpg", outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/10dad4f29c8432a3dc510d9b25239db6.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/10dad4f29c8432a3dc510d9b25239db6.png" alt="在这里插入图片描述" loading="lazy"></a></p></div><div class="post-tail-wrapper text-muted"><div class="d-flex justify-content-between align-items-center gap-3 mb-3"><div class="post-meta"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/imageio%E5%A4%84%E7%90%86%E5%9B%BE%E7%89%87/">ImageIO处理图片</a>, <a href="/categories/java%E6%93%8D%E4%BD%9C%E5%9B%BE%E7%89%87/">Java操作图片</a>, <a href="/categories/java%E4%BF%AE%E6%94%B9%E5%9B%BE%E7%89%87%E7%9A%84%E9%A2%9C%E8%89%B2/">Java修改图片的颜色</a>, <a href="/categories/java%E4%B8%80%E9%94%AE%E5%A4%84%E7%90%86%E5%9B%BE%E7%89%87/">Java一键处理图片</a>, <a href="/categories/java%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E5%A4%A7%E5%B0%8F/">java自定义图片大小</a></div></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> 本文由作者按照 <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> 进行授权</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">分享</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=java%E5%A4%84%E7%90%86%E6%89%A9%E5%A4%A7%E4%B8%8E%E7%BC%A9%E5%B0%8F%E5%9B%BE%E7%89%87%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2Fjava%25E5%25A4%2584%25E7%2590%2586%25E6%2589%25A9%25E5%25A4%25A7%25E4%25B8%258E%25E7%25BC%25A9%25E5%25B0%258F%25E5%259B%25BE%25E7%2589%2587%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=java%E5%A4%84%E7%90%86%E6%89%A9%E5%A4%A7%E4%B8%8E%E7%BC%A9%E5%B0%8F%E5%9B%BE%E7%89%87%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&u=https%3A%2F%2Fa18792721831.github.io%2Fposts%2Fjava%25E5%25A4%2584%25E7%2590%2586%25E6%2589%25A9%25E5%25A4%25A7%25E4%25B8%258E%25E7%25BC%25A9%25E5%25B0%258F%25E5%259B%25BE%25E7%2589%2587%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2Fjava%25E5%25A4%2584%25E7%2590%2586%25E6%2589%25A9%25E5%25A4%25A7%25E4%25B8%258E%25E7%25BC%25A9%25E5%25B0%258F%25E5%259B%25BE%25E7%2589%2587%2F&text=java%E5%A4%84%E7%90%86%E6%89%A9%E5%A4%A7%E4%B8%8E%E7%BC%A9%E5%B0%8F%E5%9B%BE%E7%89%87%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="分享链接" data-title-succeed="链接已复制！" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">最近更新</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E7%89%A9%E7%90%86%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（四）数据文件物理迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%89-mydumper-myloader-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（三）mydumper/myloader 多线程迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%BA%8C-%E5%8E%9F%E7%94%9F-mysqldump-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（二）原生 mysqldump 导出导入实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%AF%84-%E4%B8%89%E5%A4%A7%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88/">MySQL 数据迁移（一）为什么迁、怎么迁、怎么评——三大方案总览</a><li class="text-truncate lh-lg"> <a href="/posts/%E6%95%99%E7%A8%8B-%E7%BB%99AI%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E8%A3%85%E4%B8%8A%E4%BB%A3%E7%A0%81%E7%9C%BC%E7%9D%9B-serena%E4%B8%8Ecodebase-memory%E5%8F%8C%E5%BC%95%E6%93%8E%E5%AE%9E%E8%B7%B5/">【教程】给AI编程助手装上代码眼睛:serena 与 codebase-memory 双引擎实践</a></ul></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">文章内容</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/FastDFS%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8+%E5%8D%95%E6%9C%BA+%E9%9B%86%E7%BE%A4+DHT/" class="btn btn-outline-primary" aria-label="上一篇" ><p>FastDFS文件服务器+单机+集群+DHT</p></a> <a href="/posts/Maven%E5%85%A5%E9%97%A8/" class="btn btn-outline-primary" aria-label="下一篇" ><p>Maven入门</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://github.com/a18792721831">贾永琪</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。" >保留部分权利。</span></p><p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.6.0" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a></p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast w-auto rounded-5 text-nowrap" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="d-flex align-items-center"><div class="toast-body ps-3">发现新内容</div><button type="button" class="btn btn-primary btn-sm rounded-2 py-0" aria-label="Update" >更新</button> <button type="button" class="btn-close mx-3 ms-2" data-bs-dismiss="toast" aria-label="Close" ></button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">搜索结果为空</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>

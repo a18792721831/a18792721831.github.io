@@ -1,0 +1,229 @@
+<!doctype html><html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="Go 知识for-range" /><meta property="og:locale" content="zh_CN" /><meta name="description" content="本文详细介绍了Go语言中的for-range表达式的用法，涵盖了遍历数组、切片、字符串、map和channel的情况，并揭示了其实现原理。作者强调了for-range作为语法糖的特点，以及在遍历不同数据结构时需要注意的细节和潜在性能影响。" /><meta name="twitter:description" property="og:description" content="本文详细介绍了Go语言中的for-range表达式的用法，涵盖了遍历数组、切片、字符串、map和channel的情况，并揭示了其实现原理。作者强调了for-range作为语法糖的特点，以及在遍历不同数据结构时需要注意的细节和潜在性能影响。" /><link rel="canonical" href="https://a18792721831.github.io/posts/Go-%E7%9F%A5%E8%AF%86for-range/" /><meta property="og:url" content="https://a18792721831.github.io/posts/Go-%E7%9F%A5%E8%AF%86for-range/" /><meta property="og:site_name" content="贾永琪的技术博客" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2024-01-27T18:05:35+08:00" /><meta property="article:modified_time" content="2026-09-22T17:59:12+08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="Go 知识for-range" /><meta name="twitter:site" content="@" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-22T17:59:12+08:00","datePublished":"2024-01-27T18:05:35+08:00","description":"本文详细介绍了Go语言中的for-range表达式的用法，涵盖了遍历数组、切片、字符串、map和channel的情况，并揭示了其实现原理。作者强调了for-range作为语法糖的特点，以及在遍历不同数据结构时需要注意的细节和潜在性能影响。","headline":"Go 知识for-range","mainEntityOfPage":{"@type":"WebPage","@id":"https://a18792721831.github.io/posts/Go-%E7%9F%A5%E8%AF%86for-range/"},"url":"https://a18792721831.github.io/posts/Go-%E7%9F%A5%E8%AF%86for-range/"}</script><title>Go 知识for-range | 贾永琪的技术博客</title><link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3/dist/js/glightbox.min.js,npm/clipboard@2/dist/clipboard.min.js,npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/zh.js,npm/dayjs@1/plugin/relativeTime.js,npm/dayjs@1/plugin/localizedFormat.js,npm/tocbot@4/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://github.com/a18792721831.png" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">贾永琪的技术博客</a><p class="site-subtitle fst-italic mb-0">记录点点滴滴</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>首页</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>分类</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>标签</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>归档</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>关于</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"><div class="btn-group dropup"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle" data-bs-toggle="dropdown" ><i class="fa-regular fa-sun" data-theme-mode="light"></i><i class="fa-regular fa-moon" data-theme-mode="dark"></i><i class="fa-solid fa-display" data-theme-mode="system"></i></button><ul class="dropdown-menu rounded-3 mb-1 p-1"><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="light"><i class="fa-regular fa-sun" data-theme-mode="light"></i>浅色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="dark"><i class="fa-regular fa-moon" data-theme-mode="dark"></i>深色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="system"><i class="fa-solid fa-display" data-theme-mode="system"></i>跟随系统</button></ul></div><span class="icon-border"></span> <a href="https://github.com/a18792721831" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="javascript:void(location.href = 'mailto:' + ['735809899','qq.com'].join('@'))" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">首页</a> </span> <span>Go 知识for-range</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> 文章</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="搜索..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>Go 知识for-range</h1><p class="post-desc fw-light mb-4">本文详细介绍了Go语言中的for-range表达式的用法，涵盖了遍历数组、切片、字符串、map和channel的情况，并揭示了其实现原理。作者强调了for-range作为语法糖的特点，以及在遍历不同数据结构时需要注意的细节和潜在性能影响。</p><div class="post-meta text-muted"> <span> 发表于 <time data-ts="1706349935" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2024/01/27 </time> </span> <span> 更新于 <time data-ts="1790071152" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2026/09/22 </time> </span><div class="d-flex justify-content-between"> <span> 作者 <em> <a href="https://github.com/a18792721831">贾永琪</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="1369 字" > <em>7 分钟</em>阅读</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Go 知识for-range</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">文章内容</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Go 知识for-range</div><button id="toc-popup-close" type="button" class="btn-close btn-sm mx-3" aria-label="Close"></button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p><strong>文章信息</strong></p><ul><li>原文链接：https://jiayq.blog.csdn.net/article/details/135886263<li>发布时间：2024-01-27 18:05:35<li>阅读量：2<li>分类：Golang专栏收录该内容, 订阅专栏<li>标签：#golang, #go, #遍历, #for-range, #数据遍历</ul></blockquote><h2 id="摘要"><span class="me-2">摘要</span><a href="#摘要" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>文章浏览阅读2.8k次，点赞22次，收藏27次。本文详细介绍了Go语言中的for-range表达式的用法，涵盖了遍历数组、切片、字符串、map和channel的情况，并揭示了其实现原理。作者强调了for-range作为语法糖的特点，以及在遍历不同数据结构时需要注意的细节和潜在性能影响。</p><hr /><h4 id="go-知识for-range"><span class="me-2">Go 知识for-range</span><a href="#go-知识for-range" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><ul><li>1. for-range 的用法<li><ul><li>1.1 数组<ul><li>1.2 切片<li>1.3 字符串<li>1.4 map<li>1.5 chan</ul></ul><li>2. 原理<li><ul><li>2.1 数组<ul><li>2.2 切片<li>2.3 字符串<li>2.4 map<li>2.5 chan</ul></ul><li>3. 总结</ul><p>https://a18792721831.github.io/</p><h2 id="1-for-range-的用法"><span class="me-2">1. for-range 的用法</span><a href="#1-for-range-的用法" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>for-range 表达式用于遍历集合元素，比传统的for更加简单直观。<br /> for-range 的表达式一般格式：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>    for index, value := range data {
+        //....
+    }
+</pre></table></code></div></div><p>for-range 一般可以返回两个值，对于不同类型的data有不同的返回值。<br /> 对于数组，返回下标和值。<br /> 对于切片，返回下标和值。<br /> 对于string,返回下标和值。<br /> 对于map，返回key和value。<br /> 对于chan,返回值,只会返回一个元素。</p><h3 id="11-数组"><span class="me-2">1.1 数组</span><a href="#11-数组" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre>	arr := [5]int{1, 2, 3, 4, 5}
+	for i := range arr {
+		fmt.Println(arr[i])
+	}
+	fmt.Println()
+	for i, v := range arr {
+		fmt.Printf("i=%d,v=%d\n", i, v)
+	}
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ee97476b0a78616e0567406c8ae73da2.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ee97476b0a78616e0567406c8ae73da2.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="12-切片"><span class="me-2">1.2 切片</span><a href="#12-切片" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>	arr := []int{1, 2, 3, 4, 5}
+	for i := range arr {
+		fmt.Println(arr[i])
+	}
+	fmt.Println()
+	arr = append(arr, 6, 7, 8, 9)
+	for i, v := range arr {
+		fmt.Printf("i=%d,v=%d\n", i, v)
+	}
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/315ad3796f23c6112b7367dc150148ab.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/315ad3796f23c6112b7367dc150148ab.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="13-字符串"><span class="me-2">1.3 字符串</span><a href="#13-字符串" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre>	str := "hello world"
+	for i := range str {
+		fmt.Println(str[i])
+	}
+	fmt.Println()
+	for i, v := range str {
+		fmt.Printf("i=%d,v=%c\n", i, v)
+	}
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c8e624b255e93794d5d01f69e5681f1.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0c8e624b255e93794d5d01f69e5681f1.png" alt="在这里插入图片描述" loading="lazy"></a></p><p>需要注意的是，对于中英文，因为编码的方式不同，每个字符的占用空间不同，就会出现下标不连续的问题。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre>	str := "你好,世界"
+	for i := range str {
+		fmt.Println(str[i])
+	}
+	fmt.Println()
+	for i, v := range str {
+		fmt.Printf("i=%d,v=%c\n", i, v)
+	}
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/83a934bfdd378c71a3143c6f604ba621.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/83a934bfdd378c71a3143c6f604ba621.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="14-map"><span class="me-2">1.4 map</span><a href="#14-map" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre>	str := map[string]int{
+		"one":   1,
+		"two":   2,
+		"three": 3,
+		"four":  4,
+		"five":  5,
+	}
+	for i := range str {
+		fmt.Println(str[i])
+	}
+	fmt.Println()
+	for k, v := range str {
+		fmt.Printf("i=%s,v=%d\n", k, v)
+	}
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/26e1e3cbeddcfdeb60c5a8461994280d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/26e1e3cbeddcfdeb60c5a8461994280d.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="15-chan"><span class="me-2">1.5 chan</span><a href="#15-chan" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>	ch := make(chan string, 10)
+	ch &lt;- "h"
+	ch &lt;- "e"
+	ch &lt;- "l"
+	ch &lt;- "l"
+	ch &lt;- "o"
+	for i := range ch {
+		fmt.Println(i)
+	}
+	//fmt.Println()
+	//for k, v := range ch {
+	//	fmt.Printf("i=%s,v=%d\n", k, v)
+	//}
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9cf66a44272cd07e9a0eefac0c873c25.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9cf66a44272cd07e9a0eefac0c873c25.png" alt="在这里插入图片描述" loading="lazy"></a></p><p>因为chan里面没有数据了，所以就阻塞了，并不会自动结束哦。<br /> 当你视图用两个变量接收返回值的时候，就会编译失败<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d503ca93335ac501fd5a7132a390b2e.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1d503ca93335ac501fd5a7132a390b2e.png" alt="在这里插入图片描述" loading="lazy"></a></p><h2 id="2-原理"><span class="me-2">2. 原理</span><a href="#2-原理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>for-range是在编译的时候，转换为传统的for语句。<br /> 需要注意，下面都是伪代码，使用常见的语法规则进行描述。</p><blockquote><p>因为在for-range中使用了 := 短定义并赋值的方式，所以使用for-range的时候，第二个值会进行变量拷贝，对于大数据的for-range，可能会导致性能变差。</p></blockquote><h3 id="21-数组"><span class="me-2">2.1 数组</span><a href="#21-数组" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>    len_temp := len(arr)
+    data := arr
+    for index_temp = 0; index_temp &lt; len_temp; index_temp++ {
+        value_temp = data[index_temp]
+        index = index_temp
+        value = value_temp
+        // 执行 for-range 里面的代码
+        // .....
+    }
+</pre></table></code></div></div><p>需要注意的一个，在数组中，len和cap是两个值，如果len=5,cap=10，在遍历过程中，对于第6个元素进行赋值，那么是无法遍历到的。因为在遍历开始的时候，就已经使用len获取到了遍历范围了。</p><h3 id="22-切片"><span class="me-2">2.2 切片</span><a href="#22-切片" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>    len_temp := len(sli)
+    data := sli
+    for index_temp = 0; index_temp &lt; len_temp; index_temp++ {
+        value_temp = data[index_temp]
+        index = index_temp
+        value = value_temp
+        // 执行 for-range 里面的代码
+        // .....
+    }
+</pre></table></code></div></div><p>切片与数组基本上相同。</p><h3 id="23-字符串"><span class="me-2">2.3 字符串</span><a href="#23-字符串" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre>    len_temp := len(str)
+    var next_index_temp int
+    for index_temp = 0; index_temp &lt; len_temp; index_temp = nex_index_temp {
+        value_temp = rune(str[index_temp])
+        if value_temp &lt; utf8.RuneSize {
+            next_index_temp = index_temp + 1
+        } else {
+            value_temp, next_index_temp = decoderune(str, index_temp)
+        }
+        index = index_temp
+        value = value_temp
+        // 执行 for-range 里面的代码
+        // .....
+    }
+</pre></table></code></div></div><p>因为不同的字符集，占用的长度不同，所以这里会对是否是utf8字符集字符进行判断，并进行不同的处理。<br /> 比如：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f3a4c3b16695ad9bfc8caede69dc3a43.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f3a4c3b16695ad9bfc8caede69dc3a43.png" alt="在这里插入图片描述" loading="lazy"></a></p><h3 id="24-map"><span class="me-2">2.4 map</span><a href="#24-map" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre>    var temp *map
+    init_map(type, data, &amp;temp)
+    for ; temp != nil; temp = iter_next() {
+        index_temp = *temp.key
+        value_temp = *temp.value
+        index = index_temp
+        value = value_temp
+        // 执行 for-range 里面的代码
+        // .....
+    } 
+</pre></table></code></div></div><p>map的遍历是无序的，同时不会指定次数，但是同样需要避免在遍历过程中，操作map。</p><h3 id="25-chan"><span class="me-2">2.5 chan</span><a href="#25-chan" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>    for {
+        index_temp, ok = &lt;- ch
+        if !ok {
+            break
+        }
+        index = index_temp
+        // 执行 for-range 里面的代码
+        // .....
+    }
+</pre></table></code></div></div><p>可以看到遍历chan，最终依然是使用操作符<code class="language-plaintext highlighter-rouge">&lt;-</code>读取数据的，但是会对第二个值进行判断，所以可以保证for-range返回的值都是成功读取的值，当没有数据读取的时候，依然会因为操作符<code class="language-plaintext highlighter-rouge">&lt;-</code>阻塞。</p><h2 id="3-总结"><span class="me-2">3. 总结</span><a href="#3-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>总的来说，for-range和java里面的for-each是类似的，原理都可以理解为语法糖，在编译的时候再进行替换。</p></div><div class="post-tail-wrapper text-muted"><div class="d-flex justify-content-between align-items-center gap-3 mb-3"><div class="post-meta"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/golang/">golang</a>, <a href="/categories/go/">go</a>, <a href="/categories/%E9%81%8D%E5%8E%86/">遍历</a>, <a href="/categories/for-range/">for-range</a>, <a href="/categories/%E6%95%B0%E6%8D%AE%E9%81%8D%E5%8E%86/">数据遍历</a></div></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> 本文由作者按照 <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> 进行授权</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">分享</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Go%20%E7%9F%A5%E8%AF%86for-range%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FGo-%25E7%259F%25A5%25E8%25AF%2586for-range%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Go%20%E7%9F%A5%E8%AF%86for-range%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&u=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FGo-%25E7%259F%25A5%25E8%25AF%2586for-range%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FGo-%25E7%259F%25A5%25E8%25AF%2586for-range%2F&text=Go%20%E7%9F%A5%E8%AF%86for-range%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="分享链接" data-title-succeed="链接已复制！" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">最近更新</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E7%89%A9%E7%90%86%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（四）数据文件物理迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%89-mydumper-myloader-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（三）mydumper/myloader 多线程迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%BA%8C-%E5%8E%9F%E7%94%9F-mysqldump-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（二）原生 mysqldump 导出导入实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%AF%84-%E4%B8%89%E5%A4%A7%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88/">MySQL 数据迁移（一）为什么迁、怎么迁、怎么评——三大方案总览</a><li class="text-truncate lh-lg"> <a href="/posts/%E6%95%99%E7%A8%8B-%E7%BB%99AI%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E8%A3%85%E4%B8%8A%E4%BB%A3%E7%A0%81%E7%9C%BC%E7%9D%9B-serena%E4%B8%8Ecodebase-memory%E5%8F%8C%E5%BC%95%E6%93%8E%E5%AE%9E%E8%B7%B5/">【教程】给AI编程助手装上代码眼睛:serena 与 codebase-memory 双引擎实践</a></ul></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">文章内容</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">相关文章</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/posts/Go-%E7%9F%A5%E8%AF%86map/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1709956036" data-df="YYYY/MM/DD" > 2024/03/09 </time><h4 class="pt-0 my-2">Go-知识map</h4><div class="text-muted"><p>Go 语言中map的底层使用Hash表实现，并发不安全。_go map[string]</p></div></div></a></article><article class="col"> <a href="/posts/Go-%E7%9F%A5%E8%AF%86string/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1709628476" data-df="YYYY/MM/DD" > 2024/03/05 </time><h4 class="pt-0 my-2">Go-知识string</h4><div class="text-muted"><p>在Go语言的设计中， string 通常指的是字符串的字面量，而且字符串一般情况下存储的位置也是只读，而不是堆或者栈(这里可能一定程度上借鉴了汇编之类的语言)。所以设计为string不可修改。当string不可修改后，带来的好处是string变得非常轻量，而且可以放心的在go-routine中进行传递，不用考虑并发冲突和内存拷贝。_go string 双引号转单引号</p></div></div></a></article><article class="col"> <a href="/posts/Go-%E7%9F%A5%E8%AF%86struct/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1709442731" data-df="YYYY/MM/DD" > 2024/03/03 </time><h4 class="pt-0 my-2">Go-知识struct</h4><div class="text-muted"><p>Go 语言的struct与Java中的class类似，可以定义字段和方法，但是不能继承。a int需要注意的是，在Go里面，访问权限是通过name的大小写指定的，小写表示包内可见，如果是大写则表示包外可见。同样的，如果创建的struct想让包外可见，那么必须是大写开头。id int在Go里面一般不会区分函数和方法，或者更好理解的话，可以认为方法是受限的函数，限制了函数调用者，那么就是方法。同样的，上述方法包内可见。上述方法虽然包外可见，但是没有意义，因为tes。_go struct</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/Go-%E7%9F%A5%E8%AF%86chan/" class="btn btn-outline-primary" aria-label="上一篇" ><p>Go 知识chan</p></a> <a href="/posts/%E4%BD%BF%E7%94%A8AnimeGAN2%E5%B0%86%E7%85%A7%E7%89%87%E5%8A%A8%E6%BC%AB%E5%8C%96-%E5%85%A5%E9%97%A8/" class="btn btn-outline-primary" aria-label="下一篇" ><p>使用AnimeGAN2将照片动漫化--入门</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://github.com/a18792721831">贾永琪</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。" >保留部分权利。</span></p><p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.6.0" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a></p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast w-auto rounded-5 text-nowrap" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="d-flex align-items-center"><div class="toast-body ps-3">发现新内容</div><button type="button" class="btn btn-primary btn-sm rounded-2 py-0" aria-label="Update" >更新</button> <button type="button" class="btn-close mx-3 ms-2" data-bs-dismiss="toast" aria-label="Close" ></button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">搜索结果为空</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>

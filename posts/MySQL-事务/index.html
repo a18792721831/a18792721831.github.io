@@ -1,0 +1,301 @@
+<!doctype html><html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="MySQL 事务" /><meta property="og:locale" content="zh_CN" /><meta name="description" content="MySQL 事务 MySQL主从复制：https://blog.csdn.net/a18792721831/article/details/146117935 MySQL Binlog：https://blog.csdn.net/a18792721831/article/details/146606305 MySQL General Log：https://blog.csdn.net/a18792" /><meta name="twitter:description" property="og:description" content="MySQL 事务 MySQL主从复制：https://blog.csdn.net/a18792721831/article/details/146117935 MySQL Binlog：https://blog.csdn.net/a18792721831/article/details/146606305 MySQL General Log：https://blog.csdn.net/a18792" /><link rel="canonical" href="https://a18792721831.github.io/posts/MySQL-%E4%BA%8B%E5%8A%A1/" /><meta property="og:url" content="https://a18792721831.github.io/posts/MySQL-%E4%BA%8B%E5%8A%A1/" /><meta property="og:site_name" content="贾永琪的技术博客" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2025-12-31T16:58:40+08:00" /><meta property="article:modified_time" content="2025-12-31T16:58:40+08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="MySQL 事务" /><meta name="twitter:site" content="@" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-12-31T16:58:40+08:00","datePublished":"2025-12-31T16:58:40+08:00","description":"MySQL 事务 MySQL主从复制：https://blog.csdn.net/a18792721831/article/details/146117935 MySQL Binlog：https://blog.csdn.net/a18792721831/article/details/146606305 MySQL General Log：https://blog.csdn.net/a18792","headline":"MySQL 事务","mainEntityOfPage":{"@type":"WebPage","@id":"https://a18792721831.github.io/posts/MySQL-%E4%BA%8B%E5%8A%A1/"},"url":"https://a18792721831.github.io/posts/MySQL-%E4%BA%8B%E5%8A%A1/"}</script><title>MySQL 事务 | 贾永琪的技术博客</title><link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3/dist/js/glightbox.min.js,npm/clipboard@2/dist/clipboard.min.js,npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/zh.js,npm/dayjs@1/plugin/relativeTime.js,npm/dayjs@1/plugin/localizedFormat.js,npm/tocbot@4/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://github.com/a18792721831.png" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">贾永琪的技术博客</a><p class="site-subtitle fst-italic mb-0">记录点点滴滴</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>首页</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>分类</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>标签</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>归档</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>关于</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"><div class="btn-group dropup"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle" data-bs-toggle="dropdown" ><i class="fa-regular fa-sun" data-theme-mode="light"></i><i class="fa-regular fa-moon" data-theme-mode="dark"></i><i class="fa-solid fa-display" data-theme-mode="system"></i></button><ul class="dropdown-menu rounded-3 mb-1 p-1"><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="light"><i class="fa-regular fa-sun" data-theme-mode="light"></i>浅色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="dark"><i class="fa-regular fa-moon" data-theme-mode="dark"></i>深色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="system"><i class="fa-solid fa-display" data-theme-mode="system"></i>跟随系统</button></ul></div><span class="icon-border"></span> <a href="https://github.com/a18792721831" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="javascript:void(location.href = 'mailto:' + ['735809899','qq.com'].join('@'))" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">首页</a> </span> <span>MySQL 事务</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> 文章</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="搜索..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>MySQL 事务</h1><p class="post-desc fw-light mb-4">MySQL 事务 MySQL主从复制：https://blog.csdn.net/a18792721831/article/details/146117935 MySQL Binlog：https://blog.csdn.net/a18792721831/article/details/146606305 MySQL General Log：https://blog.csdn.net/a18792</p><div class="post-meta text-muted"> <span> 发表于 <time data-ts="1767171520" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2025/12/31 </time> </span><div class="d-flex justify-content-between"> <span> 作者 <em> <a href="https://github.com/a18792721831">贾永琪</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="4578 字" > <em>25 分钟</em>阅读</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">MySQL 事务</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">文章内容</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">MySQL 事务</div><button id="toc-popup-close" type="button" class="btn-close btn-sm mx-3" aria-label="Close"></button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p><strong>文章信息</strong></p><ul><li>原文链接：https://jiayq.blog.csdn.net/article/details/156461289<li>发布时间：2025-12-31 16:58:40<li>标签：#mysql, #技术分享, #oracle, ##可见性判断算法, ##ACID</ul></blockquote><hr /><h2 id="mysql-事务"><span class="me-2">MySQL 事务</span><a href="#mysql-事务" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>MySQL主从复制：https://blog.csdn.net/a18792721831/article/details/146117935<br /> MySQL Binlog：https://blog.csdn.net/a18792721831/article/details/146606305<br /> MySQL General Log：https://blog.csdn.net/a18792721831/article/details/146607343<br /> MySQL Slow Log：https://blog.csdn.net/a18792721831/article/details/147166971<br /> MySQL Error Log：https://blog.csdn.net/a18792721831/article/details/147167038<br /> MySQL Redo Log: https://blog.csdn.net/a18792721831/article/details/149862528<br /> MySQL Undo Log: https://blog.csdn.net/a18792721831/article/details/149880355<br /> MySQL 索引算法: https://blog.csdn.net/a18792721831/article/details/149883014<br /> MySQL 索引类型: https://blog.csdn.net/a18792721831/article/details/150275404<br /> MySQL 索引优化: https://blog.csdn.net/a18792721831/article/details/150282163<br /> MySQL 锁: https://blog.csdn.net/a18792721831/article/details/154197322</p><h5 id="mysql-事务-1"><span class="me-2">MySQL 事务</span><a href="#mysql-事务-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><ul><li>事务的特性<li>事务的实现<ul><li>原子性的实现<li>一致性的实现<li>隔离性的实现<li>持久性的实现</ul><li>MVCC 实现<ul><li>什么是 MVCC<li>隐藏字段<li>版本链<li>ReadView<li>可见性判断</ul><li>普通读和当前读<ul><li>普通读<li>当前读</ul><li>隔离级别<ul><li>读未提交<li>读已提交<li>可重复读<li>串行化</ul><li>总结</ul><p>事务(Transaction) 是数据库操作的最小工作单元，也是一组操作的集合。事务是一个逻辑概念，事务中的操作要么全部成功，要么全部失败。事务即是区分文件系统和数据库的重要特征之一，也是一个关系型数据库的灵魂所在。</p><h3 id="事务的特性"><span class="me-2">事务的特性</span><a href="#事务的特性" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>事务一般具有(ACID)特性：</p><ul><li><strong>A(Atomicity)</strong> ：原子性，一个事务要么全部成功，要么全部失败。<li><strong>C(Consistency)</strong> ：一致性，事务的执行不能破坏数据库的完整性和一致性，事务执行前后的数据库必须处于一致的状态。<li><strong>I(Isolation)</strong> ：隔离性，隔离性一般指的是在并发环境下，多个事务之间相互隔离，一个事务的执行不能被其他事务破坏或干扰。<li><strong>D(Durability)</strong> ：持久性，事务一旦提交，那么对数据库中的数据的改变就是永久性的，即使发生断点等宕机事故也能恢复数据。</ul><h3 id="事务的实现"><span class="me-2">事务的实现</span><a href="#事务的实现" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>MySQL InnoDB中的事务完全符合 ACID 的特性。</p><p>InnoDB中的事务实现需要3个工具，日志文件、锁、MVCC。</p><ul><li>日志文件：包含 Redo Log 和 Undo Log，记录了数据修改前后的日志。<li>锁：锁在事务中主要用来实现隔离和并发。<li>MVCC：中文全称为多版本并发控制，主要通过行数据中两个隐藏的字段（事务ID和回滚指针）来实现。</ul><h4 id="原子性的实现"><span class="me-2">原子性的实现</span><a href="#原子性的实现" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>原子性是指事务中的所有操作要么全部成功，要么全部失败回滚。</p><p>InnoDB通过 <strong>Undo Log</strong> 来实现原子性。当事务对数据进行修改时，InnoDB会生成对应的 Undo Log。如果事务执行失败或者调用了 <code class="language-plaintext highlighter-rouge">ROLLBACK</code>，就可以利用 Undo Log 中的信息将数据回滚到修改之前的状态。</p><p>Undo Log 记录了数据修改前的值，回滚时按照 Undo Log 的记录进行逆向操作：</p><ul><li>对于 INSERT 操作，Undo Log 记录主键信息，回滚时执行 DELETE<li>对于 DELETE 操作，Undo Log 记录整行数据，回滚时执行 INSERT<li>对于 UPDATE 操作，Undo Log 记录修改前的值，回滚时执行反向 UPDATE</ul><p>举个例子，创建一个账户表：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">test_tx</span><span class="p">;</span>
+<span class="n">USE</span> <span class="n">test_tx</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">account</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">account</span> <span class="p">(</span>
+    <span class="n">id</span> <span class="nb">INT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">name</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">balance</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="mi">0</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">account</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">balance</span><span class="p">)</span> <span class="k">VALUES</span><span class="p">(</span><span class="s1">'张三'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="p">(</span><span class="s1">'李四'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+
+</pre></table></code></div></div><p>执行一个转账事务，然后回滚：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="n">USE</span> <span class="n">test_tx</span><span class="p">;</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'张三'</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'李四'</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span><span class="p">;</span>
+<span class="c1">-- 此时张三余额500，李四余额1500</span>
+<span class="k">ROLLBACK</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span><span class="p">;</span>
+<span class="c1">-- 回滚后张三余额1000，李四余额1000</span>
+
+</pre></table></code></div></div><p>执行结果：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre>-- 事务中查询
+id	name	balance
+1	张三	500
+2	李四	1500
+
+-- 回滚后查询
+id	name	balance
+1	张三	1000
+2	李四	1000
+
+</pre></table></code></div></div><p>可以看到，回滚后数据恢复到了事务开始前的状态。这就是 Undo Log 保证原子性的体现。</p><p>Undo Log 的回滚流程：</p><ol><li>事务开始时，记录当前事务ID<li>每次修改数据前，先将原数据写入 Undo Log<li>如果事务失败或执行 ROLLBACK，根据 Undo Log 逆向恢复数据<li>如果事务提交，Undo Log 不会立即删除（因为可能被 MVCC 使用）</ol><h4 id="一致性的实现"><span class="me-2">一致性的实现</span><a href="#一致性的实现" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>一致性是事务的最终目标，是指事务执行前后，数据库从一个一致性状态转换到另一个一致性状态。</p><p>说白了，一致性是一个综合性的保障，它依赖于原子性、隔离性和持久性的共同作用：</p><ul><li><strong>原子性</strong> 保证事务要么全部成功，要么全部失败，不会出现部分执行的情况<li><strong>隔离性</strong> 保证并发事务之间互不干扰，避免数据异常<li><strong>持久性</strong> 保证已提交的事务数据不会丢失</ul><p>除了 AID 的保障，一致性还依赖于：</p><ol><li><strong>数据库约束</strong> ：主键约束、外键约束、唯一约束、非空约束、CHECK约束等<li><strong>触发器</strong> ：在数据变更时自动执行业务规则检查<li><strong>应用层逻辑</strong> ：业务代码保证数据的业务一致性</ol><p>举个例子，银行转账场景：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="c1">-- 张三转账500给李四</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'张三'</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'李四'</span><span class="p">;</span>
+<span class="k">COMMIT</span><span class="p">;</span>
+
+</pre></table></code></div></div><p>一致性要求：转账前后，张三和李四的余额总和不变。</p><ul><li>如果事务执行成功，两条 UPDATE 都执行，总和不变<li>如果事务执行失败，两条 UPDATE 都回滚，总和不变<li>不会出现只执行一条 UPDATE 的情况</ul><h4 id="隔离性的实现"><span class="me-2">隔离性的实现</span><a href="#隔离性的实现" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>隔离性是指在并发环境下，多个事务之间相互隔离，一个事务的执行不能被其他事务干扰。</p><p>InnoDB通过 <strong>锁</strong> 和 <strong>MVCC</strong> 两种机制来实现隔离性：</p><ul><li><strong>锁机制</strong> ：通过共享锁(S锁)、排它锁(X锁)、意向锁、间隙锁、临键锁等实现写-写冲突的隔离<li><strong>MVCC机制</strong> ：通过多版本并发控制实现读-写不冲突，提高并发性能</ul><p>锁机制在之前的文章中已经详细介绍过，这里重点讲 MVCC。</p><p>不同的隔离级别，隔离性的实现方式不同：</p><div class="table-wrapper"><table><thead><tr><th>隔离级别<th>实现方式<tbody><tr><td>读未提交(READ UNCOMMITTED)<td>不加锁，直接读取最新数据<tr><td>读已提交(READ COMMITTED)<td>MVCC，每次读取生成新的 ReadView<tr><td>可重复读(REPEATABLE READ)<td>MVCC，事务开始时生成 ReadView，整个事务复用<tr><td>串行化(SERIALIZABLE)<td>加锁，读加共享锁，写加排它锁</table></div><h4 id="持久性的实现"><span class="me-2">持久性的实现</span><a href="#持久性的实现" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>持久性是指事务一旦提交，对数据库的修改就是永久性的，即使发生宕机等故障也能恢复。</p><p>InnoDB通过 <strong>Redo Log</strong> 来实现持久性。</p><p>MySQL采用 WAL(Write-Ahead Logging) 技术，先写日志再写磁盘：</p><ol><li>事务修改数据时，先将修改记录写入 Redo Log Buffer<li>事务提交时，将 Redo Log Buffer 刷新到磁盘的 Redo Log 文件<li>后台线程异步将脏页刷新到数据文件</ol><p>这样即使在数据页刷盘之前发生宕机，也可以通过 Redo Log 恢复数据。</p><p>Redo Log 的落盘策略由 <code class="language-plaintext highlighter-rouge">innodb_flush_log_at_trx_commit</code> 参数控制：</p><ul><li><strong>0</strong> ：每秒刷新一次，可能丢失1秒数据<li><strong>1</strong> ：每次事务提交都刷新，最安全但性能最低<li><strong>2</strong> ：每次提交写入OS缓存，每秒刷新到磁盘</ul><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="k">SHOW</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="s1">'innodb_flush_log_at_trx_commit'</span><span class="p">;</span>
+
+</pre></table></code></div></div><p>生产环境建议设置为1，保证数据不丢失。</p><h3 id="mvcc实现"><span class="me-2">MVCC实现</span><a href="#mvcc实现" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="什么是mvcc"><span class="me-2">什么是MVCC</span><a href="#什么是mvcc" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>MVCC(Multi-Version Concurrency Control)，多版本并发控制，是一种并发控制的方法。</p><p>MVCC的核心思想是：为每一行数据维护多个版本，读操作读取的是数据的快照版本，写操作创建新的版本。这样读写操作就不会相互阻塞，大大提高了并发性能。</p><p>MVCC 主要用于实现 <strong>读已提交(RC)</strong> 和 <strong>可重复读(RR)</strong> 两种隔离级别。</p><h4 id="隐藏字段"><span class="me-2">隐藏字段</span><a href="#隐藏字段" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>InnoDB 在每行数据后面添加了三个隐藏字段：</p><div class="table-wrapper"><table><thead><tr><th>字段名<th>大小<th>说明<tbody><tr><td>DB_TRX_ID<td>6字节<td>最近修改该行的事务ID<tr><td>DB_ROLL_PTR<td>7字节<td>回滚指针，指向 Undo Log 中该行的上一个版本<tr><td>DB_ROW_ID<td>6字节<td>隐藏主键，如果表没有定义主键，则使用该字段</table></div><p>其中 DB_TRX_ID 和 DB_ROLL_PTR 是 MVCC 实现的关键。</p><h4 id="版本链"><span class="me-2">版本链</span><a href="#版本链" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>每次对数据进行修改时，InnoDB 会：</p><ol><li>将修改前的数据写入 Undo Log<li>更新数据行的 DB_TRX_ID 为当前事务ID<li>更新数据行的 DB_ROLL_PTR 指向 Undo Log 中的旧版本</ol><p>这样，通过 DB_ROLL_PTR 就可以找到该行数据的历史版本，形成一条版本链。</p><p>举个例子，假设有一行数据：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>id=1, name='张三', balance=1000
+DB_TRX_ID=100, DB_ROLL_PTR=null
+
+</pre></table></code></div></div><p>事务200修改 balance 为 800：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>当前行：id=1, name='张三', balance=800, DB_TRX_ID=200, DB_ROLL_PTR -&gt; Undo Log
+Undo Log：id=1, name='张三', balance=1000, DB_TRX_ID=100, DB_ROLL_PTR=null
+
+</pre></table></code></div></div><p>事务300修改 balance 为 500：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>当前行：id=1, name='张三', balance=500, DB_TRX_ID=300, DB_ROLL_PTR -&gt; Undo Log(200)
+Undo Log(200)：id=1, name='张三', balance=800, DB_TRX_ID=200, DB_ROLL_PTR -&gt; Undo Log(100)
+Undo Log(100)：id=1, name='张三', balance=1000, DB_TRX_ID=100, DB_ROLL_PTR=null
+
+</pre></table></code></div></div><p>这就形成了一条版本链：500(300) -&gt; 800(200) -&gt; 1000(100)</p><h4 id="readview"><span class="me-2">ReadView</span><a href="#readview" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>ReadView 是 MVCC 实现的核心，用于判断版本链中哪个版本对当前事务可见。</p><p>ReadView 包含以下关键信息：</p><div class="table-wrapper"><table><thead><tr><th>字段<th>说明<tbody><tr><td>m_ids<td>生成 ReadView 时，当前系统中活跃的事务ID列表<tr><td>min_trx_id<td>m_ids 中的最小值<tr><td>max_trx_id<td>生成 ReadView 时，系统应该分配给下一个事务的ID<tr><td>creator_trx_id<td>创建该 ReadView 的事务ID</table></div><p>ReadView 的生成时机：</p><ul><li><strong>读已提交(RC)</strong> ：每次 SELECT 都生成新的 ReadView<li><strong>可重复读(RR)</strong> ：事务第一次 SELECT 时生成 ReadView，后续复用</ul><h4 id="可见性判断"><span class="me-2">可见性判断</span><a href="#可见性判断" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>当事务读取某行数据时，需要判断版本链中哪个版本对当前事务可见。判断规则如下：</p><ol><li><p>如果 <code class="language-plaintext highlighter-rouge">DB_TRX_ID == creator_trx_id</code>，说明是当前事务修改的，<strong>可见</strong></p><li><p>如果 <code class="language-plaintext highlighter-rouge">DB_TRX_ID &lt; min_trx_id</code>，说明该版本在 ReadView 生成前已提交，<strong>可见</strong></p><li><p>如果 <code class="language-plaintext highlighter-rouge">DB_TRX_ID &gt;= max_trx_id</code>，说明该版本在 ReadView 生成后才开始，<strong>不可见</strong></p><li><p>如果 <code class="language-plaintext highlighter-rouge">min_trx_id &lt;= DB_TRX_ID &lt; max_trx_id</code>：</p><ul><li>如果 DB_TRX_ID 在 m_ids 中，说明该事务还未提交，<strong>不可见</strong><li>如果 DB_TRX_ID 不在 m_ids 中，说明该事务已提交，<strong>可见</strong></ul></ol><p>如果当前版本不可见，则通过 DB_ROLL_PTR 找到上一个版本，继续判断，直到找到可见的版本或者版本链结束。</p><p>举个例子：</p><p>假设当前有三个事务：</p><ul><li>事务100：已提交<li>事务200：活跃中<li>事务300：活跃中</ul><p>事务300执行 SELECT，生成 ReadView：</p><ul><li>m_ids = [200, 300]<li>min_trx_id = 200<li>max_trx_id = 301<li>creator_trx_id = 300</ul><p>对于版本链 500(300) -&gt; 800(200) -&gt; 1000(100)：</p><ol><li>版本500，DB_TRX_ID=300，等于 creator_trx_id，<strong>可见</strong> （如果是事务300自己修改的）<li>如果是其他事务读取，DB_TRX_ID=300 在 m_ids 中，<strong>不可见</strong> ，继续找下一个版本<li>版本800，DB_TRX_ID=200 在 m_ids 中，<strong>不可见</strong> ，继续找下一个版本<li>版本1000，DB_TRX_ID=100 &lt; min_trx_id，<strong>可见</strong></ol><p>所以其他事务读取到的是 balance=1000。</p><h3 id="普通读和当前读"><span class="me-2">普通读和当前读</span><a href="#普通读和当前读" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="普通读"><span class="me-2">普通读</span><a href="#普通读" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>普通读也叫<strong>快照读</strong> 或<strong>一致性读</strong> ，是指不加锁的 SELECT 语句。</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+</pre></table></code></div></div><p>普通读通过 MVCC 机制读取数据的快照版本，不会加任何锁，读写不冲突。</p><p>在不同隔离级别下的表现：</p><ul><li><strong>读已提交(RC)</strong> ：每次读取都生成新的 ReadView，可能读到其他事务已提交的修改<li><strong>可重复读(RR)</strong> ：事务内复用同一个 ReadView，保证多次读取结果一致</ul><h4 id="当前读"><span class="me-2">当前读</span><a href="#当前读" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>当前读是指读取数据的最新版本，并且会对读取的数据加锁。</p><p>以下语句都是当前读：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre><span class="c1">-- 共享锁</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">LOCK</span> <span class="k">IN</span> <span class="k">SHARE</span> <span class="k">MODE</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">FOR</span> <span class="k">SHARE</span><span class="p">;</span>  <span class="c1">-- MySQL 8.0</span>
+
+<span class="c1">-- 排它锁</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">FOR</span> <span class="k">UPDATE</span><span class="p">;</span>
+
+<span class="c1">-- DML语句（隐式当前读）</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">account</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">balance</span><span class="p">)</span> <span class="k">VALUES</span><span class="p">(</span><span class="s1">'王五'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+
+</pre></table></code></div></div><p>当前读会读取最新的已提交数据，并根据语句类型加相应的锁：</p><ul><li><code class="language-plaintext highlighter-rouge">LOCK IN SHARE MODE</code> / <code class="language-plaintext highlighter-rouge">FOR SHARE</code>：加共享锁(S锁)<li><code class="language-plaintext highlighter-rouge">FOR UPDATE</code> / DML语句：加排它锁(X锁)</ul><p>当前读和普通读的区别：</p><div class="table-wrapper"><table><thead><tr><th>特性<th>普通读<th>当前读<tbody><tr><td>读取版本<td>快照版本<td>最新版本<tr><td>是否加锁<td>不加锁<td>加锁<tr><td>实现机制<td>MVCC<td>锁机制<tr><td>并发性能<td>高<td>较低</table></div><p>举个例子验证：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre><td class="rouge-code"><pre><span class="c1">-- Session 1</span>
+<span class="n">USE</span> <span class="n">test_tx</span><span class="p">;</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 不提交</span>
+
+<span class="c1">-- Session 2</span>
+<span class="n">USE</span> <span class="n">test_tx</span><span class="p">;</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="c1">-- 普通读，读取快照版本</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 结果：balance = 1000（读取的是修改前的版本）</span>
+
+<span class="c1">-- 当前读，会阻塞等待 Session 1 释放锁</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">FOR</span> <span class="k">UPDATE</span><span class="p">;</span>
+<span class="c1">-- 阻塞中...</span>
+
+</pre></table></code></div></div><h3 id="隔离级别"><span class="me-2">隔离级别</span><a href="#隔离级别" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>MySQL InnoDB 支持四种隔离级别，默认是可重复读(REPEATABLE READ)。</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="c1">-- 查看当前隔离级别</span>
+<span class="k">SHOW</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="s1">'transaction_isolation'</span><span class="p">;</span>
+<span class="c1">-- 或者</span>
+<span class="k">SELECT</span> <span class="o">@@</span><span class="n">transaction_isolation</span><span class="p">;</span>
+
+</pre></table></code></div></div><h4 id="读未提交"><span class="me-2">读未提交</span><a href="#读未提交" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>读未提交(READ UNCOMMITTED) 是最低的隔离级别。</p><p>特点：</p><ul><li>事务可以读取其他事务未提交的数据（脏读）<li>不使用 MVCC，直接读取最新数据<li>并发性能最高，但数据一致性最差</ul><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="c1">-- 设置隔离级别</span>
+<span class="k">SET</span> <span class="k">SESSION</span> <span class="n">TRANSACTION</span> <span class="k">ISOLATION</span> <span class="k">LEVEL</span> <span class="k">READ</span> <span class="k">UNCOMMITTED</span><span class="p">;</span>
+
+</pre></table></code></div></div><p>脏读示例：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre><td class="rouge-code"><pre><span class="c1">-- Session 1</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 不提交</span>
+
+<span class="c1">-- Session 2 (READ UNCOMMITTED)</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 结果：balance = 500（读到了未提交的数据，脏读）</span>
+
+<span class="c1">-- Session 1</span>
+<span class="k">ROLLBACK</span><span class="p">;</span>
+
+<span class="c1">-- Session 2</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 结果：balance = 1000（数据又变回去了）</span>
+
+</pre></table></code></div></div><h4 id="读已提交"><span class="me-2">读已提交</span><a href="#读已提交" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>读已提交(READ COMMITTED) 是大多数数据库的默认隔离级别（但不是MySQL的默认）。</p><p>特点：</p><ul><li>只能读取其他事务已提交的数据，解决了脏读<li>每次 SELECT 都生成新的 ReadView<li>可能出现不可重复读（同一事务内多次读取结果不同）</ul><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="k">SET</span> <span class="k">SESSION</span> <span class="n">TRANSACTION</span> <span class="k">ISOLATION</span> <span class="k">LEVEL</span> <span class="k">READ</span> <span class="k">COMMITTED</span><span class="p">;</span>
+
+</pre></table></code></div></div><p>不可重复读示例：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="c1">-- Session 1</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 结果：balance = 1000</span>
+
+<span class="c1">-- Session 2</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">COMMIT</span><span class="p">;</span>
+
+<span class="c1">-- Session 1</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 结果：balance = 500（同一事务内，两次读取结果不同）</span>
+<span class="k">COMMIT</span><span class="p">;</span>
+
+</pre></table></code></div></div><h4 id="可重复读"><span class="me-2">可重复读</span><a href="#可重复读" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>可重复读(REPEATABLE READ) 是 MySQL InnoDB 的默认隔离级别。</p><p>特点：</p><ul><li>事务内多次读取同一数据结果一致，解决了不可重复读<li>事务开始时生成 ReadView，整个事务复用<li>InnoDB 通过间隙锁解决了幻读问题</ul><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="k">SET</span> <span class="k">SESSION</span> <span class="n">TRANSACTION</span> <span class="k">ISOLATION</span> <span class="k">LEVEL</span> <span class="k">REPEATABLE</span> <span class="k">READ</span><span class="p">;</span>
+
+</pre></table></code></div></div><p>可重复读示例：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="c1">-- Session 1</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 结果：balance = 1000</span>
+
+<span class="c1">-- Session 2</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">COMMIT</span><span class="p">;</span>
+
+<span class="c1">-- Session 1</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 结果：balance = 1000（仍然是1000，可重复读）</span>
+<span class="k">COMMIT</span><span class="p">;</span>
+
+</pre></table></code></div></div><h4 id="串行化"><span class="me-2">串行化</span><a href="#串行化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>串行化(SERIALIZABLE) 是最高的隔离级别。</p><p>特点：</p><ul><li>所有事务串行执行，完全隔离<li>读加共享锁，写加排它锁<li>并发性能最低，但数据一致性最高</ul><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="k">SET</span> <span class="k">SESSION</span> <span class="n">TRANSACTION</span> <span class="k">ISOLATION</span> <span class="k">LEVEL</span> <span class="k">SERIALIZABLE</span><span class="p">;</span>
+
+</pre></table></code></div></div><p>在串行化级别下，普通的 SELECT 也会加共享锁：</p><div class="language-sql highlighter-rouge"><div class="code-header"> <span data-label-text="Sql"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="c1">-- Session 1 (SERIALIZABLE)</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">account</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 自动加共享锁</span>
+
+<span class="c1">-- Session 2</span>
+<span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">account</span> <span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">500</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">-- 阻塞，等待 Session 1 释放锁</span>
+
+</pre></table></code></div></div><p>四种隔离级别对比：</p><div class="table-wrapper"><table><thead><tr><th>隔离级别<th>脏读<th>不可重复读<th>幻读<tbody><tr><td>读未提交<td>可能<td>可能<td>可能<tr><td>读已提交<td>不可能<td>可能<td>可能<tr><td>可重复读<td>不可能<td>不可能<td>InnoDB不可能<tr><td>串行化<td>不可能<td>不可能<td>不可能</table></div><h3 id="总结"><span class="me-2">总结</span><a href="#总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>MySQL InnoDB 的事务实现是一个非常精妙的设计，通过 Redo Log、Undo Log、锁和 MVCC 四大机制协同工作，实现了完整的 ACID 特性。</p><ul><li><strong>原子性</strong> ：通过 Undo Log 实现，事务失败时可以回滚到修改前的状态<li><strong>一致性</strong> ：是事务的最终目标，由 AID 共同保障，加上数据库约束和业务逻辑<li><strong>隔离性</strong> ：通过锁和 MVCC 实现，不同隔离级别有不同的实现策略<li><strong>持久性</strong> ：通过 Redo Log 实现，采用 WAL 技术保证数据不丢失</ul><p>MVCC 是 InnoDB 实现高并发的关键技术，通过版本链和 ReadView 实现了读写不冲突。理解 MVCC 的工作原理，对于理解 MySQL 的并发控制和排查并发问题非常重要。</p><p>在实际开发中，需要根据业务场景选择合适的隔离级别：</p><ul><li>对数据一致性要求不高，追求性能：读已提交<li>大多数场景：可重复读（MySQL默认）<li>对数据一致性要求极高：串行化</ul><p>同时也要注意普通读和当前读的区别，在需要读取最新数据或者需要加锁保护的场景，使用当前读（FOR UPDATE / LOCK IN SHARE MODE）。</p><p>以后还需要继续努力。加油！</p></div><div class="post-tail-wrapper text-muted"><div class="d-flex justify-content-between align-items-center gap-3 mb-3"><div class="post-meta"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/mysql/">mysql</a>, <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a>, <a href="/categories/oracle/">oracle</a>, <a href="/categories/%E5%8F%AF%E8%A7%81%E6%80%A7%E5%88%A4%E6%96%AD%E7%AE%97%E6%B3%95/">可见性判断算法</a>, <a href="/categories/acid/">ACID</a></div></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> 本文由作者按照 <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> 进行授权</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">分享</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=MySQL%20%E4%BA%8B%E5%8A%A1%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FMySQL-%25E4%25BA%258B%25E5%258A%25A1%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=MySQL%20%E4%BA%8B%E5%8A%A1%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&u=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FMySQL-%25E4%25BA%258B%25E5%258A%25A1%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FMySQL-%25E4%25BA%258B%25E5%258A%25A1%2F&text=MySQL%20%E4%BA%8B%E5%8A%A1%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="分享链接" data-title-succeed="链接已复制！" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">最近更新</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E7%89%A9%E7%90%86%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（四）数据文件物理迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%89-mydumper-myloader-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（三）mydumper/myloader 多线程迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%BA%8C-%E5%8E%9F%E7%94%9F-mysqldump-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（二）原生 mysqldump 导出导入实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%AF%84-%E4%B8%89%E5%A4%A7%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88/">MySQL 数据迁移（一）为什么迁、怎么迁、怎么评——三大方案总览</a><li class="text-truncate lh-lg"> <a href="/posts/%E6%95%99%E7%A8%8B-%E7%BB%99AI%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E8%A3%85%E4%B8%8A%E4%BB%A3%E7%A0%81%E7%9C%BC%E7%9D%9B-serena%E4%B8%8Ecodebase-memory%E5%8F%8C%E5%BC%95%E6%93%8E%E5%AE%9E%E8%B7%B5/">【教程】给AI编程助手装上代码眼睛:serena 与 codebase-memory 双引擎实践</a></ul></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">文章内容</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">相关文章</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/posts/MySQL-%E7%A1%AC%E4%BB%B6%E4%BC%98%E5%8C%96%E5%92%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1789633104" data-df="YYYY/MM/DD" > 2026/09/17 </time><h4 class="pt-0 my-2">MySQL 硬件优化和操作系统优化</h4><div class="text-muted"><p>MySQL 硬件优化和操作系统优化 MySQL 体系结构：https://blog.csdn.net/a18792721831/article/details/156569942 MySQL 主从复制：https://blog.csdn.net/a18792721831/article/details/146117935 MySQL Binlog：https://blog.csdn.net/a18</p></div></div></a></article><article class="col"> <a href="/posts/MySQL-%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1777945585" data-df="YYYY/MM/DD" > 2026/05/05 </time><h4 class="pt-0 my-2">MySQL 体系结构</h4><div class="text-muted"><p>MySQL 体系结构 MySQL主从复制：https://blog.csdn.net/a18792721831/article/details/146117935 MySQL Binlog：https://blog.csdn.net/a18792721831/article/details/146606305 MySQL General Log：https://blog.csdn.net/a187</p></div></div></a></article><article class="col"> <a href="/posts/mysql-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1666022400" data-df="YYYY/MM/DD" > 2022/10/18 </time><h4 class="pt-0 my-2">mysql 存储过程详解</h4><div class="text-muted"><p>mysql 存储过程详解</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/AI%E5%8F%91%E5%B1%95%E7%9A%84%E5%A5%BD%E5%BF%AB/" class="btn btn-outline-primary" aria-label="上一篇" ><p>AI发展的好快</p></a> <a href="/posts/MySQL-%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" class="btn btn-outline-primary" aria-label="下一篇" ><p>MySQL 体系结构</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://github.com/a18792721831">贾永琪</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。" >保留部分权利。</span></p><p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.6.0" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a></p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast w-auto rounded-5 text-nowrap" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="d-flex align-items-center"><div class="toast-body ps-3">发现新内容</div><button type="button" class="btn btn-primary btn-sm rounded-2 py-0" aria-label="Update" >更新</button> <button type="button" class="btn-close mx-3 ms-2" data-bs-dismiss="toast" aria-label="Close" ></button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">搜索结果为空</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>

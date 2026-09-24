@@ -1,0 +1,1301 @@
+<!doctype html><html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统" /><meta property="og:locale" content="zh_CN" /><meta name="description" content="【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统 摘要 本文详细介绍如何基于腾讯云 COS 对象存储构建一套跨 AI 终端的记忆共享与异步通信系统。实现本地 IDE 内置 AI（如 CodeBuddy）与云端 AI（如企微 Bot）之间的记忆双向同步、智能融合与异步通信。包含完整的架构设计、核心代码实现、融合策略、信箱协议、定时任务配置和新" /><meta name="twitter:description" property="og:description" content="【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统 摘要 本文详细介绍如何基于腾讯云 COS 对象存储构建一套跨 AI 终端的记忆共享与异步通信系统。实现本地 IDE 内置 AI（如 CodeBuddy）与云端 AI（如企微 Bot）之间的记忆双向同步、智能融合与异步通信。包含完整的架构设计、核心代码实现、融合策略、信箱协议、定时任务配置和新" /><link rel="canonical" href="https://a18792721831.github.io/posts/%E6%95%99%E7%A8%8B-%E6%89%93%E9%80%9A%E6%9C%AC%E5%9C%B0-IDE-AI-%E4%B8%8E%E4%BA%91%E7%AB%AF-AI-%E7%9A%84%E8%AE%B0%E5%BF%86%E5%A3%81%E5%9E%92-%E5%9F%BA%E4%BA%8E-COS-%E7%9A%84%E8%B7%A8-AI-%E7%BB%88%E7%AB%AF%E8%AE%B0%E5%BF%86%E5%85%B1%E4%BA%AB%E4%B8%8E%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F/" /><meta property="og:url" content="https://a18792721831.github.io/posts/%E6%95%99%E7%A8%8B-%E6%89%93%E9%80%9A%E6%9C%AC%E5%9C%B0-IDE-AI-%E4%B8%8E%E4%BA%91%E7%AB%AF-AI-%E7%9A%84%E8%AE%B0%E5%BF%86%E5%A3%81%E5%9E%92-%E5%9F%BA%E4%BA%8E-COS-%E7%9A%84%E8%B7%A8-AI-%E7%BB%88%E7%AB%AF%E8%AE%B0%E5%BF%86%E5%85%B1%E4%BA%AB%E4%B8%8E%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F/" /><meta property="og:site_name" content="贾永琪的技术博客" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2026-09-20T16:54:43+08:00" /><meta property="article:modified_time" content="2026-09-22T18:09:44+08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统" /><meta name="twitter:site" content="@" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-22T18:09:44+08:00","datePublished":"2026-09-20T16:54:43+08:00","description":"【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统 摘要 本文详细介绍如何基于腾讯云 COS 对象存储构建一套跨 AI 终端的记忆共享与异步通信系统。实现本地 IDE 内置 AI（如 CodeBuddy）与云端 AI（如企微 Bot）之间的记忆双向同步、智能融合与异步通信。包含完整的架构设计、核心代码实现、融合策略、信箱协议、定时任务配置和新","headline":"【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统","mainEntityOfPage":{"@type":"WebPage","@id":"https://a18792721831.github.io/posts/%E6%95%99%E7%A8%8B-%E6%89%93%E9%80%9A%E6%9C%AC%E5%9C%B0-IDE-AI-%E4%B8%8E%E4%BA%91%E7%AB%AF-AI-%E7%9A%84%E8%AE%B0%E5%BF%86%E5%A3%81%E5%9E%92-%E5%9F%BA%E4%BA%8E-COS-%E7%9A%84%E8%B7%A8-AI-%E7%BB%88%E7%AB%AF%E8%AE%B0%E5%BF%86%E5%85%B1%E4%BA%AB%E4%B8%8E%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F/"},"url":"https://a18792721831.github.io/posts/%E6%95%99%E7%A8%8B-%E6%89%93%E9%80%9A%E6%9C%AC%E5%9C%B0-IDE-AI-%E4%B8%8E%E4%BA%91%E7%AB%AF-AI-%E7%9A%84%E8%AE%B0%E5%BF%86%E5%A3%81%E5%9E%92-%E5%9F%BA%E4%BA%8E-COS-%E7%9A%84%E8%B7%A8-AI-%E7%BB%88%E7%AB%AF%E8%AE%B0%E5%BF%86%E5%85%B1%E4%BA%AB%E4%B8%8E%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F/"}</script><title>【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统 | 贾永琪的技术博客</title><link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3/dist/js/glightbox.min.js,npm/clipboard@2/dist/clipboard.min.js,npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/zh.js,npm/dayjs@1/plugin/relativeTime.js,npm/dayjs@1/plugin/localizedFormat.js,npm/tocbot@4/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="/assets/js/data/mathjax.js"></script> <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://github.com/a18792721831.png" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">贾永琪的技术博客</a><p class="site-subtitle fst-italic mb-0">记录点点滴滴</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>首页</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>分类</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>标签</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>归档</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>关于</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"><div class="btn-group dropup"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle" data-bs-toggle="dropdown" ><i class="fa-regular fa-sun" data-theme-mode="light"></i><i class="fa-regular fa-moon" data-theme-mode="dark"></i><i class="fa-solid fa-display" data-theme-mode="system"></i></button><ul class="dropdown-menu rounded-3 mb-1 p-1"><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="light"><i class="fa-regular fa-sun" data-theme-mode="light"></i>浅色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="dark"><i class="fa-regular fa-moon" data-theme-mode="dark"></i>深色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="system"><i class="fa-solid fa-display" data-theme-mode="system"></i>跟随系统</button></ul></div><span class="icon-border"></span> <a href="https://github.com/a18792721831" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="javascript:void(location.href = 'mailto:' + ['735809899','qq.com'].join('@'))" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">首页</a> </span> <span>【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> 文章</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="搜索..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统</h1><p class="post-desc fw-light mb-4">【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统 摘要 本文详细介绍如何基于腾讯云 COS 对象存储构建一套跨 AI 终端的记忆共享与异步通信系统。实现本地 IDE 内置 AI（如 CodeBuddy）与云端 AI（如企微 Bot）之间的记忆双向同步、智能融合与异步通信。包含完整的架构设计、核心代码实现、融合策略、信箱协议、定时任务配置和新</p><div class="post-meta text-muted"> <span> 发表于 <time data-ts="1789894483" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2026/09/20 </time> </span> <span> 更新于 <time data-ts="1790071784" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2026/09/22 </time> </span><div class="d-flex justify-content-between"> <span> 作者 <em> <a href="https://github.com/a18792721831">贾永琪</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="7958 字" > <em>44 分钟</em>阅读</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">文章内容</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统</div><button id="toc-popup-close" type="button" class="btn-close btn-sm mx-3" aria-label="Close"></button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p><strong>文章信息</strong></p><ul><li>原文链接：https://jiayq.blog.csdn.net/article/details/158737129<li>发布时间：2026-09-20 16:54:43<li>标签：#ai, #智能体, #agent, ##AGENTS, ##Mem</ul></blockquote><hr /><h2 id="教程打通本地-ide-ai-与云端-ai-的记忆壁垒基于-cos-的跨-ai-终端记忆共享与通信系统"><span class="me-2">【教程】打通本地 IDE AI 与云端 AI 的记忆壁垒：基于 COS 的跨 AI 终端记忆共享与通信系统</span><a href="#教程打通本地-ide-ai-与云端-ai-的记忆壁垒基于-cos-的跨-ai-终端记忆共享与通信系统" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="摘要"><span class="me-2">摘要</span><a href="#摘要" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>本文详细介绍如何基于腾讯云 COS 对象存储构建一套跨 AI 终端的记忆共享与异步通信系统。实现本地 IDE 内置 AI（如 CodeBuddy）与云端 AI（如企微 Bot）之间的记忆双向同步、智能融合与异步通信。包含完整的架构设计、核心代码实现、融合策略、信箱协议、定时任务配置和新终端接入指南。</p><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/mindmap/cross-ai-memory-sharing-system_20260306144622.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/mindmap/cross-ai-memory-sharing-system_20260306144622.png" alt="思维导图" loading="lazy"></a></p><h3 id="1-背景与痛点"><span class="me-2">1. 背景与痛点</span><a href="#1-背景与痛点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="11-问题ai-助手的失忆症"><span class="me-2">1.1 问题：AI 助手的”失忆症”</span><a href="#11-问题ai-助手的失忆症" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>现在的 AI 编程助手越来越多了，CodeBuddy、Cursor、Claude Desktop、Copilot……但有一个问题一直没解决好：<strong>跨终端的记忆割裂</strong> 。</p><p>说白了，你在 IDE 里的 AI 助手帮你写了一天代码，它记住了你的项目结构、技术偏好、最近在做什么。但你换到企微上问另一个 AI 助手（比如 OpenClaw），它啥都不知道——就像两个从没交流过的同事。</p><p>更痛的是：</p><ul><li><strong>同一个人的记忆分散在多个 AI 终端</strong> ，每个 AI 都只了解一部分<li><strong>多个 AI 无法协作</strong> ，IDE 里的 AI 擅长写代码，云端的 AI 擅长搜索和分析，但它们互相不知道对方做了什么<li><strong>每次新会话都要重新建立上下文</strong> ，效率低下</ul><h4 id="12-解决思路"><span class="me-2">1.2 解决思路</span><a href="#12-解决思路" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>把多个 AI 终端的记忆文件统一存储在一个<strong>云端共享存储</strong> 中，通过双向同步实现记忆共享，通过信箱机制实现异步通信。</p><p>打个比方，就像多个同事共用一个 Google Drive，各自往里面写笔记，定期同步，还能互相留言。只不过这里的”同事”是 AI。</p><h4 id="13-最终效果"><span class="me-2">1.3 最终效果</span><a href="#13-最终效果" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>云端AI - OpenClaw</p><p>腾讯云 COS</p><p>本地IDE AI - CodeBuddy</p><p>push</p><p>pull</p><p>push</p><p>pull</p><p>daily-memories/</p><p>.learnings/</p><p>mailbox/</p><p>aimem-xxx<br /> 100+ 文件</p><p>daily-memories/</p><p>.learnings/</p><p>mailbox/</p><p>实现的能力：</p><ul><li><strong>记忆共享</strong> ：任意一端写入的记忆，另一端都能看到<li><strong>智能融合</strong> ：双端同时编辑同一天的记忆文件时，按会话块自动去重合并<li><strong>异步通信</strong> ：两个 AI 可以互发消息（请求、通知、回复）<li><strong>新终端秒接入</strong> ：一段 Python 脚本即可完成接入</ul><h3 id="2-系统架构设计"><span class="me-2">2. 系统架构设计</span><a href="#2-系统架构设计" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="21-记忆分层模型"><span class="me-2">2.1 记忆分层模型</span><a href="#21-记忆分层模型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>首先，不是所有记忆都一样重要。我们设计了一套分层模型：</p><div class="table-wrapper"><table><thead><tr><th>层级<th>文件<th>加载级别<th>更新频率<th>说明<tbody><tr><td>永久记忆<td><code class="language-plaintext highlighter-rouge">MEMORY.md</code><td>L0（必读）<td>每日<td>由定时脚本从每日记忆中提炼<tr><td>临时记忆<td><code class="language-plaintext highlighter-rouge">daily-memories/</code><td>L0（必读）<td>每次对话<td>每日对话的详细记录<tr><td>错误/教训<td><code class="language-plaintext highlighter-rouge">.learnings/</code><td>L0（必读）<td>按需<td>自我改进系统：错误追踪+教训记录<tr><td>用户画像<td><code class="language-plaintext highlighter-rouge">USER.md</code><td>L1（按需）<td>低频<td>用户偏好和习惯<tr><td>AI 行为准则<td><code class="language-plaintext highlighter-rouge">SOUL.md</code><td>L2（跳过）<td>极低频<td>AI 的”灵魂”，定义行为边界<tr><td>全局配置<td><code class="language-plaintext highlighter-rouge">CODEBUDDY.md</code><td>L2（跳过）<td>低频<td>MCP 配置、项目入口等<tr><td>碎片记忆<td><code class="language-plaintext highlighter-rouge">.memories/</code><td>自动注入<td>按需<td>关键信息索引</table></div><h4 id="22-完整目录结构"><span class="me-2">2.2 完整目录结构</span><a href="#22-完整目录结构" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+</pre><td class="rouge-code"><pre>记忆根目录/
+├── MEMORY.md              # 永久记忆（由 consolidator 自动提炼）
+├── USER.md                # 用户画像与偏好
+├── SOUL.md                # AI 行为准则
+├── CODEBUDDY.md           # 全局配置中心
+├── MEMORY_ACCESS_CARD.md  # 新终端接入卡（一段脚本秒接入）
+│
+├── daily-memories/        # 每日对话记忆（高频更新）
+│   ├── 2026-03-05.md      # 今天的记忆
+│   ├── 2026-03-04.md      # 昨天的记忆
+│   └── archive/           # 超过 14 天自动归档
+│
+├── .memories/             # 碎片记忆（由 update_memory 工具管理）
+│   ├── {id}.mdc           # 每条记忆一个文件
+│   └── .memory-global-config.json
+│
+├── .learnings/            # 自我改进系统
+│   ├── ERRORS.md          # 操作错误记录
+│   ├── LEARNINGS.md       # 教训与最佳实践
+│   ├── FEATURE_REQUESTS.md # 功能缺口追踪
+│   └── PROMOTIONS.md      # 晋升历史（重复错误 → 永久规则）
+│
+├── mailbox/               # 跨 AI 信箱通信
+│   ├── PROTOCOL.md        # 通信协议
+│   ├── to-codebuddy/      # CodeBuddy 收件箱
+│   └── to-openclaw/       # OpenClaw 收件箱
+│
+├── scripts/               # 自动化脚本（不同步到 COS）
+│   ├── cos_sync.py        # COS 双向同步主脚本
+│   ├── cos_pull_daemon.sh # 每分钟 pull 守护脚本
+│   └── memory_consolidator.py  # 记忆整合 + learnings 晋升
+│
+└── _bootstrap/            # 引导文件（托管在 COS，新终端下载用）
+    ├── cos_sync.py
+    └── memory_consolidator.py
+
+</pre></table></code></div></div><h4 id="23-同步架构图"><span class="me-2">2.3 同步架构图</span><a href="#23-同步架构图" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>终端 B (Linux) - 企微 Bot</p><p>终端 A (macOS) - IDE AI</p><p>腾讯云 COS<br /> aimem-{bucket-id}<br /> prefix: memory/</p><p>push/pull</p><p>pull</p><p>pull</p><p>push</p><p>对象存储</p><p>launchd 每30min<br /> → sync 双向</p><p>cron 每分钟<br /> → pull 信箱</p><p>cron 每分钟<br /> → pull 拉取</p><p>手动 push<br /> 对话结束后</p><h3 id="3-核心模块实现"><span class="me-2">3. 核心模块实现</span><a href="#3-核心模块实现" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="31-cos-双向同步脚本"><span class="me-2">3.1 COS 双向同步脚本</span><a href="#31-cos-双向同步脚本" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>这是整个系统的核心——<code class="language-plaintext highlighter-rouge">cos_sync.py</code>，支持 push（上传）、pull（下载+融合）、sync（双向）三种模式。</p><h5 id="311-基础配置"><span class="me-2">3.1.1 基础配置</span><a href="#311-基础配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+</pre><td class="rouge-code"><pre><span class="c1">#!/usr/bin/env python3
+</span><span class="sh">"""</span><span class="s">COS 双向同步脚本 — 记忆共享核心</span><span class="sh">"""</span>
+
+<span class="kn">import</span> <span class="n">os</span>
+<span class="kn">import</span> <span class="n">re</span>
+<span class="kn">import</span> <span class="n">hashlib</span>
+<span class="kn">import</span> <span class="n">json</span>
+<span class="kn">import</span> <span class="n">logging</span>
+<span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="n">qcloud_cos</span> <span class="kn">import</span> <span class="n">CosConfig</span><span class="p">,</span> <span class="n">CosS3Client</span>
+
+<span class="c1"># ============== 配置 ==============
+# 建议改为环境变量，避免密钥硬编码
+</span><span class="n">SECRET_ID</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">COS_SECRET_ID</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">your-secret-id</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">COS_SECRET_KEY</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">your-secret-key</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">REGION</span> <span class="o">=</span> <span class="sh">"</span><span class="s">ap-guangzhou</span><span class="sh">"</span>
+<span class="n">BUCKET</span> <span class="o">=</span> <span class="sh">"</span><span class="s">your-bucket-name</span><span class="sh">"</span>
+<span class="n">COS_PREFIX</span> <span class="o">=</span> <span class="sh">"</span><span class="s">codebuddy-memory/</span><span class="sh">"</span>
+
+<span class="c1"># 记忆文件根目录（根据你的 AI 工具调整）
+</span><span class="n">MEMORY_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">expanduser</span><span class="p">(</span>
+    <span class="sh">"</span><span class="s">~/Library/Application Support/CodeBuddyExtension/Data/Public</span><span class="sh">"</span>
+<span class="p">)</span>
+
+<span class="c1"># 同步状态文件（记录上次同步的文件 MD5）
+</span><span class="n">SYNC_STATE_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">MEMORY_BASE</span><span class="p">,</span> <span class="sh">"</span><span class="s">scripts</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">.cos_sync_state.json</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 忽略的文件/目录
+</span><span class="n">IGNORE_PATTERNS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">scripts</span><span class="sh">"</span><span class="p">,</span>       <span class="c1"># 不同步脚本自身
+</span>    <span class="sh">"</span><span class="s">.DS_Store</span><span class="sh">"</span><span class="p">,</span>     <span class="c1"># macOS 系统文件
+</span>    <span class="sh">"</span><span class="s">__pycache__</span><span class="sh">"</span><span class="p">,</span>   <span class="c1"># Python 缓存
+</span>    <span class="sh">"</span><span class="s">auth</span><span class="sh">"</span><span class="p">,</span>          <span class="c1"># 不同步认证信息
+</span><span class="p">}</span>
+
+</pre></table></code></div></div><p><strong>安全提示</strong> ：COS 密钥<strong>强烈建议</strong> 使用环境变量或腾讯云 CAM 临时密钥，不要硬编码在脚本中。这里为了演示简化了写法。</p><h5 id="312-文件收集与增量判断"><span class="me-2">3.1.2 文件收集与增量判断</span><a href="#312-文件收集与增量判断" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+</pre><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">file_md5</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">计算文件 MD5</span><span class="sh">"""</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="p">.</span><span class="nf">md5</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="sh">"</span><span class="s">rb</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nf">iter</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">f</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="mi">8192</span><span class="p">),</span> <span class="sa">b</span><span class="sh">""</span><span class="p">):</span>
+            <span class="n">h</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h</span><span class="p">.</span><span class="nf">hexdigest</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">should_ignore</span><span class="p">(</span><span class="n">rel_path</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">判断文件是否应该忽略同步</span><span class="sh">"""</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="n">rel_path</span><span class="p">).</span><span class="n">parts</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">IGNORE_PATTERNS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="c1"># 忽略隐藏文件，但保留 .memories 和 .learnings
+</span>        <span class="k">if</span> <span class="n">part</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">.</span><span class="sh">"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">part</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="sh">"</span><span class="s">.memories</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">.learnings</span><span class="sh">"</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="bp">False</span>
+
+
+<span class="k">def</span> <span class="nf">collect_local_files</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">收集需要同步的本地文件，返回 {相对路径: {md5, size, mtime}}</span><span class="sh">"""</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="n">MEMORY_BASE</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">base</span><span class="p">.</span><span class="nf">rglob</span><span class="p">(</span><span class="sh">"</span><span class="s">*</span><span class="sh">"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">filepath</span><span class="p">.</span><span class="nf">is_dir</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="n">rel</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">.</span><span class="nf">relative_to</span><span class="p">(</span><span class="n">base</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nf">should_ignore</span><span class="p">(</span><span class="n">rel</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">files</span><span class="p">[</span><span class="n">rel</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">abs_path</span><span class="sh">"</span><span class="p">:</span> <span class="nf">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">),</span>
+            <span class="sh">"</span><span class="s">md5</span><span class="sh">"</span><span class="p">:</span> <span class="nf">file_md5</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">)),</span>
+            <span class="sh">"</span><span class="s">size</span><span class="sh">"</span><span class="p">:</span> <span class="n">filepath</span><span class="p">.</span><span class="nf">stat</span><span class="p">().</span><span class="n">st_size</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">mtime</span><span class="sh">"</span><span class="p">:</span> <span class="n">filepath</span><span class="p">.</span><span class="nf">stat</span><span class="p">().</span><span class="n">st_mtime</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">files</span>
+
+</pre></table></code></div></div><p>关键设计：通过 MD5 判断文件是否变更，只传输有变动的文件，实现<strong>增量同步</strong> 。</p><h5 id="313-push上传到-cos"><span class="me-2">3.1.3 Push（上传到 COS）</span><a href="#313-push上传到-cos" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">push_to_cos</span><span class="p">(</span><span class="n">dry_run</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">上传本地文件到 COS</span><span class="sh">"""</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="nf">get_cos_client</span><span class="p">()</span>
+    <span class="n">local_files</span> <span class="o">=</span> <span class="nf">collect_local_files</span><span class="p">()</span>
+    <span class="n">prev_state</span> <span class="o">=</span> <span class="nf">load_sync_state</span><span class="p">()</span>
+
+    <span class="n">uploaded</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">skipped</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">new_state</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">rel_path</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">local_files</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+        <span class="n">cos_key</span> <span class="o">=</span> <span class="n">COS_PREFIX</span> <span class="o">+</span> <span class="n">rel_path</span>
+        <span class="n">new_state</span><span class="p">[</span><span class="n">rel_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="sh">"</span><span class="s">md5</span><span class="sh">"</span><span class="p">]</span>
+
+        <span class="c1"># 与上次同步状态比较，如果 MD5 一样就跳过
+</span>        <span class="k">if</span> <span class="n">prev_state</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span> <span class="o">==</span> <span class="n">info</span><span class="p">[</span><span class="sh">"</span><span class="s">md5</span><span class="sh">"</span><span class="p">]:</span>
+            <span class="n">skipped</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
+            <span class="n">client</span><span class="p">.</span><span class="nf">upload_file</span><span class="p">(</span>
+                <span class="n">Bucket</span><span class="o">=</span><span class="n">BUCKET</span><span class="p">,</span>
+                <span class="n">Key</span><span class="o">=</span><span class="n">cos_key</span><span class="p">,</span>
+                <span class="n">LocalFilePath</span><span class="o">=</span><span class="n">info</span><span class="p">[</span><span class="sh">"</span><span class="s">abs_path</span><span class="sh">"</span><span class="p">],</span>
+                <span class="n">MAXThread</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="n">EnableMD5</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">uploaded</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="nf">save_sync_state</span><span class="p">(</span><span class="n">new_state</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">PUSH 完成: 上传 </span><span class="si">{</span><span class="n">uploaded</span><span class="si">}</span><span class="s">, 跳过 </span><span class="si">{</span><span class="n">skipped</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+</pre></table></code></div></div><h5 id="314-pull从-cos-下载--融合"><span class="me-2">3.1.4 Pull（从 COS 下载 + 融合）</span><a href="#314-pull从-cos-下载--融合" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>Pull 是最复杂的部分，因为涉及到<strong>冲突处理</strong> 。当本地和远端都修改了同一个文件时，需要智能融合。</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+</pre><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">pull_from_cos</span><span class="p">(</span><span class="n">dry_run</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">从 COS 下载远端记忆到本地（含融合逻辑）</span><span class="sh">"""</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="nf">get_cos_client</span><span class="p">()</span>
+    <span class="n">local_files</span> <span class="o">=</span> <span class="nf">collect_local_files</span><span class="p">()</span>
+    <span class="n">cos_objects</span> <span class="o">=</span> <span class="nf">list_cos_objects</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+    <span class="n">prev_state</span> <span class="o">=</span> <span class="nf">load_sync_state</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">rel_path</span><span class="p">,</span> <span class="n">cos_info</span> <span class="ow">in</span> <span class="n">cos_objects</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nf">should_ignore</span><span class="p">(</span><span class="n">rel_path</span><span class="p">):</span>
+            <span class="k">continue</span>
+
+        <span class="n">local_path</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">MEMORY_BASE</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rel_path</span> <span class="ow">in</span> <span class="n">local_files</span><span class="p">:</span>
+            <span class="n">local_info</span> <span class="o">=</span> <span class="n">local_files</span><span class="p">[</span><span class="n">rel_path</span><span class="p">]</span>
+            <span class="c1"># 判断本地和远端是否都有修改
+</span>            <span class="n">local_changed</span> <span class="o">=</span> <span class="p">(</span><span class="n">local_info</span><span class="p">[</span><span class="sh">"</span><span class="s">md5</span><span class="sh">"</span><span class="p">]</span> <span class="o">!=</span> <span class="n">prev_state</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">rel_path</span><span class="p">))</span>
+            <span class="n">remote_changed</span> <span class="o">=</span> <span class="p">(</span><span class="n">cos_info</span><span class="p">[</span><span class="sh">"</span><span class="s">etag</span><span class="sh">"</span><span class="p">]</span> <span class="o">!=</span> <span class="n">prev_state</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">rel_path</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">remote_changed</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># 远端没变，跳过
+</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">local_changed</span><span class="p">:</span>
+                <span class="c1"># 本地没变，远端变了 → 直接覆盖
+</span>                <span class="nf">download_cos_file_to_path</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">cos_info</span><span class="p">[</span><span class="sh">"</span><span class="s">key</span><span class="sh">"</span><span class="p">],</span> <span class="n">local_path</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># 双端都变了 → 需要融合
+</span>            <span class="n">strategy</span> <span class="o">=</span> <span class="nf">get_merge_strategy</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span>
+            <span class="n">remote_content</span> <span class="o">=</span> <span class="nf">download_cos_file</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">cos_info</span><span class="p">[</span><span class="sh">"</span><span class="s">key</span><span class="sh">"</span><span class="p">]).</span><span class="nf">decode</span><span class="p">(</span><span class="sh">"</span><span class="s">utf-8</span><span class="sh">"</span><span class="p">)</span>
+            <span class="n">local_content</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="n">local_path</span><span class="p">).</span><span class="nf">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="sh">"</span><span class="s">utf-8</span><span class="sh">"</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="sh">"</span><span class="s">daily_merge</span><span class="sh">"</span><span class="p">:</span>
+                <span class="n">merged</span> <span class="o">=</span> <span class="nf">merge_daily_memory</span><span class="p">(</span><span class="n">local_content</span><span class="p">,</span> <span class="n">remote_content</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">strategy</span> <span class="o">==</span> <span class="sh">"</span><span class="s">learning_merge</span><span class="sh">"</span><span class="p">:</span>
+                <span class="n">merged</span> <span class="o">=</span> <span class="nf">merge_learning_files</span><span class="p">(</span><span class="n">local_content</span><span class="p">,</span> <span class="n">remote_content</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">merged</span> <span class="o">=</span> <span class="n">local_content</span>  <span class="c1"># last-write-wins，保留本地
+</span>
+            <span class="nc">Path</span><span class="p">(</span><span class="n">local_path</span><span class="p">).</span><span class="nf">write_text</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">"</span><span class="s">utf-8</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 本地不存在 → 下载新文件
+</span>            <span class="nf">download_cos_file_to_path</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">cos_info</span><span class="p">[</span><span class="sh">"</span><span class="s">key</span><span class="sh">"</span><span class="p">],</span> <span class="n">local_path</span><span class="p">)</span>
+
+</pre></table></code></div></div><h4 id="32-融合策略核心亮点"><span class="me-2">3.2 融合策略（核心亮点）</span><a href="#32-融合策略核心亮点" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>这是整个系统最有技术含量的部分。不同类型的文件，融合策略完全不同。</p><div class="table-wrapper"><table><thead><tr><th>文件类型<th>策略<th>说明<tbody><tr><td><code class="language-plaintext highlighter-rouge">daily-memories/*.md</code><td><strong>会话级合并</strong><td>按 <code class="language-plaintext highlighter-rouge">### 会话 N</code> 去重，保留双端所有不重复的会话<tr><td><code class="language-plaintext highlighter-rouge">.learnings/*.md</code><td><strong>记录级合并</strong><td>按 Pattern-Key 去重，Recurrence-Count 取较大值<tr><td><code class="language-plaintext highlighter-rouge">.memories/*.mdc</code><td><strong>Last-Write-Wins</strong><td>以最新修改为准<tr><td><code class="language-plaintext highlighter-rouge">MEMORY.md</code><td><strong>Last-Write-Wins</strong><td>由 consolidator 定时重新生成<tr><td><code class="language-plaintext highlighter-rouge">USER.md</code> / <code class="language-plaintext highlighter-rouge">SOUL.md</code><td><strong>Last-Write-Wins</strong><td>手动编辑频率低</table></div><h5 id="321-daily-memory-会话级合并"><span class="me-2">3.2.1 Daily Memory 会话级合并</span><a href="#321-daily-memory-会话级合并" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>每日记忆文件的结构是这样的：</p><div class="language-markdown highlighter-rouge"><div class="code-header"> <span data-label-text="Markdown"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre><td class="rouge-code"><pre><span class="gh"># 2026-03-05</span>
+
+<span class="gu">### 会话 1: 记忆系统共享化改造</span>
+<span class="gs">**Agent**</span>: CodeBuddy
+<span class="gs">**项目**</span>: 记忆系统
+<span class="gs">**任务**</span>: 改造记忆系统支持多 AI 终端共享
+
+<span class="gs">**完成的工作**</span>:
+<span class="p">1.</span> 重写 cos_sync.py 支持双向同步
+<span class="p">2.</span> 实现三种融合策略
+<span class="p">
+---
+</span>
+<span class="gu">### 会话 2: 数据库查询优化</span>
+<span class="gs">**Agent**</span>: OpenClaw
+<span class="gs">**项目**</span>: 后端服务
+<span class="gs">**任务**</span>: 优化慢查询
+
+<span class="gs">**完成的工作**</span>:
+<span class="p">1.</span> 分析了 5 个慢查询 SQL
+<span class="p">2.</span> 添加了 2 个索引
+<span class="p">
+---
+</span>
+<span class="gu">## 今日要点</span>
+<span class="p">-</span> 完成记忆系统共享化改造
+
+<span class="gu">## 待办</span>
+<span class="p">-</span> [ ] 配置定时任务
+
+</pre></table></code></div></div><p>注意 <code class="language-plaintext highlighter-rouge">**Agent**</code> 字段——这是用来区分”这条记忆是哪个 AI 写的”。</p><p>融合逻辑：</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+</pre><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">merge_daily_memory</span><span class="p">(</span><span class="n">local_content</span><span class="p">,</span> <span class="n">remote_content</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">融合两个 daily-memory 文件
+
+    策略：按会话块去重合并，保留双端所有不重复的会话
+    </span><span class="sh">"""</span>
+    <span class="c1"># 1. 解析出 header、会话列表、今日要点、待办
+</span>    <span class="n">l_header</span><span class="p">,</span> <span class="n">l_sessions</span><span class="p">,</span> <span class="n">l_points</span><span class="p">,</span> <span class="n">l_todos</span> <span class="o">=</span> <span class="nf">parse_daily_sessions</span><span class="p">(</span><span class="n">local_content</span><span class="p">)</span>
+    <span class="n">r_header</span><span class="p">,</span> <span class="n">r_sessions</span><span class="p">,</span> <span class="n">r_points</span><span class="p">,</span> <span class="n">r_todos</span> <span class="o">=</span> <span class="nf">parse_daily_sessions</span><span class="p">(</span><span class="n">remote_content</span><span class="p">)</span>
+
+    <span class="c1"># 2. 会话去重合并（用会话标题+项目名+任务描述作为签名）
+</span>    <span class="n">seen_sigs</span> <span class="o">=</span> <span class="nf">set</span><span class="p">()</span>
+    <span class="n">merged_sessions</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">l_sessions</span><span class="p">:</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="nf">session_signature</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>  <span class="c1"># 提取签名
+</span>        <span class="k">if</span> <span class="n">sig</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen_sigs</span><span class="p">:</span>
+            <span class="n">seen_sigs</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+            <span class="n">merged_sessions</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">r_sessions</span><span class="p">:</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="nf">session_signature</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sig</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen_sigs</span><span class="p">:</span>
+            <span class="n">seen_sigs</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+            <span class="n">merged_sessions</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="c1"># 3. 重新编号会话
+</span>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">merged_sessions</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span><span class="sa">r</span><span class="sh">"</span><span class="s">### 会话\s*\d+</span><span class="sh">"</span><span class="p">,</span> <span class="sa">f</span><span class="sh">"</span><span class="s">### 会话 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># 4. 合并今日要点和待办（取并集）
+</span>    <span class="n">merged_points</span> <span class="o">=</span> <span class="nf">merge_bullet_sections</span><span class="p">(</span><span class="n">l_points</span><span class="p">,</span> <span class="n">r_points</span><span class="p">,</span> <span class="sh">"</span><span class="s">## 今日要点</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">merged_todos</span> <span class="o">=</span> <span class="nf">merge_bullet_sections</span><span class="p">(</span><span class="n">l_todos</span><span class="p">,</span> <span class="n">r_todos</span><span class="p">,</span> <span class="sh">"</span><span class="s">## 待办</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="c1"># 5. 组装
+</span>    <span class="k">return</span> <span class="nf">assemble</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">merged_sessions</span><span class="p">,</span> <span class="n">merged_points</span><span class="p">,</span> <span class="n">merged_todos</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">session_signature</span><span class="p">(</span><span class="n">session_text</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">提取会话块的签名用于去重</span><span class="sh">"""</span>
+    <span class="n">sig_parts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">session_text</span><span class="p">.</span><span class="nf">strip</span><span class="p">().</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">.</span><span class="nf">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">### 会话</span><span class="sh">"</span><span class="p">):</span>
+            <span class="n">sig_parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">**项目**:</span><span class="sh">"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">line</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">**任务**:</span><span class="sh">"</span><span class="p">):</span>
+            <span class="n">sig_parts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sh">"</span><span class="s">|</span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">sig_parts</span><span class="p">)</span> <span class="k">if</span> <span class="n">sig_parts</span> <span class="k">else</span> <span class="n">hashlib</span><span class="p">.</span><span class="nf">md5</span><span class="p">(</span><span class="n">session_text</span><span class="p">.</span><span class="nf">encode</span><span class="p">()).</span><span class="nf">hexdigest</span><span class="p">()</span>
+
+</pre></table></code></div></div><p>这样做的好处是：如果 CodeBuddy 写了会话 1-3，OpenClaw 写了会话 4-5，sync 之后两边都能看到完整的会话 1-5。</p><h5 id="322-learnings-记录级合并"><span class="me-2">3.2.2 Learnings 记录级合并</span><a href="#322-learnings-记录级合并" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>Learnings（教训记录）文件有固定的结构：</p><div class="language-markdown highlighter-rouge"><div class="code-header"> <span data-label-text="Markdown"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="gu">### LRN-2026-03-05-001</span>
+<span class="p">-</span> <span class="gs">**Pattern-Key**</span>: check-mailbox-on-startup
+<span class="p">-</span> <span class="gs">**Recurrence-Count**</span>: 1
+<span class="p">-</span> <span class="gs">**Category**</span>: correction
+<span class="p">-</span> <span class="gs">**Status**</span>: active
+<span class="p">-</span> <span class="gs">**Context**</span>: 会话启动时忘记检查信箱
+<span class="p">-</span> <span class="gs">**Learning**</span>: 新会话启动时必须检查 mailbox 中是否有未读消息
+
+</pre></table></code></div></div><p>融合策略是<strong>按 Pattern-Key 去重</strong> ，如果两端都有同一个 Pattern-Key 的记录，取 Recurrence-Count 较大的那个（说明这个错误出现得更多，更需要重视）。</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">merge_learning_files</span><span class="p">(</span><span class="n">local_content</span><span class="p">,</span> <span class="n">remote_content</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">融合 .learnings/ 文件</span><span class="sh">"""</span>
+    <span class="n">l_header</span><span class="p">,</span> <span class="n">l_records</span><span class="p">,</span> <span class="n">l_footer</span> <span class="o">=</span> <span class="nf">parse_learning_records</span><span class="p">(</span><span class="n">local_content</span><span class="p">)</span>
+    <span class="n">r_header</span><span class="p">,</span> <span class="n">r_records</span><span class="p">,</span> <span class="n">r_footer</span> <span class="o">=</span> <span class="nf">parse_learning_records</span><span class="p">(</span><span class="n">remote_content</span><span class="p">)</span>
+
+    <span class="n">merged</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># 先加本地记录
+</span>    <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">l_records</span><span class="p">:</span>
+        <span class="n">pk</span> <span class="o">=</span> <span class="n">rec</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">pattern_key</span><span class="sh">"</span><span class="p">,</span> <span class="n">rec</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">id</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">))</span>
+        <span class="n">merged</span><span class="p">[</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="n">rec</span>
+
+    <span class="c1"># 再合并远端记录
+</span>    <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">r_records</span><span class="p">:</span>
+        <span class="n">pk</span> <span class="o">=</span> <span class="n">rec</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">pattern_key</span><span class="sh">"</span><span class="p">,</span> <span class="n">rec</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">id</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">merged</span><span class="p">:</span>
+            <span class="c1"># 已存在：Recurrence-Count 取较大值
+</span>            <span class="n">existing</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="n">pk</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">rec</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">recurrence</span><span class="sh">"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">existing</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">recurrence</span><span class="sh">"</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">existing</span><span class="p">[</span><span class="sh">"</span><span class="s">recurrence</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="sh">"</span><span class="s">recurrence</span><span class="sh">"</span><span class="p">]</span>
+            <span class="c1"># Status 优先级: promoted &gt; active &gt; resolved
+</span>            <span class="n">status_priority</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">promoted</span><span class="sh">"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="sh">"</span><span class="s">active</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="sh">"</span><span class="s">resolved</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+            <span class="k">if</span> <span class="n">status_priority</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">rec</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">status_priority</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">existing</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">existing</span><span class="p">[</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">merged</span><span class="p">[</span><span class="n">pk</span><span class="p">]</span> <span class="o">=</span> <span class="n">rec</span>
+
+    <span class="k">return</span> <span class="nf">assemble_learning_file</span><span class="p">(</span><span class="n">l_header</span><span class="p">,</span> <span class="n">merged</span><span class="p">,</span> <span class="n">l_footer</span><span class="p">)</span>
+
+</pre></table></code></div></div><h4 id="33-信箱通信协议"><span class="me-2">3.3 信箱通信协议</span><a href="#33-信箱通信协议" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>两个 AI 之间怎么”说话”？我们设计了一个简单但够用的信箱协议。</p><h5 id="331-目录结构"><span class="me-2">3.3.1 目录结构</span><a href="#331-目录结构" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>mailbox/
+├── PROTOCOL.md           # 协议文档
+├── to-codebuddy/         # 发给 CodeBuddy 的消息
+│   └── {YYYYMMDD_HHMMSS}_{发送方}.md
+└── to-openclaw/          # 发给 OpenClaw 的消息
+    └── {YYYYMMDD_HHMMSS}_{发送方}.md
+
+</pre></table></code></div></div><h5 id="332-消息格式"><span class="me-2">3.3.2 消息格式</span><a href="#332-消息格式" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>每条消息就是一个 Markdown 文件，用 YAML frontmatter 做元数据：</p><div class="language-markdown highlighter-rouge"><div class="code-header"> <span data-label-text="Markdown"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre><td class="rouge-code"><pre><span class="nn">---</span>
+<span class="na">from</span><span class="pi">:</span> <span class="s">codebuddy</span>
+<span class="na">to</span><span class="pi">:</span> <span class="s">openclaw</span>
+<span class="na">timestamp</span><span class="pi">:</span> <span class="s">2026-03-05T16:00:00</span>
+<span class="na">type</span><span class="pi">:</span> <span class="s">info</span>
+<span class="na">status</span><span class="pi">:</span> <span class="s">unread</span>
+<span class="nn">---</span>
+
+你好 OpenClaw！我是 CodeBuddy。
+
+我们的共享记忆系统已经升级了，现在支持跨 AI 信箱通信。
+
+<span class="gs">**新增功能**</span>：
+<span class="p">1.</span> 写入 daily-memories 时请加 <span class="sb">`**Agent**: OpenClaw`</span> 字段
+<span class="p">2.</span> 你的信箱在 <span class="sb">`mailbox/to-openclaw/`</span>
+<span class="p">3.</span> 给我发消息写到 <span class="sb">`mailbox/to-codebuddy/`</span>
+
+</pre></table></code></div></div><h5 id="333-消息类型"><span class="me-2">3.3.3 消息类型</span><a href="#333-消息类型" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="table-wrapper"><table><thead><tr><th>类型<th>说明<th>示例<tbody><tr><td><code class="language-plaintext highlighter-rouge">request</code><td>请对方执行任务<td>“帮我查一下这个 API 的文档”<tr><td><code class="language-plaintext highlighter-rouge">info</code><td>通知（不需要回复）<td>“记忆系统升级了，注意新协议”<tr><td><code class="language-plaintext highlighter-rouge">reply</code><td>对 request 的回复<td>“查到了，文档链接是 xxx”</table></div><h5 id="334-消息感知时效"><span class="me-2">3.3.4 消息感知时效</span><a href="#334-消息感知时效" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="table-wrapper"><table><thead><tr><th>环节<th>延迟<tbody><tr><td>发送方 push 到 COS<td>~2-5 秒<tr><td>收件人 crontab pull<td>≤ 1 分钟<tr><td>AI 感知<td>下次会话启动或用户主动触发<tr><td><strong>端到端最快</strong><td><strong>~1 分钟</strong></table></div><p>整个流程是<strong>异步</strong> 的——发送方写完消息后 push 到 COS，收件方的定时任务会自动 pull 到本地。AI 在下一次会话启动时检查信箱。</p><h5 id="335-通信流程"><span class="me-2">3.3.5 通信流程</span><a href="#335-通信流程" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>OpenClaw 腾讯云 COS CodeBuddy OpenClaw 腾讯云 COS CodeBuddy loop [cron 每分钟] loop [cron 每分钟] 写消息到 mailbox/to-openclaw/ cos_sync.py push（消息上传） pull 拉取新文件 消息落到本地 会话启动，检查信箱，发现新消息 处理消息，status 改为 done 写回复到 mailbox/to-codebuddy/ push 回复上传 pull 拉取新文件 收到回复</p><h4 id="34-每分钟-pull-守护脚本"><span class="me-2">3.4 每分钟 Pull 守护脚本</span><a href="#34-每分钟-pull-守护脚本" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>为了让信箱消息尽快被感知，我们用 crontab 每分钟执行一次 pull：</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre><td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># cos_pull_daemon.sh — 每分钟 pull，保证信箱实时性</span>
+
+<span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">cd</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">dirname</span> <span class="s2">"</span><span class="nv">$0</span><span class="s2">"</span><span class="si">)</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="si">)</span><span class="s2">"</span>
+<span class="nv">MEMORY_BASE</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">dirname</span> <span class="s2">"</span><span class="nv">$SCRIPT_DIR</span><span class="s2">"</span><span class="si">)</span><span class="s2">"</span>
+<span class="nv">LOG_FILE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/cos_pull_daemon.log"</span>
+<span class="nv">LOCK_FILE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/.cos_pull.lock"</span>
+<span class="nv">PYTHON</span><span class="o">=</span><span class="s2">"/opt/homebrew/bin/python3"</span>  <span class="c"># 根据实际 Python 路径调整</span>
+
+<span class="c"># 防止重叠执行</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$LOCK_FILE</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># 如果锁文件超过 5 分钟（上次异常退出），强制清除</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="si">$(</span>find <span class="s2">"</span><span class="nv">$LOCK_FILE</span><span class="s2">"</span> <span class="nt">-mmin</span> +5 2&gt;/dev/null<span class="si">)</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+        </span><span class="nb">rm</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$LOCK_FILE</span><span class="s2">"</span>
+    <span class="k">else
+        </span><span class="nb">exit </span>0
+    <span class="k">fi
+fi
+
+</span><span class="nb">trap</span> <span class="s1">'rm -f "$LOCK_FILE"'</span> EXIT
+<span class="nb">touch</span> <span class="s2">"</span><span class="nv">$LOCK_FILE</span><span class="s2">"</span>
+
+<span class="c"># 执行 pull</span>
+<span class="nb">cd</span> <span class="s2">"</span><span class="nv">$MEMORY_BASE</span><span class="s2">"</span> <span class="o">||</span> <span class="nb">exit </span>1
+<span class="s2">"</span><span class="nv">$PYTHON</span><span class="s2">"</span> scripts/cos_sync.py pull <span class="o">&gt;&gt;</span> <span class="s2">"</span><span class="nv">$LOG_FILE</span><span class="s2">"</span> 2&gt;&amp;1
+
+<span class="c"># 限制日志大小（保留最新 1000 行）</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$LOG_FILE</span><span class="s2">"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">wc</span> <span class="nt">-l</span> &lt; <span class="s2">"</span><span class="nv">$LOG_FILE</span><span class="s2">"</span><span class="si">)</span><span class="s2">"</span> <span class="nt">-gt</span> 2000 <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">tail</span> <span class="nt">-1000</span> <span class="s2">"</span><span class="nv">$LOG_FILE</span><span class="s2">"</span> <span class="o">&gt;</span> <span class="s2">"</span><span class="nv">$LOG_FILE</span><span class="s2">.tmp"</span> <span class="o">&amp;&amp;</span> <span class="nb">mv</span> <span class="s2">"</span><span class="nv">$LOG_FILE</span><span class="s2">.tmp"</span> <span class="s2">"</span><span class="nv">$LOG_FILE</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+</pre></table></code></div></div><p>关键设计点：</p><ol><li><strong>锁文件防并发</strong> ：避免两个 pull 同时跑<li><strong>超时清理</strong> ：锁文件超过 5 分钟自动清除（防止异常退出后死锁）<li><strong>日志轮转</strong> ：超过 2000 行只保留最新 1000 行</ol><p>配置 crontab：</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="c"># macOS / Linux</span>
+crontab <span class="nt">-e</span>
+<span class="c"># 添加以下内容（每分钟执行）</span>
+<span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> /path/to/scripts/cos_pull_daemon.sh
+
+</pre></table></code></div></div><h4 id="35-记忆整合与-learnings-晋升"><span class="me-2">3.5 记忆整合与 Learnings 晋升</span><a href="#35-记忆整合与-learnings-晋升" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><code class="language-plaintext highlighter-rouge">memory_consolidator.py</code> 负责两件事：</p><ol><li><strong>记忆整合</strong> ：从 <code class="language-plaintext highlighter-rouge">daily-memories/</code> 提炼核心信息到 <code class="language-plaintext highlighter-rouge">MEMORY.md</code><li><strong>Learnings 晋升</strong> ：同一个 Pattern-Key 出现 ≥ 3 次时，自动晋升为永久规则</ol><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="c1"># 每晚 23:00 执行
+# crontab -e
+</span><span class="mi">0</span> <span class="mi">23</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="n">cd</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">memory</span> <span class="o">&amp;&amp;</span> <span class="n">python3</span> <span class="n">scripts</span><span class="o">/</span><span class="n">memory_consolidator</span><span class="p">.</span><span class="n">py</span> <span class="nb">all</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">memory_consolidator</span><span class="p">.</span><span class="n">log</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+
+</pre></table></code></div></div><p>晋升机制：</p><p>错误/教训出现 1 次</p><p>记录到 .learnings/<br /> Recurrence-Count = 1</p><p>再次出现<br /> Recurrence-Count = 2</p><p>第 3 次出现<br /> Recurrence-Count ≥ 3</p><p>自动晋升为碎片记忆<br /> （永久规则）</p><p>后续会话自动注入<br /> AI 上下文，避免重复犯错</p><h3 id="4-新终端接入指南"><span class="me-2">4. 新终端接入指南</span><a href="#4-新终端接入指南" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="41-接入卡一段脚本秒接入"><span class="me-2">4.1 接入卡（一段脚本秒接入）</span><a href="#41-接入卡一段脚本秒接入" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/cross-ai-memory-onboarding.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/cross-ai-memory-onboarding.png" alt="新终端一键接入" loading="lazy"></a></p><p>这是我觉得最酷的设计——新终端只需要执行一段 Python 脚本，就能自动接入整个记忆系统：</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+</pre><td class="rouge-code"><pre><span class="c1"># 前置条件：pip install cos-python-sdk-v5
+</span>
+<span class="kn">import</span> <span class="n">os</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">base64</span>
+
+<span class="c1"># COS 配置（base64 编码，避免明文）
+# 实际使用时替换为你自己的密钥
+</span><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">secret_id</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">your-secret-id</span><span class="sh">"</span><span class="p">,</span>      <span class="c1"># 替换为真实 SecretId
+</span>    <span class="sh">"</span><span class="s">secret_key</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">your-secret-key</span><span class="sh">"</span><span class="p">,</span>     <span class="c1"># 替换为真实 SecretKey
+</span>    <span class="sh">"</span><span class="s">region</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">ap-guangzhou</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">bucket</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">your-bucket-name</span><span class="sh">"</span><span class="p">,</span>        <span class="c1"># 替换为真实 Bucket
+</span>    <span class="sh">"</span><span class="s">prefix</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">codebuddy-memory/</span><span class="sh">"</span>
+<span class="p">}</span>
+
+<span class="c1"># 记忆根目录（根据你的 AI 工具调整）
+</span><span class="n">MEMORY_BASE</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">expanduser</span><span class="p">(</span><span class="sh">"</span><span class="s">~/Library/Application Support/CodeBuddyExtension/Data/Public</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="n">qcloud_cos</span> <span class="kn">import</span> <span class="n">CosConfig</span><span class="p">,</span> <span class="n">CosS3Client</span>
+
+<span class="c1"># 创建 COS 客户端
+</span><span class="n">client</span> <span class="o">=</span> <span class="nc">CosS3Client</span><span class="p">(</span><span class="nc">CosConfig</span><span class="p">(</span>
+    <span class="n">Region</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="sh">"</span><span class="s">region</span><span class="sh">"</span><span class="p">],</span>
+    <span class="n">SecretId</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="sh">"</span><span class="s">secret_id</span><span class="sh">"</span><span class="p">],</span>
+    <span class="n">SecretKey</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="sh">"</span><span class="s">secret_key</span><span class="sh">"</span><span class="p">],</span>
+    <span class="n">Scheme</span><span class="o">=</span><span class="sh">"</span><span class="s">https</span><span class="sh">"</span>
+<span class="p">))</span>
+
+<span class="c1"># 下载引导脚本
+</span><span class="n">scripts_dir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">MEMORY_BASE</span><span class="p">,</span> <span class="sh">"</span><span class="s">scripts</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">makedirs</span><span class="p">(</span><span class="n">scripts_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="sh">"</span><span class="s">cos_sync.py</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">memory_consolidator.py</span><span class="sh">"</span><span class="p">]:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">scripts_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sh">"</span><span class="s">wb</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="nf">get_object</span><span class="p">(</span>
+            <span class="n">Bucket</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="sh">"</span><span class="s">bucket</span><span class="sh">"</span><span class="p">],</span>
+            <span class="n">Key</span><span class="o">=</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="sh">'</span><span class="s">prefix</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s">_bootstrap/</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span>
+        <span class="p">)[</span><span class="sh">"</span><span class="s">Body</span><span class="sh">"</span><span class="p">].</span><span class="nf">get_raw_stream</span><span class="p">().</span><span class="nf">read</span><span class="p">())</span>
+
+<span class="c1"># 修改 MEMORY_BASE 路径
+</span><span class="n">sync_path</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">scripts_dir</span><span class="p">,</span> <span class="sh">"</span><span class="s">cos_sync.py</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">content</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="n">sync_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">"</span><span class="s">utf-8</span><span class="sh">"</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span>
+    <span class="sa">r</span><span class="sh">'</span><span class="s">MEMORY_BASE = os\.path\.expanduser\([^)]+\)</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sa">f</span><span class="sh">'</span><span class="s">MEMORY_BASE = </span><span class="sh">"</span><span class="si">{</span><span class="n">MEMORY_BASE</span><span class="si">}</span><span class="sh">"'</span><span class="p">,</span>
+    <span class="n">content</span>
+<span class="p">)</span>
+<span class="nf">open</span><span class="p">(</span><span class="n">sync_path</span><span class="p">,</span> <span class="sh">"</span><span class="s">w</span><span class="sh">"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="sh">"</span><span class="s">utf-8</span><span class="sh">"</span><span class="p">).</span><span class="nf">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># 首次拉取全部记忆
+</span><span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scripts_dir</span><span class="p">)</span>
+<span class="kn">import</span> <span class="n">cos_sync</span>
+<span class="n">cos_sync</span><span class="p">.</span><span class="nf">pull_from_cos</span><span class="p">(</span><span class="n">dry_run</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">✅ 接入完成！记忆目录: </span><span class="si">{</span><span class="n">MEMORY_BASE</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">后续同步: python3 </span><span class="si">{</span><span class="n">scripts_dir</span><span class="si">}</span><span class="s">/cos_sync.py sync</span><span class="sh">"</span><span class="p">)</span>
+
+</pre></table></code></div></div><h4 id="42-接入后的配置"><span class="me-2">4.2 接入后的配置</span><a href="#42-接入后的配置" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><strong>身份标识</strong> ：</p><p>接入后，你的 AI 需要：</p><ol><li>确定自己的名字（如 <code class="language-plaintext highlighter-rouge">CodeBuddy</code>、<code class="language-plaintext highlighter-rouge">OpenClaw</code>、<code class="language-plaintext highlighter-rouge">CursorAI</code>）<li>写入 daily-memories 时，会话块加 <code class="language-plaintext highlighter-rouge">**Agent**: {你的名字}</code> 字段<li>信箱目录命名为 <code class="language-plaintext highlighter-rouge">mailbox/to-{你的名字}/</code></ol><p><strong>定时同步</strong> ：</p><p>macOS 用 launchd：</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre><td class="rouge-code"><pre><span class="nb">cat</span> <span class="o">&gt;</span> ~/Library/LaunchAgents/com.codebuddy.memory-cos-sync.plist <span class="o">&lt;&lt;</span> <span class="sh">'</span><span class="no">EOF</span><span class="sh">'
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.codebuddy.memory-cos-sync&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;/opt/homebrew/bin/python3&lt;/string&gt;
+        &lt;string&gt;/path/to/scripts/cos_sync.py&lt;/string&gt;
+        &lt;string&gt;sync&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;key&gt;StartInterval&lt;/key&gt;
+    &lt;integer&gt;1800&lt;/integer&gt;
+    &lt;key&gt;RunAtLoad&lt;/key&gt;
+    &lt;true/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</span><span class="no">EOF
+
+</span>launchctl load ~/Library/LaunchAgents/com.codebuddy.memory-cos-sync.plist
+
+</pre></table></code></div></div><p>Linux 用 crontab：</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="c"># 每 30 分钟双向同步</span>
+<span class="k">*</span>/30 <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="nb">cd</span> /path/to/memory <span class="o">&amp;&amp;</span> python3 scripts/cos_sync.py <span class="nb">sync</span> <span class="o">&gt;&gt;</span> scripts/cos_sync_cron.log 2&gt;&amp;1
+
+<span class="c"># 每分钟 pull（保证信箱实时性）</span>
+<span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> /path/to/scripts/cos_pull_daemon.sh
+
+</pre></table></code></div></div><h4 id="43-只读接入"><span class="me-2">4.3 只读接入</span><a href="#43-只读接入" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>如果某个 AI 终端只需要读取记忆（不产生新记忆），更简单：</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="c"># 只拉取，不推送</span>
+python3 cos_sync.py pull
+
+</pre></table></code></div></div><h3 id="5-安全设计"><span class="me-2">5. 安全设计</span><a href="#5-安全设计" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="51-密钥安全"><span class="me-2">5.1 密钥安全</span><a href="#51-密钥安全" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><strong>强烈建议</strong> 使用以下方式管理 COS 密钥，而不是硬编码：</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="c"># 方式 1：环境变量</span>
+<span class="nb">export </span><span class="nv">COS_SECRET_ID</span><span class="o">=</span><span class="s2">"your-secret-id"</span>
+<span class="nb">export </span><span class="nv">COS_SECRET_KEY</span><span class="o">=</span><span class="s2">"your-secret-key"</span>
+
+<span class="c"># 方式 2：腾讯云 CAM 临时密钥（推荐生产使用）</span>
+<span class="c"># 通过 STS 服务获取临时密钥，有效期可控</span>
+
+</pre></table></code></div></div><h4 id="52-cos-bucket-权限"><span class="me-2">5.2 COS Bucket 权限</span><a href="#52-cos-bucket-权限" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>建议配置：</p><ul><li>Bucket <strong>私有读写</strong> （不开放公共访问）<li>只允许特定 SecretId 访问<li>开启版本控制（防止误删）</ul><h4 id="53-不同步敏感文件"><span class="me-2">5.3 不同步敏感文件</span><a href="#53-不同步敏感文件" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>以下目录/文件不会被同步到 COS：</p><div class="table-wrapper"><table><thead><tr><th>目录/文件<th>原因<tbody><tr><td><code class="language-plaintext highlighter-rouge">scripts/</code><td>脚本在各终端独立部署<tr><td><code class="language-plaintext highlighter-rouge">auth/</code><td>认证信息不跨终端共享<tr><td><code class="language-plaintext highlighter-rouge">.DS_Store</code><td>macOS 系统文件</table></div><h4 id="54-记忆内容安全"><span class="me-2">5.4 记忆内容安全</span><a href="#54-记忆内容安全" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>在写入记忆时，应避免记录：</p><ul><li>密码、Token、密钥等凭据信息<li>内部 IP 地址和域名<li>未脱敏的用户个人数据</ul><h3 id="6-使用场景"><span class="me-2">6. 使用场景</span><a href="#6-使用场景" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="61-跨终端协作"><span class="me-2">6.1 跨终端协作</span><a href="#61-跨终端协作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><strong>场景</strong> ：IDE 里的 AI 完成了代码开发，需要让企微 Bot 帮忙做 Code Review。</p><p>OpenClaw（企微） COS 云存储 CodeBuddy（IDE） OpenClaw（企微） COS 云存储 CodeBuddy（IDE） 1. 完成代码开发 2. 写入 daily-memory 3. 发信箱消息：请 review 分支 xxx 4. push 到 COS 5. 下次启动 pull 最新记忆 6. 检查信箱，发现 review 请求 7. 了解项目上下文（daily-memory） 8. 执行 Code Review 9. 回复结果到 CodeBuddy 信箱并 push 10. pull 收到 review 结果</p><h4 id="62-任务接力"><span class="me-2">6.2 任务接力</span><a href="#62-任务接力" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><strong>场景</strong> ：白天在公司用 IDE AI 写代码，晚上回家用 Claude Desktop 继续。</p><p>两个终端共享同一套记忆文件，切换时无需重新建立上下文。白天写的代码进度、遇到的问题、设计决策，晚上的 AI 都知道。</p><h4 id="63-记忆沉淀"><span class="me-2">6.3 记忆沉淀</span><a href="#63-记忆沉淀" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><strong>场景</strong> ：多个 AI 的工作经验汇聚到一起，形成知识库。</p><ul><li>CodeBuddy 积累了代码开发的最佳实践<li>OpenClaw 积累了搜索和分析的经验<li>通过 <code class="language-plaintext highlighter-rouge">.learnings/</code> 系统，错误教训自动晋升为永久规则</ul><h3 id="7-命令速查"><span class="me-2">7. 命令速查</span><a href="#7-命令速查" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre><td class="rouge-code"><pre><span class="c"># 双向同步（日常推荐）</span>
+python3 cos_sync.py <span class="nb">sync</span>
+
+<span class="c"># 仅拉取</span>
+python3 cos_sync.py pull
+
+<span class="c"># 仅推送</span>
+python3 cos_sync.py push
+
+<span class="c"># 预览将拉取哪些文件</span>
+python3 cos_sync.py pull <span class="nt">--dry-run</span>
+
+<span class="c"># 全量同步（清除状态缓存）</span>
+python3 cos_sync.py <span class="nb">sync</span> <span class="nt">--force</span>
+
+<span class="c"># 上传 + 删除 COS 上多余文件</span>
+python3 cos_sync.py push <span class="nt">--clean</span>
+
+<span class="c"># 记忆整合 + learnings 晋升</span>
+python3 memory_consolidator.py all
+
+</pre></table></code></div></div><h3 id="8-开源项目memshare"><span class="me-2">8. 开源项目：memShare</span><a href="#8-开源项目memshare" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>上面讲的都是个人项目里的实现，后来我把这套系统抽象成了一个通用的开源项目—— <strong>memShare</strong> ，任何 AI 工具都能用。</p><p>GitHub 地址：<a href="https://github.com/a18792721831/memShare">https://github.com/a18792721831/memShare</a></p><h4 id="81-项目定位"><span class="me-2">8.1 项目定位</span><a href="#81-项目定位" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>memShare 做的事情很简单：<strong>让 AI 编程助手拥有跨会话、跨终端的持久记忆</strong> 。</p><p>说白了，就是把前面讲的那一套（记忆分层、COS 同步、融合策略、信箱通信）封装成一个开箱即用的工具包。你不需要从零搭建，跑个安装向导就能用。</p><h4 id="82-项目结构"><span class="me-2">8.2 项目结构</span><a href="#82-项目结构" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre><td class="rouge-code"><pre>memShare/
+├── setup.py                    # 交互式安装向导（一键部署）
+├── mcp_server.py               # MCP Server（支持 Claude Desktop 等）
+├── requirements.txt            # Python 依赖
+│
+├── scripts/
+│   ├── sync.py                 # 云同步工具（push/pull/status）
+│   ├── storage_backend.py      # 存储后端抽象层（Local/COS/S3）
+│   └── memory_consolidator.py  # 记忆整合 + Learnings 晋升
+│
+├── adapters/                   # AI 工具适配文档
+│   ├── codebuddy.md            # CodeBuddy 接入指南
+│   ├── cursor.md               # Cursor 接入指南
+│   ├── windsurf.md             # Windsurf 接入指南
+│   ├── claude-desktop.md       # Claude Desktop 接入指南
+│   └── generic.md              # 通用接入指南（含企微 Bot 等）
+│
+├── templates/                  # 记忆模板文件
+│   ├── MEMORY.md               # 长期记忆模板
+│   ├── SOUL.md                 # AI 行为准则模板
+│   ├── USER.md                 # 用户画像模板
+│   ├── IDENTITY.md             # Agent 身份配置
+│   ├── daily-memories/         # 每日记忆目录
+│   ├── .learnings/             # 自我改进系统模板
+│   │   ├── ERRORS.md
+│   │   ├── LEARNINGS.md
+│   │   └── PROMOTIONS.md
+│   └── mailbox/
+│       └── PROTOCOL.md         # 信箱通信协议
+│
+└── examples/                   # 示例文件
+    ├── mcp_config_example.json # MCP 配置示例
+    ├── .env.cos                # COS 后端 .env 示例
+    ├── .env.s3                 # S3 后端 .env 示例
+    ├── .env.local              # 本地后端 .env 示例
+    └── crontab_example.txt     # 定时任务配置示例
+
+</pre></table></code></div></div><h4 id="83-核心设计存储后端抽象层"><span class="me-2">8.3 核心设计：存储后端抽象层</span><a href="#83-核心设计存储后端抽象层" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>个人项目里是直接调 COS SDK，但开源项目得考虑通用性。所以我做了一层<strong>存储后端抽象</strong> ，支持三种存储：</p><div class="table-wrapper"><table><thead><tr><th>后端<th>适用场景<th>依赖<tbody><tr><td><strong>Local</strong><td>单机使用，不需要云同步<td>无<tr><td><strong>COS</strong><td>腾讯云用户<td><code class="language-plaintext highlighter-rouge">cos-python-sdk-v5</code><tr><td><strong>S3</strong><td>AWS 用户 / S3 兼容存储<td><code class="language-plaintext highlighter-rouge">boto3</code></table></div><p>通过 <code class="language-plaintext highlighter-rouge">StorageBackend</code> 抽象基类统一接口，工厂方法 <code class="language-plaintext highlighter-rouge">create_backend()</code> 根据环境变量自动选择：</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+</pre><td class="rouge-code"><pre><span class="kn">from</span> <span class="n">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">import</span> <span class="n">hashlib</span>
+
+<span class="k">class</span> <span class="nc">StorageBackend</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">存储后端抽象基类</span><span class="sh">"""</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_md5</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">计算文件 MD5（基类公共方法，子类复用）</span><span class="sh">"""</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="p">.</span><span class="nf">md5</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="sh">"</span><span class="s">rb</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nf">iter</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">f</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="mi">8192</span><span class="p">),</span> <span class="sa">b</span><span class="sh">""</span><span class="p">):</span>
+                <span class="n">h</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span><span class="p">.</span><span class="nf">hexdigest</span><span class="p">()</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">local_dir</span><span class="p">,</span> <span class="n">remote_prefix</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">推送本地文件到远端</span><span class="sh">"""</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">pull</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">local_dir</span><span class="p">,</span> <span class="n">remote_prefix</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">拉取远端文件到本地（含融合逻辑）</span><span class="sh">"""</span>
+        <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">COSStorage</span><span class="p">(</span><span class="n">StorageBackend</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">腾讯云 COS 存储后端</span><span class="sh">"""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">secret_id</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">bucket</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="n">qcloud_cos</span> <span class="kn">import</span> <span class="n">CosConfig</span><span class="p">,</span> <span class="n">CosS3Client</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="nc">CosConfig</span><span class="p">(</span><span class="n">Region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">SecretId</span><span class="o">=</span><span class="n">secret_id</span><span class="p">,</span>
+                           <span class="n">SecretKey</span><span class="o">=</span><span class="n">secret_key</span><span class="p">,</span> <span class="n">Scheme</span><span class="o">=</span><span class="sh">"</span><span class="s">https</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">client</span> <span class="o">=</span> <span class="nc">CosS3Client</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">bucket</span> <span class="o">=</span> <span class="n">bucket</span>
+
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">local_dir</span><span class="p">,</span> <span class="n">remote_prefix</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># 增量推送（MD5 比较跳过未修改文件）
+</span>        <span class="bp">...</span>
+
+    <span class="k">def</span> <span class="nf">pull</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">local_dir</span><span class="p">,</span> <span class="n">remote_prefix</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># 拉取 + 融合（daily_merge / learning_merge / last-write-wins）
+</span>        <span class="bp">...</span>
+
+
+<span class="k">class</span> <span class="nc">S3Storage</span><span class="p">(</span><span class="n">StorageBackend</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">AWS S3 存储后端</span><span class="sh">"""</span>
+    <span class="bp">...</span>
+
+
+<span class="k">class</span> <span class="nc">LocalStorage</span><span class="p">(</span><span class="n">StorageBackend</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">本地文件系统存储（单机模式）</span><span class="sh">"""</span>
+    <span class="bp">...</span>
+
+
+<span class="k">def</span> <span class="nf">create_backend</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">工厂方法，根据环境变量自动选择后端</span><span class="sh">"""</span>
+    <span class="n">storage_type</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">MEMSHARE_STORAGE</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">local</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">storage_type</span> <span class="o">==</span> <span class="sh">"</span><span class="s">cos</span><span class="sh">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nc">COSStorage</span><span class="p">(...)</span>
+    <span class="k">elif</span> <span class="n">storage_type</span> <span class="o">==</span> <span class="sh">"</span><span class="s">s3</span><span class="sh">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nc">S3Storage</span><span class="p">(...)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nc">LocalStorage</span><span class="p">(...)</span>
+
+</pre></table></code></div></div><p>这样做的好处是：换存储后端只需要改一个环境变量，代码层面完全无感。</p><h4 id="84-mcp-server"><span class="me-2">8.4 MCP Server</span><a href="#84-mcp-server" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>memShare 提供了一个 <a href="https://modelcontextprotocol.io/">MCP (Model Context Protocol)</a> Server，支持 Claude Desktop 等 MCP 客户端直接调用记忆系统：</p><div class="table-wrapper"><table><thead><tr><th>工具<th>功能<tbody><tr><td><code class="language-plaintext highlighter-rouge">read_memory</code><td>读取长期记忆 / 每日记忆<tr><td><code class="language-plaintext highlighter-rouge">write_daily_memory</code><td>写入当日记忆<tr><td><code class="language-plaintext highlighter-rouge">read_learnings</code><td>读取错误/教训记录<tr><td><code class="language-plaintext highlighter-rouge">write_learning</code><td>写入新的错误/教训<tr><td><code class="language-plaintext highlighter-rouge">check_mailbox</code><td>检查信箱未读消息<tr><td><code class="language-plaintext highlighter-rouge">send_message</code><td>发送跨 AI 信箱消息</table></div><p>MCP 配置示例：</p><div class="language-json highlighter-rouge"><div class="code-header"> <span data-label-text="JSON"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"memShare"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python3"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/path/to/memShare/mcp_server.py"</span><span class="p">],</span><span class="w">
+            </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"MEMSHARE_DATA_DIR"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/path/to/memory-data"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"AGENT_NAME"</span><span class="p">:</span><span class="w"> </span><span class="s2">"claude-desktop"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></pre></table></code></div></div><h4 id="85-安装向导"><span class="me-2">8.5 安装向导</span><a href="#85-安装向导" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>跑一个命令就完事：</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>git clone https://github.com/a18792721831/memShare.git
+<span class="nb">cd </span>memShare
+python3 setup.py
+
+</pre></table></code></div></div><p>安装向导会引导你选择数据目录、存储后端、Agent 名称，自动复制模板文件。如果嫌交互太多，还有快速模式：</p><div class="language-bash highlighter-rouge"><div class="code-header"> <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>python3 setup.py <span class="nt">--quick</span>
+
+</pre></table></code></div></div><h3 id="9-memshare-优化记录"><span class="me-2">9. memShare 优化记录</span><a href="#9-memshare-优化记录" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>系统跑起来之后，实际使用中还是发现了不少问题。这里记录一下发现和修复的过程。</p><h4 id="91-bug-修复"><span class="me-2">9.1 Bug 修复</span><a href="#91-bug-修复" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><h5 id="bug-1read_learnings-的-all-过滤返回空结果"><span class="me-2">Bug 1：read_learnings 的 “all” 过滤返回空结果</span><a href="#bug-1read_learnings-的-all-过滤返回空结果" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p><strong>问题</strong> ：MCP Server 的 <code class="language-plaintext highlighter-rouge">read_learnings</code> 工具接收 <code class="language-plaintext highlighter-rouge">status</code> 参数，当传 <code class="language-plaintext highlighter-rouge">"all"</code> 时应该返回所有记录，但实际返回了空列表。</p><p><strong>原因</strong> ：过滤逻辑写成了 <code class="language-plaintext highlighter-rouge">if status == record_status</code>，当 <code class="language-plaintext highlighter-rouge">status="all"</code> 时，没有任何记录的状态等于 <code class="language-plaintext highlighter-rouge">"all"</code>，自然就全部被过滤了。</p><p><strong>修复</strong> ：</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre><span class="c1"># 修复前（错误）
+</span><span class="k">def</span> <span class="nf">read_learnings</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="sh">"</span><span class="s">all</span><span class="sh">"</span><span class="p">):</span>
+    <span class="n">records</span> <span class="o">=</span> <span class="nf">parse_learning_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">]</span> <span class="o">==</span> <span class="n">status</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">records</span>
+
+<span class="c1"># 修复后（正确）
+</span><span class="k">def</span> <span class="nf">read_learnings</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="sh">"</span><span class="s">all</span><span class="sh">"</span><span class="p">):</span>
+    <span class="n">records</span> <span class="o">=</span> <span class="nf">parse_learning_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="ow">and</span> <span class="n">status</span> <span class="o">!=</span> <span class="sh">"</span><span class="s">all</span><span class="sh">"</span><span class="p">:</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">]</span> <span class="o">==</span> <span class="n">status</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">records</span>
+
+</pre></table></code></div></div><p>这个 bug 挺隐蔽的——因为大多数时候调用方都传具体的 status（如 <code class="language-plaintext highlighter-rouge">"active"</code>），只有在需要查看全部记录时才会发现。</p><h5 id="bug-2promoted_count-跨文件写入-bug"><span class="me-2">Bug 2：promoted_count 跨文件写入 bug</span><a href="#bug-2promoted_count-跨文件写入-bug" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p><strong>问题</strong> ：<code class="language-plaintext highlighter-rouge">memory_consolidator.py</code> 的 <code class="language-plaintext highlighter-rouge">promote()</code> 方法在处理多个 learnings 文件（<code class="language-plaintext highlighter-rouge">ERRORS.md</code>、<code class="language-plaintext highlighter-rouge">LEARNINGS.md</code>）时，用了一个全局的 <code class="language-plaintext highlighter-rouge">promoted_count</code> 计数器。导致处理第二个文件时，计数器没有重置，晋升的记录编号会乱。</p><p><strong>修复</strong> ：改为每个文件独立计数。</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre><td class="rouge-code"><pre><span class="c1"># 修复前（错误）
+</span><span class="k">def</span> <span class="nf">promote</span><span class="p">():</span>
+    <span class="n">promoted_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">learnings_files</span><span class="p">:</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="nf">parse</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="sh">"</span><span class="s">recurrence</span><span class="sh">"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">promoted_count</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># 全局计数，跨文件会出问题
+</span>                <span class="nf">do_promote</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">promoted_count</span><span class="p">)</span>
+
+<span class="c1"># 修复后（正确）
+</span><span class="k">def</span> <span class="nf">promote</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">learnings_files</span><span class="p">:</span>
+        <span class="n">promoted_count</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 每个文件独立计数
+</span>        <span class="n">records</span> <span class="o">=</span> <span class="nf">parse</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="sh">"</span><span class="s">recurrence</span><span class="sh">"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">promoted_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="nf">do_promote</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">promoted_count</span><span class="p">)</span>
+
+</pre></table></code></div></div><h4 id="92-代码质量改进"><span class="me-2">9.2 代码质量改进</span><a href="#92-代码质量改进" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><h5 id="改进-1消除-_md5-重复代码"><span class="me-2">改进 1：消除 _md5() 重复代码</span><a href="#改进-1消除-_md5-重复代码" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p><code class="language-plaintext highlighter-rouge">storage_backend.py</code> 中 <code class="language-plaintext highlighter-rouge">COSStorage</code>、<code class="language-plaintext highlighter-rouge">S3Storage</code>、<code class="language-plaintext highlighter-rouge">LocalStorage</code> 三个类都各自实现了一遍 <code class="language-plaintext highlighter-rouge">_md5()</code> 方法——代码完全一样，典型的 DRY 违反。</p><p><strong>修复</strong> ：把 <code class="language-plaintext highlighter-rouge">_md5()</code> 提取到基类 <code class="language-plaintext highlighter-rouge">StorageBackend</code>，子类直接继承。一处修改，三处受益。</p><h5 id="改进-2import-位置优化"><span class="me-2">改进 2：import 位置优化</span><a href="#改进-2import-位置优化" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p><code class="language-plaintext highlighter-rouge">mcp_server.py</code> 中有 4 处在函数体内 <code class="language-plaintext highlighter-rouge">import re</code>，属于没必要的延迟导入。<code class="language-plaintext highlighter-rouge">re</code> 是 Python 标准库，加载代价极小，放在文件顶部更规范。</p><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="c1"># 修复前（不规范）
+</span><span class="k">def</span> <span class="nf">parse_something</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="n">re</span>  <span class="c1"># 函数内导入
+</span>    <span class="k">return</span> <span class="n">re</span><span class="p">.</span><span class="nf">findall</span><span class="p">(...)</span>
+
+<span class="c1"># 修复后（规范）
+</span><span class="kn">import</span> <span class="n">re</span>  <span class="c1"># 文件顶部统一导入
+</span>
+<span class="k">def</span> <span class="nf">parse_something</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">re</span><span class="p">.</span><span class="nf">findall</span><span class="p">(...)</span>
+
+</pre></table></code></div></div><h5 id="改进-3异常处理改进"><span class="me-2">改进 3：异常处理改进</span><a href="#改进-3异常处理改进" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>MCP Server 的 <code class="language-plaintext highlighter-rouge">tools/call</code> 处理器在捕获异常时，只记录了异常消息，没有保留堆栈信息。排查问题时只知道”出错了”，不知道具体在哪一行出的错。</p><p><strong>修复</strong> ：把 <code class="language-plaintext highlighter-rouge">logger.error(str(e))</code> 改为 <code class="language-plaintext highlighter-rouge">logger.exception(f"Tool call failed: {e}")</code>，这样日志里会自动包含完整的调用堆栈。</p><h4 id="93-新增模板和示例"><span class="me-2">9.3 新增模板和示例</span><a href="#93-新增模板和示例" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="table-wrapper"><table><thead><tr><th>新增文件<th>说明<tbody><tr><td><code class="language-plaintext highlighter-rouge">examples/mcp_config_example.json</code><td>MCP 客户端配置示例（可直接复制使用）<tr><td><code class="language-plaintext highlighter-rouge">examples/.env.cos</code><td>腾讯云 COS 存储后端的环境变量示例<tr><td><code class="language-plaintext highlighter-rouge">examples/.env.s3</code><td>AWS S3 存储后端的环境变量示例<tr><td><code class="language-plaintext highlighter-rouge">examples/.env.local</code><td>本地存储后端的环境变量示例<tr><td><code class="language-plaintext highlighter-rouge">examples/crontab_example.txt</code><td>Linux/macOS 定时任务配置示例<tr><td><code class="language-plaintext highlighter-rouge">templates/.learnings/PROMOTIONS.md</code><td>Learnings 晋升历史记录模板</table></div><p>之前 <code class="language-plaintext highlighter-rouge">examples/</code> 目录是空的，新用户不知道怎么配置。现在有了完整的示例文件，照着填就行。</p><p><code class="language-plaintext highlighter-rouge">PROMOTIONS.md</code> 模板也是之前遗漏的——<code class="language-plaintext highlighter-rouge">memory_consolidator.py</code> 的晋升逻辑会往这个文件写入，但模板里没有包含这个文件，导致首次晋升时会报错。</p><h3 id="10-总结"><span class="me-2">10. 总结</span><a href="#10-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>做这个系统的初衷很简单——我受不了每换一个 AI 工具就要从头建立上下文。</p><p>说白了，核心就三件事：</p><ol><li><strong>用 COS 做中转</strong> ：把记忆文件放到云上，多个 AI 终端各自 push/pull<li><strong>智能融合</strong> ：多端同时写的时候不丢数据，按文件类型选择不同的合并策略<li><strong>信箱通信</strong> ：两个 AI 能互相留言，实现简单的异步协作</ol><p>后来把整套系统抽象成了开源项目 <strong>memShare</strong> ，做了存储后端抽象（支持 Local/COS/S3）、MCP Server、5 个 AI 工具适配器、交互式安装向导。初始发布 23 个文件，2545 行代码。</p><p>开源之后实际跑了一圈，又修了 6 个问题——有隐蔽的过滤逻辑 bug，有跨文件计数器污染，有重复代码。说实话，代码写完觉得没问题，一跑就暴露了。这也是为什么我在系统里设计了 <code class="language-plaintext highlighter-rouge">.learnings/</code> 自我改进机制——错误记录下来，避免下次再犯。</p><p>回顾整个过程，从最初的单向同步到现在的双向融合 + 信箱通信 + 开源项目，大概迭代了 6 个版本。最大的难点还是融合策略的设计——要保证多端同时工作时数据不丢失、不重复。</p><p>目前这套系统已经稳定运行，本地 IDE AI 和云端企微 Bot 之间可以无缝共享记忆和异步通信。说实话，当我第一次看到 OpenClaw 的回复消息出现在 CodeBuddy 的信箱里时，还是挺激动的——虽然本质上只是文件同步，但体验上就像两个 AI 在对话。</p><p>如果你也有多个 AI 工具的使用需求，不妨试试 memShare：<code class="language-plaintext highlighter-rouge">git clone https://github.com/a18792721831/memShare.git &amp;&amp; python3 setup.py</code>。以后还需要继续优化，比如更细粒度的权限控制、更高效的同步策略、单元测试覆盖等。加油！</p><h3 id="参考资料"><span class="me-2">参考资料</span><a href="#参考资料" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><ul><li><a href="https://github.com/a18792721831/memShare">memShare GitHub 仓库</a><li><a href="https://cloud.tencent.com/document/product/436/12269">腾讯云 COS Python SDK 文档</a><li><a href="https://cloud.tencent.com/document/product/436/14048">腾讯云 CAM 临时密钥</a><li><a href="https://modelcontextprotocol.io/">MCP (Model Context Protocol) 规范</a></ul></div><div class="post-tail-wrapper text-muted"><div class="d-flex justify-content-between align-items-center gap-3 mb-3"><div class="post-meta"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/ai/">ai</a>, <a href="/categories/%E6%99%BA%E8%83%BD%E4%BD%93/">智能体</a>, <a href="/categories/agent/">agent</a>, <a href="/categories/agents/">AGENTS</a>, <a href="/categories/mem/">Mem</a></div></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> 本文由作者按照 <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> 进行授权</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">分享</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E6%89%93%E9%80%9A%E6%9C%AC%E5%9C%B0%20IDE%20AI%20%E4%B8%8E%E4%BA%91%E7%AB%AF%20AI%20%E7%9A%84%E8%AE%B0%E5%BF%86%E5%A3%81%E5%9E%92%EF%BC%9A%E5%9F%BA%E4%BA%8E%20COS%20%E7%9A%84%E8%B7%A8%20AI%20%E7%BB%88%E7%AB%AF%E8%AE%B0%E5%BF%86%E5%85%B1%E4%BA%AB%E4%B8%8E%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2F%25E6%2595%2599%25E7%25A8%258B-%25E6%2589%2593%25E9%2580%259A%25E6%259C%25AC%25E5%259C%25B0-IDE-AI-%25E4%25B8%258E%25E4%25BA%2591%25E7%25AB%25AF-AI-%25E7%259A%2584%25E8%25AE%25B0%25E5%25BF%2586%25E5%25A3%2581%25E5%259E%2592-%25E5%259F%25BA%25E4%25BA%258E-COS-%25E7%259A%2584%25E8%25B7%25A8-AI-%25E7%25BB%2588%25E7%25AB%25AF%25E8%25AE%25B0%25E5%25BF%2586%25E5%2585%25B1%25E4%25BA%25AB%25E4%25B8%258E%25E9%2580%259A%25E4%25BF%25A1%25E7%25B3%25BB%25E7%25BB%259F%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E6%89%93%E9%80%9A%E6%9C%AC%E5%9C%B0%20IDE%20AI%20%E4%B8%8E%E4%BA%91%E7%AB%AF%20AI%20%E7%9A%84%E8%AE%B0%E5%BF%86%E5%A3%81%E5%9E%92%EF%BC%9A%E5%9F%BA%E4%BA%8E%20COS%20%E7%9A%84%E8%B7%A8%20AI%20%E7%BB%88%E7%AB%AF%E8%AE%B0%E5%BF%86%E5%85%B1%E4%BA%AB%E4%B8%8E%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&u=https%3A%2F%2Fa18792721831.github.io%2Fposts%2F%25E6%2595%2599%25E7%25A8%258B-%25E6%2589%2593%25E9%2580%259A%25E6%259C%25AC%25E5%259C%25B0-IDE-AI-%25E4%25B8%258E%25E4%25BA%2591%25E7%25AB%25AF-AI-%25E7%259A%2584%25E8%25AE%25B0%25E5%25BF%2586%25E5%25A3%2581%25E5%259E%2592-%25E5%259F%25BA%25E4%25BA%258E-COS-%25E7%259A%2584%25E8%25B7%25A8-AI-%25E7%25BB%2588%25E7%25AB%25AF%25E8%25AE%25B0%25E5%25BF%2586%25E5%2585%25B1%25E4%25BA%25AB%25E4%25B8%258E%25E9%2580%259A%25E4%25BF%25A1%25E7%25B3%25BB%25E7%25BB%259F%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2F%25E6%2595%2599%25E7%25A8%258B-%25E6%2589%2593%25E9%2580%259A%25E6%259C%25AC%25E5%259C%25B0-IDE-AI-%25E4%25B8%258E%25E4%25BA%2591%25E7%25AB%25AF-AI-%25E7%259A%2584%25E8%25AE%25B0%25E5%25BF%2586%25E5%25A3%2581%25E5%259E%2592-%25E5%259F%25BA%25E4%25BA%258E-COS-%25E7%259A%2584%25E8%25B7%25A8-AI-%25E7%25BB%2588%25E7%25AB%25AF%25E8%25AE%25B0%25E5%25BF%2586%25E5%2585%25B1%25E4%25BA%25AB%25E4%25B8%258E%25E9%2580%259A%25E4%25BF%25A1%25E7%25B3%25BB%25E7%25BB%259F%2F&text=%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E6%89%93%E9%80%9A%E6%9C%AC%E5%9C%B0%20IDE%20AI%20%E4%B8%8E%E4%BA%91%E7%AB%AF%20AI%20%E7%9A%84%E8%AE%B0%E5%BF%86%E5%A3%81%E5%9E%92%EF%BC%9A%E5%9F%BA%E4%BA%8E%20COS%20%E7%9A%84%E8%B7%A8%20AI%20%E7%BB%88%E7%AB%AF%E8%AE%B0%E5%BF%86%E5%85%B1%E4%BA%AB%E4%B8%8E%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="分享链接" data-title-succeed="链接已复制！" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">最近更新</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E7%89%A9%E7%90%86%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（四）数据文件物理迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%89-mydumper-myloader-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（三）mydumper/myloader 多线程迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%BA%8C-%E5%8E%9F%E7%94%9F-mysqldump-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（二）原生 mysqldump 导出导入实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%AF%84-%E4%B8%89%E5%A4%A7%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88/">MySQL 数据迁移（一）为什么迁、怎么迁、怎么评——三大方案总览</a><li class="text-truncate lh-lg"> <a href="/posts/%E6%95%99%E7%A8%8B-%E7%BB%99AI%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E8%A3%85%E4%B8%8A%E4%BB%A3%E7%A0%81%E7%9C%BC%E7%9D%9B-serena%E4%B8%8Ecodebase-memory%E5%8F%8C%E5%BC%95%E6%93%8E%E5%AE%9E%E8%B7%B5/">【教程】给AI编程助手装上代码眼睛:serena 与 codebase-memory 双引擎实践</a></ul></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">文章内容</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">相关文章</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/posts/Skills%E8%AF%A6%E8%A7%A3-AI-Agent-%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%E8%83%BD%E5%8A%9B%E6%89%A9%E5%B1%95%E7%B3%BB%E7%BB%9F/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1782990657" data-df="YYYY/MM/DD" > 2026/07/02 </time><h4 class="pt-0 my-2">Skills详解：AI Agent 的模块化能力扩展系统</h4><div class="text-muted"><p>Skills详解：AI Agent 的模块化能力扩展系统 介绍 在人工智能快速发展的今天，AI Agent 的应用场景越来越广泛。然而，通用的 AI 模型往往缺乏特定领域的专业知识和操作流程。如何让 AI Agent 具备专业化的能力，成为了一个重要的技术挑战。 Skills 系统正是为了解决这个问题而设计的。它提供了一种标准化的方式，让开发者可以将专业知识、工具集成和操作流程打包成可复用的模块，</p></div></div></a></article><article class="col"> <a href="/posts/%E4%BB%8E%E4%B8%80%E6%9D%A1%E7%9B%B4%E7%BA%BF%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%BE%93%E5%87%BA%E4%B8%80%E4%B8%AAtoken-%E4%B9%9D-%E8%BE%93%E5%87%BA%E7%9F%A9%E9%98%B5%E4%B8%8E%E5%A4%9A%E5%B1%82%E5%A0%86%E5%8F%A0/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1789915139" data-df="YYYY/MM/DD" > 2026/09/20 </time><h4 class="pt-0 my-2">从一条直线到大模型输出一个token（九）：输出矩阵与多层堆叠</h4><div class="text-muted"><p>从一条直线到大模型输出一个token（九）：输出矩阵与多层堆叠 建议先看：从一条直线到大模型输出一个token（八）：残差连接与前馈网络 上一篇走完了单个 Block 的六步。这一篇把 Block 复制 32 份串起来——不同层的 Block 各学什么，2024-2025 各家大模型到底堆了多少层，然后用 6 个 token 实地观察"浅→中→深"到底改了什么——这是理解"下一个 token 如何</p></div></div></a></article><article class="col"> <a href="/posts/%E4%BB%8E%E4%B8%80%E6%9D%A1%E7%9B%B4%E7%BA%BF%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%BE%93%E5%87%BA%E4%B8%80%E4%B8%AAtoken-%E5%9B%9B-%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81-RoPE/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1789894483" data-df="YYYY/MM/DD" > 2026/09/20 </time><h4 class="pt-0 my-2">从一条直线到大模型输出一个token（四）：位置编码 RoPE</h4><div class="text-muted"><p>从一条直线到大模型输出一个token（四）：位置编码 RoPE 建议先看：从一条直线到大模型输出一个token（三）：隐藏层与嵌入 上一篇留下两个坑：嵌入矩阵不知道顺序、不知道上下文。这一篇填第一个坑——矩阵怎么"知道"每个词排在第几位。 1. 排列等变性：注意力天生是"位置盲" 先看一个反直觉的事实。 上一篇说过，后续所有层对矩阵的处理都是"逐行计算"——第 1 行算第 1 行的，第 3 行算第</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/%E7%AE%97%E6%B3%95-%E6%A0%91-%E4%B8%80-%E9%80%92%E5%BD%92%E7%9A%84%E8%89%BA%E6%9C%AF-%E5%88%86%E8%A7%A3%E4%B8%8E%E9%81%8D%E5%8E%86-%E4%B8%A4%E9%80%9A%E9%81%93%E4%B8%8E%E6%AD%BB%E4%BA%A1%E4%BF%A1%E5%8F%B7/" class="btn btn-outline-primary" aria-label="上一篇" ><p>【算法】树（一）：递归的艺术——分解与遍历、两通道与死亡信号</p></a> <a href="/posts/%E4%BB%8E%E4%B8%80%E6%9D%A1%E7%9B%B4%E7%BA%BF%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%BE%93%E5%87%BA%E4%B8%80%E4%B8%AAtoken-%E4%B8%83-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9D%83%E9%87%8D%E4%B8%8E%E5%A4%9A%E5%A4%B4%E6%9C%BA%E5%88%B6/" class="btn btn-outline-primary" aria-label="下一篇" ><p>从一条直线到大模型输出一个token（七）：注意力权重与多头机制</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://github.com/a18792721831">贾永琪</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。" >保留部分权利。</span></p><p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.6.0" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a></p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast w-auto rounded-5 text-nowrap" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="d-flex align-items-center"><div class="toast-body ps-3">发现新内容</div><button type="button" class="btn btn-primary btn-sm rounded-2 py-0" aria-label="Update" >更新</button> <button type="button" class="btn-close mx-3 ms-2" data-bs-dismiss="toast" aria-label="Close" ></button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">搜索结果为空</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>

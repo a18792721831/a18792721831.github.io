@@ -1,0 +1,155 @@
+<!doctype html><html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="【转载】Java回调机制解读" /><meta property="og:locale" content="zh_CN" /><meta name="description" content="本文深入解析Java回调机制，探讨模块间调用的三种方式：同步、异步及回调。通过示例代码，演示老师与学生间的双向调用流程，阐述回调在数据处理中的优势，以及同步与异步回调的区别。" /><meta name="twitter:description" property="og:description" content="本文深入解析Java回调机制，探讨模块间调用的三种方式：同步、异步及回调。通过示例代码，演示老师与学生间的双向调用流程，阐述回调在数据处理中的优势，以及同步与异步回调的区别。" /><link rel="canonical" href="https://a18792721831.github.io/posts/%E8%BD%AC%E8%BD%BD-Java%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E8%A7%A3%E8%AF%BB/" /><meta property="og:url" content="https://a18792721831.github.io/posts/%E8%BD%AC%E8%BD%BD-Java%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E8%A7%A3%E8%AF%BB/" /><meta property="og:site_name" content="贾永琪的技术博客" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2019-04-22T20:00:21+08:00" /><meta property="article:modified_time" content="2026-09-22T17:59:12+08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="【转载】Java回调机制解读" /><meta name="twitter:site" content="@" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-22T17:59:12+08:00","datePublished":"2019-04-22T20:00:21+08:00","description":"本文深入解析Java回调机制，探讨模块间调用的三种方式：同步、异步及回调。通过示例代码，演示老师与学生间的双向调用流程，阐述回调在数据处理中的优势，以及同步与异步回调的区别。","headline":"【转载】Java回调机制解读","mainEntityOfPage":{"@type":"WebPage","@id":"https://a18792721831.github.io/posts/%E8%BD%AC%E8%BD%BD-Java%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E8%A7%A3%E8%AF%BB/"},"url":"https://a18792721831.github.io/posts/%E8%BD%AC%E8%BD%BD-Java%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E8%A7%A3%E8%AF%BB/"}</script><title>【转载】Java回调机制解读 | 贾永琪的技术博客</title><link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3/dist/js/glightbox.min.js,npm/clipboard@2/dist/clipboard.min.js,npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/zh.js,npm/dayjs@1/plugin/relativeTime.js,npm/dayjs@1/plugin/localizedFormat.js,npm/tocbot@4/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://github.com/a18792721831.png" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">贾永琪的技术博客</a><p class="site-subtitle fst-italic mb-0">记录点点滴滴</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>首页</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>分类</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>标签</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>归档</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>关于</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"><div class="btn-group dropup"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle" data-bs-toggle="dropdown" ><i class="fa-regular fa-sun" data-theme-mode="light"></i><i class="fa-regular fa-moon" data-theme-mode="dark"></i><i class="fa-solid fa-display" data-theme-mode="system"></i></button><ul class="dropdown-menu rounded-3 mb-1 p-1"><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="light"><i class="fa-regular fa-sun" data-theme-mode="light"></i>浅色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="dark"><i class="fa-regular fa-moon" data-theme-mode="dark"></i>深色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="system"><i class="fa-solid fa-display" data-theme-mode="system"></i>跟随系统</button></ul></div><span class="icon-border"></span> <a href="https://github.com/a18792721831" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="javascript:void(location.href = 'mailto:' + ['735809899','qq.com'].join('@'))" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">首页</a> </span> <span>【转载】Java回调机制解读</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> 文章</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="搜索..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>【转载】Java回调机制解读</h1><p class="post-desc fw-light mb-4">本文深入解析Java回调机制，探讨模块间调用的三种方式：同步、异步及回调。通过示例代码，演示老师与学生间的双向调用流程，阐述回调在数据处理中的优势，以及同步与异步回调的区别。</p><div class="post-meta text-muted"> <span> 发表于 <time data-ts="1555934421" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2019/04/22 </time> </span> <span> 更新于 <time data-ts="1790071152" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2026/09/22 </time> </span><div class="d-flex justify-content-between"> <span> 作者 <em> <a href="https://github.com/a18792721831">贾永琪</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="2940 字" > <em>16 分钟</em>阅读</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">【转载】Java回调机制解读</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">文章内容</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">【转载】Java回调机制解读</div><button id="toc-popup-close" type="button" class="btn-close btn-sm mx-3" aria-label="Close"></button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p><strong>文章信息</strong></p><ul><li>原文链接：https://jiayq.blog.csdn.net/article/details/89459560<li>发布时间：2019-04-22 20:00:21<li>阅读量：320<li>分类：java同时被 2 个专栏收录, 订阅专栏, Java8<li>标签：#回调机制</ul></blockquote><h2 id="摘要"><span class="me-2">摘要</span><a href="#摘要" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>文章浏览阅读320次。本文深入解析Java回调机制，探讨模块间调用的三种方式：同步、异步及回调。通过示例代码，演示老师与学生间的双向调用流程，阐述回调在数据处理中的优势，以及同步与异步回调的区别。</p><hr /><p>转自：<a href="https://www.cnblogs.com/xrq730/p/6424471.html">https://www.cnblogs.com/xrq730/p/6424471.html</a></p><h2 id="java回调机制解读"><span class="me-2"><a href="https://www.cnblogs.com/xrq730/p/6424471.html">Java回调机制解读</a></span><a href="#java回调机制解读" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p><strong>模块间调用</strong></p><p>在一个应用系统中，无论使用何种语言开发，必然存在模块之间的调用，调用的方式分为几种：</p><p>（1）同步调用</p><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5c40fb6a6b9a0d3da2db1e3511d25dca.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/5c40fb6a6b9a0d3da2db1e3511d25dca.png" alt="image" loading="lazy"></a></p><p>同步调用是最基本并且最简单的一种调用方式，类A的方法a()调用类B的方法b()，一直等待b()方法执行完毕，a()方法继续往下走。<strong>这种调用方式适用于方法b()执行时间不长的情况</strong> ，因为b()方法执行时间一长或者直接阻塞的话，a()方法的余下代码是无法执行下去的，这样会造成整个流程的阻塞。</p><p>（2）异步调用</p><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/308110628e462dd17155984a8e63e8c5.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/308110628e462dd17155984a8e63e8c5.png" alt="image" loading="lazy"></a></p><p>异步调用是为了解决同步调用可能出现阻塞，导致整个流程卡住而产生的一种调用方式。<strong>类A的方法方法a()通过新起线程的方式调用类B的方法b()，代码接着直接往下执行</strong> ，这样无论方法b()执行时间多久，都不会阻塞住方法a()的执行。但是这种方式，由于方法a()不等待方法b()的执行完成，在方法a()需要方法b()执行结果的情况下（视具体业务而定，有些业务比如启异步线程发个微信通知、刷新一个缓存这种就没必要），必须通过一定的方式对方法b()的执行结果进行监听。在Java中，可以使用Future+Callable的方式做到这一点，具体做法可以参见我的这篇文章<a href="http://www.cnblogs.com/xrq730/p/4872722.html">Java多线程21：多线程下其他组件之CyclicBarrier、Callable、Future和FutureTask</a>。</p><p>（3）回调</p><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bebb51bb41f6480b90e05f56b9cbe7ad.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/bebb51bb41f6480b90e05f56b9cbe7ad.png" alt="image" loading="lazy"></a></p><p>最后是回调，回调的思想是：</p><ul><li><strong>类A的a()方法调用类B的b()方法</strong><li><strong>类B的b()方法执行完毕主动调用类A的callback()方法</strong></ul><p>这样一种调用方式组成了上图，也就是一种<strong>双向</strong> 的调用方式。</p><p><strong>代码示例</strong></p><p>接下来看一下回调的代码示例，代码模拟的是这样一种场景：老师问学生问题，学生思考完毕回答老师。</p><p>首先定义一个回调接口，只有一个方法tellAnswer(int answer)，即学生思考完毕告诉老师答案：</p><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre>1 /**
+2  * 回调接口，原文出处http://www.cnblogs.com/xrq730/p/6424471.html
+3  */
+4 public interface Callback {
+5 
+6     public void tellAnswer(int answer);
+7     
+8 }
+</pre></table></code></div></div><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><p>定义一个老师对象，实现Callback接口：</p><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre><td class="rouge-code"><pre> 1 /**
+ 2  * 老师对象，原文出处http://www.cnblogs.com/xrq730/p/6424471.html
+ 3  */
+ 4 public class Teacher implements Callback {
+ 5 
+ 6     private Student student;
+ 7     
+ 8     public Teacher(Student student) {
+ 9         this.student = student;
+10     }
+11     
+12     public void askQuestion() {
+13         student.resolveQuestion(this);
+14     }
+15     
+16     @Override
+17     public void tellAnswer(int answer) {
+18         System.out.println("知道了，你的答案是" + answer);
+19     }
+20     
+21 }
+</pre></table></code></div></div><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><p>老师对象有两个public方法：</p><p>（1）回调接口tellAnswer(int answer)，即学生回答完毕问题之后，老师要做的事情</p><p>（2）问问题方法askQuestion()，即向学生问问题</p><p>接着定义一个学生接口，学生当然是解决问题，但是接收一个Callback参数，这样学生就知道解决完毕问题向谁报告：</p><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre>1 /**
+2  * 学生接口，原文出处http://www.cnblogs.com/xrq730/p/6424471.html
+3  */
+4 public interface Student {
+5     
+6     public void resolveQuestion(Callback callback);
+7     
+8 }
+</pre></table></code></div></div><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><p>最后定义一个具体的学生叫Ricky：</p><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre><td class="rouge-code"><pre> 1 /**
+ 2  * 一个名叫Ricky的同学解决老师提出的问题，原文出处http://www.cnblogs.com/xrq730/p/6424471.html
+ 3  */
+ 4 public class Ricky implements Student {
+ 5 
+ 6     @Override
+ 7     public void resolveQuestion(Callback callback) {
+ 8         // 模拟解决问题
+ 9         try {
+10             Thread.sleep(3000);
+11         } catch (InterruptedException e) {
+12             
+13         }
+14         
+15         // 回调，告诉老师作业写了多久
+16         callback.tellAnswer(3);
+17     }
+18 
+19 }
+</pre></table></code></div></div><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><p>在解决完毕问题之后，第16行向老师报告答案。</p><p>写一个测试类，比较简单：</p><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre> 1 /**
+ 2  * 回调测试，原文出处http://www.cnblogs.com/xrq730/p/6424471.html
+ 3  */
+ 4 public class CallbackTest {
+ 5 
+ 6     @Test
+ 7     public void testCallback() {
+ 8         Student student = new Ricky();
+ 9         Teacher teacher = new Teacher(student);
+10         
+11         teacher.askQuestion();
+12         
+13     }
+14     
+15 }
+</pre></table></code></div></div><p><a href="//common.cnblogs.com/images/copycode.gif" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/copycode.gif" alt="复制代码" loading="lazy"></a></p><p>代码运行结果就一行：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>知道了，你的答案是3  
+</pre></table></code></div></div><p>简单总结、分析一下这个例子就是：</p><p>（1）老师调用学生接口的方法resolveQuestion，向学生提问</p><p>（2）学生解决完毕问题之后调用老师的回调方法tellAnswer</p><p>这样一套流程，构成了一种双向调用的关系。</p><p><strong>代码分析</strong></p><p>分析一下上面的代码，上面的代码我这里做了两层的抽象：</p><p>（1）将老师进行抽象</p><ul><li>将老师进行抽象之后，对于学生来说，就不需要关心到底是哪位老师询问我问题，只要我根据询问的问题，得出答案，然后告诉提问的老师就可以了，即使老师换了一茬又一茬，对我学生而言都是没有任何影响的</ul><p>（2）将学生进行抽象</p><ul><li>将学生进行抽象之后，对于老师这边来说就非常灵活，因为老师未必对一个学生进行提问，可能同时对Ricky、Jack、Lucy三个学生进行提问，这样就可以将成员变量Student改为List<Student>，这样在提问的时候遍历Student列表进行提问，然后得到每个学生的回答即可</Student></ul><p>这个例子是一个典型的体现接口作用的例子，之所以这么说是因为我想到有些朋友可能不太明白接口的好处，不太明白接口好处的朋友可以重点看一下这个例子，多多理解。</p><p>总结起来，<strong>回调的核心就是回调方将本身即this传递给调用方</strong> ，这样调用方就可以在调用完毕之后告诉回调方它想要知道的信息。回调是一种思想、是一种机制，至于具体如何实现，如何通过代码将回调实现得优雅、实现得可扩展性比较高，一看开发者的个人水平，二看开发者对业务的理解程度。</p><p><strong>同步回调与异步回调</strong></p><p>上面的例子，可能有人会提出这样的疑问：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>这个例子需要用什么回调啊，使用同步调用的方式，学生对象回答完毕问题之后直接把回答的答案返回给老师对象不就好了？  
+</pre></table></code></div></div><p>这个问题的提出没有任何问题，可以从两个角度去理解这个问题。</p><p>首先，老师不仅仅想要得到学生的答案怎么办？可能这个老师是个更喜欢听学生解题思路的老师，在得到学生的答案之前，老师更想先知道学生姓名和学生的解题思路，当然有些人可以说，那我可以定义一个对象，里面加上学生的姓名和解题思路不就好了。这个说法在我看来有两个问题：</p><p>（1）如果老师想要的数据越来越多，那么返回的对象得越来越大，而使用回调则可以进行数据分离，将一批数据放在回调方法中进行处理，至于哪些数据依具体业务而定，如果需要增加返回参数，直接在回调方法中增加即可</p><p>（2）无法解决老师希望得到学生姓名、学生解题思路先于学生回答的答案的问题</p><p>因此我认为简单的返回某个结果确实没有必要使用回调而可以直接使用同步调用，但是如果<strong>有多种数据需要处理且数据有主次之分</strong> ，使用回调会是一种更加合适的选择，优先处理的数据放在回调方法中先处理掉。</p><p>另外一个理解的角度则更加重要，就是标题说的同步回调和<strong>异步回调</strong> 了。例子是一个同步回调的例子，意思是老师向Ricky问问题，Ricky给出答案，老师问下一个同学，得到答案之后继续问下一个同学，这是一种正常的场景，但是如果我把场景改一下：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>老师并不想One-By-One这样提问，而是同时向Ricky、Mike、Lucy、Bruce、Kate五位同学提问，让同学们自己思考，哪位同学思考好了就直接告诉老师答案即可。
+</pre></table></code></div></div><p>这种场景相当于是说，同学思考完毕完毕问题要有一个办法告诉老师，有两个解决方案：</p><p>（1）使用Future+Callable的方式，等待异步线程执行结果，这相当于就是同步调用的一种变种，因为其本质还是方法返回一个结果，即学生的回答</p><p>（2）使用异步回调，同学回答完毕问题，调用回调接口方法告诉老师答案即可。由于老师对象被抽象成了Callback接口，因此这种做法的扩展性非常好，就像之前说的，即使老师换了换了一茬又一茬，对于同学来说，只关心的是调用Callback接口回传必要的信息即可</p><p>**==================================================================================</p><p>我不能保证写的每个地方都是对的，但是至少能保证不复制、不黏贴，保证每一句话、每一行代码都经过了认真的推敲、仔细的斟酌。每一篇文章的背后，希望都能看到自己对于技术、对于生活的态度。</p><p>我相信乔布斯说的，只有那些疯狂到认为自己可以改变世界的人才能真正地改变世界。面对压力，我可以挑灯夜战、不眠不休；面对困难，我愿意迎难而上、永不退缩。</p><p>**其实我想说的是，我只是一个程序员，这就是我现在纯粹人生的全部。</p><p>==================================================================================<strong>**</strong>**</p><p>分类: <a href="https://www.cnblogs.com/xrq730/category/731394.html">Java基础</a></p><p>好文要顶 关注我 收藏该文 <a href="//common.cnblogs.com/images/icon_weibo_24.png" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/icon_weibo_24.png" alt="image" loading="lazy"></a> <a href="//common.cnblogs.com/images/wechat.png" class="popup img-link shimmer"><img src="//common.cnblogs.com/images/wechat.png" alt="image" loading="lazy"></a></p><p><a href="http://home.cnblogs.com/u/xrq730/" class="img-link shimmer" ><img src="//pic.cnblogs.com/face/801753/20151024095028.png" alt="image" loading="lazy"></a></p><p><a href="http://home.cnblogs.com/u/xrq730/">五月的仓颉</a> <br /> <a href="http://home.cnblogs.com/u/xrq730/followees">关注 - 0</a> <br /> <a href="http://home.cnblogs.com/u/xrq730/followers">粉丝 - 4036</a></p><p>+加关注</p><p>33</p><p>1</p><p><a href="https://www.cnblogs.com/xrq730/p/6405557.html">« </a> 上一篇： <a href="https://www.cnblogs.com/xrq730/p/6405557.html" title="发布于2017-02-23 09:59">【设计模式总结】对常用设计模式的一些思考</a> <br /> <a href="https://www.cnblogs.com/xrq730/p/6661692.html">» </a> 下一篇： <a href="https://www.cnblogs.com/xrq730/p/6661692.html" title="发布于2017-04-03 14:49">Cglib及其基本使用</a></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>	&lt;/div&gt;
+	&lt;div class="postDesc"&gt;posted @ &lt;span id="post-date"&gt;2017-02-23 20:12&lt;/span&gt; &lt;a href="https://www.cnblogs.com/xrq730/"&gt;五月的仓颉&lt;/a&gt; 阅读(&lt;span id="post_view_count"&gt;38254&lt;/span&gt;) 评论(&lt;span id="post_comment_count"&gt;8&lt;/span&gt;)  &lt;a href="https://i.cnblogs.com/EditPosts.aspx?postid=6424471" rel="nofollow"&gt;编辑&lt;/a&gt; &lt;a href="#" "AddToWz(6424471);return false;"&gt;收藏&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class="d-flex justify-content-between align-items-center gap-3 mb-3"><div class="post-meta"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6/">回调机制</a></div></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> 本文由作者按照 <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> 进行授权</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">分享</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91Java%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E8%A7%A3%E8%AF%BB%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2F%25E8%25BD%25AC%25E8%25BD%25BD-Java%25E5%259B%259E%25E8%25B0%2583%25E6%259C%25BA%25E5%2588%25B6%25E8%25A7%25A3%25E8%25AF%25BB%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91Java%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E8%A7%A3%E8%AF%BB%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&u=https%3A%2F%2Fa18792721831.github.io%2Fposts%2F%25E8%25BD%25AC%25E8%25BD%25BD-Java%25E5%259B%259E%25E8%25B0%2583%25E6%259C%25BA%25E5%2588%25B6%25E8%25A7%25A3%25E8%25AF%25BB%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2F%25E8%25BD%25AC%25E8%25BD%25BD-Java%25E5%259B%259E%25E8%25B0%2583%25E6%259C%25BA%25E5%2588%25B6%25E8%25A7%25A3%25E8%25AF%25BB%2F&text=%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91Java%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E8%A7%A3%E8%AF%BB%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="分享链接" data-title-succeed="链接已复制！" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">最近更新</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E7%89%A9%E7%90%86%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（四）数据文件物理迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%89-mydumper-myloader-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（三）mydumper/myloader 多线程迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%BA%8C-%E5%8E%9F%E7%94%9F-mysqldump-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（二）原生 mysqldump 导出导入实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%AF%84-%E4%B8%89%E5%A4%A7%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88/">MySQL 数据迁移（一）为什么迁、怎么迁、怎么评——三大方案总览</a><li class="text-truncate lh-lg"> <a href="/posts/%E6%95%99%E7%A8%8B-%E7%BB%99AI%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E8%A3%85%E4%B8%8A%E4%BB%A3%E7%A0%81%E7%9C%BC%E7%9D%9B-serena%E4%B8%8Ecodebase-memory%E5%8F%8C%E5%BC%95%E6%93%8E%E5%AE%9E%E8%B7%B5/">【教程】给AI编程助手装上代码眼睛:serena 与 codebase-memory 双引擎实践</a></ul></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">文章内容</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/java8%E8%AE%BE%E8%AE%A1%E5%92%8C%E6%9E%B6%E6%9E%84/" class="btn btn-outline-primary" aria-label="上一篇" ><p>java8设计和架构</p></a> <a href="/posts/%E8%BD%AC%E8%BD%BD-RxJava2.0-%E4%BB%8E%E6%94%BE%E5%BC%83%E5%88%B0%E5%85%A5%E9%97%A8/" class="btn btn-outline-primary" aria-label="下一篇" ><p>【转载】RxJava2.0——从放弃到入门</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://github.com/a18792721831">贾永琪</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。" >保留部分权利。</span></p><p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.6.0" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a></p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast w-auto rounded-5 text-nowrap" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="d-flex align-items-center"><div class="toast-body ps-3">发现新内容</div><button type="button" class="btn btn-primary btn-sm rounded-2 py-0" aria-label="Update" >更新</button> <button type="button" class="btn-close mx-3 ms-2" data-bs-dismiss="toast" aria-label="Close" ></button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">搜索结果为空</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>

@@ -1,0 +1,1257 @@
+<!doctype html><html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="Java基础–AQS原理" /><meta property="og:locale" content="zh_CN" /><meta name="description" content="本文详细解析了AQS(AbstractQueuedSynchronizer)的工作原理，包括Lock接口的使用，自定义非重入独占锁、重入独占锁、门栓锁的实现，以及AQS内部线程存储数据结构和行为流程。通过实例演示了锁的获取和释放过程，深入探讨了AQS的模板方法设计模式。" /><meta name="twitter:description" property="og:description" content="本文详细解析了AQS(AbstractQueuedSynchronizer)的工作原理，包括Lock接口的使用，自定义非重入独占锁、重入独占锁、门栓锁的实现，以及AQS内部线程存储数据结构和行为流程。通过实例演示了锁的获取和释放过程，深入探讨了AQS的模板方法设计模式。" /><link rel="canonical" href="https://a18792721831.github.io/posts/Java%E5%9F%BA%E7%A1%80-AQS%E5%8E%9F%E7%90%86/" /><meta property="og:url" content="https://a18792721831.github.io/posts/Java%E5%9F%BA%E7%A1%80-AQS%E5%8E%9F%E7%90%86/" /><meta property="og:site_name" content="贾永琪的技术博客" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2020-06-21T19:37:44+08:00" /><meta property="article:modified_time" content="2026-09-22T17:59:12+08:00" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="Java基础–AQS原理" /><meta name="twitter:site" content="@" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-09-22T17:59:12+08:00","datePublished":"2020-06-21T19:37:44+08:00","description":"本文详细解析了AQS(AbstractQueuedSynchronizer)的工作原理，包括Lock接口的使用，自定义非重入独占锁、重入独占锁、门栓锁的实现，以及AQS内部线程存储数据结构和行为流程。通过实例演示了锁的获取和释放过程，深入探讨了AQS的模板方法设计模式。","headline":"Java基础–AQS原理","mainEntityOfPage":{"@type":"WebPage","@id":"https://a18792721831.github.io/posts/Java%E5%9F%BA%E7%A1%80-AQS%E5%8E%9F%E7%90%86/"},"url":"https://a18792721831.github.io/posts/Java%E5%9F%BA%E7%A1%80-AQS%E5%8E%9F%E7%90%86/"}</script><title>Java基础--AQS原理 | 贾永琪的技术博客</title><link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3/dist/js/glightbox.min.js,npm/clipboard@2/dist/clipboard.min.js,npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/zh.js,npm/dayjs@1/plugin/relativeTime.js,npm/dayjs@1/plugin/localizedFormat.js,npm/tocbot@4/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://github.com/a18792721831.png" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">贾永琪的技术博客</a><p class="site-subtitle fst-italic mb-0">记录点点滴滴</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>首页</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>分类</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>标签</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>归档</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>关于</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"><div class="btn-group dropup"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle" data-bs-toggle="dropdown" ><i class="fa-regular fa-sun" data-theme-mode="light"></i><i class="fa-regular fa-moon" data-theme-mode="dark"></i><i class="fa-solid fa-display" data-theme-mode="system"></i></button><ul class="dropdown-menu rounded-3 mb-1 p-1"><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="light"><i class="fa-regular fa-sun" data-theme-mode="light"></i>浅色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="dark"><i class="fa-regular fa-moon" data-theme-mode="dark"></i>深色</button><li> <button class="dropdown-item d-flex align-items-center" type="button" data-theme-mode="system"><i class="fa-solid fa-display" data-theme-mode="system"></i>跟随系统</button></ul></div><span class="icon-border"></span> <a href="https://github.com/a18792721831" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="javascript:void(location.href = 'mailto:' + ['735809899','qq.com'].join('@'))" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">首页</a> </span> <span>Java基础--AQS原理</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> 文章</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="搜索..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">取消</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>Java基础--AQS原理</h1><p class="post-desc fw-light mb-4">本文详细解析了AQS(AbstractQueuedSynchronizer)的工作原理，包括Lock接口的使用，自定义非重入独占锁、重入独占锁、门栓锁的实现，以及AQS内部线程存储数据结构和行为流程。通过实例演示了锁的获取和释放过程，深入探讨了AQS的模板方法设计模式。</p><div class="post-meta text-muted"> <span> 发表于 <time data-ts="1592739464" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2020/06/21 </time> </span> <span> 更新于 <time data-ts="1790071152" data-df="YYYY/MM/DD" data-bs-toggle="tooltip" data-bs-placement="bottom" > 2026/09/22 </time> </span><div class="d-flex justify-content-between"> <span> 作者 <em> <a href="https://github.com/a18792721831">贾永琪</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="10795 字" > <em>59 分钟</em>阅读</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Java基础--AQS原理</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">文章内容</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Java基础--AQS原理</div><button id="toc-popup-close" type="button" class="btn-close btn-sm mx-3" aria-label="Close"></button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><blockquote><p><strong>文章信息</strong></p><ul><li>原文链接：https://jiayq.blog.csdn.net/article/details/106730738<li>发布时间：2020-06-21 19:37:44<li>阅读量：636<li>分类：java同时被 3 个专栏收录, 订阅专栏, java核心, Java8<li>标签：#AQS源码解读, #带你阅读AQS源码, #基于AQS实现自己的锁, #共享锁和独占锁AQS如何实现, #AQS的秘密解读</ul></blockquote><h2 id="摘要"><span class="me-2">摘要</span><a href="#摘要" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>文章浏览阅读636次。本文详细解析了AQS(AbstractQueuedSynchronizer)的工作原理，包括Lock接口的使用，自定义非重入独占锁、重入独占锁、门栓锁的实现，以及AQS内部线程存储数据结构和行为流程。通过实例演示了锁的获取和释放过程，深入探讨了AQS的模板方法设计模式。</p><hr /><h4 id="java基础aqs原理"><span class="me-2">Java基础–AQS原理</span><a href="#java基础aqs原理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><ul><li>1. Lock 谱系图<li>2. Lock 接口<li>4. AbstractOwnableSynchronizer<li>5. AbstractQueuedSynchronizer<li><ul><li>5.1 AQS的API<ul><li>5.2 自定义非重入独占锁<li>5.2 自定义非重入独占锁的缺陷<li>5.3 自定义重入独占锁<li>5.4 自定义门栓锁<li>5.5 AQS内部线程存储数据结构–Node<li>5.6 AQS内部行为<li><ul><li>5.6.1 tryLock<ul><li>5.6.2 lock–acquire<li><ul><li>5.6.2.1 tryAcquire</ul></ul></ul></ul><li>5.6.2.2 AddWaiter<li>5.6.2.3 enq<li>5.6.2.4 acquireQueued<li>5.6.2.5 predecessor<li>5.6.2.6 shouldParkAfterFailedAcquire<li>5.6.2.7 parkAndCheckInterrupt<li>5.6.2.8 cancelAcquire<li>5.6.2.9 unparkSuccessor<li>5.6.2.10 selfInterrupt * 5.6.3 unlock-release * 5.6.4 lockInterruptibly-acquireInterruptibly * 5.6.5 tryLock(long time, TimeUtil unit)-tryAcquireNanos * 5.6.6 await-acquireShared * 5.6.7 releaseShared</ul><li>6. 总结</ul><p>温馨提示：本文3.2W字左右，阅读时间较长，慎入！</p><h2 id="1-lock-谱系图"><span class="me-2">1. Lock 谱系图</span><a href="#1-lock-谱系图" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6c2ae549b38d6d73c4a85ff8e042e3b6.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6c2ae549b38d6d73c4a85ff8e042e3b6.png" alt="在这里插入图片描述" loading="lazy"></a><br /> jdk对锁的实现的类主要是2个：ReentrantLock（重入锁），ReentrantReadWriteLock（可重入读写锁）</p><h2 id="2-lock-接口"><span class="me-2">2. Lock 接口</span><a href="#2-lock-接口" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0f8e66c9ca52bd945582fc51eb6a433a.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0f8e66c9ca52bd945582fc51eb6a433a.png" alt="在这里插入图片描述" loading="lazy"></a></p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>//尝试获取锁，获取成功则返回，否则阻塞当前线程
+void lock(); 
+//尝试获取锁，线程在成功获取锁之前被中断，则放弃获取锁，抛出异常 
+void lockInterruptibly() throws InterruptedException; 
+//尝试获取锁，获取锁成功则返回true，否则返回false 
+boolean tryLock(); 
+//尝试获取锁，若在规定时间内获取到锁，则返回true，否则返回false，未获取锁之前被中断，则抛出异常 
+boolean tryLock(long time, TimeUnit unit) throws InterruptedException; 
+//释放锁
+void unlock(); 
+//返回当前锁的条件变量，通过条件变量可以实现类似notify和wait的功能，一个锁可以有多个条件变量
+Condition newCondition();
+</pre></table></code></div></div><p>接下来，通过一个小例子，体验锁。<br /> 首先是一个并发的问题场景：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+</pre><td class="rouge-code"><pre>public class People {
+
+    private Long sum = 0L;
+
+    private static Long all = 0L;
+
+    public People() {
+    }
+
+    public Long getSum() {
+        return sum;
+    }
+
+    public void setSum(Long sum) {
+        this.sum = sum;
+    }
+
+    public Long getAll() {
+        return all;
+    }
+
+    public void setAll(Long all) {
+        People.all = all;
+    }
+}
+
+
+
+public class MyLockMain {
+
+    public static void main(String[] args) {
+        People people = new People();
+        Runnable runnable = () -&gt; {
+            Thread thread = Thread.currentThread();
+            System.out.println(thread.getName() + thread.getId() + " start ");
+            for (int i = 0; i &lt; 10000; i++) {
+                people.setAll(people.getAll() + 1);
+                people.setSum(people.getSum() + 1);
+            }
+            System.out.println(thread.getName() + thread.getId() + " end ");
+        };
+        System.out.println("main thread sum = " + people.getSum() + " , all = " + people.getAll());
+        ExecutorService service = new ThreadPoolExecutor(10, 10, 0, TimeUnit.SECONDS, new LinkedBlockingQueue&lt;&gt;());
+        for (int i = 0; i &lt; 10; i++) {
+            service.execute(runnable);
+        }
+        service.shutdown();
+        try {
+            TimeUnit.SECONDS.sleep(4);
+        } catch (InterruptedException e) {
+            System.out.println("main interrupt exception");
+        }
+        System.out.println("main end sum = " + people.getSum() + " , all = " + people.getAll());
+    }
+
+}
+</pre></table></code></div></div><p>我们创建了一个people类，people类有两个属性，这两个属性都有get,set方法。<br /> 在主线程中，我们启动10个线程，每个线程都对people的属性进行增加。<br /> 我们预期的结果是这两个属性的值都是10W。<br /> 执行下看看结果：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9632a5661e2cbbf578ee2627671c62ad.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9632a5661e2cbbf578ee2627671c62ad.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 这是一个并发问题，解决这个问题可以通过加锁实现。<br /> 基于Lock接口，我们尝试自己实现一个简单的伪锁：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre><td class="rouge-code"><pre>public class MyLock implements Lock {
+
+    private volatile int value;
+
+    @Override
+    public void lock() {
+        synchronized (this) {
+            while (value != 0){
+                try {
+                    this.wait(); // 重量级锁  CAS自旋
+                } catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+            value = 1;
+        }
+    }
+
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+
+    }
+
+    @Override
+    public boolean tryLock() {
+        return value == 1;
+    }
+
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        return false;
+    }
+
+    @Override
+    public void unlock() {
+        synchronized (this) {
+            value = 0;
+            this.notifyAll();
+        }
+    }
+
+    @Override
+    public Condition newCondition() {
+        return null;
+    }
+}
+</pre></table></code></div></div><p>在我们自己实现的锁中，以一个int的value的值进行标识。如果value=1标识锁被占用，value=0标识锁空闲。<br /> 内部是通过synchronized实现的.<br /> 在加锁的地方，我们通过死循环尝试竞争锁，如果竞争失败，则线程挂起，线程阻塞。<br /> 在释放锁的地方，我们重置标志，然后唤醒所有挂起的线程，让被挂起的线程竞争锁。<br /> 我们试试好不好使。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre><td class="rouge-code"><pre>public class MyLockMain {
+
+    public static void main(String[] args) {
+        People people = new People();
+        Lock lock = new MyLock();
+        Runnable runnable = () -&gt; {
+            Thread thread = Thread.currentThread();
+            System.out.println(thread.getName() + thread.getId() + " start ");
+            for (int i = 0; i &lt; 10000; i++) {
+                lock.lock();
+                try {
+                    people.setAll(people.getAll() + 1);
+                    people.setSum(people.getSum() + 1);
+                } finally {
+                    lock.unlock();
+                }
+            }
+            System.out.println(thread.getName() + thread.getId() + " end ");
+        };
+        System.out.println("main thread sum = " + people.getSum() + " , all = " + people.getAll());
+        ExecutorService service = new ThreadPoolExecutor(10, 10, 0, TimeUnit.SECONDS, new LinkedBlockingQueue&lt;&gt;());
+        for (int i = 0; i &lt; 10; i++) {
+            service.execute(runnable);
+        }
+        service.shutdown();
+        try {
+            TimeUnit.SECONDS.sleep(4);
+        } catch (InterruptedException e) {
+            System.out.println("main interrupt exception");
+        }
+        System.out.println("main end sum = " + people.getSum() + " , all = " + people.getAll());
+    }
+
+}
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a437866eff7622ce26d0ec0572b6f79.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6a437866eff7622ce26d0ec0572b6f79.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 虽然我们实际还是使用synchronized实现的同步，但是，通过这个小例子，可以体验锁是什么。</p><h2 id="4-abstractownablesynchronizer"><span class="me-2">4. AbstractOwnableSynchronizer</span><a href="#4-abstractownablesynchronizer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>抽象线程持有类，简称AOS.<br /> AOS的代码逻辑很简单：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b7ca6d37b1524158fc17c7858d09d4aa.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b7ca6d37b1524158fc17c7858d09d4aa.png" alt="在这里插入图片描述" loading="lazy"></a><br /> AOS是抽象类，有一个内存可见的非持久化的线程属性，以及线程属性对应的get,set方法。<br /> 如果锁是独占锁，那么这个类中的线程就是锁持有者的线程。换个角度理解就是，AOS中的线程占有锁。</p><h2 id="5-abstractqueuedsynchronizer"><span class="me-2">5. AbstractQueuedSynchronizer</span><a href="#5-abstractqueuedsynchronizer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>抽象队列同步器，简称AQS。<br /> AQS继承了AOS.<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0ca06405f4240ceb39aa76f03fb6fe21.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0ca06405f4240ceb39aa76f03fb6fe21.png" alt="在这里插入图片描述" loading="lazy"></a><br /> AQS内部比较复杂，AQS内部有一个Sync的抽象类，Sync抽象类有两个实现，NonfairSync和FairSync。<br /> 其中NonfaireSync是非公平获取锁。<br /> FairSync是公平获取锁。<br /> AQS内部还有两个内部类：Node和ConditionObject。<br /> ConditionObject还实现了Condition接口。</p><h3 id="51-aqs的api"><span class="me-2">5.1 AQS的API</span><a href="#51-aqs的api" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>话不多说，我们首先看看AQS的api.<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b19e2545df3a33219210f94237a86c38.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b19e2545df3a33219210f94237a86c38.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 请注意重点：</p><ol><li>AQS是一个框架<li>原子int值表示状态<li>int值只能通过getState(),setState(int)和cas更新<li>AQS的等待队列是FIFO的(CLH)<li>AQS无法直接使用，需要子类实现AQS指定的方法</ol><p>使用：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e77ebf4c4a26d78a214fa0b4974307a7.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e77ebf4c4a26d78a214fa0b4974307a7.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 我们在使用AQS的框架的时候，只需要让AQS的子类实现这些方法即可。至于等待队列CLH的调度检测等，AQS框架已经帮我们实现了。<br /> 这是一个典型的模板方法设计模式的使用例子。</p><h3 id="52-自定义非重入独占锁"><span class="me-2">5.2 自定义非重入独占锁</span><a href="#52-自定义非重入独占锁" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>我们根据API的说明，尝试自己实现一个锁。<br /> 当然，这个实现的锁，是真正的锁，不是之前使用synchronized的伪锁。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+</pre><td class="rouge-code"><pre>public class MyAQS implements Lock {
+
+    private volatile Sync sync = new Sync();
+
+    private class Sync extends AbstractQueuedSynchronizer{
+
+        @Override
+        protected boolean tryAcquire(int arg) {
+            // 独占模式获取锁
+            assert arg == 1; // arg 必须等于 1
+            if(compareAndSetState(0, 1)){ // 修改锁占用状态成功
+                setExclusiveOwnerThread(Thread.currentThread()); // 设置锁占用线程
+                return true; // 锁获取成功
+            }
+            return false; // 锁获取失败
+        }
+
+        @Override
+        protected boolean tryRelease(int arg) {
+            // 独占模式释放锁
+            assert arg == 1; // arg 必须等于 1
+            setExclusiveOwnerThread(null); // 清空占用锁线程
+            setState(0); // 设置锁空闲
+            return true;
+        }
+    }
+
+    @Override
+    public void lock() {
+        sync.acquire(1);
+    }
+
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+        sync.acquireInterruptibly(1);
+    }
+
+    @Override
+    public boolean tryLock() {
+        return sync.tryAcquire(1);
+    }
+
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        return sync.tryAcquireNanos(1, unit.toNanos(time));
+    }
+
+    @Override
+    public void unlock() {
+        sync.release(1);
+    }
+
+    @Override
+    public Condition newCondition() {
+        return null;
+    }
+}
+</pre></table></code></div></div><p>我们实现了Lock接口，在内部私有类继承AQS框架。<br /> 我们实现的这个锁是非重入的独占锁。<br /> 获取锁主要做了这些操作：<br /> 检测传入参数<br /> 设置锁占用状态<br /> 设置锁持有线程</p><p>释放锁主要做了这些操作：<br /> 检测传入参数<br /> 清空锁持有线程<br /> 设置锁空闲</p><p>OK，我们创建了自己的锁，那么，这把锁能不能使用呢？<br /> 我们尝试使用</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre><td class="rouge-code"><pre>    public static void main(String[] args) {
+        Lock lock = new MyAQS();
+        People people = new People();
+        Runnable runnable = () -&gt; {
+            lock.lock();
+            try{
+                for (int i = 0;i &lt; 1000;i++){
+                    people.setSum(people.getSum() + 1);
+                }
+            } finally {
+                lock.unlock();
+            }
+        };
+        ExecutorService service = new ThreadPoolExecutor(100, 100, 0, TimeUnit.SECONDS,new ArrayBlockingQueue&lt;&gt;(100));
+        for(int i = 0;i &lt; 100;i++){
+            service.execute(runnable);
+        }
+        service.shutdown();
+        try{
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException ie){
+            System.out.println("ie");
+        }
+        System.out.println("people sum = " + people.getSum());
+    }
+</pre></table></code></div></div><p>不管执行多少次都是10W：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ca5ccd287f62903e656a43ef8cf44d3a.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ca5ccd287f62903e656a43ef8cf44d3a.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 这个例子只是验证了，我们的锁在并发情况下，是排他锁，或者说是独占锁，也就是说，同一时刻，只有一个线程可以持有锁。<br /> 之前我们还说过，MyAQS是非重入锁：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre><td class="rouge-code"><pre>    public static void main(String[] args) {
+        Lock lock = new MyAQS();
+        Runnable runnable = () -&gt; {
+            lock.lock();
+            try{
+                if(lock.tryLock()){
+                    System.out.println("tryLock success");
+                    lock.unlock();
+                } else{
+                    System.out.println("tryLock failed");
+                }
+            } finally {
+                lock.unlock();
+            }
+        };
+        new Thread(runnable).start();
+    }
+</pre></table></code></div></div><p>我们在线程内获得锁后，再次尝试获取锁。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ab46e6407e5295b03842a1078a1fe517.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ab46e6407e5295b03842a1078a1fe517.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 他核心代码就是我们重写AQS的tryAcquire的方法中，使用cas操作将state设置为1.<br /> 如果是使用cas操作将state加1，那么就是可重入锁。</p><p>可重入锁的释放与获取刚好相反，重入锁的获取是+1，那么释放就是-1.<br /> 非可重入锁的获取是设置为1，那么非可重入锁的释放就是设置为0.</p><h3 id="52-自定义非重入独占锁的缺陷"><span class="me-2">5.2 自定义非重入独占锁的缺陷</span><a href="#52-自定义非重入独占锁的缺陷" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>MyAQS在获取锁上没有问题，主要问题是锁的释放上。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1536322a35bb3947584ba3b79bd25fb4.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1536322a35bb3947584ba3b79bd25fb4.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 释放锁没有检测当前状态，如果已经释放了，重复释放锁，是否允许。<br /> 在我们非重入锁以及排他锁来看，这样是对的。<br /> 释放锁，没有验证，现在持有锁的线程和释放的线程是否是同一个线程。<br /> 用大白话来说：<br /> 线程A获取了锁，然后A线程在干活。<br /> 线程B也来获取锁，然后发现锁被人获取了。<br /> 然后线程B调用释放锁的方法，此时锁状态就变了，然后线程B就可以获取锁了。<br /> 然后线程B在线程A未释放锁的前提下，获取到了锁。造成的后果就是，线程A与线程B并发执行了。<br /> 举个例子：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+</pre><td class="rouge-code"><pre>    public static void main(String[] args) {
+        Lock lock = new MyAQS();
+        People people = new People();
+        Runnable runnable = () -&gt; {
+            Runnable runnable1 = () -&gt; {
+                for (int i = 0; i &lt; 1000; i++) {
+                    people.setSum(people.getSum() + 1);
+                }
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException ie) {
+                    System.out.println("ie");
+                }
+            };
+            if (lock.tryLock()) {
+                try {
+                    runnable1.run();
+                } finally {
+                    lock.unlock();
+                }
+            } else {
+                lock.unlock();
+                lock.lock();
+                try {
+                    runnable1.run();
+                } finally {
+                    lock.unlock();
+                }
+            }
+        };
+        ExecutorService service = new ThreadPoolExecutor(100, 100, 0, TimeUnit.SECONDS,new ArrayBlockingQueue&lt;&gt;(100));
+        for(int i = 0;i &lt; 100;i++){
+            service.execute(runnable);
+        }
+        service.shutdown();
+        try{
+            TimeUnit.SECONDS.sleep(110);
+        }catch (InterruptedException ie){
+            System.out.println("ie");
+        }
+        System.out.println("people sum = " + people.getSum());
+    }
+</pre></table></code></div></div><p>线程的任务是：<br /> 线程尝试获取锁，如果获取成功，那么就执行增加people的sum的操作，增加1000次后sleep1秒，执行完成后，在finally中释放锁，任务结束。<br /> 如果获取失败，那么调用锁释放操作，然后阻塞获取锁，获取成功后，执行增加操作，执行完成后，在finally中释放锁，任务结束。<br /> 这个任务与之前的任务的不同点是，当第一次尝试获取锁失败后，会调用锁释放操作，然后再次获取锁。<br /> 接下来看下执行结果：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/843f95da47bd8d3728ea5c2f1fd1601d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/843f95da47bd8d3728ea5c2f1fd1601d.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 说实话，任务里面加完100次后睡眠1秒，然后100个线程，总共需要睡眠100秒(至少)，还是很浪费时间的。<br /> 结合之前学习的线程的知识，持有锁，然后让出CPU资源，可以使用yeild()替换睡眠操作。<br /> 为什么需要睡眠？<br /> 指令执行的速度非常快，线程睡眠是故意造成线程竞争锁的目的。<br /> 因为我们在锁释放的时候没有验证当前请求的线程是否是线程的持有者，造成不管有没有持有锁，都可以释放锁。就会造成例子中，恶意线程释放其他线程的锁，然后自己使用。<br /> 所以，我们在释放的时候，需要验证当前请求的线程是否持有锁：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/12ea2d76526f1a831840549a58f493ea.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/12ea2d76526f1a831840549a58f493ea.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 还记得吗，AQS继承AOS，而AOS很简单，就是记录哪个线程持有锁(独占模式)<br /> 所以，我们判断请求线程与持有线程是否一致，如果一致才释放，否则不释放。<br /> 我们使用修改后的锁重试上面的例子：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8f42963d392fdf501abae3aef8d35115.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/8f42963d392fdf501abae3aef8d35115.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 使用了yeild快多了。<br /> 和我们预期相同。加入持有锁线程判断后，其他线程不能随意释放不属于自己得到的锁了。</p><h3 id="53-自定义重入独占锁"><span class="me-2">5.3 自定义重入独占锁</span><a href="#53-自定义重入独占锁" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+</pre><td class="rouge-code"><pre>public class MyAQS1 implements Lock {
+
+    private volatile Sync sync = new Sync();
+
+    private class Sync extends AbstractQueuedSynchronizer {
+        @Override
+        protected boolean tryAcquire(int arg) {
+            assert arg == 1;
+            int state = getState();
+            if ((Thread.currentThread() == getExclusiveOwnerThread() || getExclusiveOwnerThread() == null)
+                    &amp;&amp; compareAndSetState(state, state + 1)) {
+                setExclusiveOwnerThread(Thread.currentThread());
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        protected boolean tryRelease(int arg) {
+            assert arg == 1;
+            int state = getState();
+            if (Thread.currentThread() == getExclusiveOwnerThread()
+                    &amp;&amp; compareAndSetState(state, state - 1)) {
+                setExclusiveOwnerThread(getState() == 0 ? null : getExclusiveOwnerThread());
+                return true;
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public void lock() {
+        sync.acquire(1);
+    }
+
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+        sync.acquireInterruptibly(1);
+    }
+
+    @Override
+    public boolean tryLock() {
+        return sync.tryAcquire(1);
+    }
+
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        return sync.tryAcquireNanos(1, unit.toNanos(time));
+    }
+
+    @Override
+    public void unlock() {
+        sync.release(1);
+    }
+
+    @Override
+    public Condition newCondition() {
+        return null;
+    }
+}
+</pre></table></code></div></div><p>我们定义了一个可重入的独占锁。<br /> 核心方法仍然是获取锁和释放锁的方法:<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/54b237bcec72fc0f6fd572f232f70207.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/54b237bcec72fc0f6fd572f232f70207.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 获取锁：<br /> 所处于空闲，或者请求线程已经持有锁<br /> 锁状态+1<br /> 设置锁持有线程</p><p>释放锁：<br /> 请求线程持有锁<br /> 锁状态-1<br /> 设置锁持有线程，如果锁空闲，锁持有线程置空</p><p>这就是一个可重入的独占锁<br /> 接下来用一个小例子验证：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre><td class="rouge-code"><pre>    public static void main(String[] args) {
+        Lock lock = new MyAQS1();
+        Runnable runnable = () -&gt; {
+            Thread thread = Thread.currentThread();
+            lock.lock();
+            try {
+                Thread.yield();
+                System.out.println(thread.getName() + thread.getId() + " 1 get lock");
+                lock.lock();
+                try {
+                    Thread.yield();
+                    System.out.println(thread.getName() + thread.getId() + " 2 get lock");
+                } finally {
+                    lock.unlock();
+                    System.out.println(thread.getName() + thread.getId() + " 2 free lock");
+                }
+            } finally {
+                lock.unlock();
+                System.out.println(thread.getName() + thread.getId() + " 1 free lock");
+            }
+        };
+        new Thread(runnable).start();
+        new Thread(runnable).start();
+    }
+</pre></table></code></div></div><p>线程任务中，每次获取到锁，就让出CPU时间。<br /> 看下最终的结果：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b900875294048941e7ee29dd013f3474.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b900875294048941e7ee29dd013f3474.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 因为获取锁的时候，需要验证请求线程是否持有锁，这里实现的独占模式。<br /> 获取锁将锁状态加1，这里实现的可重入。<br /> 可重入锁需要注意一点，在线程中，获取了多少次锁，就需要释放多少次锁。<br /> 要保证线程退出同步的时候，锁状态是0</p><h3 id="54-自定义门栓锁"><span class="me-2">5.4 自定义门栓锁</span><a href="#54-自定义门栓锁" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>前面自定义的都是独占锁，接下来实现一个共享锁。<br /> 首先，门栓锁是什么？<br /> 想象这样一个场景：全家人出去购物，购物回到房门口之后，发现只有妈妈带有钥匙，于是大家一个排一个的在们口等待。妈妈使用钥匙打开房门后，在一个一个的进入家里。</p><p>门栓锁的原理就是这样，当门栓锁还没有收到信号的时候，所有尝试获取信号的线程全部阻塞。当收到信号后，阻塞的线程竞争门栓锁。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+</pre><td class="rouge-code"><pre>public class MyAQS3 {
+
+    private final Sync sync = new Sync();
+
+    private class Sync extends AbstractQueuedSynchronizer{
+
+        boolean isSignalled(){
+            return getState() != 0;
+        }
+
+        @Override
+        protected int tryAcquireShared(int arg) {
+            return isSignalled() ? 1 : -1;
+        }
+
+        @Override
+        protected boolean tryReleaseShared(int arg) {
+            setState(1);
+            return true;
+        }
+    }
+
+    public boolean isSignalled(){
+        return sync.isSignalled();
+    }
+
+    public void signal(){
+        sync.releaseShared(1);
+    }
+
+    public void await() throws InterruptedException{
+        sync.acquireSharedInterruptibly(1);
+    }
+
+}
+
+
+
+    public static void main(String[] args) {
+        MyAQS3 myAQS = new MyAQS3();
+        Runnable runnable = () -&gt; {
+            myAQS.signal();
+            System.out.println("signal");
+        };
+        Runnable runnable1 = () -&gt; {
+            Thread thread = Thread.currentThread();
+            try {
+                myAQS.await();
+                System.out.println("await");
+            } catch (InterruptedException e) {
+                System.out.println("ie");
+            }
+        };
+        System.out.println("await!!!!!");
+        new Thread(runnable1).start();
+        new Thread(runnable1).start();
+        try{
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException ie){
+            System.out.println("ie");
+        }
+        System.out.println("signal!!!!!!");
+        new Thread(runnable).start();
+    }
+</pre></table></code></div></div><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1a827f8a18d18484b3ab1ccb8eb5ff56.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/1a827f8a18d18484b3ab1ccb8eb5ff56.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 独占锁和共享锁有一个很大区别：<br /> 独占锁在同一时间只有一个线程能获取锁，并开始运行。<br /> 而共享锁有一个传播的概念，获取到锁的节点，会通知后面的线程获取锁。<br /> 我们将上面的验证逻辑稍微修改：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+</pre><td class="rouge-code"><pre>    public static void main(String[] args) {
+        MyAQS3 myAQS = new MyAQS3();
+        Runnable runnable = () -&gt; {
+            myAQS.signal();
+            System.out.println("signal");
+        };
+        Runnable runnable1 = () -&gt; {
+            Thread thread = Thread.currentThread();
+            try {
+                System.out.println("before await" + Thread.currentThread().getId());
+                myAQS.await();
+                System.out.println("await" + Thread.currentThread().getId() + " time = " + System.currentTimeMillis());
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException ie) {
+                    System.out.println("ie");
+                }
+                System.out.println("after yield" + Thread.currentThread().getId() + " time = " + System.currentTimeMillis());
+            } catch (InterruptedException e) {
+                System.out.println("ie");
+            }
+        };
+        Runnable runnable2 = () -&gt; {
+            Thread thread = Thread.currentThread();
+            try {
+                System.out.println("before await" + Thread.currentThread().getId());
+                myAQS.await();
+                System.out.println("await" + Thread.currentThread().getId() + " time = " + System.currentTimeMillis());
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException ie) {
+                    System.out.println("ie");
+                }
+                System.out.println("after yield" + Thread.currentThread().getId() + " time = " + System.currentTimeMillis());
+            } catch (InterruptedException e) {
+                System.out.println("ie");
+            }
+        };
+        System.out.println("await!!!!!");
+        new Thread(runnable1).start();
+        new Thread(runnable2).start();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException ie) {
+            System.out.println("ie");
+        }
+        System.out.println("signal!!!!!!");
+        new Thread(runnable).start();
+    }
+</pre></table></code></div></div><p>第一个线程开始排队，等待门栓；然后第二个线程也开始排队，也等待门栓。<br /> 主线程睡眠2秒后，发出信号，门栓已开。<br /> 然后第一个线程开始执行，同时第二个线程也开始执行。<br /> 第一个线程获取到门栓锁后，睡眠1秒钟。<br /> 第二个线程获取到门栓锁后，睡眠2秒钟。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2578bdccfba17cdbe342cffa39d78393.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2578bdccfba17cdbe342cffa39d78393.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 这个门栓锁是不复位的门栓锁，也就是说当门栓锁收到信号后，后续的线程都可以获取门栓锁了。<br /> 门栓锁不是单例。可以为读操作资源增加门栓锁。<br /> 当资源准备好后，一直可以读取。</p><h3 id="55-aqs内部线程存储数据结构node"><span class="me-2">5.5 AQS内部线程存储数据结构–Node</span><a href="#55-aqs内部线程存储数据结构node" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e6a38c00fe4005654ee3594b4e779fe2.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e6a38c00fe4005654ee3594b4e779fe2.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 通过查看源码，发现Node主要是一个双向链表。<br /> 这个Node结构，怎么理解呢？<br /> 我们首先查看其构造方法：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b42f090309a110e6ce74d33c9cd8f776.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b42f090309a110e6ce74d33c9cd8f776.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 发现构造主要传入了三个信息：这个Node对应的thread和Node的模式，以及一个等待的int状态量。<br /> 但是通过方法名和传入的类型，对mode这个传入的参数先保持一定的怀疑，貌似不是单纯的模式。<br /> 继续往下看：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2d185ab338d9770ae05f77677f34a945.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/2d185ab338d9770ae05f77677f34a945.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 从这里我们可以得到两个信息：<br /> 1.Node记录了是独占的，还是共享的。<br /> 2.int型的状态量至少有1,-1,-2,-3状态。</p><div class="table-wrapper"><table><thead><tr><th>状态<th>状态名称<th>含义<tbody><tr><td>1<td>取消<td>已取消(因超时或者中断，取消获取锁)<tr><td>0<td>新建<td>线程节点新建初始化<tr><td>-1<td>阻塞<td>线程节点的的后续线程阻塞，当前节点释放后需要通知后续节点<tr><td>-2<td>等待通知<td>线程在等待通知队列<tr><td>-3<td>传播<td>无条件传播</table></div><p>继续往下：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d1894b7b9c32c536efa2d558885e1773.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d1894b7b9c32c536efa2d558885e1773.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 从这里我们可以得到这个Node的数据结构是双向链表。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59eb36a897e7f814cc10b2e7f2ad3c89.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59eb36a897e7f814cc10b2e7f2ad3c89.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 在Node属性最后，可以看到这一段代码。前面我们知道，SHARED是使用new Node()这个构造器进行初始化的。而new Node()构造器里面什么都没有，也就是说，当nextWaiter是空节点的时候，表是Node是独占模式。<br /> 这也是为什么我们看到的第二个构造器传入的Node的参数名字是mode了。<br /> 他是由两个属性共同决定的。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/50c0d20c10d38206280a2d89181f1bca.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/50c0d20c10d38206280a2d89181f1bca.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 说实话，我看到这里是比较模糊的。到底是个啥？<br /> 不着急，稍安勿躁，我们继续往下看。</p><h3 id="56-aqs内部行为"><span class="me-2">5.6 AQS内部行为</span><a href="#56-aqs内部行为" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>从5.5可以知道AQS内部数据的存储结构，接下来我们分析下AQS内部的行为<br /> 首先AQS是抽象类，那么，AQS要求子类必须实现的接口是<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e77ebf4c4a26d78a214fa0b4974307a7.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e77ebf4c4a26d78a214fa0b4974307a7.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fea2c36cc4702f119bf654b29eaa0da3.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fea2c36cc4702f119bf654b29eaa0da3.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 在AQS中是没有提供实现的，也就是说，子类如果不实现，会抛出异常。<br /> 根据我们前面他体验的，自定义锁的实现，可以知道：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ecb75762c935c4be3c95d0f8088bd35d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ecb75762c935c4be3c95d0f8088bd35d.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 我们最终的目的是利用AQS实现锁，所以，接下来的方法将会围绕Lock接口的方法进行展开。</p><h4 id="561-trylock"><span class="me-2">5.6.1 tryLock</span><a href="#561-trylock" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d5650694a3867d84a82768882a318a2d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d5650694a3867d84a82768882a318a2d.png" alt="在这里插入图片描述" loading="lazy"></a><br /> tryLock是最简单的方法，直接调用我们Sync里面实现的加锁的操作。</p><h4 id="562-lockacquire"><span class="me-2">5.6.2 lock–acquire</span><a href="#562-lockacquire" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d0a3287f407f1a2977ee10bf2422bfb3.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d0a3287f407f1a2977ee10bf2422bfb3.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 锁的加锁操作调用的是AQS的acquire方法，那么，AQS的acquire方法干了什么?<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f55809427999955299f8b81203355480.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f55809427999955299f8b81203355480.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 这是时序图：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f2a393559cb31d5192993f3656a82165.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f2a393559cb31d5192993f3656a82165.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 首先会尝试调用获取锁的操作，如果没有获取到锁，那么就会执行&amp;&amp;后面的操作。否则将会继续执行。<br /> 从这里可以看出，这不是一个公平锁，因为他在lock的时候会尝试获取锁。如果获取到了锁，那么就会执行。</p><h5 id="5621-tryacquire"><span class="me-2">5.6.2.1 tryAcquire</span><a href="#5621-tryacquire" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>其中，tryAcquire是AQS的子类必须实现的操作，否则就会报UnsupportedOperationException异常。默认的tryAcquire方法内的操作是new 一个异常抛出。</p><h5 id="5622-addwaiter"><span class="me-2">5.6.2.2 AddWaiter</span><a href="#5622-addwaiter" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>如果tryAcquire方法返回false，表示获取锁获取失败，然后就会执行addWaiter方法<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/617d9bf57516b07b2a472c50b15e3cc9.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/617d9bf57516b07b2a472c50b15e3cc9.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 在addWaiter中会使用当前线程创建共享的线程节点：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59710416cfa521c1ae6c0a59068439b2.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/59710416cfa521c1ae6c0a59068439b2.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 在addWaiter方法中，首先创建了当前线程的Node节点，然后获取双向队列的尾，如果尾结点不为空，那么将当前节点的前继节点设置为尾节点，然后将新建的节点设置为尾节点，最后将原来的尾节点的后继节点设置为尾节点：<br /> ①<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0b1a908fd03af1344dd717bd7bb17c5b.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0b1a908fd03af1344dd717bd7bb17c5b.png" alt="在这里插入图片描述" loading="lazy"></a><br /> ②<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fb99fef8e8f8fde1bb51e77f567b7ab9.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/fb99fef8e8f8fde1bb51e77f567b7ab9.png" alt="在这里插入图片描述" loading="lazy"></a><br /> ③<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99dfa691010ddf923ea0b9733fdce1c5.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/99dfa691010ddf923ea0b9733fdce1c5.png" alt="在这里插入图片描述" loading="lazy"></a><br /> ④<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b35ba424a63677b3f65c75ef8694d1b6.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/b35ba424a63677b3f65c75ef8694d1b6.png" alt="在这里插入图片描述" loading="lazy"></a></p><h5 id="5623-enq"><span class="me-2">5.6.2.3 enq</span><a href="#5623-enq" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>新增线程节点到双向列表中，然后会执行enq方法(如果尾节点为空，那么表示双向列表为空)<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/925ca5cd74d0ba3aa133c2a517df235d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/925ca5cd74d0ba3aa133c2a517df235d.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 如果尾节点为空，将会新建一个空node节点，并且将空node节点放到双向列表的头节点，然后头节点和尾节点相等。（第一次循环结束，注意这里是一个死循环）<br /> 如果尾节点不为空，就将新建节点的前继节点设置为尾节点，然后更新尾节点，在将原尾节点的后继设置为新建节点。(此时是第二次循环，同时结束循环)<br /> 为什么要用死循环？<br /> 因为中间调用了CAS操作，那么CAS操作会存在失败的情况，如果CAS调用失败，就会进行死循环的CAS。这里存在自旋的操作，同时，这里也是乐观的，认为CAS失败是小概率，小时间段的操作。<br /> 如果长时间CAS失败，这里就会大量自旋，大量的死循环，浪费CPU资源。</p><h5 id="5624-acquirequeued"><span class="me-2">5.6.2.4 acquireQueued</span><a href="#5624-acquirequeued" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>acquireQueued方法</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre><td class="rouge-code"><pre>final boolean acquireQueued(final Node node, int arg) { // node 是新建的节点，arg是传入的int值
+    boolean failed = true; // 设置返回值是true;如果返回值是true代表着需要执行selfInterrupt();方法
+    try {
+        boolean interrupted = false; // 设置返回值是false;如果返回值是true代表着需要执行selfInterrupt();方法
+        for (;;) { // 这里是死循环，自旋
+            final Node p = node.predecessor(); // 获取新建节点的前继为当前循环节点
+            if (p == head &amp;&amp; tryAcquire(arg)) { // 如果当前循环节点是头节点那么尝试获取锁
+                setHead(node);// 尝试获取锁成功，更新双向列表中的头结点为新建节点，此时新建节点的前继引用断裂
+                p.next = null; // help GC // 原头结点获取到锁，将其从双向列表中移除，
+                //因为列表中前继引用已断裂，所以将移除节点的后继引用断裂，此时移除节点已经不再双向列表中了
+                // 本次循环结束，移除节点已经是一个可gc的对象了
+                failed = false; // 因为新建节点还在双向列表中，双向列表不为空，且本次循环已经有节点获取到锁了，所以不需要取消
+                return interrupted;// 返回false，表示不需要执行selfInterrupt方法
+            }
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp; // 清理双向列表中取消的线程节点
+                parkAndCheckInterrupt()) // 检测是否中断
+                interrupted = true; // 返回true；表示需要执行selfInterrupt
+        }
+    } finally {
+        if (failed) // 如果获取锁失败，那么将双向列表中所有的节点都设置为取消
+            cancelAcquire(node);
+    }
+}
+</pre></table></code></div></div><h5 id="5625-predecessor"><span class="me-2">5.6.2.5 predecessor</span><a href="#5625-predecessor" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>获取前继节点，或者抛出NPE.<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/352f5f872539339a37999ca6cce4f356.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/352f5f872539339a37999ca6cce4f356.png" alt="在这里插入图片描述" loading="lazy"></a></p><h5 id="5626-shouldparkafterfailedacquire"><span class="me-2">5.6.2.6 shouldParkAfterFailedAcquire</span><a href="#5626-shouldparkafterfailedacquire" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>在每次自旋中，如果没有获取锁，那么更新双向列表中可以释放的节点</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre><td class="rouge-code"><pre>    private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
+        int ws = pred.waitStatus; // 获取前继节点的等待状态
+        if (ws == Node.SIGNAL) // 如果前继节点的等待状态是 SIGNAL 也就是-1
+            /*
+             * This node has already set status asking a release
+             * to signal it, so it can safely park.
+             */
+            return true; // 返回true 将会执行parkAndCheckInterrupt方法
+        if (ws &gt; 0) { // ws &gt; 0 那么就表示ws = 1 ，即pred节点是取消节点：CANCELLED
+            /*
+             * Predecessor was cancelled. Skip over predecessors and
+             * indicate retry.
+             */
+            do {
+                node.prev = pred = pred.prev; // node 越过前继节点，同时pred前移
+                // 如果node的前继节点的等待状态是取消，那么忽略这个节点，知道前继节点不是取消的
+                // 这里需要注意，头结点是一个空node，空node的等待状态是没有设置的，但是因为
+                // waitStatus是int类型的，默认是0
+            } while (pred.waitStatus &gt; 0); // 保证node的前继节点一定不是取消节点
+            pred.next = node; // 前继节点的后继节点是node（忽略了取消节点）
+        } else { // ws &lt;= 0 ,那么可以是 0，-2，-3
+            /*
+             * waitStatus must be 0 or PROPAGATE.  Indicate that we
+             * need a signal, but don't park yet.  Caller will need to
+             * retry to make sure it cannot acquire before parking.
+             */
+            compareAndSetWaitStatus(pred, ws, Node.SIGNAL); // 将前继节点的状态设置为 -1 SIGNAL，等待通知
+        }
+        return false;
+    }
+</pre></table></code></div></div><h5 id="5627-parkandcheckinterrupt"><span class="me-2">5.6.2.7 parkAndCheckInterrupt</span><a href="#5627-parkandcheckinterrupt" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>阻塞线程，并返回线程中断标志<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0eade7775cf3405084ed9feb49e90730.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0eade7775cf3405084ed9feb49e90730.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 调用LockSupport.park方法，阻塞线程,然后清除线程的中断标志。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/714b13ed59f7d746f90388d9186187ae.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/714b13ed59f7d746f90388d9186187ae.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 然后返回线程的中断状态，并重置线程的中断标志。</p><h5 id="5628-cancelacquire"><span class="me-2">5.6.2.8 cancelAcquire</span><a href="#5628-cancelacquire" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>如果双向列表的头结点在获取锁的死循环中失败，就会退出死循环：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0dca895533d329fee12d1fc1d5383ba0.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/0dca895533d329fee12d1fc1d5383ba0.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be9c9cdcb0cd7661f5ae903e29a99237.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/be9c9cdcb0cd7661f5ae903e29a99237.png" alt="在这里插入图片描述" loading="lazy"></a><br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a4e28c780736a55d1b14b35636f46d2a.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a4e28c780736a55d1b14b35636f46d2a.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 在predecessor中会抛出异常，只有当新增节点前全部是取消节点或者双向列表为空的时候，新增节点才能访问头结点。<br /> 也只有新增节点的前继节点是头结点(忽略取消节点)<br /> 就该执行finally中的代码了。<br /> 如果头节点获取锁失败，就会执行cancelAcquire方法。<br /> cancelAcquire方法是将尝试获取锁的节点设置为取消状态<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ed77ac33ebc4d81ed07f1773d823456a.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ed77ac33ebc4d81ed07f1773d823456a.png" alt="在这里插入图片描述" loading="lazy"></a><br /> （只有头结点获取锁失败，才会触发，在acquire中，node是新增的节点）<br /> （如果新增节点的前继不是头结点，那么就会就会将前继节点的等待状态设置为SIGNAL）<br /> 然后阻塞线程。阻塞线程后设置中断标志为true.最后会返回中断状态。<br /> 返回的中断状态会影响是否执行selfInterrupt方法。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+</pre><td class="rouge-code"><pre>    private void cancelAcquire(Node node) {
+        // Ignore if node doesn't exist
+        // 如果node为空，表示node所属的线程现在已经处于阻塞状态
+        // 所以，忽略这个阻塞的线程节点，并且终止取消获取锁方法
+        if (node == null)
+            return;
+		// 能进入这个方法，一般就是新增的线程节点中的线程被中断，抛出中断异常，
+		// 此时就需要将已经加入到双向列表的线程节点取消
+        node.thread = null; // 取消线程节点与线程的关联
+
+        // Skip cancelled predecessors
+        Node pred = node.prev; // 得到新增线程节点的前继(忽略取消节点)
+        while (pred.waitStatus &gt; 0)
+            node.prev = pred = pred.prev;
+
+        // predNext is the apparent node to unsplice. CASes below will
+        // fail if not, in which case, we lost race vs another cancel
+        // or signal, so no further action is necessary.
+        Node predNext = pred.next; // 得到新增线程节点的后继节点
+
+        // Can use unconditional write instead of CAS here.
+        // After this atomic step, other Nodes can skip past us.
+        // Before, we are free of interference from other threads.
+        node.waitStatus = Node.CANCELLED; // 新增线程节点设置为取消
+
+        // If we are the tail, remove ourselves.
+        // 如果新增线程节点是尾结点，那么就将新增线程节点的前继设置为尾节点
+        if (node == tail &amp;&amp; compareAndSetTail(node, pred)) {
+        	// 如果尾节点更新成功，那么就将尾节点的后继设置为空
+            compareAndSetNext(pred, predNext, null);
+        } else {
+        // 如果新增线程节点不是尾节点
+            // If successor needs signal, try to set pred's next-link
+            // so it will get one. Otherwise wake it up to propagate.
+            int ws;
+            if (pred != head &amp;&amp; // 新增线程节点的前继不是头节点(双向列表中节点数量大于1)
+                ((ws = pred.waitStatus) == Node.SIGNAL || // (新增线程节点的前继节点的等待状态是SIGNAL)
+                 (ws &lt;= 0 &amp;&amp; compareAndSetWaitStatus(pred, ws, Node.SIGNAL))) &amp;&amp; // ws &lt; 0，那么在这里，ws一定等于 -1 也就是SIGNAL，
+                 //但是因为并发，每次比较之后，值都有可能改变，所以使用ws &lt; 0多判断一次
+                pred.thread != null) { // 线程节点所属线程不为空
+                Node next = node.next; // 得到新增线程节点的后继线程节点
+                if (next != null &amp;&amp; next.waitStatus &lt;= 0) // 如果新增线程节点的后继线程节点不为空
+                // 且后继线程节点也不是取消的线程节点，那么就将前继节点的后继节点设置为新增线程的后继节点
+                    compareAndSetNext(pred, predNext, next);
+            } else {
+            	// 到了这里，表示新增线程节点是双向列表的头，所以，唤醒新增线程节点中的线程
+                unparkSuccessor(node);
+            }
+            // 新增线程节点的后继设置为自己
+            // 我认为隐藏的含义是告诉GC，没有人引用我了，如果内存不足，请回收我吧。
+            node.next = node; // help GC
+        }
+    }
+</pre></table></code></div></div><h5 id="5629-unparksuccessor"><span class="me-2">5.6.2.9 unparkSuccessor</span><a href="#5629-unparksuccessor" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>唤醒线程节点中的线程</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre><td class="rouge-code"><pre>    private void unparkSuccessor(Node node) {
+        /*
+         * If status is negative (i.e., possibly needing signal) try
+         * to clear in anticipation of signalling.  It is OK if this
+         * fails or if status is changed by waiting thread.
+         */
+        int ws = node.waitStatus; // 获取线程节点的等待状态
+        if (ws &lt; 0) // 如果线程节点的等待状态小于 0 ,也就是 -1,-2,-3
+            compareAndSetWaitStatus(node, ws, 0); // 那么就将线程节点的等待状态设置为0
+            // 0 不仅仅是新建状态，也是线程节点得到锁的标志
+
+        /*
+         * Thread to unpark is held in successor, which is normally
+         * just the next node.  But if cancelled or apparently null,
+         * traverse backwards from tail to find the actual
+         * non-cancelled successor.
+         */
+        Node s = node.next; // 得到后继线程节点
+        if (s == null || s.waitStatus &gt; 0) { // 如果后继线程节点为空或者后继线程节点是取消节点
+            s = null; // 忽略取消状态的后继线程节点
+            for (Node t = tail; t != null &amp;&amp; t != node; t = t.prev) // 遍历双向链表，从后往前遍历
+                if (t.waitStatus &lt;= 0) // 找到最前面的非取消状态的线程节点
+                    s = t;
+        }
+        if (s != null) // 如果双向链表中最前面的非取消线程节点不为空
+            LockSupport.unpark(s.thread); // 那么唤醒这个线程节点所属的线程
+    }
+</pre></table></code></div></div><h5 id="56210-selfinterrupt"><span class="me-2">5.6.2.10 selfInterrupt</span><a href="#56210-selfinterrupt" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><p>selfInterrupt方法就是很简单的将线程进行中断。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/46e1c6abfc9662cb2a3c114122d551d4.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/46e1c6abfc9662cb2a3c114122d551d4.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 为什么要中断呢？<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a0bae56c54818c49f6609d61c21ec798.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a0bae56c54818c49f6609d61c21ec798.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 得到了中断标志，就要在外层进行中断线程：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/15b904e63ecf20ca92516b6a16830365.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/15b904e63ecf20ca92516b6a16830365.png" alt="在这里插入图片描述" loading="lazy"></a></p><h4 id="563-unlock-release"><span class="me-2">5.6.3 unlock-release</span><a href="#563-unlock-release" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>首先，unlock中调用的是AQS中的release方法<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c7e32a7fdb3dc760eb7cf30a5fb9da19.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/c7e32a7fdb3dc760eb7cf30a5fb9da19.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 这是AQS中release方法的时序图<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7c2861ed48366d46772d8547cebbf9ad.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/7c2861ed48366d46772d8547cebbf9ad.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 比起lock方法，这个可就简单多了。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f24b4fb72427cf51e8b07ac0c0fa01ac.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/f24b4fb72427cf51e8b07ac0c0fa01ac.png" alt="在这里插入图片描述" loading="lazy"></a><br /> release是锁释放的逻辑，代码很少，我们来看下锁是如何释放的<br /> tryRelease是AQS子类必须实现的方法，如果没有实现，将会抛出UnsupportedOperationException异常。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="已复制！"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>    public final boolean release(int arg) {
+        if (tryRelease(arg)) { // 尝试释放锁
+            Node h = head; // 如果释放成功，那么得到双向列表的头节点
+            if (h != null &amp;&amp; h.waitStatus != 0) // 如果头结点不为空，且头结点还未获取到锁
+                unparkSuccessor(h); // 那么就唤醒头结点（内部会将双向链表从尾到头便利一次，找到最前面的非取消的节点）
+            return true;
+        }
+        return false;
+    }
+</pre></table></code></div></div><h4 id="564-lockinterruptibly-acquireinterruptibly"><span class="me-2">5.6.4 lockInterruptibly-acquireInterruptibly</span><a href="#564-lockinterruptibly-acquireinterruptibly" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>这个和lock的区别在于，lock是自旋阻塞获取锁，如果获取不到锁，就阻塞了。在5.6.2小节中，我们看了lock的具体过程。<br /> 其中有这样一段操作：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eef890556f83c6841ae2870f04f68b6f.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/eef890556f83c6841ae2870f04f68b6f.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 发现线程被中断了，会在外层进行中断线程。也就是说，自旋是不可被打断的，即使我们发出了线程中断信号，线程也只是会在获取到锁之后进行中断。<br /> 也就是说，在自旋获取锁的期间，线程是不响应中断信号的。<br /> 而acquireInterruptibly方法和lock里面的acquireQueued方法类似，只不过当得到中断信号后，会将异常抛出，将中断异常的捕获和之后的操作交给调用者实现。<br /> acquireInterruptibly的方法：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6e51794862c7f73a050cd61625205638.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/6e51794862c7f73a050cd61625205638.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 如果线程的中断标志已经是中断了，那么就直接抛出异常，快速结束。<br /> 否则先尝试获取一次锁，如果获取失败，那么就进入doAcquireInterrupttibly方法。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/171ca8691f832d2e64011a04b13ec87b.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/171ca8691f832d2e64011a04b13ec87b.png" alt="在这里插入图片描述" loading="lazy"></a><br /> doAcquireInterruptibly方法和acquireQueued方法只有红框中的操作不一样，其他的都一模一样。<br /> 正式利用了throw抛出异常，使得线程在自旋获取锁的过程中能够响应中断信号。</p><h4 id="565-trylocklong-time-timeutil-unit-tryacquirenanos"><span class="me-2">5.6.5 tryLock(long time, TimeUtil unit)-tryAcquireNanos</span><a href="#565-trylocklong-time-timeutil-unit-tryacquirenanos" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>尝试获取锁，还有一个有超时时间的方法，在子类里面调用的实际上是AQS的tryAcquireNanos方法<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9fea96b05c9d91e15e6b23b62558f041.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/9fea96b05c9d91e15e6b23b62558f041.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 首先判断线程的中断标志，如果中断标志已中断，那么，直接抛出中断异常，快速结束。<br /> 否则先调用tryAcquire尝试获取锁，如果没有获取到锁，那么执行doAcquireNanos。<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d17f0656ce8a61d49dd7bdb0b5c2d18d.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/d17f0656ce8a61d49dd7bdb0b5c2d18d.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 这个方法除了红框标记的，其他的和acquireQueued方法相同。所以，我们只看红框中不一样的逻辑。<br /> 首先传入了一个long类型的纳秒值。<br /> 如果等待的纳秒值小于等于0，直接结束。<br /> 否则就会获取当前系统时间的纳秒值，然后计算结束的纳秒值：<br /> 结束时间=当前时间+等待时间<br /> 在自旋里面，每一次自旋都使用结束时间减去当前系统时间，然后判断结果。<br /> 如果差值小于等于0，那么表示时间到了，应该结束。<br /> 如果差值大于阈值<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a11bb2987c0543ad81a100cf51453566.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/a11bb2987c0543ad81a100cf51453566.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 阈值1毫秒<br /> 那么阻塞线程。<br /> 还会判断线程的中断标志，如果中断标志已中断，那么抛出异常，快速结束。</p><h4 id="566-await-acquireshared"><span class="me-2">5.6.6 await-acquireShared</span><a href="#566-await-acquireshared" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>await是共享锁等待信号的方法。<br /> 其内部调用了AQS的acquireShared方法：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/73fe94b97aa672997c83a3b51ce04e07.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/73fe94b97aa672997c83a3b51ce04e07.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 也是先进去的时候会尝试获取锁，如果获取到锁变量小于0，那么就会调用doAcquireShared方法。<br /> 也就是说，tryAcquireShared如果返回的值 &gt;= 0 那么就获取到了共享锁。<br /> 这是acquireShared的时序图：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/47f413fafc512d9739352a800e99ead5.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/47f413fafc512d9739352a800e99ead5.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 如果没有获取到锁，那么就会将新建的节点加入到双向列表中调用addWaiter方法，将新增的线程节点加入到双向列表尾部。<br /> 然后进入自选循环。<br /> 接着调用predecessor方法，获取新增的线程节点的非取消前继节点。<br /> 如果前继节点是头节点(意味着双向列表中前面的线程节点已经获取到了锁，现在新增的线程节点的前继节点是双向列表的头)，而新增线程节点的前继也得到了锁，那么就会将前继线程节点移出双向列表，同时将新增的线程节点设置为头结点。<br /> 如果设置了新增线程节点为头结点，而且有如下情况的：<br /> a. 共享锁资源大于0(表示头结点也能够获取锁)<br /> b. 头结点为空(其他线程已经让头结点获取到了锁且已经将头节点移出双向列表)<br /> c. 头结点不是取消的线程节点<br /> 那么就会得到新增线程节点的后继线程节点。<br /> 如果后继节点也是共享锁的线程节点，那么调用doReleaseShared方法：<br /> <a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e6723da1eebc2aad709f5caaa12e05ef.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/e6723da1eebc2aad709f5caaa12e05ef.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 这个方法是先获取到头结点，如果头结点不等于空，且双向列表的节点数量不等于1(如果头结点和尾节点重合，那么表示双向列表的节点数量为1，因为双向列表的头节点初始化是一个空节点)那么就获取头结点的等待状态，如果头结点的等待状态是SIGNAL，那么就将头结点的等待状态设置为0，即得到了锁，然后唤醒头结点所属的线程。<br /> 如果头结点的等待状态是0，那么设置头结点的等待状态是传播。<br /> 这里我是这样理解的：<br /> 现在新增的线程节点在双向列表中是第二个节点，此时第一个节点获取到了锁，然后会将头结点移出双向列表，同时将新增的线程节点设置为头结点。<br /> 如果新增线程节点有后继节点，对于后继节点来说，如果头结点的等待状态SIGNAL，那么就将头结点设置为已经得到了锁(实际上是头结点之后的节点，头结点是空节点)，同时唤醒头结点所属线程；如果头结点已经获取到了锁，那么将头节点的等待状态设置为传播状态。这里应该是自旋进行处理能够获取到锁的线程节点。<br /> 剩下的这些方法和acquireQueued方法中的一样处理了。</p><h4 id="567-releaseshared"><span class="me-2">5.6.7 releaseShared</span><a href="#567-releaseshared" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p><a href="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ad3a37ac08099f21cbc27d20af6ce106.png" class="popup img-link shimmer"><img src="https://picgo-1302191088.cos.ap-guangzhou.myqcloud.com/csdn/csdnimg/ad3a37ac08099f21cbc27d20af6ce106.png" alt="在这里插入图片描述" loading="lazy"></a><br /> 这个共享锁释放的方法就很简单，如果tryReleaseShared方法返回false就是释放失败，否则就是释放成功。释放成功会自旋等待双向列表中共享线程节点全部运行。</p><h2 id="6-总结"><span class="me-2">6. 总结</span><a href="#6-总结" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>写了这么多，基本上将AQS的代码阅读了一遍，我们就总结下：</p><ol><li>AQS内部存储是一个双端的双向列表<li>双向列表的等待状态是1,0，-1，-2，-3<li>双向列表总是忽略取消状态的节点<li>不管是获取锁还是释放锁都是自旋操作<li>线程节点新增入双向列表后，会使线程调度暂时禁用，即暂时阻塞线程<li>线程节点获取锁后，将线程调度设置为可用，即唤醒阻塞线程<li>独占锁实现tryAcquire和tryRelease方法即可<li>共享锁实现tryAcquireShared和tryReleaseShared方法<li>获取锁的方法tryAcquire方法返回true表示获取到了锁<li>获取锁的方法tryAcquireShared返回的值大于等于0表示获取到了锁<li>释放锁的方法tryRelease方法返回true表示释放了锁<li>释放锁的方法tryReleaseShared方法返回true表示释放了锁</ol><p>AQS的调用链很长，设计非常巧妙，看明白AQS的源码非常困难。经常是看着看着就看不懂为什么了，需要阅读很多遍才能明白设计的巧妙。我从头开始阅读源码，到看到这里花费了大概2个周多一点(下班时间阅读，平均每天2小时，期间还有一个周重装了操作系统)。但是读懂AQS的源码很值得，后面再阅读jdk中的锁的时候，就不会很吃力了。</p><p><a href="https://blog.csdn.net/a18792721831/article/details/106889626">AQS的Condition源码解析</a></p></div><div class="post-tail-wrapper text-muted"><div class="d-flex justify-content-between align-items-center gap-3 mb-3"><div class="post-meta"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/aqs%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/">AQS源码解读</a>, <a href="/categories/%E5%B8%A6%E4%BD%A0%E9%98%85%E8%AF%BBaqs%E6%BA%90%E7%A0%81/">带你阅读AQS源码</a>, <a href="/categories/%E5%9F%BA%E4%BA%8Eaqs%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E9%94%81/">基于AQS实现自己的锁</a>, <a href="/categories/%E5%85%B1%E4%BA%AB%E9%94%81%E5%92%8C%E7%8B%AC%E5%8D%A0%E9%94%81aqs%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0/">共享锁和独占锁AQS如何实现</a>, <a href="/categories/aqs%E7%9A%84%E7%A7%98%E5%AF%86%E8%A7%A3%E8%AF%BB/">AQS的秘密解读</a></div></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> 本文由作者按照 <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> 进行授权</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">分享</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Java%E5%9F%BA%E7%A1%80--AQS%E5%8E%9F%E7%90%86%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FJava%25E5%259F%25BA%25E7%25A1%2580-AQS%25E5%258E%259F%25E7%2590%2586%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Java%E5%9F%BA%E7%A1%80--AQS%E5%8E%9F%E7%90%86%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2&u=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FJava%25E5%259F%25BA%25E7%25A1%2580-AQS%25E5%258E%259F%25E7%2590%2586%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fa18792721831.github.io%2Fposts%2FJava%25E5%259F%25BA%25E7%25A1%2580-AQS%25E5%258E%259F%25E7%2590%2586%2F&text=Java%E5%9F%BA%E7%A1%80--AQS%E5%8E%9F%E7%90%86%20-%20%E8%B4%BE%E6%B0%B8%E7%90%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="分享链接" data-title-succeed="链接已复制！" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">最近更新</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E5%9B%9B-%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E7%89%A9%E7%90%86%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（四）数据文件物理迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%89-mydumper-myloader-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%BF%81%E7%A7%BB%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（三）mydumper/myloader 多线程迁移实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%BA%8C-%E5%8E%9F%E7%94%9F-mysqldump-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%AE%9E%E6%88%98%E4%B8%8E%E8%AF%84%E6%B5%8B/">MySQL 数据迁移（二）原生 mysqldump 导出导入实战与评测</a><li class="text-truncate lh-lg"> <a href="/posts/MySQL-%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB-%E4%B8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%BF%81-%E6%80%8E%E4%B9%88%E8%AF%84-%E4%B8%89%E5%A4%A7%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88/">MySQL 数据迁移（一）为什么迁、怎么迁、怎么评——三大方案总览</a><li class="text-truncate lh-lg"> <a href="/posts/%E6%95%99%E7%A8%8B-%E7%BB%99AI%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E8%A3%85%E4%B8%8A%E4%BB%A3%E7%A0%81%E7%9C%BC%E7%9D%9B-serena%E4%B8%8Ecodebase-memory%E5%8F%8C%E5%BC%95%E6%93%8E%E5%AE%9E%E8%B7%B5/">【教程】给AI编程助手装上代码眼睛:serena 与 codebase-memory 双引擎实践</a></ul></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">文章内容</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/Java%E5%9F%BA%E7%A1%80-synchronized%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/" class="btn btn-outline-primary" aria-label="上一篇" ><p>Java基础--synchronized原理详解</p></a> <a href="/posts/Java%E5%9F%BA%E7%A1%80-AQS%E7%9A%84Condition%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="btn btn-outline-primary" aria-label="下一篇" ><p>Java基础--AQS的Condition源码解析</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2026</time> <a href="https://github.com/a18792721831">贾永琪</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="除非另有说明，本网站上的博客文章均由作者按照知识共享署名 4.0 国际 (CC BY 4.0) 许可协议进行授权。" >保留部分权利。</span></p><p>本站采用 <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> 主题 <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.6.0" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a></p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast w-auto rounded-5 text-nowrap" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="d-flex align-items-center"><div class="toast-body ps-3">发现新内容</div><button type="button" class="btn btn-primary btn-sm rounded-2 py-0" aria-label="Update" >更新</button> <button type="button" class="btn-close mx-3 ms-2" data-bs-dismiss="toast" aria-label="Close" ></button></div></aside><script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">搜索结果为空</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
